@@ -1,0 +1,36 @@
+/*Layout*/
+.grid-container {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "main";
+    grid-template-columns: 1fr;
+    grid-template-rows: 5rem 1fr;
+    height: 100%;
+  }
+
+  header {
+    grid-area: header;
+    background-color: #1F6DA8;
+    padding: 1rem;
+  }
+
+  main {
+    grid-area:main;
+    background-image: url(./images/background.jpg);
+    background-size:cover;
+    background-repeat: no-repeat;
+    filter: blur(0.2rem);
+    padding:1rem;
+  }
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.center {
+    justify-content: center;
+}
