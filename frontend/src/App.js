@@ -1,6 +1,6 @@
 import "./App.scss";
 import { BrowserRouter, Route , Link} from 'react-router-dom';
-import top_page from "./pages/top_page";
+import TopPage from "./pages/TopPage";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
           <p className="catch_copy">~market prediction for day traders~</p>
         </header>
         <main>
-          <Route path="/" component={top_page} exact></Route>
+          <Route path="/" component={TopPage} exact></Route>
         </main>
       </div>
     </BrowserRouter>
