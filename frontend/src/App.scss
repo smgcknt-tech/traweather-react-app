@@ -36,7 +36,6 @@ body {
     background-image: url(./images/background.jpg);
     background-size:cover;
     background-repeat: no-repeat;
-    filter: blur(0.2rem);
   }
 
 .row {
@@ -48,4 +47,8 @@ body {
 
 .center {
     justify-content: center;
+}
+
+p {
+  margin:0;
 }
