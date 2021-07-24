@@ -1,3 +1,20 @@
+html {
+  font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
+}
+
 /*Layout*/
 .grid-container {
     display: grid;
@@ -12,7 +29,6 @@
   header {
     grid-area: header;
     background-color: #1F6DA8;
-    padding: 1rem;
   }
 
   main {
@@ -21,7 +37,6 @@
     background-size:cover;
     background-repeat: no-repeat;
     filter: blur(0.2rem);
-    padding:1rem;
   }
 
 .row {

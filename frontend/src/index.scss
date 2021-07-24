@@ -1,17 +1,13 @@
-html {
-  font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
+header > * {
+  margin:0;
+  padding:1rem;
+  color: #fff
 }
 
-body {
-  margin: 0;
-  height: 100vh;
-  font-size: 1.6rem;
-  font-family: Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.logo {
+  font-size: 3rem;
 }
 
-#root {
-  height: 100%;
+.catch_copy{
+  font-size: 2rem;
 }
-
