@@ -13,12 +13,12 @@ const data = {
         },
         {
             id:"3",
-            name:"daw",
+            name:"ダウ",
             price:"35061ドル"
         },
         {
             id:"4",
-            name:"nasdaq",
+            name:"ナスダック",
             price:"14800ドル"
         }
     ]
