@@ -1,16 +1,67 @@
-html{
-  font-size:62.5% /* 16px x 62.5 = 10px = 1rem */
+/*common*/
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-body {
-  margin:0;
-  height:100vh;
-  font-size: 1.6rem;
-  font-family: Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.center {
+  justify-content: center;
 }
 
-#root {
-  height: 100%
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+/*header*/
+header > * {
+  margin: 0;
+  padding: 1rem;
+  color: #fff;
+}
+
+.logo {
+  font-size: 3rem;
+  color: #fff;
+}
+
+.catch_copy {
+  font-size: 2rem;
+}
+/*TopPage.js*/
+
+/*Indicator.js*/
+.indicator {
+  background-color: #fff;
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 1rem;
+  width: 8rem;
+  height: 4rem;
+}
+
+/*Loading.js*/
+.Loading {
+  color: #fff;
+}
+
+/*Message.js*/
+.alert {
+  padding: 1rem;
+  border: 0.1rem solid transparent;
+  border-radius: 0.5rem;
+}
+.alert-info {
+  color: #2020a0;
+  background-color: #e0e0ff;
+}
+
+.alert-error {
+  color: #a02020;
+  background-color: #ffe0e0e0;
 }
