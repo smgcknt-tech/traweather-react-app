@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
 import Indicator from "../components/Indicator";
 import Loading from '../components/Loading';
 import Message from '../components/Message';
@@ -30,7 +29,7 @@ export default function TopPage() {
                     : (
                         <div className="row center">
                             {indicators.map((indicator) => {
-                                return <Indicator key={indicator.id} indicator={indicator}></Indicator>
+                                return <Indicator indicator={indicator}></Indicator>
                             })}
                         </div>
                     )}
