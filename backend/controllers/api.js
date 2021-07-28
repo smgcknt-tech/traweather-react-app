@@ -1,4 +1,4 @@
-import { index } from '../models/index_api.js';
+import { index } from '../models/index.js';
 
 export const api = {
     indicators: async (req, res) => {
@@ -21,4 +21,4 @@ export const api = {
         ]
         res.send(indicators)
     }
-}
+};
