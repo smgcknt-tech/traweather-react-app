@@ -1,5 +1,4 @@
 import yahooStockPrices from 'yahoo-stock-prices';
-
 export const index = {
     nikkei: async () => {
         const nikkei = await yahooStockPrices.getCurrentData('^N225')
