@@ -18,6 +18,10 @@ a {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+}
+
 /*header*/
 header > * {
   margin: 0;
@@ -85,5 +89,14 @@ header > * {
   padding:1rem;
   margin:2rem;
   border-radius:0.2rem;
+}
 
+/*LineChart.js*/
+.hot_sector {
+  background-color:#fff;
+  width:50rem;
+  height:30rem;
+  padding:1rem;
+  margin:2rem;
+  border-radius:0.2rem;
 }
