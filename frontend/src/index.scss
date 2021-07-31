@@ -1,4 +1,4 @@
-/*common*/
+/*-----------------common-------------------*/
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -49,7 +49,19 @@ header > * {
 .catch_copy {
   font-size: 2rem;
 }
-/*TopPage.js*/
+
+/*nav_bar*/
+.nav_menu {
+  justify-content: column;
+  text-align: center;
+}
+
+.nav_menu > * {
+  padding: 2rem 0;
+  font-size:3rem;
+  color:#636363;
+}
+/*-------------TopPage.js---------------*/
 
 /*Indicator.js*/
 .indicator {
