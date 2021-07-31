@@ -6,6 +6,7 @@ import Indicator from "../components/Indicator";
 import LineChart from "../components/IndexChart";
 import Strategy from "../components/Strategy";
 import HotSector from "../components/HotSector";
+import NewsTopics from '../components/NewsTopics';
 
 export default function TopPage() {
     const [indicators, setIndicators] = useState([]);
@@ -43,7 +44,7 @@ export default function TopPage() {
                             <div class="row center">
                                 <div className = "row">
                                 <HotSector/>
-                                <LineChart/>
+                                <NewsTopics/>
                                 </div>
 
                             </div>
