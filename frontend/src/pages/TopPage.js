@@ -3,7 +3,7 @@ import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
 import Indicator from "../components/Indicator";
-import LineChart from "../components/LineChart";
+import LineChart from "../components/IndexChart";
 import Strategy from "../components/Strategy";
 
 export default function TopPage() {
@@ -35,7 +35,7 @@ export default function TopPage() {
                                     return <Indicator indicator={indicator}/>
                                 })}
                             </div>
-                            <div class="row chart_container">
+                            <div class="row center chart_container">
                                 <LineChart/>
                                 <Strategy/>
                             </div>

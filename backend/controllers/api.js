@@ -8,15 +8,15 @@ export const api = {
         const indicators = [
             {
                 name: "日経",
-                price: `¥1000`
+                price: `¥${nikkei}`
             },
             {
                 name: "ダウ",
-                price: `$200`
+                price: `$${dow}`
             },
             {
                 name: "ナスダック",
-                price: `$1000`
+                price: `$${nasdaq}`
             }
         ]
         res.send(indicators)
