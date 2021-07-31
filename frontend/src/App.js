@@ -11,7 +11,7 @@ function App() {
           <p className="catch_copy">~market prediction for day traders~</p>
         </header>
         <main>
-          <Route path="/" component={TopPage} exact></Route>
+          <Route path="/" component={TopPage} exact/>
 
         </main>
       </div>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Indicator from "../components/Indicator";
 import Loading from '../components/Loading';
 import Message from '../components/Message';
+import Indicator from "../components/Indicator";
+import LineChart from "../components/LineChart";
+import Strategy from "../components/Strategy";
 
 export default function TopPage() {
     const [indicators, setIndicators] = useState([]);
@@ -24,13 +26,19 @@ export default function TopPage() {
     }, []);
     return (
         <div>
-            {loading ? (<Loading></Loading>)
+            {loading ? (<Loading/>)
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
-                        <div className="row center">
-                            {indicators.map((indicator) => {
-                                return <Indicator indicator={indicator}></Indicator>
-                            })}
+                        <div>
+                            <div className="row center">
+                                {indicators.map((indicator) => {
+                                    return <Indicator indicator={indicator}/>
+                                })}
+                            </div>
+                            <div class="row chart_container">
+                                <LineChart/>
+                                <Strategy/>
+                            </div>
                         </div>
                     )}
         </div>
