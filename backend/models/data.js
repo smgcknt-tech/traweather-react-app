@@ -1,18 +1,18 @@
 //tmporary database//
 const data = {
-    indicators:[
+    indicators: [
         {
-            name:"日経",
-            price:"27000円"
+            name: "日経",
+            price: "27000円"
         },
         {
-            name:"ダウ",
-            price:"35061ドル"
+            name: "ダウ",
+            price: "35061ドル"
         },
         {
-            name:"ナスダック",
-            price:"14800ドル"
+            name: "ナスダック",
+            price: "14800ドル"
         }
     ]
-}
-export default data
+};
+export default data;

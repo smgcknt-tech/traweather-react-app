@@ -1,4 +1,4 @@
-/*common*/
+/*-----------------common-------------------*/
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -18,11 +18,27 @@ a {
   text-decoration: none;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 /*header*/
 header > * {
   margin: 0;
   padding: 1rem;
   color: #fff;
+}
+
+.header {
+  justify-content: space-between;
+}
+.left_menu > * {
+  padding: 0 1rem;
+}
+.right_menu > * {
+  padding: 0 1rem;
 }
 
 .logo {
@@ -33,7 +49,19 @@ header > * {
 .catch_copy {
   font-size: 2rem;
 }
-/*TopPage.js*/
+
+/*nav_bar*/
+.nav_menu {
+  justify-content: column;
+  text-align: center;
+}
+
+.nav_menu > * {
+  padding: 2rem 0;
+  font-size:3rem;
+  color:#636363;
+}
+/*-------------TopPage.js---------------*/
 
 /*Indicator.js*/
 .indicator {
@@ -64,4 +92,45 @@ header > * {
 .alert-error {
   color: #a02020;
   background-color: #ffe0e0e0;
+}
+
+/*LineChart.js*/
+
+.index_chart {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+/*LineChart.js*/
+.strategy {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+/*LineChart.js*/
+.hot_sector {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+/*NewsTopics.js*/
+.news_topics {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
 }
