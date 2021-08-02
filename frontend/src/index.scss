@@ -41,7 +41,12 @@ header > * {
   padding: 0 1rem;
 }
 
-.logo {
+.logo{
+  font-size:3rem;
+  transform: rotate(30deg);
+}
+
+.logo_title {
   font-size: 3rem;
   color: #fff;
 }
@@ -49,6 +54,12 @@ header > * {
 .catch_copy {
   font-size: 2rem;
 }
+
+/*footerr*/
+footer p {
+  color:#fff;
+}
+
 
 /*nav_bar*/
 .nav_menu {

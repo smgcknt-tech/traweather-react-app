@@ -5,8 +5,8 @@ export default function Header() {
     return (
         <div className="header row">
             <div className="row left_menu">
-                <i class="fas fa-bars"></i>
-                <Link className="logo" to="/">traweather</Link>
+                <i className="logo fas fa-umbrella"></i>
+                <Link className="logo_title" to="/">traweather</Link>
                 <p className="catch_copy">~market prediction for day traders~</p>
             </div>
             <div>
@@ -16,5 +16,5 @@ export default function Header() {
                 </ul>
             </div>
         </div>
-        )
+    )
 }
