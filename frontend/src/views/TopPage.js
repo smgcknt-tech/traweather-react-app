@@ -1,4 +1,6 @@
+
 import React, { useEffect, useState } from 'react'
+import "../styles/views/TopPage.scss";
 import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
@@ -31,7 +33,7 @@ export default function TopPage() {
             {loading ? (<Loading/>)
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
-                        <div>
+                        <div className="top_page">
                             <div className="row center">
                                 {indicators.map((indicator) => {
                                     return <Indicator indicator={indicator}/>

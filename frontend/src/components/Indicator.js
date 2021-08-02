@@ -1,4 +1,5 @@
 import React from 'react'
+import "../styles/components/Indicator.scss"
 
 export default function indicator(props) {
     const { indicator } = props

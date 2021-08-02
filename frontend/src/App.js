@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./styles/App.scss";
 import { BrowserRouter, Route } from 'react-router-dom';
 import TopPage from "./views/TopPage";
 import PlanPage from "./views/PlanPage";

@@ -1,0 +1,5 @@
+@import "../variables/variables.scss";
+
+.indicator {
+  @include indicator_style();
+}

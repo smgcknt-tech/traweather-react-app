@@ -1,5 +1,6 @@
 import React from 'react'
 import {Line} from 'react-chartjs-2'
+import "../styles/components/IndexChart.scss"
 
 const data = {
     labels: ['12', '15', '18', '21', '4', '7'],

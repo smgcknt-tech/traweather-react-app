@@ -1,4 +1,5 @@
 import React from 'react'
+import "../styles/components/NewsTopics.scss"
 
 export default function NewsTopics() {
     return (
