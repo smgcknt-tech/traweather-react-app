@@ -3,6 +3,7 @@ import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
 import CandidateList from '../components/CandidateList';
+import StoryChart from "../components/StoryChart";
 
 export default function TopPage() {
     const [indicators, setIndicators] = useState([]);
@@ -12,7 +13,7 @@ export default function TopPage() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const { data } = await axios.get('/api/indicators');
+                const { data } = [];
                 setLoading(false);
                 setIndicators(data);
             } catch (err) {
@@ -29,6 +30,10 @@ export default function TopPage() {
                     : (
                         <div>
                             <CandidateList />
+                            <div className="row top">
+                                <div className="col_sub"><StoryChart /></div>
+                                <div className="col_main"></div>
+                            </div>
                         </div>
                     )}
         </div>

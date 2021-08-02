@@ -30,6 +30,15 @@ $gray: #636363;
   border-radius: 0.2rem;
 }
 
+@mixin story_chart_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
 @mixin hot_sector_style {
   background-color: #fff;
   width: 50rem;

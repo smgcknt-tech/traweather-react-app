@@ -11,7 +11,7 @@ export default function SettingPage() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const { data } = await axios.get('/api/indicators');
+                const { data } = [];
                 setLoading(false);
                 setIndicators(data);
             } catch (err) {

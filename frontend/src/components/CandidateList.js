@@ -1,6 +1,7 @@
 import React from 'react'
 import "../styles/components/CandidateList.scss"
 
+
 export default function Strategy() {
     return (
         <div className="candidate_list">

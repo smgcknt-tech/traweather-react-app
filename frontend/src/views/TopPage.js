@@ -5,7 +5,7 @@ import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
 import Indicator from "../components/Indicator";
-import LineChart from "../components/IndexChart";
+import IndexChart from "../components/IndexChart";
 import Strategy from "../components/Strategy";
 import HotSector from "../components/HotSector";
 import NewsTopics from '../components/NewsTopics';
@@ -40,7 +40,7 @@ export default function TopPage() {
                                 })}
                             </div>
                             <div class="row center">
-                                <LineChart />
+                                <IndexChart />
                                 <Strategy />
                             </div>
                             <div class="row center">

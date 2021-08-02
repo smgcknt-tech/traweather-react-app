@@ -112,3 +112,15 @@ ul {
 .center {
   justify-content: center;
 }
+
+.top {
+  align-items: flex-start;
+}
+
+.col_main {
+  flex: 1 1 60%;
+}
+
+.col_sub {
+  flex: 1 1 30%;
+}
