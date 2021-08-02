@@ -1,0 +1,57 @@
+@import "../variables/variables.scss";
+
+.candidate_list {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    th,
+    td {
+      padding: 1.2rem, 1.5rem;
+      border: 0.1rem solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: $gray;
+      color: #fff;
+    }
+    td {
+      background-color: #fff;
+    }
+  }
+
+  @media(max-width:500px){
+      thead {
+          display:none;
+      }
+      table,tbody,tr,td {
+          display:block;
+          width:88%;
+      }
+
+      tr {
+          margin-bottom:1.5rem;
+      }
+
+      td {
+          text-align:right;
+          padding-left: 50%;
+          position:relative;
+      }
+
+      td::before {
+          content:attr(data-label);
+          position:absolute;
+          left:0;
+          width:50%;
+          padding-left:1.5rem;
+          font-size:1.5rem;
+          font-weight:bold;
+          text-align:left;
+
+
+      }
+  }
+
+
+}

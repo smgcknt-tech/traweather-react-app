@@ -1,4 +1,3 @@
-
 @import "../variables/variables.scss";
 
 .nav_bar {
@@ -7,28 +6,28 @@
     text-align: center;
   }
 
-  i{
+  i {
     padding: 2rem 0;
-    font-size:3rem;
-    color:$gray;
+    font-size: 3rem;
+    color: $gray;
   }
 
-  p{
-    font-size:1.5rem;
+  p {
+    font-size: 1.5rem;
   }
 
-  a{
-    color:$gray;;
+  a {
+    color: $gray;
     text-decoration: none;
   }
 
   li {
-    transition:0.5s;
+    transition: 0.5s;
   }
 
   li:hover {
-    background-color:#000000;
-    opacity:0.6;
-    transition:background-color 0.5s;
+    background-color: #000000;
+    opacity: 0.6;
+    transition: background-color 0.5s;
   }
 }

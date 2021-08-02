@@ -23,7 +23,7 @@ export default function ResultPage() {
     }, []);
     return (
         <div>
-            {loading ? (<Loading/>)
+            {loading ? (<Loading />)
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
                         <div>

@@ -12,7 +12,7 @@ export default function Header() {
             </div>
             <div>
                 <ul className="row right_menu">
-                    <li>menu</li>
+                    <li>menu </li>
                     <li>login</li>
                 </ul>
             </div>

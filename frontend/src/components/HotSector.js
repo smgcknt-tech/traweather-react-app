@@ -7,13 +7,13 @@ export default function HotSector() {
             <h1>注目セクター</h1>
             <ul>
                 <li>
-                　半導体: +2.1%
+                    半導体: +2.1%
                 </li>
                 <li>
-                　海運: +1.3%
+                    海運: +1.3%
                 </li>
                 <li>
-                　旅行: -0.8
+                    旅行: -0.8
                 </li>
             </ul>
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
+import CandidateList from '../components/CandidateList';
 
 export default function TopPage() {
     const [indicators, setIndicators] = useState([]);
@@ -23,11 +24,11 @@ export default function TopPage() {
     }, []);
     return (
         <div>
-            {loading ? (<Loading/>)
+            {loading ? (<Loading />)
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
                         <div>
-                            <p>PlanPage</p>
+                            <CandidateList />
                         </div>
                     )}
         </div>

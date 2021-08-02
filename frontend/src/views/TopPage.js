@@ -30,23 +30,23 @@ export default function TopPage() {
     }, []);
     return (
         <div>
-            {loading ? (<Loading/>)
+            {loading ? (<Loading />)
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
                         <div className="top_page">
                             <div className="row center">
                                 {indicators.map((indicator) => {
-                                    return <Indicator indicator={indicator}/>
+                                    return <Indicator indicator={indicator} />
                                 })}
                             </div>
                             <div class="row center">
-                                <LineChart/>
-                                <Strategy/>
+                                <LineChart />
+                                <Strategy />
                             </div>
                             <div class="row center">
-                                <div className = "row">
-                                <HotSector/>
-                                <NewsTopics/>
+                                <div className="row">
+                                    <HotSector />
+                                    <NewsTopics />
                                 </div>
 
                             </div>
