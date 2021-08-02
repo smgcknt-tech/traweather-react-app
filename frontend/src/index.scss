@@ -56,11 +56,32 @@ header > * {
   text-align: center;
 }
 
-.nav_menu > * {
+.nav_menu i {
   padding: 2rem 0;
   font-size:3rem;
   color:#636363;
 }
+
+.nav_menu p {
+  font-size:1.5rem;
+}
+
+.nav_menu a{
+  color:#636363;
+  text-decoration: none;
+}
+
+.nav_menu li{
+  transition:0.5s;
+}
+
+.nav_menu li:hover{
+  background-color:#000000;
+  opacity:0.6;
+  transition:background-color 0.5s;
+}
+
+
 /*-------------TopPage.js---------------*/
 
 /*Indicator.js*/
