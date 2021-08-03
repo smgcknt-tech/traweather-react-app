@@ -2,7 +2,7 @@ import React from 'react'
 import "../styles/components/CandidateList.scss"
 
 
-export default function Strategy() {
+export default function CandidateList() {
     return (
         <div className="candidate_list">
             <table>

@@ -10,7 +10,6 @@ $gray: #636363;
   height: 4rem;
 }
 
-/*style_format*/
 @mixin strategy_style {
   background-color: #fff;
   width: 50rem;
@@ -70,6 +69,15 @@ $gray: #636363;
   background-color: #fff;
   width: 50rem;
   height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+@mixin reflection_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 100%;
   padding: 1rem;
   margin: 2rem;
   border-radius: 0.2rem;

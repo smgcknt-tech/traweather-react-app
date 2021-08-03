@@ -13,7 +13,7 @@ const data = {
     }]
 };
 
-export default function LineChart() {
+export default function StoryChart() {
     return (
         <div className="index_chart">
             storychart

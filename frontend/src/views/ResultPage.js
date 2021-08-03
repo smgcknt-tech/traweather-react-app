@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
+import ResultList from '../components/ResultList';
+import Reflection from '../components/Reflection';
 
 export default function ResultPage() {
     const [indicators, setIndicators] = useState([]);
@@ -26,8 +28,13 @@ export default function ResultPage() {
             {loading ? (<Loading />)
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
-                        <div>
-                            <p>ResultPage</p>
+                        <div className="row top">
+                            <div className="col_main">
+                                <ResultList/>
+                            </div>
+                            <div className="col_sub">
+                                <Reflection/>
+                            </div>
                         </div>
                     )}
         </div>
