@@ -1,12 +1,16 @@
 @import "../variables/variables.scss";
 
+header{
+  box-shadow: 0 0 0.3rem #B4B4B4;
+}
+
 header > * {
   margin: 0;
   padding: 1rem;
   color: #fff;
 }
 
-.header {
+.header{
   justify-content: space-between;
 }
 .left_menu > * {

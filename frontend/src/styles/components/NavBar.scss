@@ -1,6 +1,12 @@
 @import "../variables/variables.scss";
 
+nav {
+  background-color: #FFFFFF;
+  box-shadow: 0.2rem 0 0.3rem #B4B4B4;
+}
+
 .nav_bar {
+
   ul {
     justify-content: column;
     text-align: center;
@@ -9,7 +15,7 @@
   i {
     padding: 2rem 0;
     font-size: 3rem;
-    color: $gray;
+    color: $font_color;
   }
 
   p {
@@ -17,7 +23,7 @@
   }
 
   a {
-    color: $gray;
+    color:$font_color;
     text-decoration: none;
   }
 
@@ -26,8 +32,8 @@
   }
 
   li:hover {
-    background-color: #000000;
-    opacity: 0.6;
+    background-color: #fff;;
+    opacity: 0.3;
     transition: background-color 0.5s;
   }
 }
