@@ -4,6 +4,8 @@ import Loading from '../components/Loading';
 import Message from '../components/Message';
 import CandidateList from '../components/CandidateList';
 import StoryChart from "../components/StoryChart";
+import StoryText from '../components/StoryText';
+import Reason from '../components/Reason';
 
 export default function TopPage() {
     const [indicators, setIndicators] = useState([]);
@@ -31,8 +33,11 @@ export default function TopPage() {
                         <div>
                             <CandidateList />
                             <div className="row top">
-                                <div className="col_sub"><StoryChart /></div>
-                                <div className="col_main"></div>
+                                <div className="col_main"><StoryChart /></div>
+                                <div className="col_sub">
+                                    <StoryText/>
+                                    <Reason/>
+                                </div>
                             </div>
                         </div>
                     )}
