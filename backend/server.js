@@ -7,8 +7,9 @@ import { api_router } from './routes/api.js';
 dotenv.config();
 const app = express();
 // routes
-app.get("/",(req,res)=>{res.send("server is ready")});
+app.get("/", (req, res) => { res.send("server is ready") });
 app.use("/api", api_router)
+
 
 //connection
 const port = process.env.PORT || 5000;

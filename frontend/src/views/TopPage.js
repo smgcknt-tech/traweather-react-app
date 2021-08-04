@@ -11,7 +11,6 @@ import HotSector from "../components/HotSector";
 import NewsTopics from '../components/NewsTopics';
 
 export default function TopPage() {
-    const [indicators, setIndicators] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     useEffect(() => {
@@ -20,7 +19,7 @@ export default function TopPage() {
                 setLoading(true);
                 const { data } = await axios.get('/api/indicators');
                 setLoading(false);
-                setIndicators(data);
+                console.log(data)
             } catch (err) {
                 setError(err.message)
                 setLoading(false);
@@ -34,11 +33,6 @@ export default function TopPage() {
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
                         <div className="top_page">
-                            <div className="row center">
-                                {indicators.map((indicator) => {
-                                    return <Indicator indicator={indicator} />
-                                })}
-                            </div>
                             <div class="row center">
                                 <IndexChart />
                                 <Strategy />
@@ -48,7 +42,6 @@ export default function TopPage() {
                                     <HotSector />
                                     <NewsTopics />
                                 </div>
-
                             </div>
                         </div>
                     )}
