@@ -1,0 +1,5 @@
+@import "../variables/variables.scss";
+
+.strategy {
+  @include strategy_style();
+}

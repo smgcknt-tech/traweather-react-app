@@ -1,5 +1,5 @@
-//tmporary database//
-const data = {
+//temporary_database//
+export const temporary_db = {
     indicators: [
         {
             name: "日経",
@@ -15,4 +15,3 @@ const data = {
         }
     ]
 };
-export default data;

@@ -1,4 +1,5 @@
 import React from 'react'
+import "../styles/components/Strategy.scss"
 
 export default function Strategy() {
     return (

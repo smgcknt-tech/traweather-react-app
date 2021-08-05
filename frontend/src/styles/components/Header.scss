@@ -1,0 +1,36 @@
+@import "../variables/variables.scss";
+
+header{
+  box-shadow: 0 0 0.3rem #B4B4B4;
+}
+
+header > * {
+  margin: 0;
+  padding: 1rem;
+  color: #fff;
+}
+
+.header{
+  justify-content: space-between;
+}
+.left_menu > * {
+  padding: 0 1rem;
+}
+
+.right_menu > * {
+  padding: 0 1rem;
+}
+
+.logo {
+  font-size: 3rem;
+  transform: rotate(30deg);
+}
+
+.logo_title {
+  font-size: 3rem;
+  color: #fff;
+}
+
+.catch_copy {
+  font-size: 2rem;
+}

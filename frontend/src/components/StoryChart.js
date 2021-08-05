@@ -1,6 +1,6 @@
 import React from 'react'
-import {Line} from 'react-chartjs-2'
-import "../styles/components/IndexChart.scss"
+import { Line } from 'react-chartjs-2'
+import "../styles/components/StoryChart.scss"
 
 const data = {
     labels: ['12', '15', '18', '21', '4', '7'],
@@ -13,9 +13,10 @@ const data = {
     }]
 };
 
-export default function IndexChart() {
+export default function StoryChart() {
     return (
         <div className="index_chart">
+            storychart
             <Line
                 data={data}
             />

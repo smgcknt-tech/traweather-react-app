@@ -1,0 +1,85 @@
+/*property*/
+$gray: #636363;
+$font_color:#8B8B8B;
+
+@mixin indicator_style {
+  background-color: #fff;
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 1rem;
+  width: 8rem;
+  height: 4rem;
+}
+
+@mixin strategy_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+
+@mixin index_chart_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+@mixin story_chart_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+@mixin story_text_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+@mixin hot_sector_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+
+@mixin news_topics_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+@mixin reason_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 30rem;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}
+
+@mixin reflection_style {
+  background-color: #fff;
+  width: 50rem;
+  height: 100%;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 0.2rem;
+}

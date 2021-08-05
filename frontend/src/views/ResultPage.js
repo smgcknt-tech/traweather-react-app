@@ -1,25 +1,21 @@
-
 import React, { useEffect, useState } from 'react'
-import "../styles/views/TopPage.scss";
 import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
-import Indicator from "../components/Indicator";
-import IndexChart from "../components/IndexChart";
-import Strategy from "../components/Strategy";
-import HotSector from "../components/HotSector";
-import NewsTopics from '../components/NewsTopics';
+import ResultList from '../components/ResultList';
+import Reflection from '../components/Reflection';
 
-export default function TopPage() {
+export default function ResultPage() {
+    const [indicators, setIndicators] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const { data } = await axios.get('/api/indicators');
+                const { data } = [];
                 setLoading(false);
-                console.log(data)
+                setIndicators(data);
             } catch (err) {
                 setError(err.message)
                 setLoading(false);
@@ -32,16 +28,12 @@ export default function TopPage() {
             {loading ? (<Loading />)
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
-                        <div className="top_page">
-                            <div class="row center">
-                                <IndexChart />
-                                <Strategy />
+                        <div className="row top">
+                            <div className="col_main">
+                                <ResultList/>
                             </div>
-                            <div class="row center">
-                                <div className="row">
-                                    <HotSector />
-                                    <NewsTopics />
-                                </div>
+                            <div className="col_sub">
+                                <Reflection/>
                             </div>
                         </div>
                     )}
