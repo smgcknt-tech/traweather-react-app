@@ -32,12 +32,12 @@ export default function TopPage() {
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
                         <div className="top_page">
-                            <div class="row center">
-                                <IndexChart />
-                                <Strategy />
-                            </div>
-                            <div class="row center">
-                                <div className="row">
+                            <div className="row top">
+                                <div class="col_2">
+                                    <IndexChart />
+                                    <Strategy />
+                                </div>
+                                <div class="col_1">
                                     <HotSector />
                                     <NewsTopics />
                                 </div>

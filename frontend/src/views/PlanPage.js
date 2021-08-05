@@ -33,10 +33,12 @@ export default function TopPage() {
                         <div>
                             <CandidateList />
                             <div className="row top">
-                                <div className="col_main"><StoryChart /></div>
-                                <div className="col_sub">
-                                    <StoryText/>
-                                    <Reason/>
+                                <div className="col_2">
+                                    <StoryChart />
+                                </div>
+                                <div className="col_1">
+                                    <StoryText />
+                                    <Reason />
                                 </div>
                             </div>
                         </div>

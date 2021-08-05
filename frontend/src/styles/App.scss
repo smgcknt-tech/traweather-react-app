@@ -7,12 +7,10 @@ body {
   margin: 0;
   height: 100vh;
   font-size: 1.6rem;
+  background-color: #fafafa;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: #FAFAFA;
 }
 
 #root {
@@ -30,7 +28,6 @@ body {
 header {
   grid-column: 1 / 3;
   grid-row: 1 / 2;
-  background-image: linear-gradient( 132.6deg,  rgba(71,139,214,1) 23.3%, rgba(37,216,211,1) 84.7% );
 }
 
 nav {
@@ -45,12 +42,12 @@ main {
 }
 
 footer {
-  background-image: radial-gradient( circle farthest-corner at -4% -12.9%,  rgba(74,98,110,1) 0.3%, rgba(30,33,48,1) 90.2% );  padding: 1rem;
+
   grid-column: 1 / 3;
   grid-row-start: 3 / 4;
 }
 
-/*common_tag*/
+/*tag_setting*/
 
 p {
   margin: 0;
@@ -67,12 +64,12 @@ ul {
 }
 
 img {
-  width:100%;
-  height:100%;
-  object-fit:"cover";
+  width: 100%;
+  height: 100%;
+  object-fit: "cover";
 }
 
-/*common_class*/
+/*module_class*/
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -88,10 +85,10 @@ img {
   align-items: flex-start;
 }
 
-.col_main {
+.col_2 {
   flex: 1 1 60%;
 }
 
-.col_sub {
+.col_1 {
   flex: 1 1 30%;
 }

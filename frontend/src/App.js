@@ -26,7 +26,9 @@ function App() {
           <Route path="/Feedback" component={FeedbackPage} exact />
           <Route path="/Setting" component={SettingPage} exact />
         </main>
-        <footer><Footer /></footer>
+        <footer>
+          <Footer />
+        </footer>
       </div>
     </BrowserRouter>
   );

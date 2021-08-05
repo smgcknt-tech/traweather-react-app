@@ -29,10 +29,10 @@ export default function ResultPage() {
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
                         <div className="row top">
-                            <div className="col_main">
+                            <div className="col_2">
                                 <ResultList/>
                             </div>
-                            <div className="col_sub">
+                            <div className="col_1">
                                 <Reflection/>
                             </div>
                         </div>
