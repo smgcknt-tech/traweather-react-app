@@ -4,7 +4,6 @@ import "../styles/views/TopPage.scss";
 import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
-import Indicator from "../components/Indicator";
 import IndexChart from "../components/IndexChart";
 import Strategy from "../components/Strategy";
 import HotSector from "../components/HotSector";
