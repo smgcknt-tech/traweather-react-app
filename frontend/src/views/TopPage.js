@@ -16,9 +16,9 @@ export default function TopPage() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const { data } = await axios.get('/api/fetch_latest_stock');
+                const { data } = await axios.get('');
                 setLoading(false);
-                console.log(data)
+
             } catch (err) {
                 setError(err.message)
                 setLoading(false);
@@ -33,11 +33,11 @@ export default function TopPage() {
                     : (
                         <div className="top_page">
                             <div className="row top">
-                                <div class="col_2">
+                                <div className="col_2">
                                     <IndexChart />
                                     <Strategy />
                                 </div>
-                                <div class="col_1">
+                                <div className="col_1">
                                     <HotSector />
                                     <NewsTopics />
                                 </div>

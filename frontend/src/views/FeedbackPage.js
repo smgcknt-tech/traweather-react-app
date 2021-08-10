@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
 
 export default function FeedbackPage() {
-    const [indicators, setIndicators] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     useEffect(() => {
@@ -13,7 +11,6 @@ export default function FeedbackPage() {
                 setLoading(true);
                 const { data } = [];
                 setLoading(false);
-                setIndicators(data);
             } catch (err) {
                 setError(err.message)
                 setLoading(false);

@@ -77,6 +77,11 @@ img {
   align-items: center;
 }
 
+.column {
+  flex-direction: column;
+  align-items: stretch
+}
+
 .center {
   justify-content: center;
 }

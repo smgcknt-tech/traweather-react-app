@@ -8,6 +8,7 @@ import SettingPage from "./views/SettingPage";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import ResearchPage from "./views/ResearchPage";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route path="/" component={TopPage} exact />
           <Route path="/plan" component={PlanPage} exact />
           <Route path="/result" component={ResultPage} exact />
-          <Route path="/Feedback" component={FeedbackPage} exact />
+          <Route path="/feedback" component={FeedbackPage} exact />
+          <Route path="/research" component={ResearchPage} exact />
           <Route path="/Setting" component={SettingPage} exact />
         </main>
         <footer>
