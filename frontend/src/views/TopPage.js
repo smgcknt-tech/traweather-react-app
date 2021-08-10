@@ -16,7 +16,7 @@ export default function TopPage() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const { data } = await axios.get('/api/indicators');
+                const { data } = await axios.get('/api/fetch_latest_stock');
                 setLoading(false);
                 console.log(data)
             } catch (err) {
