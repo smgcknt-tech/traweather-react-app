@@ -5,10 +5,10 @@ import PlanPage from "./views/PlanPage";
 import ResultPage from "./views/ResultPage";
 import FeedbackPage from "./views/FeedbackPage";
 import SettingPage from "./views/SettingPage";
+import ResearchPage from "./views/ResearchPage";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import ResearchPage from "./views/ResearchPage";
 
 function App() {
   return (
@@ -35,6 +35,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
 
 export default App;

@@ -1,6 +1,7 @@
-
+query_memo
 
 CREATE DATABASE traweather;
+
 CREATE TABLE latest_stock_data(
     code varchar(100),
     stockName varchar(100),
@@ -21,3 +22,5 @@ CREATE TABLE latest_stock_data(
     upperRange varchar(100),
     unique(code)
 );
+
+COPY latest_stock_data FROM '${file_path}' WITH DELIMITER',' CSV HEADER;

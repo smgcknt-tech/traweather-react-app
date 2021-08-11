@@ -1,0 +1,5 @@
+name: traweather
+script: ../backend/cron.js
+cron_restart: '0 16 * * * *'
+watch: true
+log-date-format: 'YYYY-MM-DD HH:mm Z'

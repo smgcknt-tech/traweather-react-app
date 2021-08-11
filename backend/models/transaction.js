@@ -1,8 +1,5 @@
 import format from 'pg-format';
 export const sql = {
-    csv_insert: (file_path)=>{
-        return `COPY latest_stock_data FROM '${file_path}' WITH DELIMITER',' CSV HEADER;`
-    },
     csv_upsert: (values) => {
         return format(`
                 BEGIN;

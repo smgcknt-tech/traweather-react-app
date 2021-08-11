@@ -4,9 +4,10 @@ import iconv from 'iconv-lite';
 import papa from "papaparse";
 import request from "request";
 import fastcsv from 'fast-csv';
-import { pool } from "../models/config/db_connection.js";
-import { sql } from "../models/sql.js"
+import { pool } from "../../config/postgresql.js";
+import { sql } from "../models/transaction.js";
 dotenv.config();
+
 let user = process.env.kabu_plus_user;
 let password = process.env.kabu_plus_password;
 let auth = `${user}:${password}@`
@@ -48,5 +49,6 @@ export const api = {
                     res.send(`csv of ${data.length} rows has been upserted into latest_stock_data table`);
             })
         });
+        return data;
     }
 };
