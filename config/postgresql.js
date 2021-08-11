@@ -1,4 +1,3 @@
-
 import pg from 'pg';
 import dotenv from "dotenv";
 dotenv.config();
@@ -10,6 +9,6 @@ export const pool = new pg.Pool({
     database: process.env.db_name
 })
 
-pool.on('error',(err,client)=>[
-    console.log('client error',err.message,err.stack)
+pool.on('error', (err, client) => [
+    console.log('client error', err.message, err.stack)
 ]);
