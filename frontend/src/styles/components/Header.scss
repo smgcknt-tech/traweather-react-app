@@ -15,7 +15,10 @@ header {
   justify-content: space-between;
 }
 
-.right_menu > *,
+.right_menu > *{
+  font-size: 2rem;
+  padding: 0 1rem;
+}
 .left_menu > * {
   padding: 0 1rem;
 }

@@ -21,9 +21,6 @@ export default function SearchBar(props) {
         const selectedStock = event.target.textContent.split(":")[1];
         setInputValue(selectedStock);
     }
-
-
-
     return (
         <div className="row center">
             <div className="column search">
