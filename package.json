@@ -1,11 +1,11 @@
 {
-  "name": "treweather",
+  "name": "traweather",
   "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
+    "start": "NODE_ENV=development nodemon --watch backend --exec node --experimental-modules backend/server.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "node-fetch": "^2.6.1",
     "papaparse": "^5.3.1",
     "pg": "^8.7.1",
+    "pg-format": "^1.0.4",
     "request": "^2.88.2"
   },
   "devDependencies": {

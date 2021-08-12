@@ -1,4 +1,3 @@
-//temporary_database//
 export const temporary_db = {
     indicators: [
         {
