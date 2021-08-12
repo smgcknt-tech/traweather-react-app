@@ -1,9 +1,7 @@
 import dotenv from "dotenv";
-import fs from 'fs';
 import iconv from 'iconv-lite';
 import papa from "papaparse";
 import request from "request";
-import fastcsv from 'fast-csv';
 import { pool } from "../../postgresql.js";
 import { sql } from "../models/transaction.js";
 dotenv.config();
@@ -14,17 +12,16 @@ let auth = `${user}:${password}@`
 
 export const api = {
     fetch_latest_stock_data: (req, res) => {
-        pool.query(`SELECT code, stockname FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' ) ORDER BY code ASC;`)
-            .catch((err) => {
+        pool.query(`SELECT code, stockname FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' ) ORDER BY code ASC;`,(err,results)=>{
+            if(err){
                 console.error(err.message);
-            })
-            .then((results) => {
+            } else {
                 res.json(results.rows);
-            })
+            }
+        });
     },
     upsert_latest_stock_data: async () => {
         const url = `https://${auth}csvex.com/kabu.plus/csv/japan-all-stock-prices/daily/japan-all-stock-prices.csv`;
-        const file_path = "/Users/smgc-knt/Public/daily_japan-all_stock_prices.csv"
         let data = [];
         try {
             const parseStream = await papa.parse(papa.NODE_STREAM_INPUT, {

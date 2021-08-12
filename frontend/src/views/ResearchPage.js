@@ -17,7 +17,6 @@ export default function ResearchPage() {
                 const { data } = await axios.get('/api/fetch_latest_stock');
                 setLoading(false);
                 setStockList(data);
-                //console.log(stockData)
             } catch (err) {
                 setError(err.message)
                 setLoading(false);

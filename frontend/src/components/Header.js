@@ -8,11 +8,11 @@ export default function Header() {
             <div className="row left_menu">
                 <i className="logo fas fa-umbrella"></i>
                 <Link className="logo_title" to="/">traweather</Link>
-                <p className="catch_copy">~market prediction for day traders~</p>
+                <p className="catch_copy">- market prediction and analytics tool for day traders -</p>
             </div>
             <div>
                 <ul className="row right_menu">
-                    <li>menu </li>
+                    <li>menu</li>
                     <li>login</li>
                 </ul>
             </div>
