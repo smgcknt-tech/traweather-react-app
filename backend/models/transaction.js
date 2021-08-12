@@ -1,6 +1,6 @@
 import format from 'pg-format';
 export const sql = {
-    csv_upsert: (values) => {
+    upsert: (values) => {
         return format(`
                 BEGIN;
                 INSERT INTO latest_stock_data(code,stockname,market,industry,stockdate,price,change,changeinpercent,previousclosepx,opening,high,low,vwap,volume,volumeinpercent,lowerrange,upperrange)

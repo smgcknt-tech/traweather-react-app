@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
 import "../styles/views/TopPage.scss";
-import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
 import IndexChart from "../components/IndexChart";
@@ -16,7 +15,6 @@ export default function TopPage() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const { data } = await axios.get('');
                 setLoading(false);
 
             } catch (err) {

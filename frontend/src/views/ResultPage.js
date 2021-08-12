@@ -11,7 +11,6 @@ export default function ResultPage() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const { data } = [];
                 setLoading(false);
             } catch (err) {
                 setError(err.message)

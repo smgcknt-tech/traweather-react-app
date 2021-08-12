@@ -1,5 +1,6 @@
 name: traweather
-script: ../backend/cron.js
+script: ./backend/pm2.js
 cron_restart: '0 16 * * * *'
 watch: true
+node_args : '-r dotenv/config'
 log-date-format: 'YYYY-MM-DD HH:mm Z'

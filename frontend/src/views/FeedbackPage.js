@@ -9,7 +9,6 @@ export default function FeedbackPage() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const { data } = [];
                 setLoading(false);
             } catch (err) {
                 setError(err.message)

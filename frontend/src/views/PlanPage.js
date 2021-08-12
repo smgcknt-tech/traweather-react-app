@@ -13,7 +13,6 @@ export default function TopPage() {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const { data } = [];
                 setLoading(false);
             } catch (err) {
                 setError(err.message)
