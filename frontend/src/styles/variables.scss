@@ -2,14 +2,15 @@
 $gray: #636363;
 $font_color:#8B8B8B;
 
-@mixin indicator_style {
-  background-color: #fff;
-  border-radius: 1rem;
-  margin: 1rem;
-  padding: 1rem;
-  width: 8rem;
-  height: 4rem;
+
+@mixin place_center {
+  display:grid;
+  place-items: center;
 }
+
+
+
+
 
 @mixin strategy_style {
   background-color: #fff;

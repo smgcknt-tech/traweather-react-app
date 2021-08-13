@@ -20,8 +20,18 @@ export const api = {
             }
         });
     },
+    fetch_one_latest_stock_data: (req, res) => {
+        const code = req.params.code;
+        pool.query(`SELECT * FROM latest_stock_data WHERE code='${code}';`, (err, results) => {
+            if (err) {
+                console.error(err.message);
+            } else {
+                res.send(results.rows);
+            }
+        });
+    },
     upsert_latest_stock_data: async () => {
-        const url = `https://${auth}csvex.com/kabu.plus/csv/japan-all-stock-prices/daily/japan-all-stock-prices.csv`;
+        const url = `https://${auth}csvex.com/kabu.plus/csv/japan-all-stock-prices-2/daily/japan-all-stock-prices-2.csv`;
         let data = [];
         try {
             const parseStream = await papa.parse(papa.NODE_STREAM_INPUT, {
@@ -35,6 +45,7 @@ export const api = {
                 data.push(record);
             });
             dataStream.on("finish", () => {
+                console.log(data[0])
                 pool.query(sql.upsert(data), [], (err, results) => {
                     if (err) {
                         console.error(err.message)

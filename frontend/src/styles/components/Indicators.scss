@@ -1,0 +1,75 @@
+@import "../variables.scss";
+
+.indicators_body {
+  padding: 1rem 3rem;
+
+  .stock_name {
+    margin: 1rem 0;
+  }
+}
+
+@mixin indicator_card($back_color, $color) {
+  border-radius: 0.5rem;
+  margin: 2rem 0 0 3rem;
+  width: 17rem;
+  height: 10rem;
+  background-color: white;
+  border: 0.1rem solid $back_color;
+
+  .card_value {
+    height: 60%;
+    font-size: 3rem;
+    color: $color;
+    background-color: $back_color;
+    @include place_center();
+  }
+
+  .card_title {
+    height: 40%;
+    font-size: 1.5rem;
+    color: #337ab7;
+    background-color: F5F5F5;
+    @include place_center();
+  }
+  .span {
+    font-size: 0.5rem;
+  }
+}
+
+#price {
+  @include indicator_card(#337ab7, #fff);
+}
+
+#opening {
+  @include indicator_card(#dff0d8, #3c763d);
+}
+
+#high {
+  @include indicator_card(#fcf8e3, #8c6f3e);
+}
+#low {
+  @include indicator_card(#f2dede, #a94442);
+}
+#previous_close {
+  @include indicator_card(#f5f5f5, #333333);
+}
+
+#vwap {
+  @include indicator_card(#d9edf7, #31708f);
+}
+
+#volume {
+  @include indicator_card(#5bc0de, #fff);
+}
+
+#volume_percent {
+  @include indicator_card(#f0d7ea, #cf7b7b);
+}
+
+#year_high {
+  @include indicator_card(#e2d183, #fff);
+}
+
+#year_low {
+  @include indicator_card(#a6ceda, #6a7ea1);
+}

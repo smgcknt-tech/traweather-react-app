@@ -10,12 +10,10 @@ export default function Header() {
                 <Link className="logo_title" to="/">traweather</Link>
                 <p className="catch_copy">- market prediction and analytics tool for day traders -</p>
             </div>
-            <div>
-                <ul className="row right_menu">
-                    <li>menu</li>
-                    <li>login</li>
-                </ul>
-            </div>
+            <ul className="row right_menu">
+                <li>menu</li>
+                <li>login</li>
+            </ul>
         </div>
     )
 }

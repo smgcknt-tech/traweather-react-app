@@ -23,6 +23,7 @@
     "express": "^4.17.1",
     "fast-csv": "^4.3.6",
     "iconv-lite": "^0.4.24",
+    "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
     "papaparse": "^5.3.1",
     "pg": "^8.7.1",

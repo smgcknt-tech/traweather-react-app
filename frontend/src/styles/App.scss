@@ -36,20 +36,18 @@ nav {
 }
 
 main {
-  padding: 1rem;
   grid-column: 2 / 3;
   grid-row-start: 2 / 3;
 }
 
 footer {
-
   grid-column: 1 / 3;
   grid-row-start: 3 / 4;
 }
 
 /*tag_setting*/
 
-p {
+h1,h2,p {
   margin: 0;
 }
 
@@ -77,11 +75,6 @@ img {
   align-items: center;
 }
 
-.column {
-  flex-direction: column;
-  align-items: stretch
-}
-
 .center {
   justify-content: center;
 }
@@ -90,6 +83,10 @@ img {
   align-items: flex-start;
 }
 
+.column {
+  flex-direction: column;
+  align-items: stretch;
+}
 .col_2 {
   flex: 1 1 60%;
 }
