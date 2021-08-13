@@ -1,4 +1,4 @@
-query_memo
+"place to take a note of query "
 
 CREATE DATABASE traweather;
 

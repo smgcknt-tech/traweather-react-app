@@ -5,15 +5,14 @@ import request from "request";
 import { pool } from "../../postgresql.js";
 import { sql } from "../models/transaction.js";
 dotenv.config();
-
 let user = process.env.kabu_plus_user;
 let password = process.env.kabu_plus_password;
 let auth = `${user}:${password}@`
 
 export const api = {
     fetch_latest_stock_data: (req, res) => {
-        pool.query(`SELECT code, stockname FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' ) ORDER BY code ASC;`,(err,results)=>{
-            if(err){
+        pool.query(`SELECT code, stockname FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' ) ORDER BY code ASC;`, (err, results) => {
+            if (err) {
                 console.error(err.message);
             } else {
                 res.json(results.rows);
@@ -45,7 +44,6 @@ export const api = {
                 data.push(record);
             });
             dataStream.on("finish", () => {
-                console.log(data[0])
                 pool.query(sql.upsert(data), [], (err, results) => {
                     if (err) {
                         console.error(err.message)

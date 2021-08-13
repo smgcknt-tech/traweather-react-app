@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react'
-import "../styles/views/ResearchPage.scss";
 import axios from 'axios'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
@@ -28,7 +27,7 @@ export default function ResearchPage() {
             {loading ? (<Loading />)
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
-                        <div className="research_page">
+                        <div>
                             <SearchBar stockList={stockLIst} />
                         </div>
                     )}

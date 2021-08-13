@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../styles/components/SearchBar.scss";
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 export default function SearchBar(props) {
     let history = useHistory();
@@ -26,21 +26,19 @@ export default function SearchBar(props) {
         history.push(`/research/${code}`)
     }
     return (
-        <div>
-            <div className="row center">
-                <div className="column search">
-                    <div className="row search_inputs">
-                        <input type="text" placeholder="証券番号を半角で入力してください" value={inputValue} onChange={handleFilter}/>
-                        <span className="search_icon"> <i className="fas fa-search"></i></span>
-                    </div>
-                    {(filteredData.length !== 0) && (
-                        <div className="column data_result">
-                            {filteredData.slice(0, 15).map((value, key) => {
-                                return <p key={key} className="data_item" onClick={handleSelect}>{value.code} : {value.stockname}</p>;
-                            })}
-                        </div>
-                    )}
+        <div className="row center search">
+            <div>
+                <div className="row search_inputs">
+                    <input type="text" placeholder="証券番号を半角で入力してください" value={inputValue} onChange={handleFilter} />
+                    <span className="search_icon"> <i className="fas fa-search"></i></span>
                 </div>
+                {(filteredData.length !== 0) && (
+                    <div className="data_result">
+                        {filteredData.slice(0, 15).map((value, key) => {
+                            return <p key={key} className="data_item" onClick={handleSelect}>{value.code} : {value.stockname}</p>;
+                        })}
+                    </div>
+                )}
             </div>
         </div>
     )

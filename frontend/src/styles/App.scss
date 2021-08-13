@@ -1,6 +1,9 @@
 html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
   box-sizing: border-box;
+  #root {
+    height: 100%;
+  }
 }
 
 body {
@@ -13,9 +16,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-  height: 100%;
-}
 
 /*fundamental_Layout*/
 .grid-container {
@@ -47,7 +47,7 @@ footer {
 
 /*tag_setting*/
 
-h1,h2,p {
+h1,h2,p,ul{
   margin: 0;
 }
 
@@ -56,7 +56,6 @@ a {
 }
 
 ul {
-  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -79,14 +78,14 @@ img {
   justify-content: center;
 }
 
+.space {
+  justify-content: space-between;
+}
+
 .top {
   align-items: flex-start;
 }
 
-.column {
-  flex-direction: column;
-  align-items: stretch;
-}
 .col_2 {
   flex: 1 1 60%;
 }

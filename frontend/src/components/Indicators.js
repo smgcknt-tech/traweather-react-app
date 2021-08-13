@@ -54,7 +54,7 @@ export default function Indicators({
                     <div className="card_title">VWAP</div>
                 </div>
                 <div id="volume">
-                    <div className="card_value">{volume}</div>
+                    <div className="card_value">{volume}株</div>
                     <div className="card_title">出来高</div>
                 </div>
                 <div id="volume_percent">

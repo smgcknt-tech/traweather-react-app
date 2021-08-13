@@ -22,13 +22,16 @@ export default function ResearchResult() {
                 setLoading(false);
             }
         })();
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <div>
             {loading ? (<Loading />)
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
-                        <div><Indicators {...selectedStockData} /></div>
+                        <div>
+                            <Indicators {...selectedStockData} />
+                        </div>
                     )}
         </div>
     )
