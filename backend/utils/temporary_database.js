@@ -1,4 +1,4 @@
-export const tmp_db = {
+export const tmp_db= {
     indicators: [
         {
             name: "日経",

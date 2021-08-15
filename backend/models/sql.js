@@ -1,8 +1,28 @@
 import format from 'pg-format';
+import { pool } from '../../postgresql.js';
 export const sql = {
-    upsert: (values) => {
-        return format(`
-                BEGIN;
+    get_latest_stock: () => {
+        const query = `SELECT code, stockname FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' ) ORDER BY code ASC;`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows
+            }).catch((err) => {
+                console.error(err.stack)
+            })
+        return data;
+    },
+    get_one_latest_stock: (code) => {
+        const query = `SELECT * FROM latest_stock_data WHERE code='${code}';`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows
+            }).catch((err) => {
+                console.error(err.stack)
+            })
+        return data;
+    },
+    upsert_latest_stock: (values) => {
+        const query = format(`
                 INSERT INTO latest_stock_data(code,stockName,market,industry,stockDate,price,change,changeInPercent,previousClose,opening,high,low,vwap,volume,volumeInPercent,tradingValue,marketCap,lowerRange,upperRange,yearHighDate,yearHigh,yearHighDivergenceRate,yearLowDate,yearLow,yearLowDivergenceRate)
                 VALUES %L
                 ON CONFLICT(code)
@@ -31,8 +51,15 @@ export const sql = {
                     yearHighDivergenceRate=EXCLUDED.yearHighDivergenceRate,
                     yearLowDate=EXCLUDED.yearLowDate,
                     yearLow=EXCLUDED.yearLow,
-                    yearLowDivergenceRate=EXCLUDED.yearLowDivergenceRate;
-                COMMIT;
-                `,values);
+                    yearLowDivergenceRate=EXCLUDED.yearLowDivergenceRate
+                RETURNING *;
+                `, values);
+        const data = pool.query(query, [])
+            .then((res) => {
+                return `${res.rows.length} of streamed csv data is upserted into latest_stock_data table...`
+            }).catch((err) => {
+                console.error(err.stack)
+            })
+        return data
     }
 };

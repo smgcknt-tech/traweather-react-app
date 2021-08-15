@@ -1,4 +1,4 @@
-"place to take a note of query "
+"file to take a note of query "
 
 CREATE DATABASE traweather;
 

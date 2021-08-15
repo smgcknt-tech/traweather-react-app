@@ -1,3 +1,4 @@
+import "./styles/destyle.css"
 import "./styles/App.scss";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import TopPage from "./views/TopPage";

@@ -1,60 +1,42 @@
-import dotenv from "dotenv";
-import iconv from 'iconv-lite';
-import papa from "papaparse";
-import request from "request";
-import { pool } from "../../postgresql.js";
-import { sql } from "../models/transaction.js";
-dotenv.config();
-let user = process.env.kabu_plus_user;
-let password = process.env.kabu_plus_password;
-let auth = `${user}:${password}@`
+import { sql } from "../models/sql.js";
+import { env } from "../../env_variables.js";
+import { helper } from "../utils/helper.js";
+const kabu_plus_auth = `${env.kabu_plus_user}:${env.kabu_plus_password}@`
+const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus`
 
 export const api = {
-    fetch_latest_stock_data: (req, res) => {
-        pool.query(`SELECT code, stockname FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' ) ORDER BY code ASC;`, (err, results) => {
-            if (err) {
-                console.error(err.message);
-            } else {
-                res.json(results.rows);
-            }
-        });
+    fetch_latest_stock: (req, res) => {
+        sql.get_latest_stock()
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+                throw new Error("sql error : get_latest_stock ");
+            })
     },
-    fetch_one_latest_stock_data: (req, res) => {
+    fetch_one_latest_stock: (req, res) => {
         const code = req.params.code;
-        pool.query(`SELECT * FROM latest_stock_data WHERE code='${code}';`, (err, results) => {
-            if (err) {
-                console.error(err.message);
-            } else {
-                res.send(results.rows);
-            }
-        });
+        sql.get_one_latest_stock(code)
+            .then((data) => {
+                res.send(data[0])
+            }).catch((err) => {
+                console.log(err.message)
+                throw new Error("sql error : get_latest_stock ");
+            })
     },
-    upsert_latest_stock_data: async () => {
-        const url = `https://${auth}csvex.com/kabu.plus/csv/japan-all-stock-prices-2/daily/japan-all-stock-prices-2.csv`;
-        let data = [];
+    upsert_latest_stock_table: async () => {
         try {
-            const parseStream = await papa.parse(papa.NODE_STREAM_INPUT, {
-                columns: true,
-            });
-            const dataStream = await request
-                .get(url)
-                .pipe(iconv.decodeStream('Shift_JIS'))
-                .pipe(parseStream);
-            parseStream.on("data", record => {
-                data.push(record);
-            });
-            dataStream.on("finish", () => {
-                pool.query(sql.upsert(data), [], (err, results) => {
-                    if (err) {
-                        console.error(err.message)
-                    } else {
-                        const date = Date()
-                        console.log(`${date}:${data.length} of data upserted into latest_stock_data table`);
-                    }
+            const url = `${kabu_plus_url}/csv/japan-all-stock-prices-2/daily/japan-all-stock-prices-2.csv`;
+            await helper.csv_stream(url, sql.upsert_latest_stock)
+                .then((res) => { console.log(res) })
+                .catch((err) => {
+                    console.log(err.message)
+                    throw new Error("csv_stream failed")
                 })
-            });
+            return `${helper.now()}: "upsert_latest_stock_table" is requested`
         } catch (err) {
-            console.error(err.message);
+            console.log(err.message)
+            throw new Error(`${helper.now()}: upsert_latest_stock_table failed`)
         }
     }
 }

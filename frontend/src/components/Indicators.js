@@ -1,5 +1,6 @@
 import React from 'react'
 import "../styles/components/Indicators.scss";
+import { helper } from '../utils/helper';
 
 export default function Indicators({
     stockname,
@@ -21,6 +22,7 @@ export default function Indicators({
     yearlow,
     yearlowdate
 }) {
+    [stockdate, yearhighdate, yearlowdate] = helper.format_dates(stockdate, yearhighdate, yearlowdate)
     return (
         <div className="indicators_body">
             <p id="stockDate">データ更新日: {stockdate}</p>

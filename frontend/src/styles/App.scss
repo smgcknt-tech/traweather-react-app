@@ -16,7 +16,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 /*fundamental_Layout*/
 .grid-container {
   display: grid;
@@ -45,27 +44,6 @@ footer {
   grid-row-start: 3 / 4;
 }
 
-/*tag_setting*/
-
-h1,h2,p,ul{
-  margin: 0;
-}
-
-a {
-  text-decoration: none;
-}
-
-ul {
-  padding: 0;
-  list-style: none;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: "cover";
-}
-
 /*module_class*/
 .row {
   display: flex;
@@ -92,4 +70,17 @@ img {
 
 .col_1 {
   flex: 1 1 30%;
+}
+
+/*tag_setting*/
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: "cover";
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
 }
