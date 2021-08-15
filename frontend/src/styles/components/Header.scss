@@ -3,36 +3,33 @@
 header {
   padding: 1rem;
   color: #fff;
-  background-image: linear-gradient(
-    132.6deg,
-    rgba(71, 139, 214, 1) 23.3%,
-    rgba(37, 216, 211, 1) 84.7%
-  );
   box-shadow: 0 0 0.5rem #b4b4b4;
-}
+  background-image: linear-gradient(132.6deg, #478bd6 23.3%, #25d8d3 84.7%);
 
-.header {
-  justify-content: space-between;
-}
+  .header {
+    .left_menu > * {
+      padding: 0 1rem;
+    }
 
-.right_menu > *{
-  font-size: 2rem;
-  padding: 0 1rem;
-}
-.left_menu > * {
-  padding: 0 1rem;
-}
+    .right_menu > * {
+      font-size: 2rem;
+      padding: 0 1rem;
+    }
 
-.logo {
-  font-size: 3rem;
-  transform: rotate(30deg);
-}
+    .left_menu {
+      .logo {
+        font-size: 3rem;
+        transform: rotate(30deg);
+      }
 
-.logo_title {
-  font-size: 3rem;
-  color: #fff;
-}
+      .logo_title {
+        font-size: 3rem;
+        color: #fff;
+      }
 
-.catch_copy {
-  font-size: 2rem;
+      .catch_copy {
+        font-size: 2rem;
+      }
+    }
+  }
 }
