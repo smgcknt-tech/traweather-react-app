@@ -4,6 +4,7 @@ import Message from '../components/Message';
 import Indicators from '../components/Indicators';
 import { hooks } from '../utils/custom_hooks'
 
+
 export default function ResearchResult() {
     const { code } = useParams();
     const url = `/api/fetch_latest_stock/${code}`

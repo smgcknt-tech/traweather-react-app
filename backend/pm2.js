@@ -15,6 +15,6 @@ cron.schedule('* * 17 * * *', async () => {
         console.error(err.message);
         console.log("failed in executing all api");
     })
-})();
+});
 
 app.listen(8000);

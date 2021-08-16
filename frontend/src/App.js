@@ -1,10 +1,10 @@
 import "./styles/destyle.css"
 import "./styles/App.scss";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import TopPage from "./views/TopPage";
-import ResearchPage from "./views/ResearchPage";
-import NotFoundPage from "./views/NotFoundPage";
-import ResearchResultPage from "./views/ResearchResultPage";
+import TopPage from "./pages/TopPage";
+import ResearchPage from "./pages/ResearchPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ResearchResultPage from "./pages/ResearchResultPage";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";

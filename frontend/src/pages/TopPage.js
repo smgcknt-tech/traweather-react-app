@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
-
+import Ticker from '../components/widgets/Ticker';
 
 export default function TopPage() {
     const [loading, setLoading] = useState(false);
@@ -26,6 +26,7 @@ export default function TopPage() {
                 : error ? (<Message variant="error">{error}</Message>)
                     : (
                         <div>
+                            <Ticker />
                         </div>
                     )}
         </div>
