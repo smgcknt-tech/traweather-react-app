@@ -26,9 +26,9 @@ export default function SearchBar(props) {
         history.push(`/research/${code}`)
     }
     return (
-        <div className="row center search">
+        <div className="search">
             <div>
-                <div className="row search_inputs">
+                <div className="search_inputs">
                     <input type="text" placeholder="証券番号を半角で入力してください" value={inputValue} onChange={handleFilter} />
                     <span className="search_icon"> <i className="fas fa-search"></i></span>
                 </div>

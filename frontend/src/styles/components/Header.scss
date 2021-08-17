@@ -7,6 +7,9 @@ header {
   background-image: linear-gradient(132.6deg, #478bd6 23.3%, #25d8d3 84.7%);
 
   .header {
+    @include row();
+    @include space_between();
+
     .left_menu > * {
       padding: 0 1rem;
     }
@@ -17,12 +20,14 @@ header {
     }
 
     .left_menu {
+      @include row();
       .logo {
         font-size: 3rem;
         transform: rotate(30deg);
       }
 
       .logo_title {
+        padding-left: 1rem;
         font-size: 3rem;
         color: #fff;
       }
@@ -30,6 +35,10 @@ header {
       .catch_copy {
         font-size: 2rem;
       }
+    }
+
+    .right_menu {
+      @include row();
     }
   }
 }
