@@ -9,10 +9,10 @@ export default function SearchBar(props) {
     const { stockList } = props;
     const handleFilter = (event) => {
         const searchWord = event.target.value;
-        setInputValue(searchWord);
         const newFilter = stockList.filter((stock) => {
             return stock.code.includes(searchWord);
         });
+        setInputValue(searchWord);
         if (searchWord === "") {
             setFilteredData([]);
         } else {

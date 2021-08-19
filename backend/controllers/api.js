@@ -11,7 +11,6 @@ export const api = {
                 res.json(data)
             }).catch((err) => {
                 console.error(err.message)
-                throw new Error("sql error : get_latest_stock ");
             })
     },
     fetch_one_latest_stock: (req, res) => {
@@ -21,7 +20,6 @@ export const api = {
                 res.send(data[0])
             }).catch((err) => {
                 console.log(err.message)
-                throw new Error("sql error : get_latest_stock ");
             })
     },
     upsert_latest_stock_table: async () => {
@@ -31,11 +29,9 @@ export const api = {
                 .then((res) => { console.log(res) })
                 .catch((err) => {
                     console.log(err.message)
-                    throw new Error("csv_stream failed")
                 })
             return `${helper.now()}: "upsert_latest_stock_table" is requested`
         } catch (err) {
-            console.log(err.message)
             throw new Error(`${helper.now()}: upsert_latest_stock_table failed`)
         }
     }

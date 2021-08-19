@@ -25,7 +25,6 @@
     "iconv-lite": "^0.4.24",
     "moment": "^2.29.1",
     "node-cron": "^3.0.0",
-    "node-fetch": "^2.6.1",
     "papaparse": "^5.3.1",
     "pg": "^8.7.1",
     "pg-format": "^1.0.4",

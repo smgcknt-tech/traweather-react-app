@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const hooks = {
+export const hook = {
     useFetchData: (url) => {
         const [loading, setLoading] = useState(false);
         const [error, setError] = useState(false);
