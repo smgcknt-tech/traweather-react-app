@@ -1,0 +1,49 @@
+@import "../variables.scss";
+
+.plan_edit_page {
+  @include row();
+  @include center();
+
+  .story_table_edit_form > fieldset,button {
+    margin: 1rem 0;
+  }
+
+  .story_table_edit_form {
+    margin: 3rem 0;
+    width: 50%;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.2rem;
+    box-shadow: 0 0 0.3rem #b4b4b4;
+
+    fieldset {
+      border: #bdbdbd solid 0.01rem;
+
+      legend {
+        color: #7a7878;
+
+        input {
+          width: 100%;
+          
+          display: block;
+        }
+      }
+    }
+    .button {
+        @include row();
+        @include center();
+        button {
+            @include place_center();
+            color:#fff;
+            font-size:2rem;
+            font-weight:bold;
+            width:30%;
+            height:4rem;
+            border-radius:2rem;
+            background-color:#EE6272;
+            box-shadow: 0 0 0.3rem #b4b4b4;
+        }
+    }
+
+  }
+}

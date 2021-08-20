@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import "../styles/components/StoryTable.scss"
 
 export default function StoryTable() {
@@ -6,13 +7,13 @@ export default function StoryTable() {
         <div className="story_table">
             <table>
                 <thead>
-                    <th>T</th>
-                    <th>M</th>
-                    <th>N</th>
-                    <th>O</th>
-                    <th>S</th>
-                    <th>L</th>
-                    <th>R</th>
+                    <th>証券コード</th>
+                    <th>市場</th>
+                    <th>銘柄名</th>
+                    <th>始値</th>
+                    <th>支持線</th>
+                    <th>仕切値</th>
+                    <th>目標値</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -23,8 +24,8 @@ export default function StoryTable() {
                         <td data-label="opening">680</td>
                         <td data-label="support">670</td>
                         <td data-label="loss_cut">660</td>
-                        <td data-label="ressistance">700</td>
-                        <td data-label="action">編集</td>
+                        <td data-label="goal">700</td>
+                        <td ><Link className="edit_button" to="/plan/edit">編集</Link></td>
                     </tr>
                 </tbody>
             </table>
