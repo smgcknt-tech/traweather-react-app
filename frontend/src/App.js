@@ -8,6 +8,7 @@ import ResearchResultPage from "./pages/ResearchResultPage";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import PlanPage from "./pages/PlanPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <main>
           <Switch>
             <Route path="/" component={TopPage} exact />
+            <Route path="/plan" component={PlanPage} exact />
             <Route path="/research/:code" component={ResearchResultPage} exact />
             <Route path="/research" component={ResearchPage} exact />
             <Route path="*" component={NotFoundPage} exact />

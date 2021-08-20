@@ -1,0 +1,12 @@
+@import "../variables.scss";
+
+.plan_page {
+  @include row();
+  @include top();
+  .left_side {
+    @include col_2();
+  }
+  .right_side {
+    @include col_1();
+  }
+}
