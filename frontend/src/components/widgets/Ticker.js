@@ -18,16 +18,8 @@ export default function Profile(props) {
                     "proName": "OSE:NK2251!"
                 },
                 {
-                    "description": "ダウ平均",
-                    "proName": "TVC:DJI"
-                },
-                {
-                    "description": "ナスダック",
-                    "proName": "NASDAQ:IXIC"
-                },
-                {
-                    "description": "SOX",
-                    "proName": "NASDAQ:SOX"
+                    "description": "USD/JPY",
+                    "proName": "FX:USDJPY"
                 },
                 {
                     "description": "BTC",
