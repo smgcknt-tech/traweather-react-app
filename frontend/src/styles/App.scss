@@ -79,5 +79,9 @@ html {
       border-color: initial;
       border-image: initial;
     }
+
+    textarea {
+      resize: vertical;
+    }
   }
 }

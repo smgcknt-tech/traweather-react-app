@@ -32,3 +32,9 @@ CREATE TABLE latest_stock_data(
 );
 
 COPY latest_stock_data FROM '${file_path}' WITH DELIMITER',' CSV HEADER;
+
+CREATE TABLE plan (
+    code varchar(100),
+    
+
+)

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import '../styles/pages/PlanEditPage.scss'
 
 export default function PlanEditPage() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         console.log(data);
     }
@@ -13,41 +13,44 @@ export default function PlanEditPage() {
                 <div>編集フォーム</div>
                 <fieldset>
                     <legend>証券コード</legend>
-                    <label><input type="text" placeholder="" ref={register("tciker",)} /></label>
+                    <label>
+                        <input {...register("ticker", { required: "※入力必須" })} />
+                    </label>
                 </fieldset>
+                <span className="error">{errors.ticker?.message}</span>
                 <fieldset>
                     <legend>市場</legend>
-                    <label><input type="text" placeholder="" ref={register("market",)} /></label>
+                    <label><input type="text" placeholder="" /></label>
                 </fieldset>
                 <fieldset>
                     <legend>銘柄名</legend>
-                    <label><input type="text" placeholder="" ref={register("name",)} /></label>
+                    <label><input type="text" placeholder="" /></label>
                 </fieldset>
                 <fieldset>
                     <legend>始値</legend>
-                    <label><input type="text" placeholder="" ref={register("opening",)} /></label>
+                    <label><input type="text" placeholder="" /></label>
                 </fieldset>
                 <fieldset>
                     <legend>支持線</legend>
-                    <label><input type="text" placeholder="" ref={register("support",)} /></label>
+                    <label><input type="text" placeholder="" /></label>
                 </fieldset>
                 <fieldset>
                     <legend>損切</legend>
-                    <label><input type="text" placeholder="" ref={register("loss_cut",)} /></label>
+                    <label><input type="text" placeholder="" /></label>
                 </fieldset>
                 <fieldset>
                     <legend>目標値</legend>
-                    <label><input type="text" placeholder="" ref={register("goal",)} /></label>
+                    <label><input type="text" placeholder="" /></label>
                 </fieldset>
                 <fieldset>
                     <legend>理由</legend>
-                    <label><input type="text" placeholder="" ref={register("reason",)} /></label>
+                    <label><textarea type="text" placeholder=""></textarea></label>
                 </fieldset>
                 <fieldset>
                     <legend>戦略</legend>
-                    <label><input type="text" placeholder="" ref={register("strategy",)} /></label>
+                    <label><textarea type="text" placeholder=""></textarea></label>
                 </fieldset>
-                <div className="button"><button type="submit">送信</button></div>
+                <div className="button"><input type="submit" value="送信" /></div>
             </form>
 
         </div>

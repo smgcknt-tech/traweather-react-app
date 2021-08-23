@@ -4,7 +4,8 @@
   @include row();
   @include center();
 
-  .story_table_edit_form > fieldset,button {
+  .story_table_edit_form > fieldset,
+  button {
     margin: 1rem 0;
   }
 
@@ -14,36 +15,41 @@
     background-color: #fff;
     padding: 2rem;
     border-radius: 0.2rem;
-    box-shadow: 0 0 0.3rem #b4b4b4;
+    box-shadow: 0 0 0.5rem #b4b4b4;
+
+    .error {
+      padding: 0 1rem;
+      color: #a02020;
+    }
 
     fieldset {
       border: #bdbdbd solid 0.01rem;
+      width: 100%;
 
       legend {
         color: #7a7878;
-
-        input {
-          width: 100%;
-          
-          display: block;
-        }
+      }
+      //do not put 'input' in 'legend'
+      textarea,
+      input {
+        display: block;
+        width: 100%;
       }
     }
     .button {
-        @include row();
-        @include center();
-        button {
-            @include place_center();
-            color:#fff;
-            font-size:2rem;
-            font-weight:bold;
-            width:30%;
-            height:4rem;
-            border-radius:2rem;
-            background-color:#EE6272;
-            box-shadow: 0 0 0.3rem #b4b4b4;
-        }
+      @include row();
+      @include center();
+      input {
+        text-align: center;
+        color: #fff;
+        font-size: 2rem;
+        font-weight: bold;
+        width: 30%;
+        height: 4rem;
+        border-radius: 2rem;
+        background-color: #ee6272;
+        box-shadow: 0 0 0.3rem #b4b4b4;
+      }
     }
-
   }
 }
