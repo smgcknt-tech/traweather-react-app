@@ -34,5 +34,14 @@ export const api = {
         } catch (err) {
             throw new Error(`${helper.now()}: upsert_latest_stock_table failed`)
         }
+    },
+    create_plan: async (req, res) => {
+        try {
+            const data = req.body;
+            const results = await sql.insert_plan(data)
+            res.json(results)
+        } catch (err) {
+            console.error(err.message)
+        }
     }
 }

@@ -61,5 +61,18 @@ export const sql = {
                 console.error(err.stack)
             })
         return data
+    },
+    insert_plan:async(form_data)=>{
+        const { code, market, stockname, opening, support, losscut, goal, reason, strategy } = form_data
+        const query =`INSERT INTO plan (code,market,stockname,opening,support,losscut,goal,reason,strategy)
+                      VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9);`
+        const values=[code, market, stockname, opening, support, losscut, goal, reason, strategy];
+        const data = await pool.query(query, values)
+            .then((res) => {
+                return res.rows
+            }).catch((err) => {
+                console.error(err.stack)
+            })
+        return data
     }
 };
