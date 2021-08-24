@@ -3,6 +3,18 @@
 .story_table {
   @include col_2();
   padding: 2rem;
+
+  .add_button{
+    padding:1rem 0;
+    a{
+        transition: 0.3s;
+        &:hover {
+          background-color: #fff;
+          opacity: 0.3;
+          transition: background-color 0.3s;
+        }
+    }
+  }
   table {
     font-size: 1.5rem;
     width: 100%;
@@ -22,6 +34,7 @@
     }
     td {
       background-color: #fff;
+
 
       a.edit_button {
         transition: 0.3s;

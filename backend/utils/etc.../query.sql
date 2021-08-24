@@ -51,3 +51,9 @@ CREATE TABLE plan (
 );
 
 INSERT INTO plan (code,market,stockname,opening,support,losscut,goal,reason,strategy) values($1, $2, $3, $4,$5, $6, $7, $8,$9)
+
+ALTER TABLE plan
+ALTER COLUMN code TYPE text	 USING code::string;
+
+/* command to delete record from table */
+DELETE FROM plan;

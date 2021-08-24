@@ -74,5 +74,15 @@ export const sql = {
                 console.error(err.stack)
             })
         return data
-    }
+    },
+    get_plan: () => {
+        const query = `SELECT * FROM plan`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows
+            }).catch((err) => {
+                console.error(err.stack)
+            })
+        return data;
+    },
 };

@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { CurrentStock } from '../pages/PlanPage'
 import "../styles/components/StoryTable.scss"
 
-export default function StoryTable() {
+export default function StoryTable(props) {
+    const { data } = props
+    const { setStock } = useContext(CurrentStock)
+    const hundleStock = (index) => { setStock(data[index]) }
     return (
         <div className="story_table">
+            <div className="add_button"><Link to={{
+                pathname: '/plan/add',
+            }}>銘柄追加</Link></div>
             <table>
                 <thead>
                     <th>証券コード</th>
@@ -17,16 +24,23 @@ export default function StoryTable() {
                     <th></th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td data-label="ticker">8698</td>
-                        <td data-label="market">東証１部</td>
-                        <td data-label="name">マネックスG</td>
-                        <td data-label="opening">680</td>
-                        <td data-label="support">670</td>
-                        <td data-label="loss_cut">660</td>
-                        <td data-label="goal">700</td>
-                        <td ><Link className="edit_button" to="/plan/edit">編集</Link></td>
-                    </tr>
+                    {data?.map((stock, index) => {
+                        return (
+                            <tr key={index} onClick={() => hundleStock(index)}>
+                                <td data-label="code">{stock.code}</td>
+                                <td data-label="market">{stock.market}</td>
+                                <td data-label="name">{stock.stockname}</td>
+                                <td data-label="opening">{stock.opening}</td>
+                                <td data-label="support">{stock.support}</td>
+                                <td data-label="loss_cut">{stock.losscut}</td>
+                                <td data-label="goal">{stock.goal}</td>
+                                <td ><Link className="edit_button" to={{
+                                    pathname: '/plan/edit',
+                                    props:stock,
+                                }}>編集</Link></td>
+                            </tr>
+                        )
+                    })}
                 </tbody>
             </table>
         </div>

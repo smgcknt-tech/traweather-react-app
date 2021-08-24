@@ -43,5 +43,14 @@ export const api = {
         } catch (err) {
             console.error(err.message)
         }
+    },
+    fetch_plan:(req,res)=>{
+        sql.get_plan()
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
+
     }
 }
