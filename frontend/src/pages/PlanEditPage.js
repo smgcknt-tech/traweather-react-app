@@ -17,7 +17,7 @@ export default function PlanEditPage(props) {
     }
     return (
         <div className="plan_edit_page">
-            {isSubmitted && !errors ? hook.useSetRedirect("データを更新しました", "/plan") : null}
+            {isSubmitted ? hook.useSetRedirect("データを更新しました", "/plan") : null}
             <form className="story_table_edit_form" onSubmit={handleSubmit(onSubmit)}>
                 <div>編集フォーム</div>
                 {obj ? (Object.keys(obj).map((key, index) => {
