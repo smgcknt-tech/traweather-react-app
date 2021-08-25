@@ -3,6 +3,8 @@ import "../styles/components/Message.scss"
 
 export default function Loading(props) {
     return (
-        <div className={`alert alert-${props.variant || 'info'}`}>{props.children}</div>
+        <div className="message">
+            <div className={`alert alert-${props.variant || 'info'}`}>{props.children}</div>
+        </div>
     );
 }
