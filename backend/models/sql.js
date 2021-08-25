@@ -12,8 +12,8 @@ export const sql = {
         return data;
     },
     get_one_latest_stock: (code) => {
-        const query = `SELECT * FROM latest_stock_data WHERE code='${code}';`;
-        const data = pool.query(query)
+        const query = `SELECT * FROM latest_stock_data WHERE code=$1;`;
+        const data = pool.query(query, [code])
             .then((res) => {
                 return res.rows
             }).catch((err) => {
