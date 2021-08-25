@@ -1,6 +1,31 @@
-$h2_font: 2rem;
-
 @mixin place_center {
   display:grid;
   place-items: center;
+}
+
+@mixin row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin center {
+  justify-content: center;
+}
+
+@mixin space_between {
+  justify-content: space-between;
+}
+
+@mixin top {
+  align-items: flex-start;
+}
+
+@mixin col_1 {
+  flex: 1 1 30%;
+}
+
+@mixin col_2 {
+  flex: 1 1 60%;
 }

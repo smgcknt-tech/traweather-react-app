@@ -1,7 +1,10 @@
-"file to take a note of query "
+/* file to take a note of query */
 
+
+/* created datavbase for this app */
 CREATE DATABASE traweather;
 
+/* latest stock data from csv will be inserted into this table */
 CREATE TABLE latest_stock_data(
     code varchar(100),
     stockName varchar(100),
@@ -31,4 +34,26 @@ CREATE TABLE latest_stock_data(
     unique(code)
 );
 
+/*to insert all data from streamed csv data */
 COPY latest_stock_data FROM '${file_path}' WITH DELIMITER',' CSV HEADER;
+
+/* data from PlanEditPage */
+CREATE TABLE plan (
+    code varchar(100),
+    market varchar(100),
+    stockname varchar(100),
+    opening int,
+    support int,
+    losscut int,
+    goal int,
+    reason varchar(3000),
+    strategy varchar(3000)
+);
+
+INSERT INTO plan (code,market,stockname,opening,support,losscut,goal,reason,strategy) values($1, $2, $3, $4,$5, $6, $7, $8,$9)
+
+ALTER TABLE plan
+ALTER COLUMN code TYPE text	 USING code::string;
+
+/* command to delete record from table */
+DELETE FROM plan;

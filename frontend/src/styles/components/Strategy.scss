@@ -1,0 +1,13 @@
+@import "../variables.scss";
+
+.strategy{
+  margin:2.5rem;
+  padding:2rem;
+  height:30rem;
+  background-color:#fff;
+  border-radius:1rem;
+  box-shadow: 0 0 0.3rem #b4b4b4;
+  .content{
+    margin-top:1rem;
+  }
+}

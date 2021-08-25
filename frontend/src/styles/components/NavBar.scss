@@ -1,37 +1,32 @@
 @import "../variables.scss";
 
-nav {
-  background-color: #FFFFFF;
-  box-shadow: 0.2rem 0 0.3rem #B4B4B4;
-}
-
 .nav_bar {
+  background-color: #ffffff;
+  box-shadow: 0.2rem 0 0.3rem #b4b4b4;
+  height: 100%;
+
   ul {
     justify-content: column;
     text-align: center;
-  }
+    li {
+      transition: 0.3s;
+      &:hover {
+        background-color: #fff;
+        opacity: 0.3;
+        transition: background-color 0.3s;
+      }
+      text-decoration: none;
 
-  i {
-    padding: 2rem 0;
-    font-size: 3rem;
-    color: #8B8B8B;
-  }
+      i {
+        padding: 2rem 0;
+        font-size: 3rem;
+        color: #8b8b8b;
+      }
 
-  p {
-    font-size: 1.5rem;
-  }
-
-  a {
-    color:#8B8B8B;
-    text-decoration: none;
-  }
-
-  li {
-    transition: 0.3s;
-    &:hover {
-      background-color: #fff;;
-      opacity: 0.3;
-      transition: background-color 0.3s;
+      p {
+        color: #8b8b8b;
+        font-size: 1.5rem;
+      }
     }
   }
 }

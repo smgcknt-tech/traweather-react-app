@@ -1,6 +1,9 @@
 @import "../variables.scss";
 
-footer {
+.footer {
+  @include row();
+  @include center();
+
   background-image: radial-gradient(
     circle farthest-corner at -4% -12.9%,
     #4a626e 0.3%,

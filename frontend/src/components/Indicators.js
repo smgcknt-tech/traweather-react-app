@@ -21,16 +21,17 @@ export default function Indicators({
     yearhighdate,
     yearlow,
     yearlowdate
-}) {
+})
+{
     [stockdate, yearhighdate, yearlowdate] = helper.format_dates(stockdate, yearhighdate, yearlowdate)
     return (
         <div className="indicators_body">
             <p id="stockDate">データ更新日: {stockdate}</p>
-            <div className="row">
+            <div className="profile">
                 <h2 className="stock_name">{stockname}【{code}】</h2>
                 <h2 className="industry">業種（{industry}）</h2>
             </div>
-            <div className="row indicators">
+            <div className="indicators">
                 <div id="price">
                     <div className="card_value">{price}円</div>
                     <div className="card_title">前日比: {change}円 {changeinpercent}%</div>

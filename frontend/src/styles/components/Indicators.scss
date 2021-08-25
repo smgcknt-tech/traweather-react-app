@@ -1,14 +1,5 @@
 @import "../variables.scss";
 
-.indicators_body {
-  padding: 1rem 3rem;
-
-  .stock_name {
-    margin: 1rem 0;
-  }
-
-}
-
 @mixin indicator_card($back_color, $color) {
   border-radius: 0.5rem;
   margin: 2rem 0 0 3rem;
@@ -31,49 +22,65 @@
     color: #337ab7;
     background-color: F5F5F5;
     @include place_center();
+
+    .span {
+      font-size: 0.5rem;
+    }
+  }
+}
+
+.indicators_body {
+  padding: 1rem 3rem;
+
+  .profile {
+    @include row();
   }
 
-  .span {
-    font-size: 0.5rem;
+  .stock_name {
+    margin: 1rem 0;
   }
-}
 
-#price {
-  @include indicator_card(#337ab7, #fff);
-}
+  .indicators {
+    @include row();
 
-#opening {
-  @include indicator_card(#dff0d8, #3c763d);
-}
+    #price {
+      @include indicator_card(#337ab7, #fff);
+    }
 
-#high {
-  @include indicator_card(#fcf8e3, #8c6f3e);
-}
+    #opening {
+      @include indicator_card(#dff0d8, #3c763d);
+    }
 
-#low {
-  @include indicator_card(#f2dede, #a94442);
-}
+    #high {
+      @include indicator_card(#fcf8e3, #8c6f3e);
+    }
 
-#previous_close {
-  @include indicator_card(#f5f5f5, #333333);
-}
+    #low {
+      @include indicator_card(#f2dede, #a94442);
+    }
 
-#vwap {
-  @include indicator_card(#d9edf7, #31708f);
-}
+    #previous_close {
+      @include indicator_card(#f5f5f5, #333333);
+    }
 
-#volume {
-  @include indicator_card(#5bc0de, #fff);
-}
+    #vwap {
+      @include indicator_card(#d9edf7, #31708f);
+    }
 
-#volume_percent {
-  @include indicator_card(#f0d7ea, #cf7b7b);
-}
+    #volume {
+      @include indicator_card(#5bc0de, #fff);
+    }
 
-#year_high {
-  @include indicator_card(#e2d183, #fff);
-}
+    #volume_percent {
+      @include indicator_card(#f0d7ea, #cf7b7b);
+    }
 
-#year_low {
-  @include indicator_card(#a6ceda, #6a7ea1);
+    #year_high {
+      @include indicator_card(#e2d183, #fff);
+    }
+
+    #year_low {
+      @include indicator_card(#a6ceda, #6a7ea1);
+    }
+  }
 }

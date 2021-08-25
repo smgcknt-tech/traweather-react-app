@@ -1,0 +1,18 @@
+@import "../variables.scss";
+
+.story_chart{
+  margin:2rem;
+  padding:3rem;
+  background-color:#fff;
+  border-radius:1rem;
+  box-shadow: 0 0 0.3rem #b4b4b4;
+  @include row();
+  @include center();
+  .chart_container {
+    width:80rem;
+    height:40rem;
+
+  }
+
+
+}
