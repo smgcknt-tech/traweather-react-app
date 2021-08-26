@@ -7,14 +7,14 @@ export const hook = {
     useFetchData: (url) => {
         const [loading, setLoading] = useState(false);
         const [error, setError] = useState(false);
-        const [data, setData] = useState(null);
+        const [planData, setPlanData] = useState(null);
         useEffect(() => {
             (async () => {
                 try {
                     setLoading(true);
                     const { data } = await axios.get(url);
                     setLoading(false);
-                    setData(data);
+                    setPlanData(data);
                 } catch (err) {
                     setError(err.message)
                     setLoading(false);
@@ -22,7 +22,7 @@ export const hook = {
             })();
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, []);
-        return { data, loading, error };
+        return { planData, loading, error };
     },
     useRedirect: () => {
         const location = useLocation();

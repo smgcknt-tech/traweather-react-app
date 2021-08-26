@@ -11,9 +11,9 @@ import StoryChart from '../components/StoryChart';
 export const CurrentStock = createContext({ stock: "", setStock: () => { } });
 export default function PlanPage() {
     const url = `/api/fetch_plan`
-    const { data, loading, error } = hook.useFetchData(url)
+    const { planData, loading, error } = hook.useFetchData(url)
     const { flash } = hook.useRedirect()
-    const [stock, setStock] = useState()
+    const [stock, setStock] = useState(null)
     const value = { stock, setStock }
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
@@ -22,7 +22,7 @@ export default function PlanPage() {
             {(flash) && (<Flash flash={flash}/>)}
             <div className="plan_page">
                 <div className="left_side">
-                    <StoryTable data={data} />
+                    <StoryTable data={planData} />
                     <StoryChart/>
                 </div>
                 <div className="right_side">
