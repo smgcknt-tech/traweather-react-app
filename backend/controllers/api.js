@@ -1,8 +1,8 @@
 import { sql } from "../models/sql.js";
 import { env } from "../../env_variables.js";
 import { helper } from "../utils/helper.js";
-const kabu_plus_auth = `${env.kabu_plus_user}:${env.kabu_plus_password}@`
-const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus`
+/* const kabu_plus_auth = `${env.kabu_plus_user}:${env.kabu_plus_password}@`
+const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus` */
 
 export const api = {
     fetch_latest_stock: (req, res) => {
@@ -22,7 +22,7 @@ export const api = {
                 console.log(err.message)
             })
     },
-    upsert_latest_stock_table: async () => {
+/*     upsert_latest_stock_table: async () => {
         try {
             const url = `${kabu_plus_url}/csv/japan-all-stock-prices-2/daily/japan-all-stock-prices-2.csv`;
             await helper.csv_stream(url, sql.upsert_latest_stock)
@@ -34,7 +34,7 @@ export const api = {
         } catch (err) {
             throw new Error(`${helper.now()}: upsert_latest_stock_table failed`)
         }
-    },
+    }, */
     create_plan: async (req, res) => {
         try {
             const data = req.body;

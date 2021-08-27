@@ -4,21 +4,13 @@ import { CurrentStock } from '../pages/PlanPage'
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js';
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
-import axios from 'axios';
 Chart.plugins.register([ChartAnnotation]);
 
-export default function StoryChart() {
+export default function StoryChart(props) {
     const { stock } = useContext(CurrentStock)
     const [chartData, setChartData] = useState({})
-    const [latestData, setLatestData] = useState(null)
-    console.log(latestData)
+    const {latestData} = props
     useEffect(() => {
-
-        const fetchData = async () => {
-            const url = `/api/fetch_latest_stock/${stock.code}`
-            const { data } = await axios.get(url);
-            setLatestData(data)
-        }
         const chart = () => {
             setChartData({
                 labels: ["opening", "support", "losscut", "goal"],
@@ -29,15 +21,14 @@ export default function StoryChart() {
                         fill: 'start',
                         backgroundColor: "rgba(54,164,235,0.5)",
                         borderColor: 'rgba(153,102,255,1)',
-                        borderWidth: 5,
-                        tension: 0.3
+                        borderWidth: 2,
+                        tension: 0.1
                     }
                 ]
 
             })
         }
         stock && chart()
-        stock && fetchData();
     }, [stock])
     return (
         <>
@@ -89,7 +80,7 @@ export default function StoryChart() {
                                             xPadding:3,
                                             yPadding: 3,
                                             cornerRadius: 3,
-                                            position: 'center',
+                                            position: 'left',
                                             xAdjust: 0,
                                             yAdjust: 0,
                                             enabled: true,
@@ -143,7 +134,7 @@ export default function StoryChart() {
                                             xPadding: 3,
                                             yPadding: 3,
                                             cornerRadius: 3,
-                                            position: 'right',
+                                            position: 'left',
                                             xAdjust: 0,
                                             yAdjust: 0,
                                             enabled: true,
@@ -170,7 +161,7 @@ export default function StoryChart() {
                                             xPadding: 3,
                                             yPadding: 3,
                                             cornerRadius: 3,
-                                            position: 'left',
+                                            position: 'right',
                                             xAdjust: 0,
                                             yAdjust: 0,
                                             enabled: true,

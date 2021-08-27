@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../styles/components/SearchBar.scss";
-import { useHistory } from "react-router-dom"
+import axios from 'axios';
+import Indicators from './Indicators';
 
-export default function SearchBar(props) {
-    let history = useHistory();
+export default function SearchBar() {
     const [filteredData, setFilteredData] = useState([]);
     const [inputValue, setInputValue] = useState("");
-    const { stockList } = props;
+    const [ stockList, setStockList ] = useState([])
+    const [resultData, setResultData] = useState(null)
+    useEffect(() => {
+        const fetchData = async () => {
+            const url = `/api/fetch_latest_stock`
+            const { data } = await axios.get(url);
+            setStockList(data)
+        }
+        fetchData();
+    }, [setStockList])
     const handleFilter = (event) => {
-        const searchWord = event.target.value;
+        const searchWord = String(event.target.value);
         const newFilter = stockList.filter((stock) => {
-            return stock.code.includes(searchWord);
+            let results;
+            if (stock.code.includes(searchWord) || stock.stockname.includes(searchWord)){
+                results= stock
+            }
+            return results
         });
         setInputValue(searchWord);
         if (searchWord === "") {
@@ -23,13 +36,19 @@ export default function SearchBar(props) {
         const code = event.target.textContent.split(":")[0];
         const selectedStock = event.target.textContent.split(":")[1];
         setInputValue(selectedStock);
-        history.push(`/research/${code}`)
+        setFilteredData([])
+        const fetchData = async () => {
+            const url = `/api/fetch_latest_stock/${code}`
+            const { data } = await axios.get(url);
+            setResultData(data)
+        }
+        fetchData();
     }
     return (
         <div className="search">
-            <div>
+            <div className="search_container">
                 <div className="search_inputs">
-                    <input type="text" placeholder="証券番号を半角で入力してください" value={inputValue} onChange={handleFilter} />
+                    <input type="text" placeholder="証券番号または会社名を入力してください" value={inputValue} onChange={handleFilter} />
                     <span className="search_icon"> <i className="fas fa-search"></i></span>
                 </div>
                 {(filteredData.length !== 0) && (
@@ -40,6 +59,7 @@ export default function SearchBar(props) {
                     </div>
                 )}
             </div>
+            {(resultData) && (<Indicators {...resultData} />)}
         </div>
     )
 }
