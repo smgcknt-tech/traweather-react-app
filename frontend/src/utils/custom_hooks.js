@@ -7,14 +7,14 @@ export const hook = {
     useFetchData: (url) => {
         const [loading, setLoading] = useState(false);
         const [error, setError] = useState(false);
-        const [planData, setPlanData] = useState(null);
+        const [data, setData] = useState(null);
         useEffect(() => {
             (async () => {
                 try {
                     setLoading(true);
                     const { data } = await axios.get(url);
                     setLoading(false);
-                    setPlanData(data);
+                    setData(data);
                 } catch (err) {
                     setError(err.message)
                     setLoading(false);
@@ -22,9 +22,34 @@ export const hook = {
             })();
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, []);
-        return { planData, loading, error };
+        return { data, loading, error };
     },
-    useRedirect: () => {
+    usePostData: (url,payload) => {
+        const [loading, setLoading] = useState(false);
+        const [error, setError] = useState(false);
+        const [results, setResults] = useState(null);
+        useEffect(() => {
+            (async () => {
+                try {
+                    setLoading(true);
+                    const {data} = await axios.post(url,payload).then((res)=>{console.log(res.data)})
+                    setLoading(false);
+                    setResults(data);
+                } catch (err) {
+                    setError(err.message)
+                    setLoading(false);
+                }
+            })();
+        }, [url,payload]);
+        console.log(results)
+        return { results, loading, error };
+    },
+    useCurrentStock:()=>{
+        const [stock, setStock] = useState(null)
+        const value = { stock, setStock }
+        return {CurrentStock,value}
+    },
+    useFlash: () => {
         const location = useLocation();
         const [flash, setFlash] = useState(false);
         useEffect(() => {
@@ -35,17 +60,26 @@ export const hook = {
         window.history.replaceState({}, document.title)
         return {flash}
     },
-    useCurrentStock:()=>{
-        const [stock, setStock] = useState(null)
-        const value = { stock, setStock }
-        return {CurrentStock,value}
-    },
-    useSetRedirect:(message,path)=>{
+    useRedirect:(message,path)=>{
         const hisotry = useHistory()
         hisotry.push({
             pathname: path,
             state: message
         })
-
+    },
+    useSetFlash: (message) => {
+        const location = useLocation();
+        location.state = message
+    },
+    useGetFlash: () => {
+        const location = useLocation();
+        const [flash, setFlash] = useState(false);
+        useEffect(() => {
+            if (location.state) {
+                setFlash(location.state)
+            }
+        }, [location])
+        window.history.replaceState({}, document.title)
+        return { flash }
     }
 };

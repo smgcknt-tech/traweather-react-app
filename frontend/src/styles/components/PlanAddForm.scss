@@ -4,16 +4,15 @@
   @include row();
   @include center();
 
-  .story_table_edit_form > fieldset,
-  button {
-    margin: 1rem 0;
+  .story_table_edit_form > fieldset {
+    margin: 0.8rem 0;
   }
 
   .story_table_edit_form {
-    margin: 3rem 0;
-    width: 50%;
+    margin: 0 0 1rem 0;
+    width: 70%;
     background-color: #fff;
-    padding: 2rem;
+    padding: 1rem 1.5rem;
     border-radius: 0.2rem;
     box-shadow: 0 0 0.5rem #b4b4b4;
 
@@ -45,7 +44,7 @@
         font-size: 2rem;
         font-weight: bold;
         width: 30%;
-        height: 4rem;
+        height: 3rem;
         border-radius: 2rem;
         background-color: #ee6272;
         box-shadow: 0 0 0.3rem #b4b4b4;

@@ -54,7 +54,7 @@ export default function SearchBar() {
                 {(filteredData.length !== 0) && (
                     <div className="data_result">
                         {filteredData.slice(0, 15).map((value, key) => {
-                            return <p key={key} className="data_item" onClick={handleSelect}>{value.code} : {value.stockname}</p>;
+                            return <p key={key} className="data_item" onClick={handleSelect}>{value.code} :{value.stockname}</p>;
                         })}
                     </div>
                 )}

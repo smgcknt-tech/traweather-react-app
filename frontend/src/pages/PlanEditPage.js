@@ -1,4 +1,4 @@
-import '../styles/pages/PlanAddPage.scss'
+import '../styles/components/PlanAddForm.scss'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { hook } from '../utils/custom_hooks';

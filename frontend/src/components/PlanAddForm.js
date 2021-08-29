@@ -1,22 +1,23 @@
-import '../styles/pages/PlanAddPage.scss'
+import '../styles/components/PlanAddForm.scss'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { hook } from '../utils/custom_hooks';
 
-export default function PlanEditPage() {
+export default function PlanAddForm(props) {
     const { register, handleSubmit, formState: { errors, isSubmitted } } = useForm();
     const obj = { code: "", market: "", stockname: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
     const onSubmit = async (data) => {
         try {
             await axios.post('/api/plan', data)
-            console.log(isSubmitted,errors)
+            //if (isSubmitted) {hook.useRedirect("データを更新しました","/plan")}
         } catch (err) {
             console.error(err.message)
+        } finally {
+            props.setOpen(null)
         }
     }
     return (
         <div className="plan_edit_page">
-            {isSubmitted ? hook.useSetRedirect("データを更新しました", "/plan") : null}
             <form className="story_table_edit_form" onSubmit={handleSubmit(onSubmit)}>
                 <div>追加フォーム</div>
                 {(Object.keys(obj).map((key, index) => {

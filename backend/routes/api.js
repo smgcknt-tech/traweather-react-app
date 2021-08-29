@@ -8,3 +8,4 @@ api_router
     .get("/fetch_plan", api.fetch_plan)
 api_router
     .post("/plan", api.create_plan)
+    .post("/update_plan/:code", api.update_plan)

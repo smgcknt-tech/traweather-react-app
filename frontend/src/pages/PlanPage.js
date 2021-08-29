@@ -13,12 +13,17 @@ import axios from 'axios';
 export const CurrentStock = createContext({ stock: "", setStock: () => { } });
 export default function PlanPage() {
     const url = `/api/fetch_plan`
-    const { planData, loading, error } = hook.useFetchData(url)
-    const { flash } = hook.useRedirect()
+    const { data, loading, error } = hook.useFetchData(url)
+    const planData =data;
+    const { flash } = hook.useFlash()
     const [stock, setStock] = useState(null)
-    console.log(stock)
     const [latestData, setLatestData] = useState(null)
     const value = { stock, setStock }
+
+
+
+
+    
     useEffect(() => {
         if(!stock && planData){
             setStock(planData[0])

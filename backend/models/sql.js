@@ -62,7 +62,7 @@ export const sql = {
             })
         return data
     },
-    insert_plan:async(form_data)=>{
+    create_plan:async(form_data)=>{
         const { code, market, stockname, opening, support, losscut, goal, reason, strategy } = form_data
         const query =`INSERT INTO plan (code,market,stockname,opening,support,losscut,goal,reason,strategy)
                       VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9);`
@@ -75,9 +75,24 @@ export const sql = {
             })
         return data
     },
-    get_plan: () => {
+    get_plan:()=>{
         const query = `SELECT * FROM plan`;
         const data = pool.query(query)
+            .then((res) => {
+                return res.rows
+            }).catch((err) => {
+                console.error(err.stack)
+            })
+        return data;
+    },
+    update_plan: async(payload,code) => {
+        const column = Object.keys(payload)[0]
+        const value = payload[column]
+        const query = `UPDATE plan
+                       SET ${column}=$1
+                       WHERE code=${code}
+                       RETURNING *`;
+        const data = await pool.query(query, [value])
             .then((res) => {
                 return res.rows
             }).catch((err) => {
