@@ -1,6 +1,8 @@
-import '../../src/styles/pages/PlanPage.scss'
-import React, { createContext, useEffect, useReducer } from 'react'
+import axios from 'axios';
+import React, {useContext, useEffect } from 'react'
+import { context, actions } from '../stores/PlanPage'
 import { hook } from '../utils/custom_hooks';
+import '../../src/styles/pages/PlanPage.scss'
 import StoryTable from '../components/StoryTable'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
@@ -8,54 +10,31 @@ import Reason from '../components/Reason';
 import Strategy from '../components/Strategy';
 import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
-import axios from 'axios';
-export const CurrentStock = createContext({ stock: "", setStock: () => { } });
-export const PlanReducer = createContext();
+
 export default function PlanPage() {
-    const reducer = (state, action) => {
-        switch (action.type) {
-            case 'SET_ALL_STOCKS':
-                return { ...state, allStocks: action.payload }
-            case 'SET_SELECTED_STOCK':
-                return { ...state, selectedStock: action.payload }
-            case 'SET_INDICATORS':
-                return { ...state, indicators: action.payload }
-            case 'SET_PLAN':
-                return { ...state, planData: action.payload }
-            default:
-                return state
-        }
-    }
-    const [state, dispatch] = useReducer(reducer, {
-        allStocks:[],
-        planData: null,
-        selectedStock: null,
-        indicators: null,
-    })
+    const { state, dispatch } = useContext(context);
     const { selectedStock } = state
-    //console.log(state)
     const { data: planTableData, loading, error } = hook.useFetchData(`/api/fetch_plan`)
     const { data: allStockData, loading: loading2, error: error2 } = hook.useFetchData(`/api/fetch_latest_stock`)
+
     useEffect(() => {
-        const fetchIndicators = async () => {
+        const fetchIndicators = () => {
             axios.get(`/api/fetch_latest_stock/${selectedStock.code}`)
-            .then((res) => {
-                dispatch({ type: 'SET_INDICATORS', payload: res.data });
-            }).catch((err) => {
-                console.error(err.message)
-            })
+                .then((res) => { dispatch({ type: actions.SET_INDICATORS, payload: res.data }); })
+                .catch((err) => { console.error(err.message) })
         }
-        planTableData && dispatch({ type: 'SET_PLAN', payload: planTableData });
-        allStockData && dispatch({ type: 'SET_ALL_STOCKS', payload: allStockData });
-        (!selectedStock && planTableData) && dispatch({ type: 'SET_SELECTED_STOCK', payload: planTableData[0] });
+        planTableData && dispatch({ type: actions.SET_PLAN, payload: planTableData });
+        allStockData && dispatch({ type: actions.SET_ALL_STOCKS, payload: allStockData });
+        (!selectedStock && planTableData) && dispatch({ type: actions.SET_SELECTED_STOCK, payload: planTableData[0] });
         selectedStock && fetchIndicators()
-    }, [selectedStock, planTableData, allStockData])
+    }, [selectedStock, planTableData, allStockData, dispatch])
     if (loading || loading2) return <Loading />
     if (error || error2) return <Message variant="error">{error}</Message>
+
     return (
-        <PlanReducer.Provider value={{ state, dispatch }}>
+        <div className="planPage">
             <SearchBar />
-            <div className="plan_page">
+            <div className="dashboard">
                 <div className="left">
                     <StoryTable />
                     <StoryChart />
@@ -65,6 +44,6 @@ export default function PlanPage() {
                     <Strategy />
                 </div>
             </div>
-        </PlanReducer.Provider>
+        </div>
     )
 }

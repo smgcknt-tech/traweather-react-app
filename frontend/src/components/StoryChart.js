@@ -1,14 +1,13 @@
 import '../styles/components/StoryChart.scss'
 import React, { useEffect, useState, useContext } from 'react'
-import { PlanReducer } from '../pages/PlanPage'
+import { context } from '../stores/PlanPage';
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js';
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
 Chart.plugins.register([ChartAnnotation]);
-
 export default function StoryChart(props) {
-    const { state } = useContext(PlanReducer);
-    const {selectedStock,indicators} = state;
+    const { state } = useContext(context);
+    const { selectedStock, indicators } = state;
     const [chartData, setChartData] = useState({})
     useEffect(() => {
         const chart = () => {
@@ -47,7 +46,7 @@ export default function StoryChart(props) {
                             scales: {
                                 display: false,
                                 ticks: {
-                                    max:Number(indicators.upperrange),
+                                    max: Number(indicators.upperrange),
                                     min: Number(indicators.lowerrange)
                                 },
                                 yAxes: [
@@ -77,7 +76,7 @@ export default function StoryChart(props) {
                                             fontSize: 10,
                                             fontStyle: 'bold',
                                             fontColor: 'rgba(200,60,60,0.8)',
-                                            xPadding:3,
+                                            xPadding: 3,
                                             yPadding: 3,
                                             cornerRadius: 3,
                                             position: 'left',
@@ -170,7 +169,6 @@ export default function StoryChart(props) {
                                     },
                                 ]
                             }
-
                         }} />
                     </div>
                 </div>

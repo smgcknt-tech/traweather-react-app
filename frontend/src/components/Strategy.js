@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import { PlanReducer } from '../pages/PlanPage'
+import { context } from '../stores/PlanPage';
 import '../styles/components/Strategy.scss'
 
 export default function Strategy() {
-    const { state } = useContext(PlanReducer);
+    const { state} = useContext(context);
     const { selectedStock} = state;
     return (
         <>

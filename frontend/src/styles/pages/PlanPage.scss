@@ -1,12 +1,14 @@
 @import "../variables.scss";
 
-.plan_page {
-  @include row();
-  @include top();
-  .left {
-    @include col_2();
-  }
-  .right {
-    @include col_1();
+.planPage {
+  .dashboard {
+    @include row();
+    @include top();
+    .left {
+      @include col_2();
+    }
+    .right {
+      @include col_1();
+    }
   }
 }

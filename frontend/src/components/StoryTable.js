@@ -1,15 +1,15 @@
 import axios from 'axios'
 import React, { useContext, useState } from 'react'
-import { PlanReducer } from '../pages/PlanPage'
 import PlanAddForm from './PlanAddForm'
 import "../styles/components/StoryTable.scss"
+import { context, actions } from '../stores/PlanPage'
 
 export default function StoryTable(props) {
-    const { state, dispatch } = useContext(PlanReducer);
+    const { state, dispatch } = useContext(context);
     const { planData, selectedStock } = state
     const [open, setOpen] = useState(null)
     const hundleStock = (index) => {
-        dispatch({ type: 'SET_SELECTED_STOCK', payload: planData[index]})}
+        dispatch({type: actions.SET_SELECTED_STOCK, payload: planData[index]})}
     const hundleOpen = (form) => {setOpen(form)}
     const handleBlur = (e) => {
         const key = e.target.name

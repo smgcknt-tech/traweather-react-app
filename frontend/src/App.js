@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import PlanPage from "./pages/PlanPage";
-import PlanEditPage from "./pages/PlanEditPage";
+import { PlanProvider } from './stores/PlanPage'
 
 function App() {
   return (
@@ -22,8 +22,7 @@ function App() {
         <main>
           <Switch>
             <Route path="/" component={TopPage} exact />
-            <Route path="/plan" component={PlanPage} exact />
-            <Route path="/plan/edit" component={PlanEditPage} exact />
+            <PlanProvider><Route path="/plan" component={PlanPage} exact /></PlanProvider>
             <Route path="*" component={NotFoundPage} exact />
           </Switch>
         </main>

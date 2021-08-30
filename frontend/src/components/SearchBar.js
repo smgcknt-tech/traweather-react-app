@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import "../styles/components/SearchBar.scss";
 import axios from 'axios';
 import Indicators from './Indicators';
-import { PlanReducer } from '../pages/PlanPage'
+import { context } from '../stores/PlanPage';
 export default function SearchBar() {
-    const { state } = useContext(PlanReducer);
+    const { state} = useContext(context);
     const { allStocks } = state;
     const [filteredData, setFilteredData] = useState([]);
     const [inputValue, setInputValue] = useState("");
