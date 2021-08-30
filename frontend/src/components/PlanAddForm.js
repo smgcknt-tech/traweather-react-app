@@ -1,14 +1,17 @@
 import '../styles/components/PlanAddForm.scss'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { PlanReducer } from '../pages/PlanPage'
+import { useContext } from 'react';
 
 export default function PlanAddForm(props) {
-
+    const {dispatch } = useContext(PlanReducer);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { code: "", market: "", stockname: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
     const onSubmit = (data) => {
         axios.post('/api/plan', data).then((res) => {
-            console.log(res.status)
+            //reducerでdispatchしてplandataを更新
+            dispatch({ type:'SET_PLAN', payload: res.data })
             props.setOpen(null)
         }).catch((err) => {
             console.error(err.message)

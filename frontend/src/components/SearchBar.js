@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import "../styles/components/SearchBar.scss";
 import axios from 'axios';
 import Indicators from './Indicators';
-
+import { PlanReducer } from '../pages/PlanPage'
 export default function SearchBar() {
+    const { state } = useContext(PlanReducer);
+    const { allStocks } = state;
     const [filteredData, setFilteredData] = useState([]);
     const [inputValue, setInputValue] = useState("");
-    const [ stockList, setStockList ] = useState([])
     const [resultData, setResultData] = useState(null)
-    useEffect(() => {
-        let isMounted = true;
-        const fetchData = () => {
-            const url = `/api/fetch_latest_stock`
-            axios.get(url).then((res) => {isMounted && setStockList(res.data)})
-        }
-        fetchData();
-        return () => { isMounted = false };
-    }, [])
-
     const handleFilter = (event) => {
         const searchWord = String(event.target.value);
-        const newFilter = stockList.filter((stock) => {
+        const newFilter = allStocks.filter((stock) => {
             let results;
-            if (stock.code.includes(searchWord) || stock.stockname.includes(searchWord)){
-                results= stock
-            }
+            (stock.code.includes(searchWord) || stock.stockname.includes(searchWord)) ? results = stock : results = null;
             return results
         });
         setInputValue(searchWord);

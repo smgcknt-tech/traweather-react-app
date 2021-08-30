@@ -1,22 +1,22 @@
 import axios from 'axios'
 import React, { useContext, useState } from 'react'
-import { CurrentStock } from '../pages/PlanPage'
+import { PlanReducer } from '../pages/PlanPage'
 import PlanAddForm from './PlanAddForm'
 import "../styles/components/StoryTable.scss"
 
 export default function StoryTable(props) {
-    const { planData} = props
-    
-    const { stock,setStock } = useContext(CurrentStock)
+    const { state, dispatch } = useContext(PlanReducer);
+    const { planData, selectedStock } = state
     const [open, setOpen] = useState(null)
-    const hundleStock = (index) => { setStock(planData[index]) }
+    const hundleStock = (index) => {
+        dispatch({ type: 'SET_SELECTED_STOCK', payload: planData[index]})}
     const hundleOpen = (form) => {setOpen(form)}
     const handleBlur = (e) => {
         const key = e.target.name
         const value = e.target.value
         const payload = {[key]:value}
         const updatePlan = async()=>{
-            const url = `/api/update_plan/${stock.code}`
+            const url = `/api/update_plan/${selectedStock.code}`
             await axios.post(url, payload)
         }
         updatePlan()
@@ -27,7 +27,7 @@ export default function StoryTable(props) {
             <ul className="add_button">
                 <li onClick={() => hundleOpen("add_form")} >銘柄追加</li>
             </ul>
-            {(open === "add_form") && (<PlanAddForm  setOpen={setOpen}/>) }
+            {(open === "add_form") && (<PlanAddForm setOpen={setOpen} />) }
             <table>
                 <thead>
                     <tr>

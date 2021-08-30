@@ -3,10 +3,10 @@
 .plan_page {
   @include row();
   @include top();
-  .left_side {
+  .left {
     @include col_2();
   }
-  .right_side {
+  .right {
     @include col_1();
   }
 }

@@ -38,8 +38,13 @@ export const api = {
     create_plan: async (req, res) => {
         try {
             const data = req.body;
-            const results = await sql.create_plan(data)
-            res.json(results)
+            await sql.create_plan(data)
+            sql.get_plan()
+                .then((data) => {
+                    res.json(data)
+                }).catch((err) => {
+                    console.error(err.message)
+                })
         } catch (err) {
             console.error(err.message)
         }

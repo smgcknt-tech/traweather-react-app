@@ -69,7 +69,7 @@ export const sql = {
         const values=[code, market, stockname, opening, support, losscut, goal, reason, strategy];
         const data = await pool.query(query, values)
             .then((res) => {
-                return res.rows[0]
+                return res.rows
             }).catch((err) => {
                 console.error(err.stack)
             })

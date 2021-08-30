@@ -1,15 +1,15 @@
 import '../styles/components/StoryChart.scss'
 import React, { useEffect, useState, useContext } from 'react'
-import { CurrentStock } from '../pages/PlanPage'
+import { PlanReducer } from '../pages/PlanPage'
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js';
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
 Chart.plugins.register([ChartAnnotation]);
 
 export default function StoryChart(props) {
-    const { stock } = useContext(CurrentStock)
+    const { state } = useContext(PlanReducer);
+    const {selectedStock,indicators} = state;
     const [chartData, setChartData] = useState({})
-    const {latestData} = props
     useEffect(() => {
         const chart = () => {
             setChartData({
@@ -17,7 +17,7 @@ export default function StoryChart(props) {
                 datasets: [
                     {
                         yAxisID: "y-axis-1",
-                        data: [stock.opening, stock.support, stock.losscut, stock.goal],
+                        data: [selectedStock.opening, selectedStock.support, selectedStock.losscut, selectedStock.goal],
                         fill: 'start',
                         backgroundColor: "rgba(54,164,235,0.5)",
                         borderColor: 'rgba(153,102,255,1)',
@@ -28,17 +28,17 @@ export default function StoryChart(props) {
 
             })
         }
-        stock && chart()
-    }, [stock])
+        selectedStock && chart()
+    }, [selectedStock])
     return (
         <>
-            {(stock && latestData) && (
+            {(selectedStock && indicators) && (
                 <div className="story_chart">
                     <div className="chart_container">
                         <Line data={chartData} options={{
                             title: {
                                 display: true,
-                                text: `${latestData.stockdate} : ${latestData.stockname}`
+                                text: `${indicators.stockdate} : ${indicators.stockname}`
                             },
                             legend: {
                                 display: false
@@ -47,8 +47,8 @@ export default function StoryChart(props) {
                             scales: {
                                 display: false,
                                 ticks: {
-                                    max:Number(latestData.upperrange),
-                                    min: Number(latestData.lowerrange)
+                                    max:Number(indicators.upperrange),
+                                    min: Number(indicators.lowerrange)
                                 },
                                 yAxes: [
                                     {
@@ -65,7 +65,7 @@ export default function StoryChart(props) {
                                         scaleID: 'y-axis-1',
                                         drawTime: 'afterDatasetsDraw',
                                         mode: 'horizontal',
-                                        value: latestData.price,
+                                        value: indicators.price,
                                         borderColor: 'black',
                                         borderWidth: 3,
                                         borderDash: [2, 2],
@@ -92,7 +92,7 @@ export default function StoryChart(props) {
                                         scaleID: 'y-axis-1',
                                         drawTime: 'afterDatasetsDraw',
                                         mode: 'horizontal',
-                                        value: Number(latestData.low),
+                                        value: Number(indicators.low),
                                         borderColor: 'black',
                                         borderWidth: 3,
                                         borderDash: [2, 2],
@@ -119,7 +119,7 @@ export default function StoryChart(props) {
                                         scaleID: 'y-axis-1',
                                         drawTime: 'afterDatasetsDraw',
                                         mode: 'horizontal',
-                                        value: Number(latestData.high),
+                                        value: Number(indicators.high),
                                         borderColor: 'black',
                                         borderWidth: 3,
                                         borderDash: [2, 2],
@@ -146,7 +146,7 @@ export default function StoryChart(props) {
                                         scaleID: 'y-axis-1',
                                         drawTime: 'afterDatasetsDraw',
                                         mode: 'horizontal',
-                                        value: Number(latestData.vwap),
+                                        value: Number(indicators.vwap),
                                         borderColor: 'black',
                                         borderWidth: 3,
                                         borderDash: [2, 2],
