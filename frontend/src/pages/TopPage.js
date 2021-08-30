@@ -11,7 +11,7 @@ export default function TopPage() {
     if (error) return <Message variant="error">{error}</Message>
     return (
         <div>
-            <Ticker />
+            <Ticker data={data}/>
         </div>
     )
 }

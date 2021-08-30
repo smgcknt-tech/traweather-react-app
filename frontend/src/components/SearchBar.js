@@ -9,13 +9,15 @@ export default function SearchBar() {
     const [ stockList, setStockList ] = useState([])
     const [resultData, setResultData] = useState(null)
     useEffect(() => {
-        const fetchData = async () => {
+        let isMounted = true;
+        const fetchData = () => {
             const url = `/api/fetch_latest_stock`
-            const { data } = await axios.get(url);
-            setStockList(data)
+            axios.get(url).then((res) => {isMounted && setStockList(res.data)})
         }
         fetchData();
-    }, [setStockList])
+        return () => { isMounted = false };
+    }, [])
+
     const handleFilter = (event) => {
         const searchWord = String(event.target.value);
         const newFilter = stockList.filter((stock) => {
@@ -37,10 +39,9 @@ export default function SearchBar() {
         const selectedStock = event.target.textContent.split(":")[1];
         setInputValue(selectedStock);
         setFilteredData([])
-        const fetchData = async () => {
+        const fetchData = () => {
             const url = `/api/fetch_latest_stock/${code}`
-            const { data } = await axios.get(url);
-            setResultData(data)
+            axios.get(url).then((res) => { setResultData(res.data) })
         }
         fetchData();
     }

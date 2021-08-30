@@ -5,10 +5,11 @@ import PlanAddForm from './PlanAddForm'
 import "../styles/components/StoryTable.scss"
 
 export default function StoryTable(props) {
-    const { data } = props
+    const { planData} = props
+    
     const { stock,setStock } = useContext(CurrentStock)
     const [open, setOpen] = useState(null)
-    const hundleStock = (index) => { setStock(data[index]) }
+    const hundleStock = (index) => { setStock(planData[index]) }
     const hundleOpen = (form) => {setOpen(form)}
     const handleBlur = (e) => {
         const key = e.target.name
@@ -16,21 +17,20 @@ export default function StoryTable(props) {
         const payload = {[key]:value}
         const updatePlan = async()=>{
             const url = `/api/update_plan/${stock.code}`
-            const { data } = await axios.post(url, payload)
-            console.log(data);
+            await axios.post(url, payload)
         }
         updatePlan()
 
     };
-
     return (
         <div className="story_table">
             <ul className="add_button">
                 <li onClick={() => hundleOpen("add_form")} >銘柄追加</li>
             </ul>
-            {(open === "add_form") && (<PlanAddForm setOpen={setOpen}/>) }
+            {(open === "add_form") && (<PlanAddForm  setOpen={setOpen}/>) }
             <table>
                 <thead>
+                    <tr>
                     <th>証券コード</th>
                     <th>市場</th>
                     <th>銘柄名</th>
@@ -38,9 +38,10 @@ export default function StoryTable(props) {
                     <th>支持線</th>
                     <th>仕切値</th>
                     <th>目標値</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    {data?.map((stock, index) => {
+                    {planData?.map((stock, index) => {
                         return (
                             <tr key={index} onClick={() => hundleStock(index)}>
                                 <td data-label="code">{stock.code}</td>

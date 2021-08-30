@@ -1,20 +1,18 @@
 import '../styles/components/PlanAddForm.scss'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
-import { hook } from '../utils/custom_hooks';
 
 export default function PlanAddForm(props) {
-    const { register, handleSubmit, formState: { errors, isSubmitted } } = useForm();
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { code: "", market: "", stockname: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
-    const onSubmit = async (data) => {
-        try {
-            await axios.post('/api/plan', data)
-            //if (isSubmitted) {hook.useRedirect("データを更新しました","/plan")}
-        } catch (err) {
-            console.error(err.message)
-        } finally {
+    const onSubmit = (data) => {
+        axios.post('/api/plan', data).then((res) => {
+            console.log(res.status)
             props.setOpen(null)
-        }
+        }).catch((err) => {
+            console.error(err.message)
+        })
     }
     return (
         <div className="plan_edit_page">
@@ -26,7 +24,7 @@ export default function PlanAddForm(props) {
                             <fieldset key={index}>
                                 <legend>{key}</legend>
                                 <label>
-                                    <input type="text" autocomplete="off"
+                                    <input type="text" autoComplete="off"
                                         {...register(key, { required: `${key}が入力されていません` })} />
                                 </label>
                             </fieldset>
