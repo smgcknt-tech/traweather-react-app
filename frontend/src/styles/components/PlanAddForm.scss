@@ -4,7 +4,7 @@
   @include row();
   @include center();
 
-  .form > fieldset {
+  .form > .each_input {
     margin: 0.8rem 0;
   }
 

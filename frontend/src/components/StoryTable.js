@@ -3,27 +3,33 @@ import React, { useContext, useState } from 'react'
 import PlanAddForm from './PlanAddForm'
 import "../styles/components/StoryTable.scss"
 import { context, actions } from '../stores/PlanPage'
+import { helper } from '../utils/helper'
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(context);
     const { planData, selectedStock } = state
     const [open, setOpen] = useState(null)
     const hundleStock = (index) => {
-        console.log(planData)
         dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[index] })
     }
-    const hundleOpen = (form) => { setOpen(form) }
-    /*     const handleBlur = (e) => {
-            const key = e.target.name
-            const value = e.target.value
-            const payload = {[key]:value}
-            const updatePlan = async()=>{
-                const url = `/api/update_plan/${selectedStock.code}`
-                await axios.post(url, payload)
-            }
-            updatePlan()
 
-        }; */
+    const hundleOpen = (form) => { setOpen(form) }
+
+    const hundleSave = (e, index) => {
+        const td = e.currentTarget.parentNode.querySelectorAll("#start ~ td")
+        const payload = {
+            opening: Number(td[0].querySelector('input').value),
+            support: Number(td[1].querySelector('input').value),
+            losscut: Number(td[2].querySelector('input').value),
+            goal: Number(td[3].querySelector('input').value),
+        }
+        helper.postData(`/api/update_plan/${selectedStock.code}`, dispatch, actions,payload)
+            .then((data) => {
+                dispatch({ type: actions.SET_PLAN, payload: data });
+                dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[index] })
+            })
+    }
+
     return (
         <div className="story_table">
             <ul className="add_button">
@@ -40,6 +46,7 @@ export default function StoryTable() {
                         <th>支持線</th>
                         <th>仕切値</th>
                         <th>目標値</th>
+                        <th>保存</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,11 +55,12 @@ export default function StoryTable() {
                             <tr key={index} onClick={() => hundleStock(index)}>
                                 <td data-label="code">{stock.code}</td>
                                 <td data-label="market">{stock.market}</td>
-                                <td data-label="name">{stock.stockname}</td>
-                                <td data-label="opening" /* onBlur={handleBlur} */><input name="opening" value={stock.opening} /></td>
-                                <td data-label="support"><input value={stock.support} /></td>
-                                <td data-label="loss_cut"><input value={stock.losscut} /></td>
-                                <td data-label="goal"><input value={stock.goal} /></td>
+                                <td data-label="name" id="start" >{stock.stockname}</td>
+                                <td data-label="opening"><input name="opening" defaultValue={stock.opening} /></td>
+                                <td data-label="support"><input defaultValue={stock.support} /></td>
+                                <td data-label="losscut"><input defaultValue={stock.losscut} /></td>
+                                <td data-label="goal"><input defaultValue={stock.goal} /></td>
+                                <td data-label="save" onClick={(e) => hundleSave(e, index)} ><i className="far fa-save"></i></td>
                             </tr>
                         )
                     }) : "データなし"}

@@ -86,18 +86,12 @@ export const sql = {
         return data;
     },
     update_plan: async(payload,code) => {
-        const column = Object.keys(payload)[0]
-        const value = payload[column]
+        const { opening, support, losscut, goal} = payload
         const query = `UPDATE plan
-                       SET ${column}=$1
-                       WHERE code=${code}
-                       RETURNING *`;
-        const data = await pool.query(query, [value])
-            .then((res) => {
-                return res.rows[0]
-            }).catch((err) => {
-                console.error(err.stack)
-            })
+                       SET opening=$1,support=$2,losscut=$3,goal=$4
+                       WHERE code=${code};`
+        await pool.query(query, [opening, support, losscut, goal])
+        const data = await sql.get_plan()
         return data;
     },
 };

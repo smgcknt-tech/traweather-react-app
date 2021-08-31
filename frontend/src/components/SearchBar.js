@@ -22,14 +22,15 @@ export default function SearchBar() {
             setFilteredData(newFilter);
         }
     }
-    const handleSelect = (event) => {
-        const code = event.target.textContent.split(":")[0];
-        const selectedStock = event.target.textContent.split(":")[1];
+    const handleSelect = (e) => {
+        const code = e.target.textContent.split(":")[0];
+        const selectedStock = e.target.textContent.split(":")[1];
         setInputValue(selectedStock);
         setFilteredData([])
         helper.fecthData(`/api/fetch_latest_stock/${code}`, dispatch, actions)
             .then((data) => {
                 dispatch({ type: actions.SET_SEARCH_RESULT, payload: data });
+                
             });
     }
     return (

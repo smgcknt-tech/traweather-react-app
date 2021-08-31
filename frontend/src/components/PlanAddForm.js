@@ -21,16 +21,16 @@ export default function PlanAddForm(props) {
                 <div>追加フォーム</div>
                 {(Object.keys(obj).map((key, index) => {
                     return (
-                        <>
-                            <fieldset key={index}>
+                        <div className="each_input" key= { index }>
+                            <fieldset>
                                 <legend>{key}</legend>
                                 <label>
                                     <input type="text" autoComplete="off" defaultValue=""
                                         {...register(key, { required: `${key}が入力されていません` })} />
                                 </label>
                             </fieldset>
-                            {(errors[key]) ? (<span className="error">{errors[key].message}</span>) : null}
-                        </>
+                            {(errors[key]) ? (<span key={index} className="error">{errors[key].message}</span>) : null}
+                        </div>
                     )
                 }))}
                 <div className="button"><input type="submit" value="保存" /></div>

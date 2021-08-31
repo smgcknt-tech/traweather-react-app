@@ -1,6 +1,15 @@
 @mixin place_center {
-  display:grid;
+  display: grid;
   place-items: center;
+}
+
+@mixin hover {
+  transition: 0.3s;
+  &:hover {
+    background-color: #fff;
+    opacity: 0.3;
+    transition: background-color 0.3s;
+  }
 }
 
 @mixin row {

@@ -6,13 +6,8 @@
 
   .add_button {
     padding: 1rem 0;
-    a {
-      transition: 0.3s;
-      &:hover {
-        background-color: #fff;
-        opacity: 0.3;
-        transition: background-color 0.3s;
-      }
+    li {
+      @include hover();
     }
   }
   table {
@@ -20,33 +15,38 @@
     width: 100%;
     box-shadow: 0 0 0.5rem #b4b4b4;
     border-collapse: collapse;
-
     th,
     td {
       padding: 1.2rem, 0.5rem;
       border: 0.1rem solid #ddd;
       text-align: center;
     }
-
     th {
       background-color: #8b8b8b;
       color: #fff;
     }
-    td {
-      background-color: #fff;
-      input {
-        max-width:5rem;
-        padding: 0;
-        margin: 0;
-      }
+    tbody {
+      tr{
+        [data-label="opening"],
+        [data-label="support"],
+        [data-label="losscut"],
+        [data-label="goal"]{
+          @include hover();
 
-      a.edit_button {
-        transition: 0.3s;
-        &:hover {
-          background-color: #fff;
-          opacity: 0.3;
-          transition: background-color 0.3s;
         }
+        td {
+          background-color: #fff;
+          input {
+            max-width: 5rem;
+            padding: 0;
+            margin: 0;
+          }
+          i{
+            @include hover();
+
+          }
+        }
+
       }
     }
   }
