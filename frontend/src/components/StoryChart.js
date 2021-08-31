@@ -5,7 +5,7 @@ import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js';
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
 Chart.plugins.register([ChartAnnotation]);
-export default function StoryChart(props) {
+export default function StoryChart() {
     const { state } = useContext(context);
     const { selectedStock, indicators } = state;
     const [chartData, setChartData] = useState({})
@@ -31,7 +31,7 @@ export default function StoryChart(props) {
     }, [selectedStock])
     return (
         <>
-            {(selectedStock && indicators) && (
+            {(selectedStock && indicators) ? (
                 <div className="story_chart">
                     <div className="chart_container">
                         <Line data={chartData} options={{
@@ -172,7 +172,7 @@ export default function StoryChart(props) {
                         }} />
                     </div>
                 </div>
-            )}
+            ):"データがありません"}
         </>
     )
 }

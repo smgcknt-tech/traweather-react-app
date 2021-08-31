@@ -1,14 +1,13 @@
 import React, { useContext, useState } from 'react';
+import { context, actions } from '../stores/PlanPage'
 import "../styles/components/SearchBar.scss";
-import axios from 'axios';
 import Indicators from './Indicators';
-import { context } from '../stores/PlanPage';
+import { helper } from '../utils/helper';
 export default function SearchBar() {
-    const { state} = useContext(context);
-    const { allStocks } = state;
+    const { state, dispatch } = useContext(context);
+    const { allStocks, searchResult } = state;
     const [filteredData, setFilteredData] = useState([]);
     const [inputValue, setInputValue] = useState("");
-    const [resultData, setResultData] = useState(null)
     const handleFilter = (event) => {
         const searchWord = String(event.target.value);
         const newFilter = allStocks.filter((stock) => {
@@ -28,11 +27,10 @@ export default function SearchBar() {
         const selectedStock = event.target.textContent.split(":")[1];
         setInputValue(selectedStock);
         setFilteredData([])
-        const fetchData = () => {
-            const url = `/api/fetch_latest_stock/${code}`
-            axios.get(url).then((res) => { setResultData(res.data) })
-        }
-        fetchData();
+        helper.fecthData(`/api/fetch_latest_stock/${code}`, dispatch, actions)
+            .then((data) => {
+                dispatch({ type: actions.SET_SEARCH_RESULT, payload: data });
+            });
     }
     return (
         <div className="search">
@@ -49,7 +47,7 @@ export default function SearchBar() {
                     </div>
                 )}
             </div>
-            {(resultData) && (<Indicators {...resultData} />)}
+            {(searchResult) && (<Indicators />)}
         </div>
     )
 }
