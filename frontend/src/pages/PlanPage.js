@@ -21,11 +21,11 @@ export default function PlanPage() {
             });
         helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)
             .then((data) => { dispatch({ type: actions.SET_ALL_STOCKS, payload: data }); });
-    }, []);
+    }, [dispatch]);
     useEffect(() => {
         selectedStock && helper.fecthData(`/api/fetch_latest_stock/${selectedStock.code}`, dispatch, actions)
             .then((data) => { dispatch({ type: actions.SET_INDICATORS, payload: data }); });
-    }, [selectedStock]);
+    }, [selectedStock, dispatch]);
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>

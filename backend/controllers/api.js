@@ -17,7 +17,7 @@ export const api = {
         const code = req.params.code;
         sql.get_one_latest_stock(code)
             .then((data) => {
-                res.send(data[0])
+                res.send(data)
             }).catch((err) => {
                 console.log(err.message)
             })

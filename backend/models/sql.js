@@ -2,7 +2,7 @@ import format from 'pg-format';
 import { pool } from '../../postgresql.js';
 export const sql = {
     get_latest_stock: () => {
-        const query = `SELECT code, stockname FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' ) ORDER BY code ASC;`;
+        const query = `SELECT code, stockname, market FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' ) ORDER BY code ASC;`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows
@@ -15,7 +15,7 @@ export const sql = {
         const query = `SELECT * FROM latest_stock_data WHERE code=$1;`;
         const data = pool.query(query, [code])
             .then((res) => {
-                return res.rows
+                return res.rows[0]
             }).catch((err) => {
                 console.error(err.stack)
             })
@@ -63,10 +63,11 @@ export const sql = {
         return data
     },
     create_plan:async(form_data)=>{
-        const { code, market, stockname, opening, support, losscut, goal, reason, strategy } = form_data
+        const { code, opening, support, losscut, goal, reason, strategy } = form_data
+        const res = await sql.get_one_latest_stock(code)
         const query =`INSERT INTO plan (code,market,stockname,opening,support,losscut,goal,reason,strategy)
                       VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9);`
-        const values=[code, market, stockname, opening, support, losscut, goal, reason, strategy];
+        const values = [code, res.market, res.stockname, opening, support, losscut, goal, reason, strategy];
         const data = await pool.query(query, values)
             .then((res) => {
                 return res.rows

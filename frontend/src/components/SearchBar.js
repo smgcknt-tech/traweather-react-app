@@ -11,9 +11,7 @@ export default function SearchBar() {
     const handleFilter = (event) => {
         const searchWord = String(event.target.value);
         const newFilter = allStocks.filter((stock) => {
-            let results;
-            (stock.code.includes(searchWord) || stock.stockname.includes(searchWord)) ? results = stock : results = null;
-            return results
+            return (stock.code.includes(searchWord) || stock.stockname.includes(searchWord))
         });
         setInputValue(searchWord);
         if (searchWord === "") {
@@ -22,7 +20,7 @@ export default function SearchBar() {
             setFilteredData(newFilter);
         }
     }
-    const handleSelect = (e) => {
+    const hundleSelect = (e) => {
         const code = e.target.textContent.split(":")[0];
         const selectedStock = e.target.textContent.split(":")[1];
         setInputValue(selectedStock);
@@ -30,20 +28,24 @@ export default function SearchBar() {
         helper.fecthData(`/api/fetch_latest_stock/${code}`, dispatch, actions)
             .then((data) => {
                 dispatch({ type: actions.SET_SEARCH_RESULT, payload: data });
-                
+
             });
+    }
+
+    const hundleClose = () => {
+        dispatch({ type: actions.SET_SEARCH_RESULT, payload: null });
     }
     return (
         <div className="search">
             <div className="search_container">
                 <div className="search_inputs">
                     <input type="text" placeholder="証券番号または会社名を入力してください" value={inputValue} onChange={handleFilter} />
-                    <span className="search_icon"> <i className="fas fa-search"></i></span>
+                    <span className="search_icon">{searchResult ? <i className="fas fa-times" onClick={hundleClose}></i> : <i className="fas fa-search"></i>}</span>
                 </div>
                 {(filteredData.length !== 0) && (
                     <div className="data_result">
                         {filteredData.slice(0, 15).map((value, key) => {
-                            return <p key={key} className="data_item" onClick={handleSelect}>{value.code} :{value.stockname}</p>;
+                            return <p key={key} className="data_item" onClick={hundleSelect}>{value.code} :{value.stockname}</p>;
                         })}
                     </div>
                 )}

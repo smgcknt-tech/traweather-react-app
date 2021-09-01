@@ -1,6 +1,6 @@
 
-import Loading from '../components/Loading';
-import Message from '../components/Message';
+/* import Loading from '../components/Loading';
+import Message from '../components/Message'; */
 import Ticker from '../components/widgets/Ticker';
 
 export default function TopPage() {

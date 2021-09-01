@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useContext, useState } from 'react'
 import PlanAddForm from './PlanAddForm'
 import "../styles/components/StoryTable.scss"
@@ -12,8 +11,6 @@ export default function StoryTable() {
     const hundleStock = (index) => {
         dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[index] })
     }
-
-    const hundleOpen = (form) => { setOpen(form) }
 
     const hundleSave = (e, index) => {
         const td = e.currentTarget.parentNode.querySelectorAll("#start ~ td")
@@ -33,9 +30,9 @@ export default function StoryTable() {
     return (
         <div className="story_table">
             <ul className="add_button">
-                <li onClick={() => hundleOpen("add_form")} >銘柄追加</li>
+                <li onClick={() => { setOpen("add")}} >銘柄追加</li>
             </ul>
-            {(open === "add_form") && (<PlanAddForm setOpen={setOpen} />)}
+            {(open === "add") && (<PlanAddForm setOpen={setOpen} />)}
             <table>
                 <thead>
                     <tr>

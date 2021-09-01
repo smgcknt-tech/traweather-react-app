@@ -7,7 +7,7 @@ import * as ChartAnnotation from 'chartjs-plugin-annotation';
 Chart.plugins.register([ChartAnnotation]);
 export default function StoryChart() {
     const { state } = useContext(context);
-    const { selectedStock, indicators, planData } = state;
+    const { selectedStock, indicators } = state;
     const [chartData, setChartData] = useState({})
     useEffect(() => {
         const chart = () => {
