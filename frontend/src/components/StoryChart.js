@@ -36,7 +36,7 @@ export default function StoryChart() {
                     <Line data={chartData} options={{
                         title: {
                             display: true,
-                            text: `${indicators.stockdate} : ${indicators.stockname}`
+                            text: `${indicators.stockname} (${indicators.market}) [${indicators.industry}]`
                         },
                         legend: {
                             display: false

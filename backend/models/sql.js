@@ -62,10 +62,10 @@ export const sql = {
             })
         return data
     },
-    create_plan:async(form_data)=>{
+    create_plan: async (form_data) => {
         const { code, opening, support, losscut, goal, reason, strategy } = form_data
         const res = await sql.get_one_latest_stock(code)
-        const query =`INSERT INTO plan (code,market,stockname,opening,support,losscut,goal,reason,strategy)
+        const query = `INSERT INTO plan (code,market,stockname,opening,support,losscut,goal,reason,strategy)
                       VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9);`
         const values = [code, res.market, res.stockname, opening, support, losscut, goal, reason, strategy];
         const data = await pool.query(query, values)
@@ -76,7 +76,7 @@ export const sql = {
             })
         return data
     },
-    get_plan:()=>{
+    get_plan: () => {
         const query = `SELECT * FROM plan`;
         const data = pool.query(query)
             .then((res) => {
@@ -86,12 +86,30 @@ export const sql = {
             })
         return data;
     },
-    update_plan: async(payload,code) => {
-        const { opening, support, losscut, goal} = payload
+    update_plan: async (payload, code) => {
+        const { opening, support, losscut, goal } = payload
         const query = `UPDATE plan
                        SET opening=$1,support=$2,losscut=$3,goal=$4
                        WHERE code=${code};`
         await pool.query(query, [opening, support, losscut, goal])
+        const data = await sql.get_plan()
+        return data;
+    },
+    update_plan_reason: async (payload, code) => {
+        const { reason } = payload
+        const query = `UPDATE plan
+        SET reason=$1
+        WHERE code=${code};`
+        await pool.query(query, [reason])
+        const data = await sql.get_plan()
+        return data;
+    },
+    update_plan_strategy: async (payload, code) => {
+        const { strategy } = payload
+        const query = `UPDATE plan
+        SET strategy=$1
+        WHERE code=${code};`
+        await pool.query(query, [strategy])
         const data = await sql.get_plan()
         return data;
     },

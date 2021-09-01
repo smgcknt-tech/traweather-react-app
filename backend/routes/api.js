@@ -9,3 +9,5 @@ api_router
 api_router
     .post("/plan", api.create_plan)
     .post("/update_plan/:code", api.update_plan)
+    .post("/update_plan_reason/:code", api.update_plan_reason)
+    .post("/update_plan_strategy/:code", api.update_plan_strategy)

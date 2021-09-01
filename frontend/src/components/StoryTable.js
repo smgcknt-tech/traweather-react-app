@@ -29,7 +29,7 @@ export default function StoryTable() {
 
     return (
         <div className="story_table">
-            <ul className="add_button">
+            <ul className="menu_button">
                 <li onClick={() => { setOpen("add")}} >銘柄追加</li>
             </ul>
             {(open === "add") && (<PlanAddForm setOpen={setOpen} />)}

@@ -67,6 +67,25 @@ export const api = {
             }).catch((err) => {
                 console.error(err.message)
             })
-
+    },
+    update_plan_reason:(req,res)=>{
+        const code = req.params.code
+        const payload = req.body;
+        sql.update_plan_reason(payload, code)
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
+    },
+    update_plan_strategy: (req, res) => {
+        const code = req.params.code
+        const payload = req.body;
+        sql.update_plan_strategy(payload, code)
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
     }
 }

@@ -4,8 +4,9 @@
   @include col_2();
   padding: 2rem;
 
-  .add_button {
+  .menu_button {
     padding: 1rem 0;
+    @include row();
     li {
       @include hover();
     }
