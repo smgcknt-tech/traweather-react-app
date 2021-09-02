@@ -1,10 +1,8 @@
-import React, { useContext } from 'react'
+
 import "../styles/components/Indicators.scss";
 import { helper } from '../utils/helper';
-import { context } from '../stores/PlanPage'
 
-export default function Indicators() {
-    const { state } = useContext(context);
+export default function Indicators(props) {
     let {
         stockname,
         industry,
@@ -24,7 +22,7 @@ export default function Indicators() {
         yearhighdate,
         yearlow,
         yearlowdate
-    } = state.searchResult;
+    } = props.result;
     [stockdate, yearhighdate, yearlowdate] = helper.format_dates(stockdate, yearhighdate, yearlowdate)
     return (
         <div className="indicators_body">

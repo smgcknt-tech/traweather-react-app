@@ -2,7 +2,7 @@ import format from 'pg-format';
 import { pool } from '../../postgresql.js';
 export const sql = {
     get_latest_stock: () => {
-        const query = `SELECT code, stockname, market FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' ) ORDER BY code ASC;`;
+        const query = `SELECT * FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' );`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows

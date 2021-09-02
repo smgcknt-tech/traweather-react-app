@@ -4,9 +4,8 @@ const initialState = {
     error: false,
     allStocks: null,
     planData: [],
-    selectedStock: {},
-    indicators: {},
-    searchResult:null
+    selectedStock:null,
+    indicators: null,
 }
 export const context = createContext(initialState)
 export const actions = {
@@ -16,7 +15,6 @@ export const actions = {
     SET_SELECTED_STOCK: 'SET_SELECTED_STOCK',
     SET_INDICATORS: 'SET_INDICATORS',
     SET_PLAN: 'SET_PLAN',
-    SET_SEARCH_RESULT: 'SET_SEARCH_RESULT'
 }
 export const PlanProvider = ({ children }) => {
     const [state, dispatch] = useReducer((state, action) => {
@@ -39,9 +37,6 @@ export const PlanProvider = ({ children }) => {
                 return currentState
             case actions.SET_PLAN:
                 currentState.planData = action.payload
-                return currentState
-            case actions.SET_SEARCH_RESULT:
-                currentState.searchResult = action.payload
                 return currentState
             default:
                 throw new Error('no action matched')

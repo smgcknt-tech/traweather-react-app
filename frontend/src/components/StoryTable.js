@@ -47,7 +47,7 @@ export default function StoryTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {planData ? planData.map((stock, index) => {
+                    {planData.length ? planData.map((stock, index) => {
                         return (
                             <tr key={index} onClick={() => hundleStock(index)}>
                                 <td data-label="code">{stock.code}</td>
@@ -60,7 +60,7 @@ export default function StoryTable() {
                                 <td data-label="save" onClick={(e) => hundleSave(e, index)} ><i className="far fa-save"></i></td>
                             </tr>
                         )
-                    }) : "データなし"}
+                    }) : null}
                 </tbody>
             </table>
         </div>

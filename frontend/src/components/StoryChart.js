@@ -11,7 +11,7 @@ export default function StoryChart() {
     const [chartData, setChartData] = useState({})
     useEffect(() => {
         const chart = () => {
-            setChartData({
+            (selectedStock && indicators) && setChartData({
                 labels: ["opening", "support", "losscut", "goal"],
                 datasets: [
                     {
@@ -27,8 +27,8 @@ export default function StoryChart() {
 
             })
         }
-        selectedStock && chart()
-    }, [selectedStock])
+        chart()
+    }, [selectedStock, indicators])
     return (
         <div className="story_chart">
             {(selectedStock && indicators) ? (
