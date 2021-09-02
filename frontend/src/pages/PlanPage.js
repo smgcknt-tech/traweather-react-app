@@ -1,5 +1,5 @@
 import '../../src/styles/pages/PlanPage.scss'
-import React, { useContext, useEffect } from 'react'
+import React, { memo, useContext, useEffect } from 'react'
 import { context, actions } from '../stores/PlanPage'
 import { helper } from '../utils/helper';
 import StoryTable from '../components/StoryTable'
@@ -10,7 +10,7 @@ import Strategy from '../components/Strategy';
 import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
 
-export default function PlanPage() {
+export default memo(function PlanPage() {
     const { state, dispatch } = useContext(context);
     const { selectedStock, allStocks, planData,loading, error } = state
     useEffect(() => {
@@ -53,4 +53,4 @@ export default function PlanPage() {
             </div>
         </div>
     )
-}
+})

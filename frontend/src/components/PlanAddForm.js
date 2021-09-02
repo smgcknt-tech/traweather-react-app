@@ -1,10 +1,10 @@
 import '../styles/components/PlanAddForm.scss'
 import { useForm } from 'react-hook-form'
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { context, actions } from '../stores/PlanPage';
 import { helper } from '../utils/helper';
 
-export default function PlanAddForm(props) {
+export default memo(function PlanAddForm(props) {
     const {dispatch } = useContext(context);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
@@ -39,4 +39,4 @@ export default function PlanAddForm(props) {
             </form>
         </div>
     )
-}
+})

@@ -1,15 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { memo, useCallback, useContext, useState } from 'react';
 import { context } from '../stores/PlanPage'
 import "../styles/components/SearchBar.scss";
 import Indicators from './Indicators';
-export default function SearchBar() {
+export default memo(function SearchBar() {
     const { state} = useContext(context);
     const { allStocks} = state;
     const [filteredData, setFilteredData] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [result, setResult] = useState(null);
 
-    const handleFilter = (event) => {
+    const handleFilter = useCallback((event) => {
         const searchWord = String(event.target.value);
         const newFilter = allStocks.filter((stock) => stock.code.includes(searchWord) || stock.stockname.includes(searchWord));
         setInputValue(searchWord);
@@ -18,13 +18,14 @@ export default function SearchBar() {
         } else {
             setFilteredData(newFilter);
         }
-    }
-    const hundleSelect = (e, code, stockname) => {
+    }, [allStocks])
+
+    const hundleSelect = useCallback((e, code, stockname) => {
         const data = allStocks.filter((stock) => code === stock.code );
         setInputValue(stockname);
         setFilteredData([]);
         setResult(data[0]);
-    }
+    }, [allStocks])
 
     return (
         <div className="search">
@@ -44,4 +45,4 @@ export default function SearchBar() {
             {(result) && (<Indicators result={result} />)}
         </div>
     )
-}
+})

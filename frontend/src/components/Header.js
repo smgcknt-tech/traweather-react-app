@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
 import "../styles/components/Header.scss"
 
-export default function Header() {
+export default memo(function Header() {
     return (
         <div className="header">
             <div className="left_menu">
@@ -15,4 +15,4 @@ export default function Header() {
             </ul>
         </div>
     )
-}
+})

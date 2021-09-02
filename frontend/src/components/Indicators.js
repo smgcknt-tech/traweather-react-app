@@ -1,8 +1,9 @@
 
+import { memo } from "react";
 import "../styles/components/Indicators.scss";
 import { helper } from '../utils/helper';
 
-export default function Indicators(props) {
+export default memo(function Indicators(props) {
     let {
         stockname,
         industry,
@@ -75,4 +76,4 @@ export default function Indicators(props) {
             </div>
         </div>
     )
-}
+})

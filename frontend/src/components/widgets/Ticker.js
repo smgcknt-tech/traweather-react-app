@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 import "../../styles/components/Ticker.scss"
 
-export default function Profile(props) {
+export default memo(function Profile(props) {
     const ref = useRef();
     useEffect(() => {
         const script = document.createElement('script');
@@ -41,4 +41,4 @@ export default function Profile(props) {
             </div>
         </div>
     )
-}
+})

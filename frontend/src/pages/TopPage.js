@@ -1,9 +1,10 @@
 
 /* import Loading from '../components/Loading';
 import Message from '../components/Message'; */
+import { memo } from 'react';
 import Ticker from '../components/widgets/Ticker';
 
-export default function TopPage() {
+export default memo(function TopPage() {
 /*
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message> */
@@ -12,4 +13,4 @@ export default function TopPage() {
             <Ticker/>
         </div>
     )
-}
+})

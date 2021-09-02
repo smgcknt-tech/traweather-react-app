@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { memo, useCallback, useContext, useState } from 'react'
 import PlanAddForm from './PlanAddForm'
 import "../styles/components/StoryTable.scss"
 import { context, actions } from '../stores/PlanPage'
 import { helper } from '../utils/helper'
 
-export default function StoryTable() {
+export default memo(function StoryTable() {
     const { state, dispatch } = useContext(context);
     const { planData, selectedStock } = state
     const [open, setOpen] = useState(null)
@@ -12,7 +12,7 @@ export default function StoryTable() {
         dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[index] })
     }
 
-    const hundleSave = (e, index) => {
+    const hundleSave = useCallback((e, index) => {
         const td = e.currentTarget.parentNode.querySelectorAll("#start ~ td")
         const payload = {
             opening: Number(td[0].querySelector('input').value),
@@ -25,7 +25,7 @@ export default function StoryTable() {
                 dispatch({ type: actions.SET_PLAN, payload: data });
                 dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[index] })
             })
-    }
+    }, [selectedStock])
 
     return (
         <div className="story_table">
@@ -65,4 +65,4 @@ export default function StoryTable() {
             </table>
         </div>
     )
-}
+})
