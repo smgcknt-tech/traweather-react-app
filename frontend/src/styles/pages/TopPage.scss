@@ -1,0 +1,19 @@
+@import "../variables.scss";
+
+.top_page {
+  .menu_list{
+    padding:1rem 3rem 0 3rem;
+
+  }
+
+  .dashboard_row2 {
+    @include row();
+    @include top();
+    .left {
+      @include col_1();
+    }
+    .right {
+      @include col_2();
+    }
+  }
+}
