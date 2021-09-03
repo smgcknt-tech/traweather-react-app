@@ -1,7 +1,7 @@
 import React, {useEffect, useRef } from 'react'
 import "../../styles/components/Ticker.scss"
 
-export default function Profile(props) {
+export default function Ticker(props) {
     const ref = useRef();
     useEffect(() => {
         const script = document.createElement('script');

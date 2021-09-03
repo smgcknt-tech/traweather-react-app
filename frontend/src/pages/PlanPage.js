@@ -1,5 +1,5 @@
 import '../../src/styles/pages/PlanPage.scss'
-import React, { memo, useContext, useEffect } from 'react'
+import React, {useContext, useEffect } from 'react'
 import { context, actions } from '../stores/PlanPage'
 import { helper } from '../utils/helper';
 import StoryTable from '../components/StoryTable'
@@ -34,14 +34,14 @@ export default function PlanPage() {
         if (selectedStock && planData.length && allStocks) {
             const indicators = allStocks.find((stock)=> selectedStock.code === Number(stock.code) )
             dispatch({ type: actions.SET_INDICATORS, payload: indicators });
-            
+
         }
     }, [selectedStock, allStocks, planData]);
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
     return (
-        <div className="planPage">
+        <div className="plan_page">
             <SearchBar />
             <div className="dashboard">
                 <div className="left">
