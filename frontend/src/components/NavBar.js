@@ -1,8 +1,8 @@
-import React, { memo } from 'react'
+import React from 'react'
 import "../styles/components/NavBar.scss"
 import { Link } from 'react-router-dom'
 
-export default memo(function NavBar() {
+export default function NavBar() {
     return (
         <div className="nav_bar">
             <ul　className="nav_menu">
@@ -14,4 +14,4 @@ export default memo(function NavBar() {
             </ul>
         </div>
     )
-})
+}

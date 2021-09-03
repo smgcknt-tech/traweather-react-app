@@ -10,7 +10,7 @@ import Strategy from '../components/Strategy';
 import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
 
-export default memo(function PlanPage() {
+export default function PlanPage() {
     const { state, dispatch } = useContext(context);
     const { selectedStock, allStocks, planData,loading, error } = state
     useEffect(() => {
@@ -24,6 +24,7 @@ export default memo(function PlanPage() {
                     }
                 });
     }, []);
+
     useEffect(() => {
         if (!selectedStock && planData.length && allStocks){
             dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[0] })
@@ -33,6 +34,7 @@ export default memo(function PlanPage() {
         if (selectedStock && planData.length && allStocks) {
             const indicators = allStocks.find((stock)=> selectedStock.code === Number(stock.code) )
             dispatch({ type: actions.SET_INDICATORS, payload: indicators });
+            
         }
     }, [selectedStock, allStocks, planData]);
 
@@ -53,4 +55,4 @@ export default memo(function PlanPage() {
             </div>
         </div>
     )
-})
+}

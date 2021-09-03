@@ -1,38 +1,43 @@
-import React, { memo, useCallback, useContext, useState } from 'react'
-import PlanAddForm from './PlanAddForm'
+import React, { useContext, useRef, useState } from 'react'
 import "../styles/components/StoryTable.scss"
+import PlanAddForm from './PlanAddForm'
 import { context, actions } from '../stores/PlanPage'
 import { helper } from '../utils/helper'
 
-export default memo(function StoryTable() {
+export default function StoryTable() {
     const { state, dispatch } = useContext(context);
-    const { planData, selectedStock } = state
-    const [open, setOpen] = useState(null)
-    const hundleStock = (index) => {
+    const { planData } = state
+    const [open, setOpen] = useState(false)
+    const [show, setShow] = useState(false)
+    const refs = useRef([])
+
+    const handleSelect = (index) => {
+        setShow(`tr_${index}`)
         dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[index] })
     }
 
-    const hundleSave = useCallback((e, index) => {
-        const td = e.currentTarget.parentNode.querySelectorAll("#start ~ td")
+    const handleSubmit = (index) => {
+        const code = refs.current[index].querySelectorAll("td")[0].innerText
+        const input = refs.current[index].querySelectorAll("input")
         const payload = {
-            opening: Number(td[0].querySelector('input').value),
-            support: Number(td[1].querySelector('input').value),
-            losscut: Number(td[2].querySelector('input').value),
-            goal: Number(td[3].querySelector('input').value),
+            opening: input[0].value,
+            support: input[1].value,
+            losscut: input[2].value,
+            goal: input[3].value,
         }
-        helper.postData(`/api/update_plan/${selectedStock.code}`, dispatch, actions,payload)
+        helper.postData(`/api/update_plan/${code}`, dispatch, actions, payload)
             .then((data) => {
                 dispatch({ type: actions.SET_PLAN, payload: data });
                 dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[index] })
             })
-    }, [selectedStock])
+    }
 
     return (
         <div className="story_table">
             <ul className="menu_button">
-                <li onClick={() => { setOpen("add")}} >銘柄追加</li>
+                <li onClick={() => { setOpen("add") }} >銘柄追加</li>
             </ul>
-            {(open === "add") && (<PlanAddForm setOpen={setOpen} />)}
+            {open === "add" && (<PlanAddForm setOpen={setOpen} />)}
             <table>
                 <thead>
                     <tr>
@@ -47,22 +52,22 @@ export default memo(function StoryTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {planData.length ? planData.map((stock, index) => {
+                    {planData?.map((stock, index) => {
                         return (
-                            <tr key={index} onClick={() => hundleStock(index)}>
+                            <tr id={`tr_${index}`} key={index} onClick={() => handleSelect(index)} ref={(el) => { refs.current[index] = el }} >
                                 <td data-label="code">{stock.code}</td>
                                 <td data-label="market">{stock.market}</td>
-                                <td data-label="name" id="start" >{stock.stockname}</td>
-                                <td data-label="opening"><input name="opening" defaultValue={stock.opening} /></td>
-                                <td data-label="support"><input defaultValue={stock.support} /></td>
-                                <td data-label="losscut"><input defaultValue={stock.losscut} /></td>
-                                <td data-label="goal"><input defaultValue={stock.goal} /></td>
-                                <td data-label="save" onClick={(e) => hundleSave(e, index)} ><i className="far fa-save"></i></td>
+                                <td data-label="name">{stock.stockname}</td>
+                                <td data-label="opening"><input key={stock.opening} defaultValue={stock.opening} /></td>
+                                <td data-label="support"><input key={stock.support} defaultValue={stock.support} /></td>
+                                <td data-label="losscut"><input key={stock.losscut} defaultValue={stock.losscut} /></td>
+                                <td data-label="goal"><input key={stock.goal} defaultValue={stock.goal} /></td>
+                                <td data-label="Submit" >{show === `tr_${index}` && <i onClick={() => handleSubmit(index)} className="far fa-save"></i>}</td>
                             </tr>
                         )
-                    }) : null}
+                    })}
                 </tbody>
             </table>
         </div>
     )
-})
+}

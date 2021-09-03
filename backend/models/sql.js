@@ -77,7 +77,7 @@ export const sql = {
         return data
     },
     get_plan: () => {
-        const query = `SELECT * FROM plan`;
+        const query = `SELECT * FROM plan ORDER BY code ASC;`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows
