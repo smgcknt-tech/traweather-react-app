@@ -1,13 +1,24 @@
 @import "../variables.scss";
 
 .plan_page {
+
   .dashboard {
+    margin: 1rem;
     @include row();
     @include top();
+
     .left {
+      margin: 1rem;
+      > * {
+        margin-bottom: 2rem;
+      }
       @include col_2();
     }
     .right {
+      margin: 1rem;
+      > * {
+        margin-bottom: 2rem;
+      }
       @include col_1();
     }
   }

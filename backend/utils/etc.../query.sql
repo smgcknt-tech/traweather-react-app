@@ -57,3 +57,14 @@ ALTER COLUMN code TYPE int USING code::integer;
 
 /* command to delete record from table */
 DELETE FROM plan;
+
+
+CREATE TABLE market_prediction(
+    /*user_id*/
+    id
+    prediction varchar(3000),
+    strategy varchar(3000),
+    featuredsector varchar(3000),
+    created_at
+
+);

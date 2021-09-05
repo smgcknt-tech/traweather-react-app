@@ -7,7 +7,6 @@ export default function Header() {
         <div className="header">
             <div className="left_menu">
                 <Link to="/"><i className="logo fas fa-umbrella"></i><span className="logo_title">traweather</span></Link>
-                <p className="catch_copy">- market prediction and analytics tool for day traders -</p>
             </div>
             <ul className="right_menu">
                 <li>menu</li>

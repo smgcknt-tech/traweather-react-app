@@ -32,9 +32,9 @@
 }
 
 @mixin col_1 {
-  flex: 1 1 30%;
+  flex: 2 1 auto;
 }
 
 @mixin col_2 {
-  flex: 1 1 60%;
+  flex: 1 2 auto;
 }

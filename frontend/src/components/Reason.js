@@ -21,7 +21,8 @@ export default function Reason() {
     }
 
     return (
-        <div className="reason" onBlur={handleSubmit}>
+
+        <div className="reason" onBlur={() => { setOpen(false) }}>
             <h2 className="title">選定理由</h2>
             <div className="content">
                 {selectedStock ? (
@@ -35,5 +36,6 @@ export default function Reason() {
             </div>
             {open && <div className="button"><span onMouseDown={handleSubmit}>保存</span></div>}
         </div>
+
     )
 }

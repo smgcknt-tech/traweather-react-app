@@ -62,7 +62,7 @@ export default function StoryTable() {
                                 <td data-label="support"><input key={stock.support} defaultValue={stock.support} /></td>
                                 <td data-label="losscut"><input key={stock.losscut} defaultValue={stock.losscut} /></td>
                                 <td data-label="goal"><input key={stock.goal} defaultValue={stock.goal} /></td>
-                                <td data-label="Submit" >{show === `tr_${index}` && <i onClick={() => handleSubmit(index)} className="far fa-save"></i>}</td>
+                                <td data-label="Submit" >{show === `tr_${index}` ? <i onClick={() => handleSubmit(index)} className="far fa-save"></i>:"---"}</td>
                             </tr>
                         )
                     })}

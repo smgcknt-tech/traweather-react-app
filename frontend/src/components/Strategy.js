@@ -21,7 +21,7 @@ export default function Strategy() {
     }
 
     return (
-        <div className="strategy" onBlur={handleSubmit}>
+        <div className="strategy" onBlur={() => {setOpen(false)}}>
             <h2 className="title">今日の戦略</h2>
             <div className="content">
                 {selectedStock ?(
