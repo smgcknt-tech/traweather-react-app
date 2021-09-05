@@ -39,8 +39,8 @@
             padding: 0;
             margin: 0;
           }
-          i.fa-save {
-            opacity: 0.8;
+          i {
+            opacity: 0.6;
             @include hover();
           }
         }

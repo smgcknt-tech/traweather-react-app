@@ -32,7 +32,7 @@ export default function PlanPage() {
         if (selectedStock && planData.length){
             return allStocks?.find((stock) => selectedStock.code === Number(stock.code))
         }
-    }, [selectedStock,allStocks])
+    }, [selectedStock,allStocks,planData])
 
     useEffect(() => {
         if (!selectedStock && indicators) {

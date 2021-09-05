@@ -3,6 +3,7 @@ import "../styles/components/StoryTable.scss"
 import PlanAddForm from './PlanAddForm'
 import { context, actions } from '../stores/PlanPage'
 import { helper } from '../utils/helper'
+import axios from 'axios'
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(context);
@@ -14,6 +15,16 @@ export default function StoryTable() {
     const handleSelect = (index) => {
         setShow(`tr_${index}`)
         dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[index] })
+    }
+
+    const handleDelete = (index) => {
+        const code = refs.current[index].querySelectorAll("td")[0].innerText;
+        console.log(code)
+        axios.post('/api/delete_plan', { code: code })
+        .then((data) => {
+            dispatch({ type: actions.SET_PLAN, payload: data });
+            dispatch({ type: actions.SET_SELECTED_STOCK, payload: null })
+        })
     }
 
     const handleSubmit = (index) => {
@@ -49,10 +60,11 @@ export default function StoryTable() {
                         <th>仕切値</th>
                         <th>目標値</th>
                         <th>保存</th>
+                        <th>削除</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {planData?.map((stock, index) => {
+                    {planData.length ? planData.map((stock, index) => {
                         return (
                             <tr id={`tr_${index}`} key={index} onClick={() => handleSelect(index)} ref={(el) => { refs.current[index] = el }} >
                                 <td data-label="code">{stock.code}</td>
@@ -63,9 +75,10 @@ export default function StoryTable() {
                                 <td data-label="losscut"><input key={stock.losscut} defaultValue={stock.losscut} /></td>
                                 <td data-label="goal"><input key={stock.goal} defaultValue={stock.goal} /></td>
                                 <td data-label="Submit" >{show === `tr_${index}` ? <i onClick={() => handleSubmit(index)} className="far fa-save"></i>:"---"}</td>
+                                <td data-label="Delete" >{show === `tr_${index}` ? <i onClick={() => handleDelete(index)} className="fas fa-trash"></i> : "---"}</td>
                             </tr>
                         )
-                    })}
+                    }):null}
                 </tbody>
             </table>
         </div>

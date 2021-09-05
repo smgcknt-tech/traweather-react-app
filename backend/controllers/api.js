@@ -87,5 +87,15 @@ export const api = {
             }).catch((err) => {
                 console.error(err.message)
             })
+    },
+    delete_plan:(req,res)=>{
+        const code = req.body.code
+        console.log(code)
+        sql.delete_plan(code)
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
     }
 }

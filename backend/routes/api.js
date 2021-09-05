@@ -11,3 +11,4 @@ api_router
     .post("/update_plan/:code", api.update_plan)
     .post("/update_plan_reason/:code", api.update_plan_reason)
     .post("/update_plan_strategy/:code", api.update_plan_strategy)
+    .post("/delete_plan", api.delete_plan)

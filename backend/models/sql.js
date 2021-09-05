@@ -113,4 +113,11 @@ export const sql = {
         const data = await sql.get_plan()
         return data;
     },
+    delete_plan:async(code)=>{
+        const query = `DELETE FROM plan WHERE code=${code};`
+        await pool.query(query)
+        const data = await sql.get_plan()
+        return data;
+
+    }
 };
