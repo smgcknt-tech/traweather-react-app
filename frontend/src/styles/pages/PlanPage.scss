@@ -1,9 +1,8 @@
 @import "../variables.scss";
 
 .plan_page {
-
+  margin: 1rem;
   .dashboard {
-    margin: 1rem;
     @include row();
     @include top();
 

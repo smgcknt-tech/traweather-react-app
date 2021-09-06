@@ -1,6 +1,41 @@
 import format from 'pg-format';
 import { pool } from '../../postgresql.js';
 export const sql = {
+    create_prediction: async (form_data) => {
+        const transaction = async () => {
+            try {
+                await pool.query("BEGIN")
+                await pool.query(`INSERT INTO market_prediction (prediction,strategy,featuredsector) VALUES($1, $2, $3);`, [form_data['予想'], form_data['戦略'], form_data['注目セクター']])
+                await pool.query("COMMIT")
+                const res = await pool.query("SELECT * FROM market_prediction;")
+                return res.rows
+            } catch (err) {
+                await pool.query('ROLLBACK')
+            }
+        }
+        const res = await transaction()
+        return res
+    },
+    update_prediction: async (payload,date) => {
+        const column = Object.keys(payload)[0]
+        const value = [payload[column]]
+        const query = `UPDATE market_prediction
+                       SET ${column}=$1
+                       WHERE created_at::text like '${date}%';`
+        await pool.query(query, value)
+        const data = await sql.get_todays_prediction(date)
+        return data;
+    },
+    get_todays_prediction :(date) => {
+        const query = `SELECT * FROM market_prediction WHERE created_at::text like '${date}%';`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows[0]
+            }).catch((err) => {
+                console.error(err.stack)
+            })
+        return data;
+    },
     get_latest_stock: () => {
         const query = `SELECT * FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' );`;
         const data = pool.query(query)
@@ -113,7 +148,7 @@ export const sql = {
         const data = await sql.get_plan()
         return data;
     },
-    delete_plan:async(code)=>{
+    delete_plan: async (code) => {
         const query = `DELETE FROM plan WHERE code=${code};`
         await pool.query(query)
         const data = await sql.get_plan()

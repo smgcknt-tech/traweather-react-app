@@ -9,10 +9,11 @@ import Reason from '../components/Reason';
 import Strategy from '../components/Strategy';
 import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
+import Prediction from '../components/Prediction';
 
 export default function PlanPage() {
     const { state, dispatch } = useContext(context);
-    const { selectedStock, allStocks, planData, loading, error } = state
+    const { selectedStock, allStocks, planData, prediction, loading, error } = state
     useEffect(() => {
         helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)
             .then((data) => { dispatch({ type: actions.SET_ALL_STOCKS, payload: data }); })
@@ -23,9 +24,14 @@ export default function PlanPage() {
                     dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[0] })
                 }
             });
+        helper.fecthData(`/api/fetch_todays_prediction/${helper.get_today()}`, dispatch, actions)
+                    .then((data) => {
+                        dispatch({ type: actions.SET_PREDICTION, payload: data });
+                    });
     }, []);
 
-    const indicators = useMemo(() => {
+
+    const indicatorsData = useMemo(() => {
         if (!selectedStock && planData.length) {
             return allStocks?.find((stock) => planData[0].code === Number(stock.code))
         }
@@ -35,14 +41,14 @@ export default function PlanPage() {
     }, [selectedStock,allStocks,planData])
 
     useEffect(() => {
-        if (!selectedStock && indicators) {
+        if (!selectedStock && indicatorsData) {
             dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[0] })
-            dispatch({ type: actions.SET_INDICATORS, payload: indicators });
+            dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
         }
-        if (selectedStock && indicators) {
-            dispatch({ type: actions.SET_INDICATORS, payload: indicators });
+        if (selectedStock && indicatorsData) {
+            dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
         }
-    }, [indicators]);
+    }, [indicatorsData]);
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
@@ -59,6 +65,7 @@ export default function PlanPage() {
                     <Strategy />
                 </div>
             </div>
+            {prediction && <Prediction/>}
         </div>
     )
 }

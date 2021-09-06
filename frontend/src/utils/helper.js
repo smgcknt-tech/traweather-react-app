@@ -30,7 +30,13 @@ export const helper = {
     },
     format_dates: (a, ...rest) => {
         const arr = [a, ...rest]
-        const dates = arr.map(x => moment(x).format("YYYY/MM/DD"));
+        const dates = arr.map(x => moment(x).format("YYYY-MM-DD"));
         return dates;
+    },
+    get_today: () => {
+        let today = new Date();
+        const date = today.getFullYear() + "0" + (today.getMonth() + 1) + "0" + today.getDate()
+        const result = moment(date).format("YYYY-MM-DD");
+        return result;
     },
 };

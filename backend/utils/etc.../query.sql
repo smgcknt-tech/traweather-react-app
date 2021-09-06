@@ -60,11 +60,9 @@ DELETE FROM plan;
 
 
 CREATE TABLE market_prediction(
-    /*user_id*/
-    id
-    prediction varchar(3000),
-    strategy varchar(3000),
-    featuredsector varchar(3000),
-    created_at
-
+    id SERIAL PRIMARY KEY ,
+    prediction varchar(3000) NOT NULL,
+    strategy varchar(3000) NOT NULL,
+    featuredsector varchar(3000) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

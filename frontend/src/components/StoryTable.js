@@ -3,7 +3,6 @@ import "../styles/components/StoryTable.scss"
 import PlanAddForm from './PlanAddForm'
 import { context, actions } from '../stores/PlanPage'
 import { helper } from '../utils/helper'
-import axios from 'axios'
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(context);
@@ -17,16 +16,6 @@ export default function StoryTable() {
         dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[index] })
     }
 
-    const handleDelete = (index) => {
-        const code = refs.current[index].querySelectorAll("td")[0].innerText;
-        console.log(code)
-        axios.post('/api/delete_plan', { code: code })
-        .then((data) => {
-            dispatch({ type: actions.SET_PLAN, payload: data });
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: null })
-        })
-    }
-
     const handleSubmit = (index) => {
         const code = refs.current[index].querySelectorAll("td")[0].innerText
         const input = refs.current[index].querySelectorAll("input")
@@ -37,12 +26,21 @@ export default function StoryTable() {
             goal: input[3].value,
         }
         helper.postData(`/api/update_plan/${code}`, dispatch, actions, payload)
-            .then((data) => {
-                dispatch({ type: actions.SET_PLAN, payload: data });
-                dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[index] })
-            })
+        .then((data) => {
+            dispatch({ type: actions.SET_PLAN, payload: data });
+            dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[index] })
+        })
     }
 
+    const handleDelete = (index) => {
+        const code = refs.current[index].querySelectorAll("td")[0].innerText;
+        const payload = { code: code }
+        helper.postData('/api/delete_plan', dispatch, actions, payload)
+        .then((data) => {
+            dispatch({ type: actions.SET_PLAN, payload: data });
+            dispatch({ type: actions.SET_SELECTED_STOCK, payload: null })
+        })
+    }
     return (
         <div className="story_table">
             <ul className="menu_button">

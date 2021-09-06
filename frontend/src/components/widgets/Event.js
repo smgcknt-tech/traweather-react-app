@@ -18,6 +18,7 @@ export default function Event(props) {
         })
         ref.current.appendChild(script);
     }, []);
+
     return (
         <div className="event">
             <div className="tradingview-widget-container" ref={ref}>

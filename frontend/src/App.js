@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import PlanPage from "./pages/PlanPage";
+import { TopProvider } from './stores/TopPage'
 import { PlanProvider } from './stores/PlanPage'
 
 function App() {
@@ -21,16 +22,20 @@ function App() {
         </nav>
         <main>
           <Switch>
-            <Route path="/" component={TopPage} exact />
-            <PlanProvider><Route path="/plan" component={PlanPage} exact /></PlanProvider>
-            <Route path="*" component={NotFoundPage} exact />
+            <Route exact path="/">
+              <TopProvider><TopPage /></TopProvider>
+            </Route>
+            <Route exact path="/plan" >
+              <PlanProvider><PlanPage /></PlanProvider>
+            </Route>
+            <Route path="*" component={NotFoundPage} exact ></Route>
           </Switch>
         </main>
         <footer>
           <Footer />
         </footer>
       </div>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 export default App;

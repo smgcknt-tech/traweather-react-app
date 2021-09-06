@@ -1,10 +1,40 @@
 import { sql } from "../models/sql.js";
 import { env } from "../../env_variables.js";
 import { helper } from "../utils/helper.js";
+
 /* const kabu_plus_auth = `${env.kabu_plus_user}:${env.kabu_plus_password}@`
 const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus` */
 
 export const api = {
+    create_prediction: async(req, res) => {
+        const data = req.body;
+        await sql.create_prediction(data)
+        sql.get_plan()
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
+    },
+    update_prediction: async (req, res) => {
+        const payload = req.body;
+        const date = req.params.date;
+        await sql.update_prediction(payload,date)
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
+    },
+    fetch_todays_prediction: (req, res) => {
+        const date = req.params.date
+        sql.get_todays_prediction(date)
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
+    },
     fetch_latest_stock: (req, res) => {
         sql.get_latest_stock()
             .then((data) => {
@@ -36,18 +66,14 @@ export const api = {
             }
         }, */
     create_plan: async (req, res) => {
-        try {
-            const data = req.body;
-            await sql.create_plan(data)
-            sql.get_plan()
-                .then((data) => {
-                    res.json(data)
-                }).catch((err) => {
-                    console.error(err.message)
-                })
-        } catch (err) {
-            console.error(err.message)
-        }
+        const data = req.body;
+        await sql.create_plan(data)
+        sql.get_plan()
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
     },
     fetch_plan: (req, res) => {
         sql.get_plan()
@@ -61,14 +87,14 @@ export const api = {
     update_plan: (req, res) => {
         const code = req.params.code
         const payload = req.body;
-        sql.update_plan(payload,code)
+        sql.update_plan(payload, code)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
                 console.error(err.message)
             })
     },
-    update_plan_reason:(req,res)=>{
+    update_plan_reason: (req, res) => {
         const code = req.params.code
         const payload = req.body;
         sql.update_plan_reason(payload, code)
@@ -88,9 +114,8 @@ export const api = {
                 console.error(err.message)
             })
     },
-    delete_plan:(req,res)=>{
+    delete_plan: (req, res) => {
         const code = req.body.code
-        console.log(code)
         sql.delete_plan(code)
             .then((data) => {
                 res.json(data)

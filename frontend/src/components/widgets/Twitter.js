@@ -10,8 +10,8 @@ export default function Twitter() {
         ref.current.appendChild(script);
     }, []);
     return (
-        <div className="twitter" >
-            <a className="twitter-timeline" data-lang="ja" data-height="400" data-width="100%" href="https://twitter.com/traders_web?ref_src=twsrc%5Etfw" ref={ref}></a>
+        <div className="twitter">
+            <a className="twitter-timeline" data-height="400" data-width="100%" href="https://twitter.com/traders_web?ref_src=twsrc%5Etfw" ref={ref} />
         </div>
     )
 }
