@@ -1,17 +1,17 @@
 @import "../variables.scss";
 
 .search {
-  margin:2rem;
+  margin: 2rem;
   @include row();
   @include center();
 
   .search_container {
-    width:60%;
+    width: 50%;
     .search_inputs {
       @include row();
 
       input {
-        @include col_2(90%);
+        width: 80%;
         height: 6rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         background-color: white;
@@ -28,7 +28,7 @@
       }
 
       .search_icon {
-        @include col_1(3%);
+        width: 10%;
         height: 6rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         border-top-right-radius: 1rem;
@@ -68,6 +68,17 @@
 
       &:hover {
         background-color: lightgrey;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .search {
+    .search_container {
+      width: 100%;
+      .search_icon {
+        width: 30%;
       }
     }
   }
