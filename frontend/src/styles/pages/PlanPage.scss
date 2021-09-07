@@ -11,14 +11,14 @@
       > * {
         margin-bottom: 2rem;
       }
-      @include col_2();
+      @include col_2(60%);
     }
     .right {
       margin: 1rem;
       > * {
         margin-bottom: 2rem;
       }
-      @include col_1();
+      @include col_1(30%);
     }
   }
 }

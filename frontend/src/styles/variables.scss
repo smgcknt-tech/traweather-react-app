@@ -31,10 +31,10 @@
   align-items: flex-start;
 }
 
-@mixin col_1 {
-  flex: 2 1 auto;
+@mixin col_1 ($base_width) {
+  flex: 2 1 $base_width;
 }
 
-@mixin col_2 {
-  flex: 1 2 auto;
+@mixin col_2($base_width) {
+  flex: 1 2 $base_width;
 }

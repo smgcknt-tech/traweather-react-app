@@ -1,7 +1,7 @@
 @import "../variables.scss";
 
 .story_table {
-  @include col_2();
+  @include col_2(60%);
 
   .menu_button {
     padding: 1rem 0;
