@@ -1,7 +1,7 @@
-import React, {useEffect, useRef } from 'react'
+import React, {memo, useEffect, useRef } from 'react'
 import "../../styles/components/Twitter.scss"
 
-export default function Twitter() {
+export default memo(function Twitter() {
     const ref = useRef();
     useEffect(() => {
         const script = document.createElement('script');
@@ -14,4 +14,4 @@ export default function Twitter() {
             <a className="twitter-timeline" data-height="400" data-width="100%" href="https://twitter.com/traders_web?ref_src=twsrc%5Etfw" ref={ref} />
         </div>
     )
-}
+})

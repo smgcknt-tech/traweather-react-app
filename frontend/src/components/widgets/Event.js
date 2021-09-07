@@ -1,7 +1,7 @@
-import React, {useEffect, useRef } from 'react'
+import React, {memo, useEffect, useRef } from 'react'
 import "../../styles/components/Event.scss"
 
-export default function Event(props) {
+export default memo(function Event(props) {
     const ref = useRef();
     useEffect(() => {
         const script = document.createElement('script');
@@ -26,4 +26,4 @@ export default function Event(props) {
             </div>
         </div>
     )
-}
+})

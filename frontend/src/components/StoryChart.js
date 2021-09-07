@@ -13,7 +13,7 @@ export default function StoryChart() {
     useEffect(() => {
         const chart = () => {
             (selectedStock && indicators) && setChartData({
-                labels: ["opening", "support", "losscut", "goal"],
+                labels: ["寄付", "支持", "仕切", "利確"],
                 datasets: [
                     {
                         yAxisID: "y-axis-1",
@@ -175,16 +175,16 @@ export default function StoryChart() {
                     <div className="indicators_table">
                         <table>
                             <tr className="date"><th className="date">{helper.format_dates(indicators.stockdate)}</th></tr>
-                            <tr><th>前日比</th><td>{indicators.change}円 {indicators.changeinpercent}%</td></tr>
-                            <tr><th>始値</th><td>{indicators.opening}</td></tr>
-                            <tr><th>高値</th><td>{indicators.high}</td></tr>
-                            <tr><th>安値</th><td>{indicators.low}</td></tr>
-                            <tr><th>前日終値</th><td>{indicators.previousclose}</td></tr>
-                            <tr><th>VWAP</th><td>{indicators.vwap}</td></tr>
-                            <tr><th>出来高</th><td>{indicators.volume}</td></tr>
-                            <tr><th>出来高増加率</th><td>{indicators.volumeinpercent}</td></tr>
-                            <tr><th>年初来高値</th><td>{indicators.yearhigh}</td></tr>
-                            <tr><th>年初来安値</th><td>{indicators.yearlow}</td></tr>
+                            <tr><th>前日比</th><td>{indicators.change} 円 ({indicators.changeinpercent}%)</td></tr>
+                            <tr><th>始値</th><td>{indicators.opening} 円</td></tr>
+                            <tr><th>高値</th><td>{indicators.high} 円</td></tr>
+                            <tr><th>安値</th><td>{indicators.low} 円</td></tr>
+                            <tr><th>前日終値</th><td>{indicators.previousclose} 円</td></tr>
+                            <tr><th>VWAP</th><td>{indicators.vwap} 円</td></tr>
+                            <tr><th>出来高</th><td>{indicators.volume} 円</td></tr>
+                            <tr><th>出来高増加率</th><td>{indicators.volumeinpercent} 円</td></tr>
+                            <tr><th>年初来高値</th><td>{indicators.yearhigh} 円</td></tr>
+                            <tr><th>年初来安値</th><td>{indicators.yearlow} 円</td></tr>
                         </table>
                     </div>
                 </div>
