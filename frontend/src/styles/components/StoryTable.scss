@@ -10,6 +10,7 @@
       @include hover();
     }
   }
+
   table {
     font-size: 1.5rem;
     width: 100%;
@@ -47,6 +48,25 @@
       }
     }
   }
+
+  .paginationBttns {
+    @include row();
+    @include center();
+    margin:2rem 0;
+    a {
+      padding: 0.1rem 1rem;;
+      margin: 0.8rem;
+      border-radius: 0.2rem;
+      border: 0.1rem solid #8b8b8b;
+      color: #8b8b8b;
+      cursor: pointer;
+
+      &:hover {
+        color:white;
+        background-color:#8b8b8b;
+      }
+    }
+  }
 }
 
 @media (max-width: 500px) {
@@ -58,20 +78,19 @@
     }
     tbody {
       @include row();
-      width:100%;
+      width: 100%;
     }
     tbody > tr {
       margin: 0 1rem 1rem 0;
     }
     tr {
-      width:30%;
-      display:block;
+      width: 30%;
+      display: block;
       td {
         border-bottom: none;
-        height:3rem;
-        display:block;
+        height: 3rem;
+        display: block;
         position: relative;
-        padding-left: 5rem;
         &::before {
           content: attr(data-label);
           position: absolute;

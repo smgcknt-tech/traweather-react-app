@@ -3,6 +3,7 @@ import "../styles/components/StoryTable.scss"
 import PlanAddForm from './PlanAddForm'
 import { context, actions } from '../stores/PlanPage'
 import { helper } from '../utils/helper'
+import ReactPaginate from 'react-paginate';
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(context);
@@ -11,6 +12,29 @@ export default function StoryTable() {
     const [show, setShow] = useState(false)
     const refs = useRef([])
 
+    const [pageNumber, setPageNumber] = useState(0);
+    const rowsPerPage = 5;
+    const pagesVisited = pageNumber * rowsPerPage;
+    const pageCount = Math.ceil(planData.length / rowsPerPage);
+    const displayRows = planData
+        .slice(pagesVisited, pagesVisited + rowsPerPage)
+        .map((stock, index) => {
+            return (
+                <tr id={`tr_${index}`} key={index} onClick={() => handleSelect(index)} ref={(el) => { refs.current[index] = el }} >
+                    <td data-label="code">{stock.code}</td>
+                    <td data-label="market">{stock.market}</td>
+                    <td data-label="name">{stock.stockname}</td>
+                    <td data-label="opening"><input key={stock.opening} defaultValue={stock.opening} /></td>
+                    <td data-label="support"><input key={stock.support} defaultValue={stock.support} /></td>
+                    <td data-label="losscut"><input key={stock.losscut} defaultValue={stock.losscut} /></td>
+                    <td data-label="goal"><input key={stock.goal} defaultValue={stock.goal} /></td>
+                    <td data-label="Submit" >{show === `tr_${index}` ? <i onClick={() => handleSubmit(index)} className="far fa-save"></i> : "---"}</td>
+                    <td data-label="Delete" >{show === `tr_${index}` ? <i onClick={() => handleDelete(index)} className="fas fa-trash"></i> : "---"}</td>
+                </tr>
+            )
+        })
+
+    const changePage = ({selected}) => {setPageNumber(selected);}
     const handleSelect = (index) => {
         setShow(`tr_${index}`)
         dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[index] })
@@ -26,20 +50,20 @@ export default function StoryTable() {
             goal: input[3].value,
         }
         helper.postData(`/api/update_plan/${code}`, dispatch, actions, payload)
-        .then((data) => {
-            dispatch({ type: actions.SET_PLAN, payload: data });
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[index] })
-        })
+            .then((data) => {
+                dispatch({ type: actions.SET_PLAN, payload: data });
+                dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[index] })
+            })
     }
 
     const handleDelete = (index) => {
         const code = refs.current[index].querySelectorAll("td")[0].innerText;
         const payload = { code: code }
         helper.postData('/api/delete_plan', dispatch, actions, payload)
-        .then((data) => {
-            dispatch({ type: actions.SET_PLAN, payload: data });
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: null })
-        })
+            .then((data) => {
+                dispatch({ type: actions.SET_PLAN, payload: data });
+                dispatch({ type: actions.SET_SELECTED_STOCK, payload: null })
+            })
     }
     return (
         <div className="story_table">
@@ -62,23 +86,20 @@ export default function StoryTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {planData.length ? planData.map((stock, index) => {
-                        return (
-                            <tr id={`tr_${index}`} key={index} onClick={() => handleSelect(index)} ref={(el) => { refs.current[index] = el }} >
-                                <td data-label="code">{stock.code}</td>
-                                <td data-label="market">{stock.market}</td>
-                                <td data-label="name">{stock.stockname}</td>
-                                <td data-label="opening"><input key={stock.opening} defaultValue={stock.opening} /></td>
-                                <td data-label="support"><input key={stock.support} defaultValue={stock.support} /></td>
-                                <td data-label="losscut"><input key={stock.losscut} defaultValue={stock.losscut} /></td>
-                                <td data-label="goal"><input key={stock.goal} defaultValue={stock.goal} /></td>
-                                <td data-label="Submit" >{show === `tr_${index}` ? <i onClick={() => handleSubmit(index)} className="far fa-save"></i>:"---"}</td>
-                                <td data-label="Delete" >{show === `tr_${index}` ? <i onClick={() => handleDelete(index)} className="fas fa-trash"></i> : "---"}</td>
-                            </tr>
-                        )
-                    }):null}
+                    {displayRows}
                 </tbody>
             </table>
+            <ReactPaginate
+                previousLabel={"前"}
+                nextLabel={"次"}
+                pageCount={pageCount}
+                onPageChange={changePage}
+                containerClassName={"paginationBttns"}
+                previousLinkClassName={"previousBttn"}
+                nextLinkClassName={"nextBttn"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+            />
         </div>
     )
 }

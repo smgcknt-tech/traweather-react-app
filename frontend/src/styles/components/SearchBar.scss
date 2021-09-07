@@ -6,12 +6,13 @@
   @include center();
 
   .search_container {
-
-
+    width:60%;
     .search_inputs {
       @include row();
 
       input {
+        @include col_2(90%);
+        height: 6rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         background-color: white;
         border: 0;
@@ -20,8 +21,6 @@
         border-bottom-right-radius: 0;
         font-size: 1.8rem;
         padding: 1.5rem;
-        height: 6rem;
-        width: 60rem;
 
         &:focus {
           outline: none;
@@ -29,9 +28,9 @@
       }
 
       .search_icon {
-        box-shadow: 0rem 0 0.2rem #b4b4b4;
+        @include col_1(3%);
         height: 6rem;
-        width: 6rem;
+        box-shadow: 0rem 0 0.2rem #b4b4b4;
         border-top-right-radius: 1rem;
         border-bottom-right-radius: 1rem;
         background-color: #8b8b8b;
