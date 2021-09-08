@@ -27,17 +27,19 @@ export default function StoryTable() {
                     <td data-label="寄付値"><input key={stock.opening} defaultValue={stock.opening} /></td>
                     <td data-label="支持線"><input key={stock.support} defaultValue={stock.support} /></td>
                     <td data-label="仕切値"><input key={stock.losscut} defaultValue={stock.losscut} /></td>
-                    <td data-label="利確値"><input key={stock.goal} defaultValue={stock.goal} /></td>
+                    <td data-label="目標値"><input key={stock.goal} defaultValue={stock.goal} /></td>
                     <td id="submit">{show === `tr_${index}` ? <i onClick={() => handleSubmit(index)} className="far fa-save"></i> : "---"}</td>
                     <td id="delete">{show === `tr_${index}` ? <i onClick={() => handleDelete(index)} className="fas fa-trash"></i> : "---"}</td>
                 </tr>
             )
         })
 
-    const changePage = ({selected}) => {setPageNumber(selected);}
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    }
     const handleSelect = (index) => {
         setShow(`tr_${index}`)
-        dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[index] })
+        dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[pagesVisited + index] })
     }
 
     const handleSubmit = (index) => {
@@ -77,7 +79,7 @@ export default function StoryTable() {
                         <th>証券コード</th>
                         <th>市場</th>
                         <th>銘柄名</th>
-                        <th>始値</th>
+                        <th>寄付値</th>
                         <th>支持線</th>
                         <th>仕切値</th>
                         <th>目標値</th>
@@ -90,15 +92,15 @@ export default function StoryTable() {
                 </tbody>
             </table>
             <ReactPaginate
-                previousLabel={"前"}
-                nextLabel={"次"}
+                previousLabel={"<"}
+                nextLabel={">"}
                 pageCount={pageCount}
                 onPageChange={changePage}
-                containerClassName={"paginationBttns"}
-                previousLinkClassName={"previousBttn"}
-                nextLinkClassName={"nextBttn"}
-                disabledClassName={"paginationDisabled"}
-                activeClassName={"paginationActive"}
+                containerClassName={"pagination_bttns"}
+                previousLinkClassName={"previous_bttn"}
+                nextLinkClassName={"next_bttn"}
+                disabledClassName={"pagination_disabled"}
+                activeClassName={"pagination_active"}
             />
         </div>
     )

@@ -12,7 +12,7 @@
 
   section {
     background-color:#fff;
-    @include col_1(30%);
+    @include col(30%);
     height: 100%;
 
     &:nth-child(2) {

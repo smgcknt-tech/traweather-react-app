@@ -9,30 +9,37 @@
   @include top();
 
   .chart_container {
-    @include col_2(60%);
+    @include col(60%);
     padding-bottom: 2rem;
   }
 
   .indicators_table {
     padding: 0 2rem;
     color:#8B8B8B;
-    @include col_1(30%);
+    @include col(30%);
     table {
       width:100%;
       tr {
         @include row();
         width:100%;
-        border: 0.1rem #dfdcdc solid;
         .date{
           width:100%;
+          color:#8B8B8B;
           text-align: center;
+          border:none;
+          background-color:transparent;
+          padding-bottom:0.5rem;
         }
         th{
           width:50%;
-          padding: 0.2rem;
+          padding: 0.2rem 0 0.2rem 0.5rem;
+          border: 0.1rem #dfdcdc solid;
+          background-color:#8B8B8B;
+          color:#fff;
 
         }
         td {
+          border: 0.1rem #dfdcdc solid;
           width:50%;
           padding: 0.2rem;
           text-align: right;

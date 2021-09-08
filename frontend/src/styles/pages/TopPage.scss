@@ -6,7 +6,7 @@
     margin-bottom: 1rem;
   }
   .dashboard_row2 {
-    @include col_1(30%);
+    @include col(30%);
     @include row();
     @include top();
     .left {
@@ -16,7 +16,7 @@
       }
     }
     .right {
-      @include col_2(60%);
+      @include col(60%);
       margin: 1rem;
       > * {
         margin-bottom: 1rem;

@@ -1,6 +1,7 @@
 import '../../src/styles/pages/PlanPage.scss'
 import React, { useContext, useEffect, useMemo } from 'react'
 import { context, actions } from '../stores/PlanPage'
+import { AppContext, AppActions } from '../stores/App'
 import { helper } from '../utils/helper';
 import StoryTable from '../components/StoryTable'
 import Loading from '../components/Loading';
@@ -10,10 +11,13 @@ import Strategy from '../components/Strategy';
 import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
 import Prediction from '../components/Prediction';
+import LogInPage from './LogInPage';
 
 export default function PlanPage() {
     const { state, dispatch } = useContext(context);
     const { selectedStock, allStocks, planData, prediction, loading, error } = state
+    const { state: AppState } = useContext(AppContext);
+    const { auth } = AppState;
     useEffect(() => {
         helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)
             .then((data) => { dispatch({ type: actions.SET_ALL_STOCKS, payload: data }); })
@@ -25,9 +29,9 @@ export default function PlanPage() {
                 }
             });
         helper.fecthData(`/api/fetch_todays_prediction/${helper.get_today()}`, dispatch, actions)
-                    .then((data) => {
-                        dispatch({ type: actions.SET_PREDICTION, payload: data });
-                    });
+            .then((data) => {
+                dispatch({ type: actions.SET_PREDICTION, payload: data });
+            });
     }, []);
 
 
@@ -35,10 +39,10 @@ export default function PlanPage() {
         if (!selectedStock && planData.length) {
             return allStocks?.find((stock) => planData[0].code === Number(stock.code))
         }
-        if (selectedStock && planData.length){
+        if (selectedStock && planData.length) {
             return allStocks?.find((stock) => selectedStock.code === Number(stock.code))
         }
-    }, [selectedStock,allStocks,planData])
+    }, [selectedStock, allStocks, planData])
 
     useEffect(() => {
         if (!selectedStock && indicatorsData) {
@@ -52,6 +56,7 @@ export default function PlanPage() {
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
+    if (!auth) return <LogInPage />
     return (
         <div className="plan_page">
             <SearchBar />
@@ -65,7 +70,7 @@ export default function PlanPage() {
                     <Strategy />
                 </div>
             </div>
-            {prediction && <Prediction/>}
+            {prediction && <Prediction />}
         </div>
     )
 }

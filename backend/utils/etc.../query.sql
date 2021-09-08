@@ -66,3 +66,11 @@ CREATE TABLE market_prediction(
     featuredsector varchar(3000) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY ,
+    username varchar(100) NOT NULL,
+    password varchar(1000) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP
+);

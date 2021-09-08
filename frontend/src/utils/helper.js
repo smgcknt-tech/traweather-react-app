@@ -1,6 +1,7 @@
 import axios from "axios";
 import moment from "moment"
 
+
 export const helper = {
     fecthData: async (url, dispatch, actions) => {
         dispatch({ type: actions.SET_LOADING, payload: true })
@@ -10,8 +11,15 @@ export const helper = {
                 return res.data
             })
             .catch((err) => {
-                dispatch({ type: actions.SET_ERROR, payload: err.message });
-                dispatch({ type: actions.SET_LOADING, payload: false })
+                if (err.response.data.error) {
+                    const { error } = err.response.data
+                    dispatch({ type: actions.SET_ERROR, payload: error });
+                    dispatch({ type: actions.SET_LOADING, payload: false })
+                } else {
+                    dispatch({ type: actions.SET_ERROR, payload: err.message });
+                    dispatch({ type: actions.SET_LOADING, payload: false });
+                }
+
             })
         return data;
     },

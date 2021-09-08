@@ -1,5 +1,6 @@
 import express from "express"
 import { api } from '../controllers/api.js';
+import { validation_token } from '../JWT.js';
 export const api_router = express.Router()
 
 api_router

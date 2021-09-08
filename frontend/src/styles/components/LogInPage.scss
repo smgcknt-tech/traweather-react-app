@@ -1,0 +1,57 @@
+@import "../variables.scss";
+
+.login_form {
+  @include row();
+  @include center();
+  height: 100%;
+
+  .form {
+    @include row();
+    background-color: #fff;
+    margin: 1.5rem;
+    padding: 2rem;
+    border-radius: 0.2rem;
+    box-shadow: 0 0 0.5rem #b4b4b4;
+
+    > .each_input {
+      width: 100%;
+      padding: 0 2rem;
+    }
+
+    .error {
+      margin: 0 1rem;
+      color: #a02020;
+    }
+
+    fieldset {
+      border: #bdbdbd solid 0.01rem;
+      width: 100%;
+      margin: 1rem 0;
+
+      legend {
+        color: #7a7878;
+      }
+      //do not put 'input' in 'legend'
+      input {
+        width: 100%;
+      }
+    }
+    .button {
+      @include row();
+      @include center();
+      width:100%;
+      margin:1rem;
+      input {
+        text-align: center;
+        color: #fff;
+        font-size: 2rem;
+        font-weight: bold;
+        width: 30%;
+        height: 3rem;
+        border-radius: 1rem;
+        background-color: #ee6272;
+        box-shadow: 0 0 0.3rem #b4b4b4;
+      }
+    }
+  }
+}

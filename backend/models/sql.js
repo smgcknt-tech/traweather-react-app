@@ -1,6 +1,42 @@
 import format from 'pg-format';
 import { pool } from '../../postgresql.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { env } from '../../env_variables.js';
 export const sql = {
+    register_user: async (payload) => {
+        const { username, password } = payload;
+        const res = await bcrypt.hash(password, 5).then(async (hash) => {
+            try {
+                await pool.query("BEGIN")
+                await pool.query(`INSERT INTO users (username,password) VALUES($1, $2);`, [username, hash])
+                await pool.query("COMMIT")
+                const res = await pool.query("SELECT * FROM users;")
+                return res.rows
+            } catch (err) {
+                await pool.query('ROLLBACK')
+            }
+        })
+        return res;
+    },
+    login_user: async (payload) => {
+        const { username, password } = payload;
+        const user = await pool.query(`SELECT * FROM users WHERE username = '${username}'`).then(res => res.rows[0])
+        if (!user) {
+            return { error: "user doesn't exist" }
+        } else {
+            const res = await bcrypt.compare(password, user.password)
+                .then((match) => {
+                    if (!match) {
+                        return { error: "wrong username and password" }
+                    } else {
+                        const access_token = jwt.sign({ username: username, id: user.id }, env.jwt_secret_key)
+                        return access_token
+                    }
+                })
+            return res
+        }
+    },
     create_prediction: async (form_data) => {
         const transaction = async () => {
             try {
@@ -16,7 +52,7 @@ export const sql = {
         const res = await transaction()
         return res
     },
-    update_prediction: async (payload,date) => {
+    update_prediction: async (payload, date) => {
         const column = Object.keys(payload)[0]
         const value = [payload[column]]
         const query = `UPDATE market_prediction
@@ -26,7 +62,7 @@ export const sql = {
         const data = await sql.get_todays_prediction(date)
         return data;
     },
-    get_todays_prediction :(date) => {
+    get_todays_prediction: (date) => {
         const query = `SELECT * FROM market_prediction WHERE created_at::text like '${date}%';`;
         const data = pool.query(query)
             .then((res) => {

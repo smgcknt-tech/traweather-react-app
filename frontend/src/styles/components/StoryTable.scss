@@ -1,7 +1,7 @@
 @import "../variables.scss";
 
 .story_table {
-  @include col_2(60%);
+  @include col(60%);
 
   .menu_button {
     padding: 1rem 0;
@@ -27,10 +27,10 @@
     }
     tbody {
       tr {
-        [data-label="opening"],
-        [data-label="support"],
-        [data-label="losscut"],
-        [data-label="goal"] {
+        [data-label="寄付値"],
+        [data-label="支持線"],
+        [data-label="仕切値"],
+        [data-label="目標値"] {
           @include hover();
         }
         td {
@@ -49,7 +49,7 @@
     }
   }
 
-  .paginationBttns {
+  .pagination_bttns {
     @include row();
     @include center();
     margin: 2rem 0;
@@ -65,6 +65,18 @@
         color: white;
         background-color: #8b8b8b;
       }
+    }
+  }
+  .pagination_active {
+    a {
+      color: white;
+      background-color: #8b8b8b;
+    }
+  }
+
+  .pagination_disabled {
+    a {
+      display: none;
     }
   }
 }
@@ -84,7 +96,7 @@
       tr {
         width: 30%;
         display: block;
-        padding-bottom:1rem;
+        padding: 1rem;
         td {
           position: relative;
           border-bottom: none;
@@ -92,24 +104,21 @@
           display: block;
           text-align: right;
           line-height: 1.5rem;
-          padding:0.5rem 1rem 0 0;
+          padding: 0.5rem 1rem 0 0;
 
           &:before {
             content: attr(data-label);
             position: absolute;
             left: 0;
-            padding-left:1rem;
+            padding-left: 1rem;
             font-size: 1rem;
             font-weight: bold;
           }
         }
         #submit,
-        #delete{
+        #delete {
           text-align: center;
-          background-color: #f5f3f3;
-
         }
-
       }
     }
   }
