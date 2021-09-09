@@ -1,6 +1,6 @@
 import express from 'express';
-import { api_router } from './routes/api.js';
-import { user_router } from './routes/user.js';
+import { api_router } from './routes/apis.js';
+import { user_router } from './routes/users.js';
 import { env } from "../env_variables.js";
 import cors from "cors";
 import cookieParser from 'cookie-parser';

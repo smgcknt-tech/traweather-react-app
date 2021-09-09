@@ -5,10 +5,10 @@ import { AppActions, AppContext } from '../stores/App'
 
 export default function Header() {
     const { state, dispatch } = useContext(AppContext);
-    const { auth,user } = state
+    const { user } = state
     const logout = () => {
         localStorage.removeItem('access_token')
-        dispatch({ type: AppActions.SET_AUTH, payload: false });
+        dispatch({ type: AppActions.SET_USER, payload: {...user, status:false} });
     }
     return (
         <div className="header">
@@ -16,7 +16,7 @@ export default function Header() {
                 <Link to="/"><i className="logo fas fa-umbrella"></i><span className="logo_title">traweather</span></Link>
             </div>
             <ul className="right_menu">
-                {!auth ? (
+                {!user.status ? (
                     <li><Link to="/user/login">login</Link></li>
                 ) : (
                     <>

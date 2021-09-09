@@ -25,10 +25,10 @@
     "express": "^4.17.1",
     "fast-csv": "^4.3.6",
     "iconv-lite": "^0.4.24",
+    "papaparse": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "node-cron": "^3.0.0",
-    "papaparse": "^5.3.1",
     "pg": "^8.7.1",
     "pg-format": "^1.0.4",
     "request": "^2.88.2"

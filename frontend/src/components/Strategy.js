@@ -15,8 +15,8 @@ export default function Strategy() {
         helper.postData(`/api/update_plan_strategy/${selectedStock.code}`, dispatch, actions, payload)
             .then((data) => {
                 dispatch({ type: actions.SET_PLAN, payload: data });
-                const newSelectedStock = data.find((plan) => plan.code === selectedStock.code)
-                dispatch({ type: actions.SET_SELECTED_STOCK, payload: newSelectedStock })
+                const foundSelectedStock = data.find((plan) => plan.code === selectedStock.code)
+                dispatch({ type: actions.SET_SELECTED_STOCK, payload: foundSelectedStock })
             })
     }
 

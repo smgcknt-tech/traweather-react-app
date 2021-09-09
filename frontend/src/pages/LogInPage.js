@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { AppContext, AppActions } from '../stores/App'
 import '../styles/components/LogInPage.scss'
 
 export default function LogInPage() {
-    const { dispatch } = useContext(AppContext);
+    const { state, dispatch } = useContext(AppContext);
+    const { user } = state;
     const { register, handleSubmit, formState: { errors } } = useForm();
     let history = useHistory()
     const onSubmit = async (data) => {
@@ -16,7 +17,7 @@ export default function LogInPage() {
                     alert(response.data.error)
                 } else {
                     localStorage.setItem("access_token", response.data)
-                    dispatch({ type: AppActions.SET_AUTH, payload: true });
+                    dispatch({ type: AppActions.SET_USER, payload: { ...user, status: true } });
                     history.push("/")
                 }
             })
@@ -41,11 +42,11 @@ export default function LogInPage() {
                         <legend>パスワード</legend>
                         <label>
                             <input type="text" autoComplete="off" defaultValue=""
-                                {...register('password', { required: `ユーザー名が入力されていません` })}
+                                {...register('password', { required: `パスワードが入力されていません` })}
                             ></input>
                         </label>
                     </fieldset>
-                    {(errors['psddword']) ? (<span className="error">{errors['psddword'].message}</span>) : null}
+                    {(errors['password']) ? (<span className="error">{errors['password'].message}</span>) : null}
                 </div>
                 <div className="button"><input type="submit" value="保存" /></div>
             </form>

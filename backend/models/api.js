@@ -3,7 +3,7 @@ import { pool } from '../../postgresql.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { env } from '../../env_variables.js';
-export const sql = {
+export const api = {
     register_user: async (payload) => {
         const { username, password } = payload;
         const res = await bcrypt.hash(password, 5).then(async (hash) => {

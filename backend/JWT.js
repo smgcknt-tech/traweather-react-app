@@ -11,7 +11,6 @@ export const validation_token = (req, res, next) => {
         const valid_token = jwt.verify(access_token, env.jwt_secret_key)
         req.user = valid_token
         if (valid_token) {
-            //req.authenticated = true
             return next()
         }
     } catch (err) {

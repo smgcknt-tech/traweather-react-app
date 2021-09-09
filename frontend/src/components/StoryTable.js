@@ -34,7 +34,7 @@ export default function StoryTable() {
             )
         })
 
-    const changePage = ({selected}) => {
+    const changePage = ({ selected }) => {
         setPageNumber(selected);
     }
     const handleSelect = (index) => {

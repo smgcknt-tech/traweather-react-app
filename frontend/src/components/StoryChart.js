@@ -1,10 +1,10 @@
 import '../styles/components/StoryChart.scss'
 import React, { useEffect, useState, useContext } from 'react'
-import { context } from '../stores/PlanPage';
-import { Line } from 'react-chartjs-2';
-import Chart from 'chart.js';
-import * as ChartAnnotation from 'chartjs-plugin-annotation';
 import { helper } from '../utils/helper';
+import { context } from '../stores/PlanPage';
+import Chart from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import * as ChartAnnotation from 'chartjs-plugin-annotation';
 Chart.plugins.register([ChartAnnotation]);
 export default function StoryChart() {
     const { state } = useContext(context);
@@ -53,7 +53,6 @@ export default function StoryChart() {
                                 yAxes: [
                                     {
                                         id: "y-axis-1",
-
                                     },
 
                                 ],

@@ -14,6 +14,7 @@ export default function Prediction() {
     const handleSubmit = (target) => {
         setOpen(false)
         let payload = null;
+        //target name should be same as market_prediction table column.
         target === "prediction" && (payload = { prediction: predictionText.current.value })
         target === "strategy" && (payload = { strategy: strategyText.current.value })
         target === "featuredsector" && (payload = { featuredsector: featuredSetorText.current.value })
@@ -36,9 +37,14 @@ export default function Prediction() {
                                 onFocus={() => { setOpen("prediction") }}
                                 ref={predictionText}
                             >
-                            </textarea>) : "データがありません"}
+                            </textarea>
+                        ) : "データがありません"}
                     </div>
-                    {open === "prediction" && <div className="button"><span onMouseDown={() => { handleSubmit("prediction") }}>保存</span></div>}
+                    {open === "prediction" && (
+                        <div className="button">
+                            <span onMouseDown={() => { handleSubmit("prediction") }}>保存</span>
+                        </div>
+                    )}
                 </section>
                 <section>
                     <h2 className="title">戦略</h2>
@@ -50,9 +56,14 @@ export default function Prediction() {
                                 onFocus={() => { setOpen("strategy") }}
                                 ref={strategyText}
                             >
-                            </textarea>) : "データがありません"}
+                            </textarea>
+                        ) : "データがありません"}
                     </div>
-                    {open === "strategy" && <div className="button"><span onMouseDown={() => { handleSubmit("strategy") }}>保存</span></div>}
+                    {open === "strategy" && (
+                        <div className="button">
+                            <span onMouseDown={() => { handleSubmit("strategy") }}>保存</span>
+                        </div>
+                    )}
                 </section>
                 <section>
                     <h2 className="title">注目セクター</h2>
@@ -64,9 +75,12 @@ export default function Prediction() {
                                 onFocus={() => { setOpen("featuredsector") }}
                                 ref={featuredSetorText}
                             >
-                            </textarea>) : "データがありません"}
+                            </textarea>
+                        ) : "データがありません"}
                     </div>
-                    {open === "featuredsector" && <div className="button"><span onMouseDown={() => { handleSubmit("featuredsector") }}>保存</span></div>}
+                    {open === "featuredsector" && (
+                        <div className="button"><span onMouseDown={() => { handleSubmit("featuredsector") }}>保存</span></div>
+                    )}
                 </section>
             </div>
         </div>

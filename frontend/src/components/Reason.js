@@ -15,8 +15,8 @@ export default function Reason() {
         helper.postData(`/api/update_plan_reason/${selectedStock.code}`, dispatch, actions, payload)
             .then((data) => {
                 dispatch({ type: actions.SET_PLAN, payload: data });
-                const newSelectedStock = data.find((plan) => plan.code === selectedStock.code)
-                dispatch({ type: actions.SET_SELECTED_STOCK, payload: newSelectedStock })
+                const foundSelectedStock = data.find((plan) => plan.code === selectedStock.code)
+                dispatch({ type: actions.SET_SELECTED_STOCK, payload: foundSelectedStock })
             })
     }
 
@@ -32,9 +32,12 @@ export default function Reason() {
                         onFocus={() => { setOpen(true) }}
                         ref={textarea}
                     >
-                    </textarea>) : "データがありません"}
+                    </textarea>
+                ) : "データがありません"}
             </div>
-            {open && <div className="button"><span onMouseDown={handleSubmit}>保存</span></div>}
+            {open && (
+                <div className="button"><span onMouseDown={handleSubmit}>保存</span></div>
+            )}
         </div>
 
     )

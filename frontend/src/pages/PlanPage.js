@@ -1,8 +1,8 @@
 import '../../src/styles/pages/PlanPage.scss'
-import React, { useContext, useEffect, useMemo } from 'react'
+import React, { useContext} from 'react'
 import { context, actions } from '../stores/PlanPage'
-import { AppContext, AppActions } from '../stores/App'
-import { helper } from '../utils/helper';
+import { AppContext} from '../stores/App'
+import { hooks } from '../utils/custom_hooks';
 import StoryTable from '../components/StoryTable'
 import Loading from '../components/Loading';
 import Message from '../components/Message';
@@ -15,48 +15,14 @@ import LogInPage from './LogInPage';
 
 export default function PlanPage() {
     const { state, dispatch } = useContext(context);
-    const { selectedStock, allStocks, planData, prediction, loading, error } = state
+    const {prediction, loading, error } = state
     const { state: AppState } = useContext(AppContext);
-    const { auth } = AppState;
-    useEffect(() => {
-        helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)
-            .then((data) => { dispatch({ type: actions.SET_ALL_STOCKS, payload: data }); })
-        helper.fecthData(`/api/fetch_plan`, dispatch, actions)
-            .then((data) => {
-                dispatch({ type: actions.SET_PLAN, payload: data });
-                if (!selectedStock && data) {
-                    dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[0] })
-                }
-            });
-        helper.fecthData(`/api/fetch_todays_prediction/${helper.get_today()}`, dispatch, actions)
-            .then((data) => {
-                dispatch({ type: actions.SET_PREDICTION, payload: data });
-            });
-    }, []);
-
-
-    const indicatorsData = useMemo(() => {
-        if (!selectedStock && planData.length) {
-            return allStocks?.find((stock) => planData[0].code === Number(stock.code))
-        }
-        if (selectedStock && planData.length) {
-            return allStocks?.find((stock) => selectedStock.code === Number(stock.code))
-        }
-    }, [selectedStock, allStocks, planData])
-
-    useEffect(() => {
-        if (!selectedStock && indicatorsData) {
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[0] })
-            dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
-        }
-        if (selectedStock && indicatorsData) {
-            dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
-        }
-    }, [indicatorsData]);
+    const { user } = AppState;
+    hooks.useFetchPlanPageData(state,dispatch,actions)
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
-    if (!auth) return <LogInPage />
+    if (!user.status) return <LogInPage />
     return (
         <div className="plan_page">
             <SearchBar />

@@ -11,20 +11,20 @@ export default function SearchBar() {
 
     const handleFilter = (event) => {
         const searchWord = String(event.target.value);
-        const newFilter = allStocks.filter((stock) => stock.code.includes(searchWord) || stock.stockname.includes(searchWord));
+        const filteredResult = allStocks.filter((stock) => stock.code.includes(searchWord) || stock.stockname.includes(searchWord));
         setInputValue(searchWord);
         if (searchWord === "") {
             setFilteredData([]);
         } else {
-            setFilteredData(newFilter);
+            setFilteredData(filteredResult);
         }
     }
 
     const handleSelect = (code, stockname) => {
-        const data = allStocks.filter((stock) => code === stock.code);
+        const foundData = allStocks.filter((stock) => code === stock.code);
         setInputValue(stockname);
         setFilteredData([]);
-        setResult(data[0]);
+        setResult(foundData[0]);
     }
 
     const handleClear = () => {
@@ -37,13 +37,21 @@ export default function SearchBar() {
             <div className="search_container">
                 <div className="search_inputs">
                     <input type="text" placeholder="証券番号または会社名を入力してください" value={inputValue} onChange={handleFilter} />
-                    <span className="search_icon">{result ? <i className="fas fa-times" onClick={handleClear}></i> : null}</span>
+                    <span className="search_icon">
+                        {result ? <i className="fas fa-times" onClick={handleClear}></i> : null}
+                    </span>
                 </div>
                 {(filteredData.length > 0) && (
                     <div className="data_result">
-                        {filteredData.slice(0, 15).map((value, key) => {
-                            return <p key={key} className="data_item" onClick={() => { handleSelect(value.code, value.stockname) }}>{value.code}:{value.stockname}</p>;
-                        })}
+                        {filteredData
+                            .slice(0, 15)
+                            .map((value, key) => {
+                                return (
+                                    <p key={key} className="data_item" onClick={() => { handleSelect(value.code, value.stockname) }}>
+                                        {value.code}_{value.stockname}
+                                    </p>
+                                );
+                            })}
                     </div>
                 )}
             </div>
