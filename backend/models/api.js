@@ -100,7 +100,7 @@ export const api = {
     create_plan: async (payload) => {
         const { code, opening, support, losscut, goal, reason, strategy, user_id } = payload
         const foundStock = await api.get_one_latest_stock(code)
-        const query = `INSERT INTO trade_plan (code,market,stockname,opening,support,losscut,goal,reason,strategy,user_id)
+        const query = `INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id)
                        VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9,$10);`
         const values = [code, foundStock.market, foundStock.stockname, opening, support, losscut, goal, reason, strategy, user_id];
         await pool.query(query, values)

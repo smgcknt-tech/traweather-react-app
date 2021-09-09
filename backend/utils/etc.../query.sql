@@ -93,9 +93,22 @@ ALTER TABLE market_prediction RENAME COLUMN featuredsector TO featured_sector;
 
 /* show all table */
 \dt
+/* check table definition */
+\d table name
+\d+ table name
 
 /* login */
 psql -U smgcknt traweather;
 
 /* reset search_path */
 ALTER DATABASE traweather RESET search_path;
+
+ALTER TABLE trade_plan RENAME stockname TO stock_name;
+ALTER TABLE trade_plan ADD CONSTRAINT trade_plan_pkey PRIMARY KEY(user_id,id,created_at);
+
+ALTER TABLE trade_plan ADD COLUMN created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE trade_plan ADD CONSTRAINT trade_plan_pkey PRIMARY KEY(code,user_id,plan_id,created_at);
+ALTER TABLE trade_plan DROP CONSTRAINT trade_plan_pkey;
+ALTER TABLE trade_plan ADD COLUMN plan_id SERIAL;
+
+ALTER TABLE trade_plan ALTER COLUMN strategy SET NOT NULL;

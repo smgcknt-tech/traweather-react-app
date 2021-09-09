@@ -23,7 +23,7 @@ export default function StoryTable() {
                 <tr id={`tr_${index}`} key={index} onClick={() => handleSelect(index)} ref={(el) => { refs.current[index] = el }} >
                     <td data-label="証券番号">{stock.code}</td>
                     <td data-label="市場">{stock.market}</td>
-                    <td data-label="銘柄名">{stock.stockname}</td>
+                    <td data-label="銘柄名">{stock.stock_name}</td>
                     <td data-label="寄付値"><input key={stock.opening} defaultValue={stock.opening} /></td>
                     <td data-label="支持線"><input key={stock.support} defaultValue={stock.support} /></td>
                     <td data-label="仕切値"><input key={stock.losscut} defaultValue={stock.losscut} /></td>

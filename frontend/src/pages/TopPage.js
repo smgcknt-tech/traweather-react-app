@@ -7,14 +7,19 @@ import Twitter from '../components/widgets/Twitter';
 import { useContext, useState } from 'react';
 import { context } from '../stores/TopPage'
 import MarketPredictionForm from '../components/MarketPredictionForm';
+import LogInPage from './LogInPage';
+import { AppContext } from '../stores/App';
 
 export default function TopPage() {
     const { state } = useContext(context);
     const { loading, error } = state
+    const { state: AppState } = useContext(AppContext);
+    const { user } = AppState;
     const [open, setOpen] = useState(false)
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
+    if (!user.status) return <LogInPage />
     return (
         <div className="top_page">
             <ul className="menu_list">

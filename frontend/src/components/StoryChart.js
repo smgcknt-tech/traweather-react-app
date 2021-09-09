@@ -32,7 +32,7 @@ export default function StoryChart() {
     }, [selectedStock, indicators])
     return (
         <>
-            {(selectedStock && indicators) ? (
+            {(selectedStock && indicators) && (
                 <div className="story_chart">
                     <div className="chart_container">
                         <Line data={chartData} options={{
@@ -189,7 +189,7 @@ export default function StoryChart() {
                         </table>
                     </div>
                 </div>
-            ) : "データがありません"}
+            )}
         </>
     )
 }
