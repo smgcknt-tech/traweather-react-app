@@ -1,18 +1,25 @@
 import React, { useContext, useRef, useState } from 'react'
 import { context, actions } from '../stores/PlanPage';
+import { AppContext } from '../stores/App'
 import '../styles/components/Reason.scss'
 import { helper } from '../utils/helper';
 
 export default function Reason() {
     const { state, dispatch } = useContext(context);
     const { selectedStock } = state;
+    const { state: AppState } = useContext(AppContext);
+    const {user} = AppState
     const [open, setOpen] = useState(false)
     const textarea = useRef(null)
 
     const handleSubmit = () => {
         setOpen(false)
-        const payload = { reason: textarea.current.value }
-        helper.postData(`/api/update_plan_reason/${selectedStock.code}`, dispatch, actions, payload)
+        const payload = {
+            reason: textarea.current.value,
+            user_id:user.id,
+            code: selectedStock.code
+        }
+        helper.postData(`/api/update_plan_reason`, dispatch, actions, payload)
             .then((data) => {
                 dispatch({ type: actions.SET_PLAN, payload: data });
                 const foundSelectedStock = data.find((plan) => plan.code === selectedStock.code)

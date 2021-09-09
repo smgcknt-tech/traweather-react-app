@@ -18,7 +18,8 @@ export default function Prediction() {
         target === "prediction" && (payload = { prediction: predictionText.current.value })
         target === "strategy" && (payload = { strategy: strategyText.current.value })
         target === "featuredsector" && (payload = { featuredsector: featuredSetorText.current.value })
-        helper.postData(`/api/update_prediction/${helper.get_today()}`, dispatch, actions, payload)
+        payload.created_at = helper.get_today()
+        helper.postData(`/api/update_prediction`, dispatch, actions, payload)
             .then((data) => {
                 dispatch({ type: actions.SET_PREDICTION, payload: data });
             })

@@ -2,14 +2,18 @@ import '../styles/components/MarketPredictionForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { context, actions } from '../stores/TopPage';
+import { AppContext } from '../stores/App';
 import { helper } from '../utils/helper';
 
 export default function MarketPredictionForm(props) {
     const { dispatch } = useContext(context);
+    const { state: AppState } = useContext(AppContext);
+    const { user } = AppState
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { "予想": "", "戦略": "", "注目セクター": "" }
     const onSubmit = (data) => {
-        helper.postData('/api/create_prediction/', dispatch, actions, data)
+        data.user_id = user.id
+        helper.postData('/api/create_prediction', dispatch, actions, data)
             .then((data) => {
                 props.setOpen(null)
             })

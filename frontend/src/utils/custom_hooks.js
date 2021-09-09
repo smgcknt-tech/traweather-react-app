@@ -4,7 +4,7 @@ import { helper } from "./helper";
 
 
 export const hooks = {
-    useAuthentification: (user, dispatch, AppActions)=>{
+    useAuthentification: (user, dispatch, AppActions) => {
         useEffect(() => {
             if (user.status === true) {
                 axios.get('/user/auth', {
@@ -26,29 +26,31 @@ export const hooks = {
             }
         }, [user.status])
     },
-    useFetchPlanPageData:(state,dispatch,actions)=>{
+    useFetchPlanPageData: (AppState, state, dispatch, actions) => {
         useEffect(() => {
-            helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)
-                .then((data) => { dispatch({ type: actions.SET_ALL_STOCKS, payload: data }); })
-            helper.fecthData(`/api/fetch_plan`, dispatch, actions)
-                .then((data) => {
-                    dispatch({ type: actions.SET_PLAN, payload: data });
-                    if (!state.selectedStock && data) {
-                        dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[0] })
-                    }
-                });
-            helper.fecthData(`/api/fetch_todays_prediction/${helper.get_today()}`, dispatch, actions)
-                .then((data) => {
-                    dispatch({ type: actions.SET_PREDICTION, payload: data });
-                });
-        }, []);
+            if (AppState.user.id) {
+                helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)
+                    .then((data) => { dispatch({ type: actions.SET_ALL_STOCKS, payload: data }); })
+                helper.fecthData(`/api/fetch_plan/${AppState.user.id}`, dispatch, actions)
+                    .then((data) => {
+                        dispatch({ type: actions.SET_PLAN, payload: data });
+                        if (!state.selectedStock && data) {
+                            dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[0] })
+                        }
+                    });
+                helper.fecthData(`/api/fetch_todays_prediction/${helper.get_today()}`, dispatch, actions)
+                    .then((data) => {
+                        dispatch({ type: actions.SET_PREDICTION, payload: data });
+                    });
+            }
+        }, [AppState.user.id, state.planData.length ]);
 
 
         const indicatorsData = useMemo(() => {
-            if (!state.selectedStock && state.planData.length) {
+            if (!state.selectedStock && state.planData?.length) {
                 return state.allStocks?.find((stock) => state.planData[0].code === Number(stock.code))
             }
-            if (state.selectedStock && state.planData.length) {
+            if (state.selectedStock && state.planData?.length) {
                 return state.allStocks?.find((stock) => state.selectedStock.code === Number(stock.code))
             }
         }, [state.selectedStock, state.allStocks, state.planData])
@@ -61,7 +63,7 @@ export const hooks = {
             if (state.selectedStock && indicatorsData) {
                 dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
             }
-        }, [indicatorsData]);
+        }, [indicatorsData, state.planData]);
     }
 
 

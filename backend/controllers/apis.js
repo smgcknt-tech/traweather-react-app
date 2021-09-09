@@ -7,9 +7,8 @@ const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus` */
 
 export const apis = {
     create_prediction: async(req, res) => {
-        const data = req.body;
-        await api.create_prediction(data)
-        api.get_plan()
+        const payload = req.body;
+        await api.create_prediction(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
@@ -18,8 +17,7 @@ export const apis = {
     },
     update_prediction: async (req, res) => {
         const payload = req.body;
-        const date = req.params.date;
-        await api.update_prediction(payload,date)
+        await api.update_prediction(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
@@ -66,8 +64,8 @@ export const apis = {
             }
         }, */
     create_plan: async (req, res) => {
-        const data = req.body;
-        await api.create_plan(data)
+        const payload = req.body;
+        await api.create_plan(payload)
         api.get_plan()
             .then((data) => {
                 res.json(data)
@@ -76,7 +74,7 @@ export const apis = {
             })
     },
     fetch_plan: (req, res) => {
-        api.get_plan()
+        api.get_plan(req.params.user_id)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
@@ -85,9 +83,8 @@ export const apis = {
 
     },
     update_plan: (req, res) => {
-        const code = req.params.code
         const payload = req.body;
-        api.update_plan(payload, code)
+        api.update_plan(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
@@ -95,9 +92,8 @@ export const apis = {
             })
     },
     update_plan_reason: (req, res) => {
-        const code = req.params.code
         const payload = req.body;
-        api.update_plan_reason(payload, code)
+        api.update_plan_reason(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
@@ -105,9 +101,8 @@ export const apis = {
             })
     },
     update_plan_strategy: (req, res) => {
-        const code = req.params.code
         const payload = req.body;
-        api.update_plan_strategy(payload, code)
+        api.update_plan_strategy(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
@@ -115,8 +110,8 @@ export const apis = {
             })
     },
     delete_plan: (req, res) => {
-        const code = req.body.code
-        api.delete_plan(code)
+        const payload = req.body;
+        api.delete_plan(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {

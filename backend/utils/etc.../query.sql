@@ -74,3 +74,14 @@ CREATE TABLE users (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
 );
+
+/* add column */
+ALTER TABLE plan ADD COLUMN user_id INT;
+ALTER TABLE market_prediction ADD COLUMN user_id INT;
+/* add NOT NULL */
+ALTER TABLE plan ALTER COLUMN user_id SET NOT NULL;
+/* delete PRIMARY KEY */
+ALTER TABLE market_prediction DROP CONSTRAINT market_prediction_pkey;
+/* add PRIMARY KEY */
+ALTER TABLE plan ADD CONSTRAINT plan_pkey PRIMARY KEY(user_id,code);
+ALTER TABLE market_prediction ADD CONSTRAINT market_prediction_pkey PRIMARY KEY(user_id,id,created_at);

@@ -1,47 +1,13 @@
 import format from 'pg-format';
 import { pool } from '../../postgresql.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { env } from '../../env_variables.js';
 export const api = {
-    register_user: async (payload) => {
-        const { username, password } = payload;
-        const res = await bcrypt.hash(password, 5).then(async (hash) => {
-            try {
-                await pool.query("BEGIN")
-                await pool.query(`INSERT INTO users (username,password) VALUES($1, $2);`, [username, hash])
-                await pool.query("COMMIT")
-                const res = await pool.query("SELECT * FROM users;")
-                return res.rows
-            } catch (err) {
-                await pool.query('ROLLBACK')
-            }
-        })
-        return res;
-    },
-    login_user: async (payload) => {
-        const { username, password } = payload;
-        const user = await pool.query(`SELECT * FROM users WHERE username = '${username}'`).then(res => res.rows[0])
-        if (!user) {
-            return { error: "user doesn't exist" }
-        } else {
-            const res = await bcrypt.compare(password, user.password)
-                .then((match) => {
-                    if (!match) {
-                        return { error: "wrong username and password" }
-                    } else {
-                        const access_token = jwt.sign({ username: username, id: user.id }, env.jwt_secret_key)
-                        return access_token
-                    }
-                })
-            return res
-        }
-    },
-    create_prediction: async (form_data) => {
+    create_prediction: async (payload) => {
+        const values = [payload['予想'], payload['戦略'], payload['注目セクター'], payload.user_id]
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")
-                await pool.query(`INSERT INTO market_prediction (prediction,strategy,featuredsector) VALUES($1, $2, $3);`, [form_data['予想'], form_data['戦略'], form_data['注目セクター']])
+                await pool.query(`INSERT INTO market_prediction (prediction,strategy,featuredsector,user_id) VALUES($1, $2, $3, $4);`, values)
                 await pool.query("COMMIT")
                 const res = await pool.query("SELECT * FROM market_prediction;")
                 return res.rows
@@ -52,14 +18,13 @@ export const api = {
         const res = await transaction()
         return res
     },
-    update_prediction: async (payload, date) => {
+    update_prediction: async (payload) => {
+        const {created_at} = payload
         const column = Object.keys(payload)[0]
         const value = [payload[column]]
-        const query = `UPDATE market_prediction
-                       SET ${column}=$1
-                       WHERE created_at::text like '${date}%';`
+        const query = `UPDATE market_prediction SET ${column}=$1 WHERE created_at::text like '${created_at}%';`
         await pool.query(query, value)
-        const data = await sql.get_todays_prediction(date)
+        const data = await api.get_todays_prediction(created_at)
         return data;
     },
     get_todays_prediction: (date) => {
@@ -133,12 +98,12 @@ export const api = {
             })
         return data
     },
-    create_plan: async (form_data) => {
-        const { code, opening, support, losscut, goal, reason, strategy } = form_data
-        const res = await sql.get_one_latest_stock(code)
-        const query = `INSERT INTO plan (code,market,stockname,opening,support,losscut,goal,reason,strategy)
-                      VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9);`
-        const values = [code, res.market, res.stockname, opening, support, losscut, goal, reason, strategy];
+    create_plan: async (payload) => {
+        const { code, opening, support, losscut, goal, reason, strategy, user_id } = payload
+        const res = await api.get_one_latest_stock(code)
+        const query = `INSERT INTO plan (code,market,stockname,opening,support,losscut,goal,reason,strategy,user_id)
+                       VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9,$10);`
+        const values = [code, res.market, res.stockname, opening, support, losscut, goal, reason, strategy, user_id];
         const data = await pool.query(query, values)
             .then((res) => {
                 return res.rows
@@ -147,8 +112,8 @@ export const api = {
             })
         return data
     },
-    get_plan: () => {
-        const query = `SELECT * FROM plan ORDER BY code ASC;`;
+    get_plan: (user_id) => {
+        const query = `SELECT * FROM plan WHERE user_id = ${user_id}  ORDER BY code ASC;`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows
@@ -157,38 +122,33 @@ export const api = {
             })
         return data;
     },
-    update_plan: async (payload, code) => {
-        const { opening, support, losscut, goal } = payload
-        const query = `UPDATE plan
-                       SET opening=$1,support=$2,losscut=$3,goal=$4
-                       WHERE code=${code};`
+    update_plan: async (payload) => {
+        const { opening, support, losscut, goal, user_id, code } = payload
+        const query = `UPDATE plan SET opening=$1,support=$2,losscut=$3,goal=$4 WHERE user_id=${user_id} AND code=${code};`
         await pool.query(query, [opening, support, losscut, goal])
-        const data = await sql.get_plan()
+        const data = await api.get_plan(user_id)
         return data;
     },
-    update_plan_reason: async (payload, code) => {
-        const { reason } = payload
-        const query = `UPDATE plan
-        SET reason=$1
-        WHERE code=${code};`
+    update_plan_reason: async (payload) => {
+        const { reason, user_id, code } = payload
+        const query = `UPDATE plan SET reason=$1 WHERE user_id=${user_id} AND code=${code};`
         await pool.query(query, [reason])
-        const data = await sql.get_plan()
+        const data = await api.get_plan(user_id)
         return data;
     },
-    update_plan_strategy: async (payload, code) => {
-        const { strategy } = payload
-        const query = `UPDATE plan
-        SET strategy=$1
-        WHERE code=${code};`
+    update_plan_strategy: async (payload) => {
+        const { strategy, user_id, code } = payload
+        const query = `UPDATE plan SET strategy=$1 WHERE user_id=${user_id} AND code=${code};`
         await pool.query(query, [strategy])
-        const data = await sql.get_plan()
+        const data = await api.get_plan(user_id)
         return data;
     },
-    delete_plan: async (code) => {
-        const query = `DELETE FROM plan WHERE code=${code};`
+    delete_plan: async (payload) => {
+        const { user_id, code } = payload
+        const query = `DELETE FROM plan WHERE user_id=${user_id} AND code=${code};`
         await pool.query(query)
-        const data = await sql.get_plan()
+        const data = await api.get_plan(user_id)
         return data;
 
-    }
+    },
 };

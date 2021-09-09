@@ -2,12 +2,15 @@ import React, { useContext, useRef, useState } from 'react'
 import "../styles/components/StoryTable.scss"
 import PlanAddForm from './PlanAddForm'
 import { context, actions } from '../stores/PlanPage'
+import { AppContext } from '../stores/App'
 import { helper } from '../utils/helper'
 import ReactPaginate from 'react-paginate';
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(context);
     const { planData } = state
+    const { state: AppState } = useContext(AppContext);
+    const { user } = AppState
     const [open, setOpen] = useState(false)
     const [show, setShow] = useState(false)
     const refs = useRef([])
@@ -15,7 +18,7 @@ export default function StoryTable() {
     const [pageNumber, setPageNumber] = useState(0);
     const rowsPerPage = 5;
     const pagesVisited = pageNumber * rowsPerPage;
-    const pageCount = Math.ceil(planData.length / rowsPerPage);
+    const pageCount = Math.ceil(planData?.length / rowsPerPage);
     const displayRows = planData
         .slice(pagesVisited, pagesVisited + rowsPerPage)
         .map((stock, index) => {
@@ -50,8 +53,10 @@ export default function StoryTable() {
             support: input[1].value,
             losscut: input[2].value,
             goal: input[3].value,
+            user_id: user.id,
+            code: code
         }
-        helper.postData(`/api/update_plan/${code}`, dispatch, actions, payload)
+        helper.postData(`/api/update_plan`, dispatch, actions, payload)
             .then((data) => {
                 dispatch({ type: actions.SET_PLAN, payload: data });
                 dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[index] })
@@ -60,7 +65,10 @@ export default function StoryTable() {
 
     const handleDelete = (index) => {
         const code = refs.current[index].querySelectorAll("td")[0].innerText;
-        const payload = { code: code }
+        const payload = {
+            user_id: user.id,
+            code: code,
+        }
         helper.postData('/api/delete_plan', dispatch, actions, payload)
             .then((data) => {
                 dispatch({ type: actions.SET_PLAN, payload: data });
@@ -91,17 +99,19 @@ export default function StoryTable() {
                     {displayRows}
                 </tbody>
             </table>
-            <ReactPaginate
-                previousLabel={"<"}
-                nextLabel={">"}
-                pageCount={pageCount}
-                onPageChange={changePage}
-                containerClassName={"pagination_bttns"}
-                previousLinkClassName={"previous_bttn"}
-                nextLinkClassName={"next_bttn"}
-                disabledClassName={"pagination_disabled"}
-                activeClassName={"pagination_active"}
-            />
+            {planData.length > 0 && (
+                <ReactPaginate
+                    previousLabel={"<"}
+                    nextLabel={">"}
+                    pageCount={pageCount}
+                    onPageChange={changePage}
+                    containerClassName={"pagination_bttns"}
+                    previousLinkClassName={"previous_bttn"}
+                    nextLinkClassName={"next_bttn"}
+                    disabledClassName={"pagination_disabled"}
+                    activeClassName={"pagination_active"}
+                />
+            )}
         </div>
     )
 }

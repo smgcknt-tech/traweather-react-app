@@ -15,10 +15,10 @@ import LogInPage from './LogInPage';
 
 export default function PlanPage() {
     const { state, dispatch } = useContext(context);
-    const {prediction, loading, error } = state
+    const {planData, prediction, loading, error } = state
     const { state: AppState } = useContext(AppContext);
     const { user } = AppState;
-    hooks.useFetchPlanPageData(state,dispatch,actions)
+    hooks.useFetchPlanPageData(AppState, state,dispatch,actions)
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>

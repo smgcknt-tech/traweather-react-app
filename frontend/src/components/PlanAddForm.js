@@ -2,15 +2,18 @@ import '../styles/components/PlanAddForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { context, actions } from '../stores/PlanPage';
+import { AppContext } from '../stores/App'
 import { helper } from '../utils/helper';
 
 export default function PlanAddForm(props) {
     const { dispatch } = useContext(context);
+    const { state:AppState } = useContext(AppContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
 
     const onSubmit = (data) => {
-        helper.postData('/api/plan', dispatch, actions, data)
+        data.user_id = AppState.user.id
+        helper.postData(`/api/create_plan`, dispatch, actions, data)
             .then((data) => {
                 dispatch({ type: actions.SET_PLAN, payload: data })
                 props.setOpen(null)
