@@ -24,9 +24,8 @@ export const apis = {
                 console.error(err.message)
             })
     },
-    fetch_todays_prediction: (req, res) => {
-        const date = req.params.date
-        api.get_todays_prediction(date)
+    fetch_one_prediction: (req, res) => {
+        api.get_one_prediction(req.query)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
@@ -39,15 +38,6 @@ export const apis = {
                 res.json(data)
             }).catch((err) => {
                 console.error(err.message)
-            })
-    },
-    fetch_one_latest_stock: (req, res) => {
-        const code = req.params.code;
-        api.get_one_latest_stock(code)
-            .then((data) => {
-                res.send(data)
-            }).catch((err) => {
-                console.log(err.message)
             })
     },
     /*     upsert_latest_stock_table: async () => {
@@ -74,13 +64,12 @@ export const apis = {
             })
     },
     fetch_plan: (req, res) => {
-        api.get_plan(req.params.user_id)
+        api.get_plan(req.query.user_id)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
                 console.error(err.message)
             })
-
     },
     update_plan: (req, res) => {
         const payload = req.body;

@@ -1,6 +1,5 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import "../styles/components/StoryTable.scss"
-import PlanAddForm from './PlanAddForm'
 import { context, actions } from '../stores/PlanPage'
 import { AppContext } from '../stores/App'
 import { helper } from '../utils/helper'
@@ -11,7 +10,6 @@ export default function StoryTable() {
     const { planData } = state
     const { state: AppState } = useContext(AppContext);
     const { user } = AppState
-    const [open, setOpen] = useState(false)
     const [show, setShow] = useState(false)
     const refs = useRef([])
 
@@ -77,10 +75,7 @@ export default function StoryTable() {
     }
     return (
         <div className="story_table">
-            <ul className="menu_button">
-                <li onClick={() => { setOpen("add") }} >銘柄追加</li>
-            </ul>
-            {open === "add" && (<PlanAddForm setOpen={setOpen} />)}
+
             <table>
                 <thead>
                     <tr>
@@ -96,7 +91,7 @@ export default function StoryTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {displayRows}
+                    {planData.length > 0 && displayRows}
                 </tbody>
             </table>
             {planData.length > 0 && (

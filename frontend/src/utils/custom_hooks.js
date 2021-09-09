@@ -27,43 +27,48 @@ export const hooks = {
         }, [user.status])
     },
     useFetchPlanPageData: (AppState, state, dispatch, actions) => {
+        const { user } = AppState;
+        const { selectedStock, planData, allStocks } = state;
+
         useEffect(() => {
-            if (AppState.user.id) {
-                helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)
-                    .then((data) => { dispatch({ type: actions.SET_ALL_STOCKS, payload: data }); })
-                helper.fecthData(`/api/fetch_plan/${AppState.user.id}`, dispatch, actions)
-                    .then((data) => {
-                        dispatch({ type: actions.SET_PLAN, payload: data });
-                        if (!state.selectedStock && data) {
-                            dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[0] })
+            if (user.id) {
+                helper.fecthData(`/api/fetch_plan`, dispatch, actions, { user_id: user.id })
+                    .then((fetchedPlan) => {
+                        dispatch({ type: actions.SET_PLAN, payload: fetchedPlan });
+                        if (!selectedStock && fetchedPlan.length > 0) {
+                            dispatch({ type: actions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
                         }
                     });
-                helper.fecthData(`/api/fetch_todays_prediction/${helper.get_today()}`, dispatch, actions)
+                helper.fecthData(`/api/fetch_one_prediction`, dispatch, actions, {
+                    user_id: user.id,
+                    date: helper.get_today()
+                })
                     .then((data) => {
                         dispatch({ type: actions.SET_PREDICTION, payload: data });
                     });
+                helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)
+                    .then((fecthedStocks) => { dispatch({ type: actions.SET_ALL_STOCKS, payload: fecthedStocks }); })
             }
-        }, [AppState.user.id, state.planData.length ]);
-
+        }, [user.id]);
 
         const indicatorsData = useMemo(() => {
-            if (!state.selectedStock && state.planData?.length) {
-                return state.allStocks?.find((stock) => state.planData[0].code === Number(stock.code))
+            if (allStocks) {
+                if (!selectedStock && planData.length > 0) {
+                    return allStocks.find((stock) => planData[0].code === Number(stock.code))
+                } else if (selectedStock) {
+                    return allStocks.find((stock) => selectedStock.code === Number(stock.code))
+                }
             }
-            if (state.selectedStock && state.planData?.length) {
-                return state.allStocks?.find((stock) => state.selectedStock.code === Number(stock.code))
-            }
-        }, [state.selectedStock, state.allStocks, state.planData])
+        }, [selectedStock, planData, allStocks])
 
         useEffect(() => {
-            if (!state.selectedStock && indicatorsData) {
-                dispatch({ type: actions.SET_SELECTED_STOCK, payload: state.planData[0] })
+            if (!selectedStock && planData.length > 0) {
+                dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[0] })
+                dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
+            } else if (selectedStock) {
                 dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
             }
-            if (state.selectedStock && indicatorsData) {
-                dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
-            }
-        }, [indicatorsData, state.planData]);
+        }, [indicatorsData, selectedStock]);
     }
 
 

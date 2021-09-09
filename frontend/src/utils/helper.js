@@ -3,9 +3,10 @@ import moment from "moment"
 
 
 export const helper = {
-    fecthData: async (url, dispatch, actions) => {
+    fecthData: async (url, dispatch, actions, payload) => {
         dispatch({ type: actions.SET_LOADING, payload: true })
-        const data = await axios.get(url)
+        let query = { params: payload || {}}
+        const data = await axios.get(url, query)
             .then((res) => {
                 dispatch({ type: actions.SET_LOADING, payload: false })
                 return res.data

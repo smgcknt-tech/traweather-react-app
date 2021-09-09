@@ -11,6 +11,14 @@
       > * {
         margin-bottom: 2rem;
       }
+
+      .menu_button {
+        padding: 0 1rem;
+        @include row();
+        li {
+          @include hover();
+        }
+      }
       @include col(60%);
     }
     .right {

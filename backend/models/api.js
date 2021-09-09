@@ -24,11 +24,12 @@ export const api = {
         const value = [payload[column]]
         const query = `UPDATE market_prediction SET ${column}=$1 WHERE created_at::text like '${created_at}%';`
         await pool.query(query, value)
-        const data = await api.get_todays_prediction(created_at)
+        const data = await api.get_one_prediction(created_at)
         return data;
     },
-    get_todays_prediction: (date) => {
-        const query = `SELECT * FROM market_prediction WHERE created_at::text like '${date}%';`;
+    get_one_prediction: (payload) => {
+        const {user_id,date} = payload
+        const query = `SELECT * FROM market_prediction WHERE user_id =${user_id} AND created_at::text like '${date}%';`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows[0]
@@ -42,16 +43,6 @@ export const api = {
         const data = pool.query(query)
             .then((res) => {
                 return res.rows
-            }).catch((err) => {
-                console.error(err.stack)
-            })
-        return data;
-    },
-    get_one_latest_stock: (code) => {
-        const query = `SELECT * FROM latest_stock_data WHERE code=$1;`;
-        const data = pool.query(query, [code])
-            .then((res) => {
-                return res.rows[0]
             }).catch((err) => {
                 console.error(err.stack)
             })

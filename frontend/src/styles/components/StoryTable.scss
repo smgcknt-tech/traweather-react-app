@@ -3,14 +3,6 @@
 .story_table {
   @include col(60%);
 
-  .menu_button {
-    padding: 1rem 0;
-    @include row();
-    li {
-      @include hover();
-    }
-  }
-
   table {
     font-size: 1.5rem;
     width: 100%;

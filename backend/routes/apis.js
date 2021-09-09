@@ -5,9 +5,8 @@ export const api_router = express.Router()
 
 api_router
     .get("/fetch_latest_stock", apis.fetch_latest_stock)
-    .get("/fetch_latest_stock/:code", apis.fetch_one_latest_stock)
-    .get("/fetch_plan/:user_id", apis.fetch_plan)
-    .get("/fetch_todays_prediction/:date", apis.fetch_todays_prediction)
+    .get("/fetch_plan", apis.fetch_plan)
+    .get("/fetch_one_prediction", apis.fetch_one_prediction)
 api_router
     .post("/create_prediction", apis.create_prediction)
     .post("/update_prediction", apis.update_prediction)

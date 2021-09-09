@@ -1,5 +1,5 @@
 import '../../src/styles/pages/PlanPage.scss'
-import React, { useContext} from 'react'
+import React, { useContext, useState} from 'react'
 import { context, actions } from '../stores/PlanPage'
 import { AppContext} from '../stores/App'
 import { hooks } from '../utils/custom_hooks';
@@ -12,12 +12,14 @@ import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
 import Prediction from '../components/Prediction';
 import LogInPage from './LogInPage';
+import PlanAddForm from '../components/PlanAddForm'
 
 export default function PlanPage() {
     const { state, dispatch } = useContext(context);
     const {planData, prediction, loading, error } = state
     const { state: AppState } = useContext(AppContext);
     const { user } = AppState;
+    const [open, setOpen] = useState(false)
     hooks.useFetchPlanPageData(AppState, state,dispatch,actions)
 
     if (loading) return <Loading />
@@ -28,7 +30,11 @@ export default function PlanPage() {
             <SearchBar />
             <div className="dashboard">
                 <div className="left">
-                    <StoryTable />
+                    <ul className="menu_button">
+                        <li onClick={() => { setOpen("add") }} >銘柄追加</li>
+                    </ul>
+                    {open === "add" && (<PlanAddForm setOpen={setOpen} />)}
+                    {planData.length > 0 && (<StoryTable />)}
                     <StoryChart />
                 </div>
                 <div className="right">
