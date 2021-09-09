@@ -85,3 +85,17 @@ ALTER TABLE market_prediction DROP CONSTRAINT market_prediction_pkey;
 /* add PRIMARY KEY */
 ALTER TABLE plan ADD CONSTRAINT plan_pkey PRIMARY KEY(user_id,code);
 ALTER TABLE market_prediction ADD CONSTRAINT market_prediction_pkey PRIMARY KEY(user_id,id,created_at);
+
+/* rename table (cant change into reserved word)*/
+ALTER TABLE users RENAME TO app_user;
+
+ALTER TABLE market_prediction RENAME COLUMN featuredsector TO featured_sector;
+
+/* show all table */
+\dt
+
+/* login */
+psql -U smgcknt traweather;
+
+/* reset search_path */
+ALTER DATABASE traweather RESET search_path;

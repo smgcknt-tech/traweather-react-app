@@ -9,7 +9,7 @@ export const user = {
         const result = await bcrypt.hash(password, 5).then(async (hash) => {
             try {
                 await pool.query("BEGIN")
-                await pool.query(`INSERT INTO users (username,password) VALUES($1, $2);`, [username, hash])
+                await pool.query(`INSERT INTO app_user (username,password) VALUES($1, $2);`, [username, hash])
                 await pool.query("COMMIT")
                 const res = await pool.query("SELECT * FROM users;")
                 return res.rows
@@ -21,7 +21,7 @@ export const user = {
     },
     login: async (payload) => {
         const { username, password } = payload;
-        const user = await pool.query(`SELECT * FROM users WHERE username = '${username}'`).then(res => res.rows[0])
+        const user = await pool.query(`SELECT * FROM app_user WHERE username = '${username}'`).then(res => res.rows[0])
         if (!user) {
             return { error: "user doesn't exist" }
         } else {

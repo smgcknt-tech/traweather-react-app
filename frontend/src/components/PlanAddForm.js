@@ -14,8 +14,8 @@ export default function PlanAddForm(props) {
     const onSubmit = (data) => {
         data.user_id = AppState.user.id
         helper.postData(`/api/create_plan`, dispatch, actions, data)
-            .then((data) => {
-                dispatch({ type: actions.SET_PLAN, payload: data })
+            .then((resultPlan) => {
+                dispatch({ type: actions.SET_PLAN, payload: resultPlan })
                 props.setOpen(null)
             })
     }

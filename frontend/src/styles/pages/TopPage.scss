@@ -4,6 +4,10 @@
   padding: 2rem;
   .menu_list {
     margin-bottom: 1rem;
+    li{
+      cursor: pointer;
+      @include hover();
+    }
   }
   .dashboard_row2 {
     @include col(30%);

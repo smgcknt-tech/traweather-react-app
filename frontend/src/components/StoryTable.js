@@ -7,16 +7,15 @@ import ReactPaginate from 'react-paginate';
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(context);
-    const { planData } = state
+    const { currentPage, planData } = state
     const { state: AppState } = useContext(AppContext);
     const { user } = AppState
     const [show, setShow] = useState(false)
     const refs = useRef([])
-
-    const [pageNumber, setPageNumber] = useState(0);
     const rowsPerPage = 5;
-    const pagesVisited = pageNumber * rowsPerPage;
+    const pagesVisited = currentPage * rowsPerPage;
     const pageCount = Math.ceil(planData?.length / rowsPerPage);
+
     const displayRows = planData
         .slice(pagesVisited, pagesVisited + rowsPerPage)
         .map((stock, index) => {
@@ -34,9 +33,8 @@ export default function StoryTable() {
                 </tr>
             )
         })
-
     const changePage = ({ selected }) => {
-        setPageNumber(selected);
+        dispatch({ type: actions.SET_CURRENT_PAGE, payload: selected });
     }
     const handleSelect = (index) => {
         setShow(`tr_${index}`)
@@ -57,7 +55,8 @@ export default function StoryTable() {
         helper.postData(`/api/update_plan`, dispatch, actions, payload)
             .then((data) => {
                 dispatch({ type: actions.SET_PLAN, payload: data });
-                dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[index] })
+                dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[pagesVisited + index] })
+                dispatch({ type: actions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
             })
     }
 
@@ -99,6 +98,7 @@ export default function StoryTable() {
                     previousLabel={"<"}
                     nextLabel={">"}
                     pageCount={pageCount}
+                    initialPage={currentPage}
                     onPageChange={changePage}
                     containerClassName={"pagination_bttns"}
                     previousLinkClassName={"previous_bttn"}

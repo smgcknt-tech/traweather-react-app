@@ -19,18 +19,31 @@
     }
     tbody {
       tr {
+        cursor: pointer;
+        background-color: #fff;
         [data-label="寄付値"],
         [data-label="支持線"],
         [data-label="仕切値"],
         [data-label="目標値"] {
-          @include hover();
+          transition: 0.3s;
+          &:hover {
+            opacity: 0.3;
+            background-color: rgb(245, 187, 111);
+            transition: background-color 0.3s;
+          }
+        }
+
+        transition: 0.1s;
+        &:hover {
+          border: 0.2rem double rgb(245, 187, 111);
         }
         td {
-          background-color: #fff;
           input {
+            cursor: pointer;
             max-width: 5rem;
             padding: 0;
             margin: 0;
+            background-color: transparent;
           }
           i {
             opacity: 0.6;

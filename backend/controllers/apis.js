@@ -55,8 +55,7 @@ export const apis = {
         }, */
     create_plan: async (req, res) => {
         const payload = req.body;
-        await api.create_plan(payload)
-        api.get_plan()
+        api.create_plan(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {

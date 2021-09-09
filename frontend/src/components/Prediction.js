@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useState } from 'react'
+import { AppContext } from '../stores/App';
 import { context, actions } from '../stores/PlanPage';
 import '../styles/components/Prediction.scss'
 import { helper } from '../utils/helper';
@@ -6,6 +7,8 @@ import { helper } from '../utils/helper';
 export default function Prediction() {
     const { state, dispatch } = useContext(context);
     const { prediction } = state;
+    const { state: AppState } = useContext(AppContext);
+    const { user } = AppState;
     const [open, setOpen] = useState(false)
     const predictionText = useRef(null)
     const strategyText = useRef(null)
@@ -17,7 +20,8 @@ export default function Prediction() {
         //target name should be same as market_prediction table column.
         target === "prediction" && (payload = { prediction: predictionText.current.value })
         target === "strategy" && (payload = { strategy: strategyText.current.value })
-        target === "featuredsector" && (payload = { featuredsector: featuredSetorText.current.value })
+        target === "featured_sector" && (payload = { featured_sector: featuredSetorText.current.value })
+        payload.user_id = user.id
         payload.created_at = helper.get_today()
         helper.postData(`/api/update_prediction`, dispatch, actions, payload)
             .then((data) => {
@@ -71,16 +75,16 @@ export default function Prediction() {
                     <div className="content">
                         {prediction ? (
                             <textarea
-                                key={prediction.featuredsector}
-                                defaultValue={prediction.featuredsector}
-                                onFocus={() => { setOpen("featuredsector") }}
+                                key={prediction.featured_sector}
+                                defaultValue={prediction.featured_sector}
+                                onFocus={() => { setOpen("featured_sector") }}
                                 ref={featuredSetorText}
                             >
                             </textarea>
                         ) : "データがありません"}
                     </div>
-                    {open === "featuredsector" && (
-                        <div className="button"><span onMouseDown={() => { handleSubmit("featuredsector") }}>保存</span></div>
+                    {open === "featured_sector" && (
+                        <div className="button"><span onMouseDown={() => { handleSubmit("featured_sector") }}>保存</span></div>
                     )}
                 </section>
             </div>
