@@ -1,17 +1,18 @@
 @import "../variables.scss";
 
 .search {
-  margin-top: 3rem;
+  margin: 2rem;
   @include row();
   @include center();
 
   .search_container {
-
-
+    width: 50%;
     .search_inputs {
       @include row();
 
       input {
+        width: 80%;
+        height: 6rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         background-color: white;
         border: 0;
@@ -20,8 +21,6 @@
         border-bottom-right-radius: 0;
         font-size: 1.8rem;
         padding: 1.5rem;
-        height: 6rem;
-        width: 60rem;
 
         &:focus {
           outline: none;
@@ -29,9 +28,9 @@
       }
 
       .search_icon {
-        box-shadow: 0rem 0 0.2rem #b4b4b4;
+        width: 10%;
         height: 6rem;
-        width: 6rem;
+        box-shadow: 0rem 0 0.2rem #b4b4b4;
         border-top-right-radius: 1rem;
         border-bottom-right-radius: 1rem;
         background-color: #8b8b8b;
@@ -69,6 +68,17 @@
 
       &:hover {
         background-color: lightgrey;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .search {
+    .search_container {
+      width: 100%;
+      .search_icon {
+        width: 30%;
       }
     }
   }

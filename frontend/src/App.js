@@ -1,17 +1,26 @@
 import "./styles/destyle.css"
 import "./styles/App.scss";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { TopProvider } from './stores/TopPage'
+import { PlanProvider } from './stores/PlanPage'
+import { useContext } from "react";
+import { AppContext, AppActions } from "./stores/App";
+import { hooks } from '../src/utils/custom_hooks'
 import TopPage from "./pages/TopPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import PlanPage from "./pages/PlanPage";
-import { PlanProvider } from './stores/PlanPage'
+import EntrancePage from "./pages/EntrancePage";
 
 function App() {
+  const { state, dispatch } = useContext(AppContext);
+  const {user} = state
+  hooks.useAuthentification( user, dispatch, AppActions)
   return (
     <BrowserRouter>
+      {!user.status ? (<EntrancePage />):(
       <div className="grid-container">
         <header>
           <Header />
@@ -21,8 +30,13 @@ function App() {
         </nav>
         <main>
           <Switch>
-            <Route path="/" component={TopPage} exact />
-            <PlanProvider><Route path="/plan" component={PlanPage} exact /></PlanProvider>
+              <Route path="/user/login" component={EntrancePage} exact />
+            <Route exact path="/">
+              <TopProvider><TopPage /></TopProvider>
+            </Route>
+            <Route exact path="/plan" >
+              <PlanProvider><PlanPage /></PlanProvider>
+            </Route>
             <Route path="*" component={NotFoundPage} exact />
           </Switch>
         </main>
@@ -30,7 +44,8 @@ function App() {
           <Footer />
         </footer>
       </div>
-    </BrowserRouter>
+      )}
+    </BrowserRouter >
   );
 }
 export default App;

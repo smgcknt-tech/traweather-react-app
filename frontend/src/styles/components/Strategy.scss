@@ -1,15 +1,15 @@
 @import "../variables.scss";
 
 .strategy{
-  margin:2.5rem 2.5rem 2.5rem 1rem;
   padding:2rem;
   height:30rem;
   background-color:#fff;
-  border-radius:1rem;
+  border-radius:0.5rem;
   box-shadow: 0 0 0.3rem #b4b4b4;
   .content {
     margin-top: 1rem;
     textarea {
+      cursor: pointer;
       resize: none;
       height: 20rem;
       width: 100%;

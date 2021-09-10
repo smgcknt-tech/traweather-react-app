@@ -1,19 +1,30 @@
 @import "../variables.scss";
 
 .top_page {
-  .menu_list{
-    padding:1rem 3rem 0 3rem;
-
+  padding: 2rem;
+  .menu_list {
+    margin-bottom: 1rem;
+    li{
+      cursor: pointer;
+      @include hover();
+    }
   }
-
   .dashboard_row2 {
+    @include col(30%);
     @include row();
     @include top();
     .left {
-      @include col_1();
+      margin: 1rem;
+      > * {
+        margin-bottom: 1rem;
+      }
     }
     .right {
-      @include col_2();
+      @include col(60%);
+      margin: 1rem;
+      > * {
+        margin-bottom: 1rem;
+      }
     }
   }
 }

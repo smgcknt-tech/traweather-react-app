@@ -21,13 +21,14 @@
     }
 
     .error {
-      padding: 0 1rem;
+      margin: 0 1rem;
       color: #a02020;
     }
 
     fieldset {
       border: #bdbdbd solid 0.01rem;
       width: 100%;
+      margin: 1rem 0;
 
       legend {
         color: #7a7878;
@@ -35,6 +36,7 @@
       //do not put 'input' in 'legend'
 
       textarea {
+
         resize: none;
         height: 8rem;
         width: 100%;

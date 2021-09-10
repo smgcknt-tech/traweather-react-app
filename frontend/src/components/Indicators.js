@@ -25,6 +25,7 @@ export default function Indicators(props) {
         yearlowdate
     } = props.result;
     [stockdate, yearhighdate, yearlowdate] = helper.format_dates(stockdate, yearhighdate, yearlowdate)
+    
     return (
         <div className="indicators_body">
             <p id="stockDate">データ更新日: {stockdate}</p>

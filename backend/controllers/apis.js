@@ -1,31 +1,50 @@
-import { sql } from "../models/sql.js";
+import { api } from "../models/api.js";
 import { env } from "../../env_variables.js";
 import { helper } from "../utils/helper.js";
+
 /* const kabu_plus_auth = `${env.kabu_plus_user}:${env.kabu_plus_password}@`
 const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus` */
 
-export const api = {
-    fetch_latest_stock: (req, res) => {
-        sql.get_latest_stock()
+export const apis = {
+    create_prediction: async(req, res) => {
+        const payload = req.body;
+        await api.create_prediction(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
                 console.error(err.message)
             })
     },
-    fetch_one_latest_stock: (req, res) => {
-        const code = req.params.code;
-        sql.get_one_latest_stock(code)
+    update_prediction: async (req, res) => {
+        const payload = req.body;
+        await api.update_prediction(payload)
             .then((data) => {
-                res.send(data)
+                res.json(data)
             }).catch((err) => {
-                console.log(err.message)
+                console.error(err.message)
+            })
+    },
+    fetch_one_prediction: (req, res) => {
+        console.log(req.query);
+        api.get_one_prediction(req.query)
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
+    },
+    fetch_latest_stock: (req, res) => {
+        api.get_latest_stock()
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
             })
     },
     /*     upsert_latest_stock_table: async () => {
             try {
                 const url = `${kabu_plus_url}/csv/japan-all-stock-prices-2/daily/japan-all-stock-prices-2.csv`;
-                await helper.csv_stream(url, sql.upsert_latest_stock)
+                await helper.csv_stream(url, api.upsert_latest_stock)
                     .then((res) => { console.log(res) })
                     .catch((err) => {
                         console.log(err.message)
@@ -36,42 +55,34 @@ export const api = {
             }
         }, */
     create_plan: async (req, res) => {
-        try {
-            const data = req.body;
-            await sql.create_plan(data)
-            sql.get_plan()
-                .then((data) => {
-                    res.json(data)
-                }).catch((err) => {
-                    console.error(err.message)
-                })
-        } catch (err) {
-            console.error(err.message)
-        }
+        const payload = req.body;
+        api.create_plan(payload)
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
     },
     fetch_plan: (req, res) => {
-        sql.get_plan()
+        api.get_plan(req.query.user_id)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
                 console.error(err.message)
             })
-
     },
     update_plan: (req, res) => {
-        const code = req.params.code
         const payload = req.body;
-        sql.update_plan(payload,code)
+        api.update_plan(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
                 console.error(err.message)
             })
     },
-    update_plan_reason:(req,res)=>{
-        const code = req.params.code
+    update_plan_reason: (req, res) => {
         const payload = req.body;
-        sql.update_plan_reason(payload, code)
+        api.update_plan_reason(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
@@ -79,9 +90,17 @@ export const api = {
             })
     },
     update_plan_strategy: (req, res) => {
-        const code = req.params.code
         const payload = req.body;
-        sql.update_plan_strategy(payload, code)
+        api.update_plan_strategy(payload)
+            .then((data) => {
+                res.json(data)
+            }).catch((err) => {
+                console.error(err.message)
+            })
+    },
+    delete_plan: (req, res) => {
+        const payload = req.body;
+        api.delete_plan(payload)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {

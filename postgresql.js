@@ -9,7 +9,3 @@ export const pool = new pg.Pool({
     port: process.env.db_port,
     database: process.env.db_name
 })
-
-pool.on('error', (err, client) => [
-    console.log('client error', err.message, err.stack)
-]);

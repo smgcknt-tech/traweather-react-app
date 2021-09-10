@@ -1,14 +1,33 @@
 @import "../variables.scss";
 
 .plan_page {
+  margin: 1rem;
   .dashboard {
     @include row();
     @include top();
+
     .left {
-      @include col_2();
+      margin: 1rem;
+      > * {
+        margin-bottom: 2rem;
+      }
+
+      .menu_button {
+        padding: 0 1rem;
+        @include row();
+        li {
+          cursor: pointer;
+          @include hover();
+        }
+      }
+      @include col(60%);
     }
     .right {
-      @include col_1();
+      margin: 1rem;
+      > * {
+        margin-bottom: 2rem;
+      }
+      @include col(30%);
     }
   }
 }

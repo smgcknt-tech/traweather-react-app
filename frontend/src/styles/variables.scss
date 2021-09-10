@@ -31,10 +31,6 @@
   align-items: flex-start;
 }
 
-@mixin col_1 {
-  flex: 1 1 30%;
-}
-
-@mixin col_2 {
-  flex: 1 1 60%;
+@mixin col ($base_width) {
+  flex: 1 1 $base_width;
 }

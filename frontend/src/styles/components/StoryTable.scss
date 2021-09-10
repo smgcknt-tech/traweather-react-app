@@ -1,24 +1,15 @@
 @import "../variables.scss";
 
 .story_table {
-  @include col_2();
-  padding: 2rem;
+  @include col(60%);
 
-  .menu_button {
-    padding: 1rem 0;
-    @include row();
-    li {
-      @include hover();
-    }
-  }
   table {
     font-size: 1.5rem;
     width: 100%;
-    box-shadow: 0 0 0.5rem #b4b4b4;
     border-collapse: collapse;
     th,
     td {
-      padding: 1.2rem, 0.5rem;
+      padding: 0.2rem 0.3rem;
       border: 0.1rem solid #ddd;
       text-align: center;
     }
@@ -27,23 +18,35 @@
       color: #fff;
     }
     tbody {
-      tr{
-        [data-label="opening"],
-        [data-label="support"],
-        [data-label="losscut"],
-        [data-label="goal"]{
-          @include hover();
+      tr {
+        cursor: pointer;
+        background-color: #fff;
+        [data-label="寄付値"],
+        [data-label="支持線"],
+        [data-label="仕切値"],
+        [data-label="目標値"] {
+          transition: 0.3s;
+          &:hover {
+            opacity: 0.3;
+            background-color: rgb(245, 187, 111);
+            transition: background-color 0.3s;
+          }
+        }
 
+        transition: 0.1s;
+        &:hover {
+          border: 0.2rem double rgb(245, 187, 111);
         }
         td {
-          background-color: #fff;
           input {
+            cursor: pointer;
             max-width: 5rem;
             padding: 0;
             margin: 0;
+            background-color: transparent;
           }
-          i.fa-save{
-            opacity:0.8;
+          i {
+            opacity: 0.6;
             @include hover();
           }
         }
@@ -51,33 +54,75 @@
     }
   }
 
-  @media (max-width: 500px) {
-    thead {
+  .pagination_bttns {
+    @include row();
+    @include center();
+    margin: 2rem 0;
+    a {
+      padding: 0.1rem 1rem;
+      margin: 0.8rem;
+      border-radius: 0.2rem;
+      border: 0.1rem solid #8b8b8b;
+      color: #8b8b8b;
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+        background-color: #8b8b8b;
+      }
+    }
+  }
+  .pagination_active {
+    a {
+      color: white;
+      background-color: #8b8b8b;
+    }
+  }
+
+  .pagination_disabled {
+    a {
       display: none;
     }
-    table,
-    tbody,
-    tr,
-    td {
-      display: block;
-      width: 88%;
-    }
+  }
+}
 
-    tr {
-      margin-bottom: 1.5rem;
-      td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-        &::before {
-          content: attr(data-label);
-          position: absolute;
-          left: 0;
-          width: 50%;
-          padding-left: 1.5rem;
-          font-size: 1.5rem;
-          font-weight: bold;
-          text-align: left;
+@media (max-width: 500px) {
+  .story_table {
+    table {
+      font-size: 1rem;
+      border-collapse: collapse;
+      thead {
+        display: none;
+      }
+      tbody {
+        @include row();
+        width: 100%;
+      }
+      tr {
+        width: 30%;
+        display: block;
+        padding: 1rem;
+        td {
+          position: relative;
+          border-bottom: none;
+          height: 2.5rem;
+          display: block;
+          text-align: right;
+          line-height: 1.5rem;
+          padding: 0.5rem 1rem 0 0;
+
+          &:before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            padding-left: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+          }
+        }
+        #submit,
+        #delete {
+          text-align: center;
         }
       }
     }
