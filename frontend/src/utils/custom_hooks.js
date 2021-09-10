@@ -31,6 +31,7 @@ export const hooks = {
         const { selectedStock, planData, allStocks } = state;
 
         useEffect(() => {
+            console.log(helper.get_today())
             if (user.id) {
                 helper.fecthData(`/api/fetch_plan`, dispatch, actions, { user_id: user.id })
                     .then((fetchedPlan) => {
@@ -42,8 +43,8 @@ export const hooks = {
                 helper.fecthData(`/api/fetch_one_prediction`, dispatch, actions, {
                     user_id: user.id,
                     date: helper.get_today()
-                })
-                    .then((data) => {
+                }).then((data) => {
+
                         dispatch({ type: actions.SET_PREDICTION, payload: data });
                     });
                 helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)

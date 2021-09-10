@@ -1,13 +1,14 @@
-import axios from 'axios';
-import { useContext } from 'react';
+import '../styles/components/LogInForm.scss'
 import { useForm } from 'react-hook-form'
-import { useHistory } from 'react-router-dom'
-import { AppContext, AppActions } from '../stores/App'
-import '../styles/components/LogInPage.scss'
+import { useContext } from 'react';
+import { AppActions, AppContext } from '../stores/App'
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
-export default function LogInPage() {
+export default function LogInForm(props) {
     const { state, dispatch } = useContext(AppContext);
     const { user } = state;
+    const {setOpen} = props
     const { register, handleSubmit, formState: { errors } } = useForm();
     let history = useHistory()
     const onSubmit = async (data) => {
@@ -24,8 +25,9 @@ export default function LogInPage() {
     }
 
     return (
-        <div className="login_form" onSubmit={handleSubmit(onSubmit)}>
-            <form className="form">
+        <div >
+            <form className="login_form" onSubmit={handleSubmit(onSubmit)}>
+                <div className="register_bttn" onClick={()=> {setOpen("register")}}>新規登録はこちら</div>
                 <div className="each_input" >
                     <fieldset>
                         <legend>ユーザー名</legend>
@@ -48,7 +50,7 @@ export default function LogInPage() {
                     </fieldset>
                     {(errors['password']) ? (<span className="error">{errors['password'].message}</span>) : null}
                 </div>
-                <div className="button"><input type="submit" value="保存" /></div>
+                <div className="button"><input type="submit" value="LOG IN" /></div>
             </form>
         </div>
     )

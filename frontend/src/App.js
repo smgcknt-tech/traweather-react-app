@@ -12,13 +12,15 @@ import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import PlanPage from "./pages/PlanPage";
-import LogInPage from "./pages/LogInPage";
+import EntrancePage from "./pages/EntrancePage";
 
 function App() {
   const { state, dispatch } = useContext(AppContext);
-  hooks.useAuthentification(state.user, dispatch, AppActions)
+  const {user} = state
+  hooks.useAuthentification( user, dispatch, AppActions)
   return (
     <BrowserRouter>
+      {!user.status ? (<EntrancePage />):(
       <div className="grid-container">
         <header>
           <Header />
@@ -28,7 +30,7 @@ function App() {
         </nav>
         <main>
           <Switch>
-            <Route path="/user/login" component={LogInPage} exact />
+              <Route path="/user/login" component={EntrancePage} exact />
             <Route exact path="/">
               <TopProvider><TopPage /></TopProvider>
             </Route>
@@ -42,6 +44,7 @@ function App() {
           <Footer />
         </footer>
       </div>
+      )}
     </BrowserRouter >
   );
 }

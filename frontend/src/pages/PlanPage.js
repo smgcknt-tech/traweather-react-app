@@ -11,7 +11,7 @@ import Strategy from '../components/Strategy';
 import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
 import Prediction from '../components/Prediction';
-import LogInPage from './LogInPage';
+import LogInPage from './EntrancePage';
 import PlanAddForm from '../components/PlanAddForm'
 
 export default function PlanPage() {
@@ -24,7 +24,6 @@ export default function PlanPage() {
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
-    if (!user.status) return <LogInPage />
     return (
         <div className="plan_page">
             <SearchBar />

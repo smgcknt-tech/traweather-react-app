@@ -1,8 +1,10 @@
 html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
   box-sizing: border-box;
+  height: 100%;
 
   body {
+    height: 100vh;
     margin: 0;
     font-size: 1.6rem;
     background-color: #fafafa;
@@ -10,9 +12,13 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+    #root {
+      height: 100%;
+    }
+
     /*fundamental_Layout*/
     .grid-container {
-      height: 100vh;
+      height: 100%;
       display: grid;
       grid-template-columns: auto 1fr;
       grid-template-rows: auto 1fr auto;
@@ -24,7 +30,7 @@ html {
     }
 
     nav {
-      width:6rem;
+      width: 6rem;
       grid-column: 1 / 2;
       grid-row: 2 / 3;
     }
@@ -32,7 +38,7 @@ html {
     main {
       grid-column: 2 / 3;
       grid-row-start: 2 / 3;
-      padding-bottom:7rem;
+      padding-bottom: 7rem;
     }
 
     footer {

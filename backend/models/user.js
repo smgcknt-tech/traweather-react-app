@@ -11,8 +11,7 @@ export const user = {
                 await pool.query("BEGIN")
                 await pool.query(`INSERT INTO app_user (username,password) VALUES($1, $2);`, [username, hash])
                 await pool.query("COMMIT")
-                const res = await pool.query("SELECT * FROM users;")
-                return res.rows
+                return "SUCCESS"
             } catch (err) {
                 await pool.query('ROLLBACK')
             }

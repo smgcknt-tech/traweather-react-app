@@ -2,11 +2,13 @@ import { user } from "../models/user.js";
 
 export const users = {
     register: async (req, res) => {
-        await user.register(req.body)
-            .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+        user.register(req.body).
+            then((result) => {
+                if (result === "SUCCESS") {
+                    users.login(req, res)
+                } else {
+                    res.json({ error: "新規登録に失敗しました。"})
+                }
             })
     },
     login: async (req, res) => {

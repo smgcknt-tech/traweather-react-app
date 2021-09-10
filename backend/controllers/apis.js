@@ -25,6 +25,7 @@ export const apis = {
             })
     },
     fetch_one_prediction: (req, res) => {
+        console.log(req.query);
         api.get_one_prediction(req.query)
             .then((data) => {
                 res.json(data)

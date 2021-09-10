@@ -1,0 +1,54 @@
+@import "../variables.scss";
+
+.register_form {
+  @include row();
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 0.2rem;
+  box-shadow: 0 0 0.5rem #b4b4b4;
+
+  .login_bttn {
+    padding:1rem 0;
+    cursor: pointer;
+    color: #7a7878;
+    @include hover();
+  }
+
+  > .each_input {
+    width: 100%;
+    padding: 0 2rem;
+    input {
+      width: 100%;
+    }
+    fieldset {
+      border: #bdbdbd solid 0.01rem;
+      width: 100%;
+      margin: 1rem 0;
+      legend {
+        color: #7a7878;
+      }
+    }
+    .error {
+      margin: 0 1rem;
+      color: #a02020;
+    }
+  }
+
+  .button {
+    @include row();
+    @include center();
+    width: 100%;
+    margin: 1rem;
+    input {
+      text-align: center;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: bold;
+      width: 50%;
+      height: 4rem;
+      border-radius: 2rem;
+      background-color: #ee6272;
+      box-shadow: 0 0 0.3rem #b4b4b4;
+    }
+  }
+}
