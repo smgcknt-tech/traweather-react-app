@@ -26,12 +26,13 @@ export default function PlanPage() {
     if (error) return <Message variant="error">{error}</Message>
     return (
         <div className="plan_page">
+            <ul className="header_menu">
+                <li onClick={() => { setOpen("add") }} ><i className="fas fa-edit"/>銘柄追加</li>
+            </ul>
+            <div className="main">
             <SearchBar />
             <div className="dashboard">
                 <div className="left">
-                    <ul className="menu_button">
-                        <li onClick={() => { setOpen("add") }} >銘柄追加</li>
-                    </ul>
                     {open === "add" && (<PlanAddForm setOpen={setOpen} />)}
                     {planData.length > 0 && (<StoryTable />)}
                     <StoryChart />
@@ -42,6 +43,7 @@ export default function PlanPage() {
                 </div>
             </div>
             {prediction && <Prediction />}
+            </div>
         </div>
     )
 }

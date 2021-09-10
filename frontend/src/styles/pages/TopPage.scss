@@ -1,29 +1,43 @@
 @import "../variables.scss";
 
 .top_page {
-  padding: 2rem;
-  .menu_list {
-    margin-bottom: 1rem;
-    li{
-      cursor: pointer;
-      @include hover();
-    }
-  }
-  .dashboard_row2 {
-    @include col(30%);
+  .header_menu {
     @include row();
-    @include top();
-    .left {
-      margin: 1rem;
-      > * {
-        margin-bottom: 1rem;
+    margin-bottom: 1rem;
+    background-color: #8b8b8b;
+    color: #fff;
+    box-shadow: 0 0.2rem 0.2rem #b4b4b4;
+    li {
+      padding: 1rem 2rem;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        background-color:rgba(255,255,255,0.3);
+        transition: background-color 0.1s;
+      }
+      i {
+        padding: 0 0.5rem;
       }
     }
-    .right {
-      @include col(60%);
-      margin: 1rem;
-      > * {
-        margin-bottom: 1rem;
+  }
+  .main {
+    padding: 2rem;
+    .dashboard_row2 {
+      @include col(30%);
+      @include row();
+      @include top();
+      .left {
+        margin: 1rem;
+        > * {
+          margin-bottom: 1rem;
+        }
+      }
+      .right {
+        @include col(60%);
+        margin: 1rem;
+        > * {
+          margin-bottom: 1rem;
+        }
       }
     }
   }
