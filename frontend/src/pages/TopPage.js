@@ -18,19 +18,21 @@ export default function TopPage() {
     if (error) return <Message variant="error">{error}</Message>
     return (
         <div className="top_page">
-            <ul className="menu_list">
-                <li onClick={() => { setOpen('prediction') }}>予想記入</li>
+            <ul className="header_menu">
+                <li onClick={() => { setOpen('prediction') }}><i className="fas fa-edit"></i>予想記入</li>
             </ul>
-            {open === "prediction" && <MarketPredictionForm setOpen={setOpen} />}
-            <div className="dashboard_row1">
-                <Ticker />
-            </div>
-            <div className="dashboard_row2">
-                <div className="left">
-                    <Twitter />
+            <div className="main">
+                {open === "prediction" && <MarketPredictionForm setOpen={setOpen} />}
+                <div className="dashboard_row1">
+                    <Ticker />
                 </div>
-                <div className="right">
-                    <Event />
+                <div className="dashboard_row2">
+                    <div className="left">
+                        <Twitter />
+                    </div>
+                    <div className="right">
+                        <Event />
+                    </div>
                 </div>
             </div>
         </div>
