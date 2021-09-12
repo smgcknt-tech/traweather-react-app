@@ -3,7 +3,7 @@ import moment from "moment"
 
 
 export const helper = {
-    fecthData: async (url, dispatch, actions, payload) => {
+    fetchData: async (url, dispatch, actions, payload) => {
         dispatch({ type: actions.SET_LOADING, payload: true })
         const data = await axios.get(url, { params: payload || {} })
             .then((res) => {
@@ -14,12 +14,11 @@ export const helper = {
                 if (err.response.data.error) {
                     const { error } = err.response.data
                     dispatch({ type: actions.SET_ERROR, payload: error })
-                    dispatch({ type: actions.SET_LOADING, payload: false })
                 } else {
                     dispatch({ type: actions.SET_ERROR, payload: err.message })
-                    dispatch({ type: actions.SET_LOADING, payload: false })
                 }
-
+            }).finally(() => {
+                dispatch({ type: actions.SET_LOADING, payload: false })
             })
         return data;
     },
@@ -31,7 +30,13 @@ export const helper = {
                 return res.data
             })
             .catch((err) => {
-                dispatch({ type: actions.SET_ERROR, payload: err.message })
+                if (err.response.data.error) {
+                    const { error } = err.response.data
+                    dispatch({ type: actions.SET_ERROR, payload: error })
+                } else {
+                    dispatch({ type: actions.SET_ERROR, payload: err.message })
+                }
+            }).finally(()=> {
                 dispatch({ type: actions.SET_LOADING, payload: false })
             })
         return data;

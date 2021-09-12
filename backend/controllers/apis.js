@@ -1,109 +1,128 @@
 import { api } from "../models/api.js";
-import { env } from "../../env_variables.js";
-import { helper } from "../utils/helper.js";
+// import { env } from "../../env_variables.js";
+// import { helper } from "../utils/helper.js";
 
-/* const kabu_plus_auth = `${env.kabu_plus_user}:${env.kabu_plus_password}@`
-const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus` */
+// const kabu_plus_auth = `${env.kabu_plus_user}:${env.kabu_plus_password}@`
+// const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus`
 
 export const apis = {
-    create_prediction: async(req, res) => {
+    create_prediction: async (req, res) => {
         const payload = req.body;
         await api.create_prediction(payload)
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     },
     update_prediction: async (req, res) => {
         const payload = req.body;
         await api.update_prediction(payload)
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     },
     fetch_one_prediction: (req, res) => {
         api.get_one_prediction(req.query)
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     },
     fetch_latest_stock: (req, res) => {
         api.get_latest_stock()
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     },
-    /*     upsert_latest_stock_table: async () => {
-            try {
-                const url = `${kabu_plus_url}/csv/japan-all-stock-prices-2/daily/japan-all-stock-prices-2.csv`;
-                await helper.csv_stream(url, api.upsert_latest_stock)
-                    .then((res) => { console.log(res) })
-                    .catch((err) => {
-                        console.log(err.message)
-                    })
-                return `${helper.now()}: "upsert_latest_stock_table" is requested`
-            } catch (err) {
-                throw new Error(`${helper.now()}: upsert_latest_stock_table failed`)
-            }
-        }, */
+    upsert_latest_stock_table: async () => {
+        // const url = `${kabu_plus_url}/csv/japan-all-stock-prices-2/daily/japan-all-stock-prices-2.csv`;
+        // const result = await helper.csv_stream(url, api.upsert_latest_stock)
+        //     .then((res) => {
+        //         if (!res.error) {
+        //             return res
+        //         } else {
+        //             return res.error
+        //         }
+        //     })
+        // return result;
+    },
     create_plan: async (req, res) => {
         const payload = req.body;
         api.create_plan(payload)
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     },
     fetch_plan: (req, res) => {
         api.get_plan(req.query.user_id)
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     },
-    update_plan: (req, res) => {
+    update_plan_numbers: (req, res) => {
         const payload = req.body;
-        api.update_plan(payload)
+        api.update_plan_numbers(payload)
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     },
     update_plan_reason: (req, res) => {
         const payload = req.body;
         api.update_plan_reason(payload)
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     },
     update_plan_strategy: (req, res) => {
         const payload = req.body;
         api.update_plan_strategy(payload)
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     },
     delete_plan: (req, res) => {
         const payload = req.body;
         api.delete_plan(payload)
             .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.error(err.message)
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
             })
     }
 }

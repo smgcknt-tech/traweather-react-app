@@ -22,24 +22,27 @@ export default function PlanPage() {
 
     useEffect(() => {
         if (user.id) {
-            helper.fecthData(`/api/fetch_plan`, dispatch, actions, {
-                user_id: user.id
-            }).then((fetchedPlan) => {
-                if (fetchedPlan.length > 0) {
-                    dispatch({ type: actions.SET_PLAN, payload: fetchedPlan });
-                    dispatch({ type: actions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
+            const fetchPlanPageData = async () => {
+                const fetchedPlan = await helper.fetchData(`/api/fetch_plan`, dispatch, actions, {
+                    user_id: user.id
+                })
+                if (fetchedPlan) {
+                    if (fetchedPlan.length > 0) {
+                        dispatch({ type: actions.SET_PLAN, payload: fetchedPlan });
+                        dispatch({ type: actions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
+                    }
                 }
-            });
 
-            helper.fecthData(`/api/fetch_one_prediction`, dispatch, actions, {
-                user_id: user.id,
-                date: helper.get_today()
-            }).then((data) => {
-                dispatch({ type: actions.SET_PREDICTION, payload: data });
-            });
+                const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, dispatch, actions, {
+                    user_id: user.id,
+                    date: helper.get_today()
+                })
+                if (fetchedPrediction) dispatch({ type: actions.SET_PREDICTION, payload: fetchedPrediction });
 
-            helper.fecthData(`/api/fetch_latest_stock`, dispatch, actions)
-                .then((fecthedStocks) => { dispatch({ type: actions.SET_ALL_STOCKS, payload: fecthedStocks }); })
+                const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, dispatch, actions)
+                if (fetchedStocks) dispatch({ type: actions.SET_ALL_STOCKS, payload: fetchedStocks });
+            }
+            fetchPlanPageData()
         }
     }, [user.id]);
 

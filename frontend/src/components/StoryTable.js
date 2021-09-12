@@ -40,7 +40,7 @@ export default function StoryTable() {
         setShow(`tr_${index}`)
         dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[pagesVisited + index] })
     }
-    const handleSubmit = (index) => {
+    const handleSubmit = async (index) => {
         const payload = {
             opening: refs.current[index].querySelector("td[data-label='寄付値'] > input ").value,
             support: refs.current[index].querySelector("td[data-label='支持線'] > input ").value,
@@ -49,25 +49,25 @@ export default function StoryTable() {
             code: refs.current[index].querySelector("td[data-label='証券番号']").innerText,
             user_id: user.id,
         }
-        helper.postData(`/api/update_plan`, dispatch, actions, payload)
-            .then((data) => {
-                dispatch({ type: actions.SET_PLAN, payload: data });
-                dispatch({ type: actions.SET_SELECTED_STOCK, payload: data[pagesVisited + index] })
-                dispatch({ type: actions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
-            })
+        const response = await helper.postData(`/api/update_plan_numbers`, dispatch, actions, payload)
+        if (response) {
+            dispatch({ type: actions.SET_PLAN, payload: response });
+            dispatch({ type: actions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
+            dispatch({ type: actions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
+        }
     }
 
-    const handleDelete = (index) => {
+    const handleDelete = async(index) => {
         const code = refs.current[index].querySelectorAll("td")[0].innerText;
         const payload = {
             user_id: user.id,
             code: code,
         }
-        helper.postData('/api/delete_plan', dispatch, actions, payload)
-            .then((data) => {
-                dispatch({ type: actions.SET_PLAN, payload: data});
-                dispatch({ type: actions.SET_SELECTED_STOCK, payload: null })
-            })
+        const response = await helper.postData('/api/delete_plan', dispatch, actions, payload)
+        if(response){
+            dispatch({ type: actions.SET_PLAN, payload: response });
+            dispatch({ type: actions.SET_SELECTED_STOCK, payload: null })
+        }
     }
     return (
         <div className="story_table">

@@ -10,9 +10,14 @@ export const helper = {
     },
     get_today: () => {
         let today = new Date();
-        const date = today.getFullYear() + "0" + (today.getMonth() + 1) + "0" + today.getDate()
-        const result = moment(date).format("YYYY-MM-DD");
-        return result;
+        let todays_date = today.getDate()
+        if (todays_date < 10) {
+            const date = today.getFullYear() + "0" + (today.getMonth() + 1) + "0" + todays_date
+            return moment(date).format("YYYY-MM-DD")
+        } else if (todays_date >= 10) {
+            const date = today.getFullYear() + "0" + (today.getMonth() + 1) + todays_date
+            return moment(date).format("YYYY-MM-DD")
+        }
     },
     csv_stream: async (url, callback) => {
         return new Promise((resolve, reject) => {

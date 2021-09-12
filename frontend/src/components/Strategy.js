@@ -12,19 +12,19 @@ export default function Strategy() {
     const [open, setOpen] = useState(false)
     const textarea = useRef(null)
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setOpen(false)
         const payload = {
             strategy: textarea.current.value,
             user_id: user.id,
             code: selectedStock.code
         }
-        helper.postData(`/api/update_plan_strategy`, dispatch, actions, payload)
-            .then((data) => {
-                dispatch({ type: actions.SET_PLAN, payload: data });
-                const foundSelectedStock = data.find((plan) => plan.code === selectedStock.code)
-                dispatch({ type: actions.SET_SELECTED_STOCK, payload: foundSelectedStock })
-            })
+        const response = await helper.postData(`/api/update_plan_strategy`, dispatch, actions, payload)
+        if (response) {
+            dispatch({ type: actions.SET_PLAN, payload: response });
+            const foundSelectedStock = response.find((plan) => plan.code === selectedStock.code)
+            dispatch({ type: actions.SET_SELECTED_STOCK, payload: foundSelectedStock })
+        }
     }
 
     return (
