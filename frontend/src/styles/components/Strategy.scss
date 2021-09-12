@@ -1,10 +1,10 @@
 @import "../variables.scss";
 
-.strategy{
-  padding:2rem;
-  height:30rem;
-  background-color:#fff;
-  border-radius:0.5rem;
+.strategy {
+  padding: 2rem;
+  height: 30rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
   box-shadow: 0 0 0.3rem #b4b4b4;
   .content {
     margin-top: 1rem;
@@ -16,8 +16,7 @@
     }
   }
   .button {
-    @include row();
-    @include center();
+    @include row(center, center);
     span {
       @include place_center();
       color: #fff;

@@ -16,8 +16,7 @@
     }
   }
   .button {
-    @include row();
-    @include center();
+    @include row(center,center);
     span {
       @include place_center();
       color: #fff;

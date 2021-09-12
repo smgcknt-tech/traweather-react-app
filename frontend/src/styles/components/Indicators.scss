@@ -33,7 +33,7 @@
   padding: 1rem 3rem;
 
   .profile {
-    @include row();
+    @include row(center,flex-start);
   }
 
   .stock_name {
@@ -41,7 +41,7 @@
   }
 
   .indicators {
-    @include row();
+    @include row(center,flex-start);
 
     #price {
       @include indicator_card(#337ab7, #fff);

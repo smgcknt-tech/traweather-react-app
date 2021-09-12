@@ -175,6 +175,7 @@ export default function StoryChart() {
                         <table>
                             <tbody>
                                 <tr className="date"><th className="date">{helper.format_dates(indicators.stockdate)}</th></tr>
+                                <tr><th>現在値</th><td>{indicators.price} 円</td></tr>
                                 <tr><th>前日比</th><td>{indicators.change} 円 ({indicators.changeinpercent}%)</td></tr>
                                 <tr><th>始値</th><td>{indicators.opening} 円</td></tr>
                                 <tr><th>高値</th><td>{indicators.high} 円</td></tr>

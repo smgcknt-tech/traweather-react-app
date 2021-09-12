@@ -7,7 +7,6 @@ import Twitter from '../components/widgets/Twitter';
 import { useContext, useState } from 'react';
 import { context } from '../stores/TopPage'
 import MarketPredictionForm from '../components/MarketPredictionForm';
-import { AppContext } from '../stores/App';
 
 export default function TopPage() {
     const { state } = useContext(context);
@@ -27,10 +26,10 @@ export default function TopPage() {
                     <Ticker />
                 </div>
                 <div className="dashboard_row2">
-                    <div className="left">
+                    <div className="left_col">
                         <Twitter />
                     </div>
-                    <div className="right">
+                    <div className="right_col">
                         <Event />
                     </div>
                 </div>

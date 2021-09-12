@@ -2,13 +2,12 @@
 
 .search {
   margin: 2rem;
-  @include row();
-  @include center();
+  @include row(center,center);
 
   .search_container {
     width: 50%;
     .search_inputs {
-      @include row();
+      @include row(center,flex-start);
 
       input {
         width: 80%;

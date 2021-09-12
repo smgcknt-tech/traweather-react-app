@@ -1,7 +1,7 @@
+import '../styles/components/Strategy.scss'
 import React, { useContext, useRef, useState } from 'react'
 import { AppContext } from '../stores/App';
 import { context, actions } from '../stores/PlanPage';
-import '../styles/components/Strategy.scss'
 import { helper } from '../utils/helper';
 
 export default function Strategy() {

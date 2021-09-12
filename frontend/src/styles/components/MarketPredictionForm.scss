@@ -1,12 +1,7 @@
 @import "../variables.scss";
 
 .market_prediction_form {
-  @include row();
-  @include center();
-
-  .form > .each_input {
-    margin: 0.8rem 0;
-  }
+  @include row(center, center);
 
   .form {
     margin: 0 0 1rem 0;
@@ -20,37 +15,30 @@
       opacity: 0.5;
     }
 
-    .error {
-      margin: 0 1rem;
-      color: #a02020;
-    }
-
-    fieldset {
-      border: #bdbdbd solid 0.01rem;
+    .each_input {
       width: 100%;
-      margin: 1rem 0;
-
-      legend {
-        color: #7a7878;
-      }
-      //do not put 'input' in 'legend'
-
+      padding: 0 2rem;
       textarea {
-
         resize: none;
         height: 8rem;
         width: 100%;
       }
-
-      textarea,
-      input {
-        display: block;
+      fieldset {
+        border: #bdbdbd solid 0.01rem;
         width: 100%;
+        margin: 1rem 0;
+        legend {
+          color: #7a7878;
+        }
+      }
+      .error {
+        margin: 0 1rem;
+        color: #a02020;
       }
     }
+
     .button {
-      @include row();
-      @include center();
+      @include row(center, center);
       input {
         text-align: center;
         color: #fff;

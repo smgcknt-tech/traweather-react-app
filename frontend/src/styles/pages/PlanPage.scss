@@ -2,8 +2,7 @@
 
 .plan_page {
   .header_menu {
-    @include row();
-    margin-bottom: 1rem;
+    @include row(center, flex-start);
     background-color: #8b8b8b;
     color: #fff;
     box-shadow: 0 0.2rem 0.2rem #b4b4b4;
@@ -22,27 +21,16 @@
   }
   .main {
     padding: 1rem;
-    .dashboard {
-      @include row();
-      @include top();
-
-      .left {
+    .dashboard_container {
+      @include row(flex-start, flex-start);
+      .left_col {
         margin: 1rem;
         > * {
           margin-bottom: 2rem;
         }
-
-        .menu_button {
-          padding: 0 1rem;
-          @include row();
-          li {
-            cursor: pointer;
-            @include hover();
-          }
-        }
         @include col(60%);
       }
-      .right {
+      .right_col {
         margin: 1rem;
         > * {
           margin-bottom: 2rem;

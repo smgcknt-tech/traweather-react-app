@@ -2,7 +2,6 @@
 
 .story_table {
   @include col(60%);
-
   table {
     font-size: 1.5rem;
     width: 100%;
@@ -19,24 +18,24 @@
     }
     tbody {
       tr {
-        cursor: pointer;
         background-color: #fff;
+        cursor: pointer;
+        transition: 0.1s;
+        &:hover {
+          border: 0.2rem double rgb(245, 187, 111);
+        }
+
         [data-label="寄付値"],
         [data-label="支持線"],
         [data-label="仕切値"],
         [data-label="目標値"] {
           transition: 0.3s;
           &:hover {
-            opacity: 0.3;
-            background-color: rgb(245, 187, 111);
+            background-color: rgba(245, 187, 111, 0.3);
             transition: background-color 0.3s;
           }
         }
-
-        transition: 0.1s;
-        &:hover {
-          border: 0.2rem double rgb(245, 187, 111);
-        }
+        
         td {
           input {
             cursor: pointer;
@@ -45,9 +44,16 @@
             margin: 0;
             background-color: transparent;
           }
+        }
+        #submit,
+        #delete {
           i {
             opacity: 0.6;
-            @include hover();
+          }
+          transition: 0.3s;
+          &:hover {
+            background-color: rgba(71, 139, 214, 0.5);
+            transition: background-color 0.3s;
           }
         }
       }
@@ -55,8 +61,7 @@
   }
 
   .pagination_bttns {
-    @include row();
-    @include center();
+    @include row(center, center);
     margin: 2rem 0;
     a {
       padding: 0.1rem 1rem;
@@ -95,7 +100,7 @@
         display: none;
       }
       tbody {
-        @include row();
+        @include row(center, flex-start);
         width: 100%;
       }
       tr {
