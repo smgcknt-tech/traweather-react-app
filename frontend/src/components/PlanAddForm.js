@@ -6,19 +6,19 @@ import { AppContext } from '../stores/App'
 import { helper } from '../utils/helper';
 
 export default function PlanAddForm(props) {
-    const { state,dispatch } = useContext(context);
-    const {allStocks } =state;
+    const { state, dispatch } = useContext(context);
+    const { allStocks } = state;
     const { state: AppState } = useContext(AppContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
 
-    const onSubmit = async(data) => {
-        const foundStock = allStocks.find((stock)=>stock.code === data.code)
+    const onSubmit = async (data) => {
+        const foundStock = allStocks.find((stock) => stock.code === data.code)
         data.market = foundStock.market
-        data.stock_name = foundStock.stockname
+        data.stock_name = foundStock.stock_name
         data.user_id = AppState.user.id
         const response = await helper.postData(`/api/create_plan`, dispatch, actions, data)
-        if(response){
+        if (response) {
             dispatch({ type: actions.SET_PLAN, payload: response })
         }
         props.setOpen(null)

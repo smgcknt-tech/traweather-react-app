@@ -12,7 +12,10 @@
       padding: 2rem 0;
       transition: 0.3s;
       &:hover {
-        background-color: rgba(71, 139, 214, 0.5);
+        i,p{
+          color:#fff;
+        }
+        background-color: rgba(71, 139, 214, 0.4);
         transition: background-color 0.3s;
       }
 

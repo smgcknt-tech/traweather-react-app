@@ -114,4 +114,20 @@ ALTER TABLE trade_plan ALTER COLUMN strategy SET NOT NULL;
 
 
 
+ALTER TABLE latest_stock_data RENAME COLUMN stockname TO stock_name;
+ALTER TABLE latest_stock_data RENAME COLUMN stockdate TO stock_date;
+ALTER TABLE latest_stock_data RENAME COLUMN changeinpercent TO change_in_percent;
+ALTER TABLE latest_stock_data RENAME COLUMN previousclose TO previous_close;
+ALTER TABLE latest_stock_data RENAME COLUMN volumeinpercent TO volume_in_percent;
+ALTER TABLE latest_stock_data RENAME COLUMN tradingvalue TO trading_value;
+ALTER TABLE latest_stock_data RENAME COLUMN marketcap TO market_cap ;
+ALTER TABLE latest_stock_data RENAME COLUMN lowerrange TO lower_range;
+ALTER TABLE latest_stock_data RENAME COLUMN upperrange TO upper_range;
+ALTER TABLE latest_stock_data RENAME COLUMN yearhighdate TO year_high_date;
+ALTER TABLE latest_stock_data RENAME COLUMN yearhigh TO year_high;
+ALTER TABLE latest_stock_data RENAME COLUMN yearhighdivergencerate TO year_high_divergence_rate;
+ALTER TABLE latest_stock_data RENAME COLUMN year_lowdate TO year_low_date;
+ALTER TABLE latest_stock_data RENAME COLUMN year_low TO year_low;
 
+
+ALTER TABLE latest_stock_data RENAME COLUMN year_lowdivergencerate TO year_low_divergence_rate;

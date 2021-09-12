@@ -75,35 +75,35 @@ export const api = {
     },
     upsert_latest_stock: async (values) => {
         const query = format(`
-                INSERT INTO latest_stock_data(code,stockName,market,industry,stockDate,price,change,changeInPercent,previousClose,opening,high,low,vwap,volume,volumeInPercent,tradingValue,marketCap,lowerRange,upperRange,yearHighDate,yearHigh,yearHighDivergenceRate,yearLowDate,yearLow,yearLowDivergenceRate)
+                INSERT INTO latest_stock_data(code,stock_name,market,industry,stock_date,price,change,change_in_percent,previous_close,opening,high,low,vwap,volume,volume_in_percent,trading_value,market_cap,lower_range,upper_range,year_high_date,year_high,year_high_divergence_rate,year_low_date,year_low,year_low_divergence_rate)
                 VALUES %L
                 ON CONFLICT(code)
                 DO UPDATE SET
                     code=EXCLUDED.code,
-                    stockName=EXCLUDED.stockName,
+                    stock_name=EXCLUDED.stock_name,
                     market=EXCLUDED.market,
                     industry=EXCLUDED.industry,
-                    stockDate=EXCLUDED.stockDate,
+                    stock_date=EXCLUDED.stock_date,
                     price=EXCLUDED.price,
                     change=EXCLUDED.change,
-                    changeInPercent=EXCLUDED.changeInPercent,
-                    previousClose=EXCLUDED.previousClose,
+                    change_in_percent=EXCLUDED.change_in_percent,
+                    previous_close=EXCLUDED.previous_close,
                     opening=EXCLUDED.opening,
                     high=EXCLUDED.high,
                     low=EXCLUDED.low,
                     vwap=EXCLUDED.vwap,
                     volume=EXCLUDED.volume,
-                    volumeInPercent=EXCLUDED.volumeInPercent,
-                    tradingValue=EXCLUDED.tradingValue,
-                    marketCap=EXCLUDED.marketCap,
-                    lowerRange=EXCLUDED.lowerRange,
-                    upperRange=EXCLUDED.upperRange,
-                    yearHighDate=EXCLUDED.yearHighDate,
-                    yearHigh=EXCLUDED.yearHigh,
-                    yearHighDivergenceRate=EXCLUDED.yearHighDivergenceRate,
-                    yearLowDate=EXCLUDED.yearLowDate,
-                    yearLow=EXCLUDED.yearLow,
-                    yearLowDivergenceRate=EXCLUDED.yearLowDivergenceRate
+                    volume_in_percent=EXCLUDED.volume_in_percent,
+                    trading_value=EXCLUDED.trading_value,
+                    market_cap=EXCLUDED.market_cap,
+                    lower_range=EXCLUDED.lower_range,
+                    upper_range=EXCLUDED.upper_range,
+                    year_high_date=EXCLUDED.year_high_date,
+                    year_high=EXCLUDED.year_high,
+                    year_high_divergence_rate=EXCLUDED.year_high_divergence_rate,
+                    year_low_date=EXCLUDED.year_low_date,
+                    year_low=EXCLUDED.year_low,
+                    year_low_divergence_rate=EXCLUDED.year_low_divergence_rate
                 RETURNING *;
                 `, values);
         const transaction = async () => {

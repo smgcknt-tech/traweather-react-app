@@ -57,52 +57,52 @@ export default function StoryTable() {
         }
     }
 
-    const handleDelete = async(index) => {
+    const handleDelete = async (index) => {
         const code = refs.current[index].querySelectorAll("td")[0].innerText;
         const payload = {
             user_id: user.id,
             code: code,
         }
         const response = await helper.postData('/api/delete_plan', dispatch, actions, payload)
-        if(response){
+        if (response) {
             dispatch({ type: actions.SET_PLAN, payload: response });
             dispatch({ type: actions.SET_SELECTED_STOCK, payload: null })
         }
     }
     return (
-        <div className="story_table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>証券コード</th>
-                        <th>市場</th>
-                        <th>銘柄名</th>
-                        <th>寄付値</th>
-                        <th>支持線</th>
-                        <th>仕切値</th>
-                        <th>目標値</th>
-                        <th>保存</th>
-                        <th>削除</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {planData.length > 0 && displayRows}
-                </tbody>
-            </table>
-            {planData.length > 0 && (
-                <ReactPaginate
-                    previousLabel={"<"}
-                    nextLabel={">"}
-                    pageCount={pageCount}
-                    initialPage={currentPage}
-                    onPageChange={changePage}
-                    containerClassName={"pagination_bttns"}
-                    previousLinkClassName={"previous_bttn"}
-                    nextLinkClassName={"next_bttn"}
-                    disabledClassName={"pagination_disabled"}
-                    activeClassName={"pagination_active"}
-                />
-            )}
-        </div>
+            <div className="story_table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>証券コード</th>
+                            <th>市場</th>
+                            <th>銘柄名</th>
+                            <th>寄付値</th>
+                            <th>支持線</th>
+                            <th>仕切値</th>
+                            <th>目標値</th>
+                            <th>保存</th>
+                            <th>削除</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {planData.length > 0 && displayRows}
+                    </tbody>
+                </table>
+                {planData.length > 0 && (
+                    <ReactPaginate
+                        previousLabel={"<"}
+                        nextLabel={">"}
+                        pageCount={pageCount}
+                        initialPage={currentPage}
+                        onPageChange={changePage}
+                        containerClassName={"pagination_bttns"}
+                        previousLinkClassName={"previous_bttn"}
+                        nextLinkClassName={"next_bttn"}
+                        disabledClassName={"pagination_disabled"}
+                        activeClassName={"pagination_active"}
+                    />
+                )}
+            </div>
     )
 }

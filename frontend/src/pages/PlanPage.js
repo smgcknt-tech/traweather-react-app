@@ -26,7 +26,7 @@ export default function PlanPage() {
                 const fetchedPlan = await helper.fetchData(`/api/fetch_plan`, dispatch, actions, {
                     user_id: user.id
                 })
-                if (fetchedPlan.length > 0) {
+                if (fetchedPlan?.length > 0) {
                     dispatch({ type: actions.SET_PLAN, payload: fetchedPlan });
                     dispatch({ type: actions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
                 }
@@ -74,8 +74,8 @@ export default function PlanPage() {
                 <SearchBar />
                 <div className="dashboard_container">
                     <div className="left_col">
-                        {open === "add" && <PlanAddForm setOpen={setOpen} />}
-                        {planData.length > 0 ? <StoryTable /> : <PlanAddForm setOpen={setOpen} />}
+                        {(open === "add" || planData.length === 0) && <PlanAddForm setOpen={setOpen} />}
+                        {planData.length > 0 && <StoryTable />}
                         <StoryChart />
                     </div>
                     <div className="right_col">

@@ -11,7 +11,7 @@ export default function SearchBar() {
 
     const handleFilter = (event) => {
         const searchWord = String(event.target.value);
-        const filteredResult = allStocks.filter((stock) => stock.code.includes(searchWord) || stock.stockname.includes(searchWord));
+        const filteredResult = allStocks.filter((stock) => stock.code.includes(searchWord) || stock.stock_name.includes(searchWord));
         setInputValue(searchWord);
         if (searchWord === "") {
             setFilteredData([]);
@@ -20,9 +20,9 @@ export default function SearchBar() {
         }
     }
 
-    const handleSelect = (code, stockname) => {
+    const handleSelect = (code, stock_name) => {
         const foundData = allStocks.filter((stock) => code === stock.code);
-        setInputValue(stockname);
+        setInputValue(stock_name);
         setFilteredData([]);
         setResult(foundData[0]);
     }
@@ -47,8 +47,8 @@ export default function SearchBar() {
                             .slice(0, 15)
                             .map((value, key) => {
                                 return (
-                                    <p key={key} className="data_item" onClick={() => { handleSelect(value.code, value.stockname) }}>
-                                        {value.code}_{value.stockname}
+                                    <p key={key} className="data_item" onClick={() => { handleSelect(value.code, value.stock_name) }}>
+                                        {value.code}_{value.stock_name}
                                     </p>
                                 );
                             })}
