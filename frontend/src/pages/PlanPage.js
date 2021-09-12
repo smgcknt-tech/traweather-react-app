@@ -26,11 +26,9 @@ export default function PlanPage() {
                 const fetchedPlan = await helper.fetchData(`/api/fetch_plan`, dispatch, actions, {
                     user_id: user.id
                 })
-                if (fetchedPlan) {
-                    if (fetchedPlan.length > 0) {
-                        dispatch({ type: actions.SET_PLAN, payload: fetchedPlan });
-                        dispatch({ type: actions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
-                    }
+                if (fetchedPlan.length > 0) {
+                    dispatch({ type: actions.SET_PLAN, payload: fetchedPlan });
+                    dispatch({ type: actions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
                 }
 
                 const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, dispatch, actions, {
