@@ -31,11 +31,9 @@ export const apis = {
     fetch_one_prediction: (req, res) => {
         api.get_one_prediction(req.query)
             .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
+                res.json(data)
+            }).catch((err) => {
+                console.log(err.message)
             })
     },
     fetch_latest_stock: (req, res) => {
@@ -59,6 +57,16 @@ export const apis = {
         //         }
         //     })
         // return result;
+    },
+    fetch_result: (req, res) => {
+        api.get_result(req.query.user_id)
+            .then((data) => {
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
+            })
     },
     create_plan: async (req, res) => {
         const payload = req.body;

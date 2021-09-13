@@ -7,6 +7,7 @@ api_router
     .get("/fetch_latest_stock", apis.fetch_latest_stock)
     .get("/fetch_plan", apis.fetch_plan)
     .get("/fetch_one_prediction", apis.fetch_one_prediction)
+    .get("/fetch_result", apis.fetch_result)
 api_router
     .post("/create_prediction", apis.create_prediction)
     .post("/update_prediction", apis.update_prediction)

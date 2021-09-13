@@ -1,0 +1,135 @@
+@import "../variables.scss";
+
+.result_table {
+  @include col(60%);
+  table {
+    font-size: 1.5rem;
+    width: 100%;
+    border-collapse: collapse;
+    th,
+    td {
+      padding: 0.2rem 0.3rem;
+      border: 0.1rem solid #ddd;
+      text-align: center;
+    }
+    th {
+      background-color: #8b8b8b;
+      color: #fff;
+    }
+    tbody {
+      tr {
+        background-color: #fff;
+        cursor: pointer;
+        transition: 0.1s;
+        &:hover {
+          border: 0.2rem double rgb(245, 187, 111);
+        }
+
+        [data-label="寄付値"],
+        [data-label="支持線"],
+        [data-label="仕切値"],
+        [data-label="目標値"] {
+          transition: 0.3s;
+          &:hover {
+            background-color: rgba(245, 187, 111, 0.3);
+            transition: background-color 0.3s;
+          }
+        }
+
+        td {
+          input {
+            cursor: pointer;
+            max-width: 5rem;
+            padding: 0;
+            margin: 0;
+            background-color: transparent;
+          }
+        }
+        #submit,
+        #delete {
+          i {
+            opacity: 0.6;
+          }
+          transition: 0.3s;
+          &:hover {
+            background-color: rgba(71, 139, 214, 0.5);
+            transition: background-color 0.3s;
+          }
+        }
+      }
+    }
+  }
+
+  .pagination_bttns {
+    @include row(center, center);
+    margin: 2rem 0;
+    a {
+      padding: 0.1rem 1rem;
+      margin: 0.8rem;
+      border-radius: 0.2rem;
+      border: 0.1rem solid #8b8b8b;
+      color: #8b8b8b;
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+        background-color: #8b8b8b;
+      }
+    }
+  }
+  .pagination_active {
+    a {
+      color: white;
+      background-color: #8b8b8b;
+    }
+  }
+
+  .pagination_disabled {
+    a {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .story_table {
+    table {
+      font-size: 1rem;
+      border-collapse: collapse;
+      thead {
+        display: none;
+      }
+      tbody {
+        @include row(center, flex-start);
+        width: 100%;
+      }
+      tr {
+        width: 30%;
+        display: block;
+        padding: 1rem;
+        td {
+          position: relative;
+          border-bottom: none;
+          height: 2.5rem;
+          display: block;
+          text-align: right;
+          line-height: 1.5rem;
+          padding: 0.5rem 1rem 0 0;
+
+          &:before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            padding-left: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+          }
+        }
+        #submit,
+        #delete {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+@import "../variables.scss";
+
+.result_page {
+  .main {
+    padding: 1rem;
+    .dashboard_container {
+      @include row(flex-start, flex-start);
+      .left_col {
+        margin: 1rem;
+        > * {
+          margin-bottom: 2rem;
+        }
+        @include col(70%);
+      }
+      .right_col {
+        margin: 1rem;
+        > * {
+          margin-bottom: 2rem;
+        }
+        @include col(20%);
+      }
+    }
+  }
+}

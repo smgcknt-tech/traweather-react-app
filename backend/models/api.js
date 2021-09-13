@@ -125,15 +125,26 @@ export const api = {
             return { error: "failed inserting csv data" }
         }
     },
+    get_result: (user_id) => {
+        const query = `SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.get_today()}%';`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows
+            }).catch((err) => {
+                console.error(err.stack)
+                return { error: "結果データの取得に失敗しました。" }
+            })
+        return data;
+    },
     create_plan: async (payload) => {
         const { code, stock_name, market, opening, support, losscut, goal, reason, strategy, user_id } = payload
-        const query = `INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,created_at)
-                       VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9,$10,$11);`
-        const values = [code, market, stock_name, opening, support, losscut, goal, reason, strategy, user_id, helper.get_today()];
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")
-                await pool.query(query, values)
+                const result = await pool.query(`INSERT INTO trade_result (user_id,created_at)
+                VALUES($1, $2) RETURNING result_id;`, [user_id, helper.get_today()])
+                await pool.query(`INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,created_at,result_id)
+                VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9,$10,$11,$12);`, [code, market, stock_name, opening, support, losscut, goal, reason, strategy, user_id, helper.get_today(), result.rows[0].result_id])
                 await pool.query("COMMIT")
                 return "SUCCESS"
             } catch (err) {

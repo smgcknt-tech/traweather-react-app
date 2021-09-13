@@ -13,37 +13,42 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import PlanPage from "./pages/PlanPage";
 import EntrancePage from "./pages/EntrancePage";
+import ResultPage from "./pages/ResultPage";
+import { ResultProvider } from "./stores/ResultPage";
 
 function App() {
   const { state, dispatch } = useContext(AppContext);
-  const {user} = state
-  hooks.useAuthentification( user, dispatch, AppActions)
+  const { user } = state
+  hooks.useAuthentification(user, dispatch, AppActions)
   return (
     <BrowserRouter>
-      {!user.status ? (<EntrancePage />):(
-      <div className="grid-container">
-        <header>
-          <Header />
-        </header>
-        <nav>
-          <NavBar />
-        </nav>
-        <main>
-          <Switch>
+      {!user.status ? (<EntrancePage />) : (
+        <div className="grid-container">
+          <header>
+            <Header />
+          </header>
+          <nav>
+            <NavBar />
+          </nav>
+          <main>
+            <Switch>
               <Route path="/user/login" component={EntrancePage} exact />
-            <Route exact path="/">
-              <TopProvider><TopPage /></TopProvider>
-            </Route>
-            <Route exact path="/plan" >
-              <PlanProvider><PlanPage /></PlanProvider>
-            </Route>
-            <Route path="*" component={NotFoundPage} exact />
-          </Switch>
-        </main>
-        <footer>
-          <Footer />
-        </footer>
-      </div>
+              <Route exact path="/">
+                <TopProvider><TopPage /></TopProvider>
+              </Route>
+              <Route exact path="/plan" >
+                <PlanProvider><PlanPage /></PlanProvider>
+              </Route>
+              <Route exact path="/result">
+                <ResultProvider><ResultPage /></ResultProvider>
+              </Route>
+              <Route path="*" component={NotFoundPage} exact />
+            </Switch>
+          </main>
+          <footer>
+            <Footer />
+          </footer>
+        </div>
       )}
     </BrowserRouter >
   );

@@ -12,7 +12,7 @@ export default function NavBar() {
                 <Link to="/plan">
                     <li><i className="fas fa-chess-pawn"></i><p>計画</p></li>
                 </Link>
-                <Link to="#">
+                <Link to="/result">
                     <li><i className="fas fa-chart-bar"></i><p>結果</p></li>
                 </Link>
                 <Link to="#">

@@ -131,3 +131,30 @@ ALTER TABLE latest_stock_data RENAME COLUMN year_low TO year_low;
 
 
 ALTER TABLE latest_stock_data RENAME COLUMN year_lowdivergencerate TO year_low_divergence_rate;
+
+
+CREATE TABLE trade_result (
+    result_id SERIAL,
+    user_id INT,
+    profit_loss INT DEFAULT 0,
+    profit_loss_rate INT DEFAULT 0,
+    entry_point INT DEFAULT 0,
+    exit_point INT DEFAULT 0,
+    comment varchar(1000) DEFAULT '',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+    PRIMARY KEY (user_id, created_at)
+);
+
+    FOREIGN KEY(plan_id) REFERENCES trade_plan(plan_id)
+
+
+ALTER TABLE trade_plan ADD COLUMN result_id INT;
+ALTER TABLE trade_plan DROP CONSTRAINT trade_plan_pkey;
+ALTER TABLE trade_plan ADD CONSTRAINT  trade_plan_pkey PRIMARY KEY(code, user_id, created_at,result_id);
+ALTER TABLE trade_plan ADD CONSTRAINT fk_result_id FOREIGN KEY(result_id) REFERENCES trade_result(result_id);
+
+ALTER TABLE trade_result DROP CONSTRAINT trade_result_pkey;
+ALTER TABLE trade_result ADD CONSTRAINT  trade_result_pkey PRIMARY KEY(user_id, created_at,result_id);
+
+/* If there are multiple primary or unique keys in the child table, all of them must be set in the foreign key of the parent table. */
+ALTER TABLE trade_plan ADD FOREIGN KEY(user_id, created_at,result_id) REFERENCES trade_result(user_id, created_at,result_id);
