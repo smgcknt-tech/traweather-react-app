@@ -45,23 +45,12 @@ export default function PlanPage() {
     }, [user.id]);
 
     const indicatorsData = useMemo(() => {
-        if (allStocks && planData.length > 0) {
-            if (!selectedStock) {
-                return allStocks.find((stock) => planData[0].code === Number(stock.code))
-            } else if (selectedStock) {
-                return allStocks.find((stock) => selectedStock.code === Number(stock.code))
-            }
-        }
-    }, [selectedStock, planData, allStocks])
+        if (allStocks && selectedStock) return allStocks.find((stock) => selectedStock.code === Number(stock.code))
+    }, [selectedStock, allStocks, planData])
 
     useEffect(() => {
-        if (!selectedStock) {
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[0] })
-            dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
-        } else if (selectedStock) {
-            dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
-        }
-    }, [indicatorsData, selectedStock]);
+        if (selectedStock) dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
+    }, [indicatorsData]);
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>

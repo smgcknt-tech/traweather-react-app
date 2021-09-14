@@ -46,6 +46,16 @@ export const apis = {
                 }
             })
     },
+    fetch_one_latest_stock: (req, res) => {
+        api.get_one_latest_stock(req.query.code)
+            .then((data) => {
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
+            })
+    },
     upsert_latest_stock_table: async () => {
         // const url = `${kabu_plus_url}/csv/japan-all-stock-prices-2/daily/japan-all-stock-prices-2.csv`;
         // const result = await helper.csv_stream(url, api.upsert_latest_stock)
@@ -60,6 +70,28 @@ export const apis = {
     },
     fetch_result: (req, res) => {
         api.get_result(req.query.user_id)
+            .then((data) => {
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
+            })
+    },
+    update_result_numbers: (req, res) => {
+        const payload = req.body;
+        api.update_result_numbers(payload)
+            .then((data) => {
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.status(400).json({ error: data.error })
+                }
+            })
+    },
+    update_result_comment: (req, res) => {
+        const payload = req.body;
+        api.update_result_comment(payload)
             .then((data) => {
                 if (!data.error) {
                     res.json(data)

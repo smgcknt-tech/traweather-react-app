@@ -1,8 +1,7 @@
 @import "../variables.scss";
 
-.reason {
+.comment_per_stock {
   padding: 2rem;
-  height: 30rem;
   background-color: #fff;
   border-radius: 0.2rem;
   box-shadow: 0 0 0.3rem #b4b4b4;
@@ -16,7 +15,7 @@
     }
   }
   .button {
-    @include row(center,center);
+    @include row(center, center);
     span {
       @include place_center();
       color: #fff;

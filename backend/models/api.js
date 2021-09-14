@@ -73,6 +73,17 @@ export const api = {
             })
         return data;
     },
+    get_one_latest_stock: (code) => {
+        const query = `SELECT * FROM latest_stock_data WHERE code='${code}';`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows[0]
+            }).catch((err) => {
+                console.error(err.stack)
+                return { error: "対象の株価データの取得に失敗しました。" }
+            })
+        return data;
+    },
     upsert_latest_stock: async (values) => {
         const query = format(`
                 INSERT INTO latest_stock_data(code,stock_name,market,industry,stock_date,price,change,change_in_percent,previous_close,opening,high,low,vwap,volume,volume_in_percent,trading_value,market_cap,lower_range,upper_range,year_high_date,year_high,year_high_divergence_rate,year_low_date,year_low,year_low_divergence_rate)
@@ -136,6 +147,55 @@ export const api = {
             })
         return data;
     },
+    update_result_numbers: async (payload) => {
+        const { lot, entry_point, exit_point, result_id, user_id, date } = payload
+        const profit_loss = exit_point - entry_point
+        const profit_loss_rate = (exit_point - entry_point) / entry_point * 100
+        const total_profit_loss = profit_loss * lot
+        const values = [lot, entry_point, exit_point, profit_loss, profit_loss_rate.toFixed(1), total_profit_loss]
+        const query = `UPDATE trade_result SET lot=$1,entry_point=$2,exit_point=$3,profit_loss=$4, profit_loss_rate=$5,total_profit_loss=$6  WHERE user_id=${user_id} AND result_id=${result_id} AND created_at::text like '${date}%';`
+        const transaction = async () => {
+            try {
+                await pool.query("BEGIN")
+                await pool.query(query, values)
+                await pool.query("COMMIT")
+                return "SUCCESS"
+            } catch (err) {
+                await pool.query('ROLLBACK')
+                console.log(err.stack)
+                return "FAILED"
+            }
+        }
+        const result = await transaction()
+        if (result === "SUCCESS") {
+            return await api.get_result(user_id)
+        } else {
+            return { error: "プランの作成に失敗しました。" }
+        }
+    },
+    update_result_comment: async (payload) => {
+        const { comment, result_id, user_id } = payload
+        const query = `UPDATE trade_result SET comment=$1 WHERE result_id=${result_id};`
+        const values = [comment]
+        const transaction = async () => {
+            try {
+                await pool.query("BEGIN")
+                await pool.query(query, values)
+                await pool.query("COMMIT")
+                return "SUCCESS"
+            } catch (err) {
+                await pool.query('ROLLBACK')
+                console.log(err.stack)
+                return "FAILED"
+            }
+        }
+        const result = await transaction()
+        if (result === "SUCCESS") {
+            return await api.get_result(user_id)
+        } else {
+            return { error: "プランの更新に失敗しました。" }
+        }
+    },
     create_plan: async (payload) => {
         const { code, stock_name, market, opening, support, losscut, goal, reason, strategy, user_id } = payload
         const transaction = async () => {
@@ -161,7 +221,7 @@ export const api = {
         }
     },
     get_plan: (user_id) => {
-        const query = `SELECT * FROM trade_plan WHERE user_id = ${user_id} ORDER BY code ASC;`;
+        const query = `SELECT * FROM trade_plan WHERE user_id = ${user_id} AND created_at::text like '${helper.get_today()}%' ORDER BY code ASC;`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows
@@ -242,11 +302,13 @@ export const api = {
     },
     delete_plan: async (payload) => {
         const { user_id, code } = payload
-        const query = `DELETE FROM trade_plan WHERE user_id=${user_id} AND code=${code};`
+        const query1 = `SELECT plan_id, result_id FROM trade_plan WHERE user_id=${user_id} AND code=${code} AND created_at::text like '${helper.get_today()}%';`
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")
-                await pool.query(query)
+                const res = await pool.query(query1)
+                await pool.query(`DELETE FROM trade_plan WHERE plan_id = ${res.rows[0].plan_id};`)
+                await pool.query(`DELETE FROM trade_result WHERE result_id = ${res.rows[0].result_id};`)
                 await pool.query("COMMIT")
                 return "SUCCESS"
             } catch (err) {

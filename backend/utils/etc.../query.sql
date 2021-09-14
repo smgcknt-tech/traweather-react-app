@@ -158,3 +158,10 @@ ALTER TABLE trade_result ADD CONSTRAINT  trade_result_pkey PRIMARY KEY(user_id, 
 
 /* If there are multiple primary or unique keys in the child table, all of them must be set in the foreign key of the parent table. */
 ALTER TABLE trade_plan ADD FOREIGN KEY(user_id, created_at,result_id) REFERENCES trade_result(user_id, created_at,result_id);
+
+
+/* change data type */
+ALTER TABLE trade_result ALTER COLUMN profit_loss_rate TYPE real;
+
+ALTER TABLE trade_result ADD COLUMN total_profit_loss INT DEFAULT 0;
+ALTER TABLE trade_result ALTER COLUMN lot SET DEFAULT 0;

@@ -5,6 +5,7 @@ export const api_router = express.Router()
 
 api_router
     .get("/fetch_latest_stock", apis.fetch_latest_stock)
+    .get("/fetch_one_latest_stock", apis.fetch_one_latest_stock)
     .get("/fetch_plan", apis.fetch_plan)
     .get("/fetch_one_prediction", apis.fetch_one_prediction)
     .get("/fetch_result", apis.fetch_result)
@@ -16,3 +17,5 @@ api_router
     .post("/update_plan_reason", apis.update_plan_reason)
     .post("/update_plan_strategy", apis.update_plan_strategy)
     .post("/delete_plan", apis.delete_plan)
+    .post("/update_result_numbers", apis.update_result_numbers)
+    .post("/update_result_comment", apis.update_result_comment)

@@ -3,21 +3,31 @@
 .result_page {
   .main {
     padding: 1rem;
+    
+    .profit_result {
+      margin: 1.5rem 1rem;
+      padding: 2rem;
+      background-color: #8b8b8b;
+      color: #fff;
+      font-size: 2rem;
+      border-radius: 0.2rem;
+      box-shadow: 0 0 0.3rem #b4b4b4;
+    }
     .dashboard_container {
       @include row(flex-start, flex-start);
       .left_col {
+        @include col(60%);
         margin: 1rem;
         > * {
           margin-bottom: 2rem;
         }
-        @include col(70%);
       }
       .right_col {
+        @include col(20%);
         margin: 1rem;
         > * {
           margin-bottom: 2rem;
         }
-        @include col(20%);
       }
     }
   }
