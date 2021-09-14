@@ -1,9 +1,9 @@
-import '../styles/components/MarketPredictionForm.scss'
+import '../../styles/components/MarketPredictionForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
-import { context, actions } from '../stores/TopPage';
-import { AppContext } from '../stores/App';
-import { helper } from '../utils/helper';
+import { context, actions } from '../../stores/TopPage';
+import { AppContext } from '../../stores/App';
+import { helper } from '../../utils/helper';
 import { useHistory } from 'react-router';
 
 export default function MarketPredictionForm(props) {

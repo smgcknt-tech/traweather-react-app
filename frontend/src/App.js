@@ -8,9 +8,9 @@ import { AppContext, AppActions } from "./stores/App";
 import { hooks } from '../src/utils/custom_hooks'
 import TopPage from "./pages/TopPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import Header from "./components/Header";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
+import Header from "./components/common/Header";
+import NavBar from "./components/common/NavBar";
+import Footer from "./components/common/Footer";
 import PlanPage from "./pages/PlanPage";
 import EntrancePage from "./pages/EntrancePage";
 import ResultPage from "./pages/ResultPage";

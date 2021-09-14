@@ -1,12 +1,12 @@
 import '../../src/styles/pages/TopPage.scss'
-import Loading from '../components/Loading';
-import Message from '../components/Message';
+import Loading from '../components/common/Loading';
+import Message from '../components/common/Message';
 import Ticker from '../components/widgets/Ticker';
 import Event from '../components/widgets/Event';
 import Twitter from '../components/widgets/Twitter';
 import { useContext, useState } from 'react';
 import { context } from '../stores/TopPage'
-import MarketPredictionForm from '../components/MarketPredictionForm';
+import MarketPredictionForm from '../components/form/MarketPredictionForm';
 
 export default function TopPage() {
     const { state } = useContext(context);

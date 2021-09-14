@@ -1,19 +1,21 @@
 import '../../src/styles/pages/ResultPage.scss'
-import React, { useContext, useEffect, useMemo } from 'react'
-import Loading from '../components/Loading';
-import Message from '../components/Message';
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import Loading from '../components/common/Loading';
+import Message from '../components/common/Message';
 import { AppContext } from '../stores/App';
 import { actions, context } from '../stores/ResultPage';
 import { helper } from '../utils/helper';
 import ResultTable from '../components/ResultTable'
 import CommentPerStock from '../components/CommentPerStock'
 import ComparisonChart from '../components/ComparisonChart';
+import TradeFeedBackForm from '../components/form/TradeFeedBackForm';
 
 export default function ResultPage() {
     const { state, dispatch } = useContext(context);
     const { resultData, selectedStock, loading, error } = state
     const { state: AppState } = useContext(AppContext);
     const { user } = AppState;
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         if (user.id) {
@@ -51,7 +53,11 @@ export default function ResultPage() {
     if (error) return <Message variant="error">{error}</Message>
     return (
         <div className="result_page">
+            <ul className="header_menu">
+                <li onClick={() => { setOpen("feed_back") }} ><i className="fas fa-edit" />反省追加</li>
+            </ul>
             <div className="main">
+                {(open === "feed_back") && <TradeFeedBackForm setOpen={setOpen} />}
                 <div className="profit_result">
                     <ul><li>今日の損益額 {profitResult}円</li></ul>
                 </div>

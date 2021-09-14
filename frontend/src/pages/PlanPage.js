@@ -4,14 +4,14 @@ import { context, actions } from '../stores/PlanPage'
 import { AppContext } from '../stores/App'
 import { helper } from '../utils/helper';
 import StoryTable from '../components/StoryTable'
-import Loading from '../components/Loading';
-import Message from '../components/Message';
+import Loading from '../components/common/Loading';
+import Message from '../components/common/Message';
 import Reason from '../components/Reason';
 import Strategy from '../components/Strategy';
 import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
 import Prediction from '../components/Prediction';
-import PlanAddForm from '../components/PlanAddForm'
+import PlanAddForm from '../components/form/PlanAddForm'
 
 export default function PlanPage() {
     const { state, dispatch } = useContext(context);

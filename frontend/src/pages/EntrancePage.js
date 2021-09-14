@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import LogInForm from '../components/LogInForm';
-import RegisterForm from '../components/RegisterForm';
+import LogInForm from '../components/form/LogInForm';
+import RegisterForm from '../components/form/RegisterForm';
 import '../styles/pages/EntrancePage.scss'
 
 export default function EntrancePage() {

@@ -1,11 +1,29 @@
 @import "../variables.scss";
 
 .result_page {
+  .header_menu {
+    @include row(center, flex-start);
+    background-color: #8b8b8b;
+    color: #fff;
+    box-shadow: 0 0.2rem 0.2rem #b4b4b4;
+    li {
+      padding: 1rem 2rem;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        transition: background-color 0.1s;
+      }
+      i {
+        padding: 0 0.5rem;
+      }
+    }
+  }
   .main {
-    padding: 1rem;
-    
+    > * {
+      margin: 2rem;
+    }
     .profit_result {
-      margin: 1.5rem 1rem;
       padding: 2rem;
       background-color: #8b8b8b;
       color: #fff;
@@ -17,16 +35,14 @@
       @include row(flex-start, flex-start);
       .left_col {
         @include col(60%);
-        margin: 1rem;
         > * {
-          margin-bottom: 2rem;
+          margin: 0 2rem 2rem 2rem;
         }
       }
       .right_col {
         @include col(20%);
-        margin: 1rem;
         > * {
-          margin-bottom: 2rem;
+          margin: 0 2rem 2rem 2rem;
         }
       }
     }

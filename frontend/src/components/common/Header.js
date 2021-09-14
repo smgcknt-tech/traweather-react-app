@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import "../styles/components/Header.scss"
-import { AppActions, AppContext } from '../stores/App'
+import "../../styles/components/Header.scss"
+import { AppActions, AppContext } from '../../stores/App'
 
 export default function Header() {
     const { state, dispatch } = useContext(AppContext);

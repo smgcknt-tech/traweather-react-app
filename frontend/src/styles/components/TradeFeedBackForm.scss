@@ -1,0 +1,55 @@
+@import "../variables.scss";
+
+.trade_feed_back_form {
+  @include row(center, center);
+
+  .form {
+    margin: 0 0 1rem 0;
+    width: 70%;
+    background-color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 0.2rem;
+    box-shadow: 0 0 0.5rem #b4b4b4;
+
+    i.fa-times {
+      opacity: 0.5;
+    }
+
+    .each_input {
+      width: 100%;
+      padding: 0 2rem;
+      textarea {
+        resize: none;
+        height: 8rem;
+        width: 100%;
+      }
+      fieldset {
+        border: #bdbdbd solid 0.01rem;
+        width: 100%;
+        margin: 1rem 0;
+        legend {
+          color: #7a7878;
+        }
+      }
+      .error {
+        margin: 0 1rem;
+        color: #a02020;
+      }
+    }
+
+    .button {
+      @include row(center, center);
+      input {
+        text-align: center;
+        color: #fff;
+        font-size: 2rem;
+        font-weight: bold;
+        width: 30%;
+        height: 3rem;
+        border-radius: 2rem;
+        background-color: #ee6272;
+        box-shadow: 0 0 0.3rem #b4b4b4;
+      }
+    }
+  }
+}

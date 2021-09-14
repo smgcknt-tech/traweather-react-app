@@ -165,3 +165,13 @@ ALTER TABLE trade_result ALTER COLUMN profit_loss_rate TYPE real;
 
 ALTER TABLE trade_result ADD COLUMN total_profit_loss INT DEFAULT 0;
 ALTER TABLE trade_result ALTER COLUMN lot SET DEFAULT 0;
+
+CREATE TABLE trade_feed_back (
+    feed_back_id SERIAL,
+    user_id INT,
+    title varchar(100) NOT NULL,
+    content varchar(1000) NOT NULL,
+    image_url varchar(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_DATE,
+    PRIMARY KEY (user_id, created_at)
+);
