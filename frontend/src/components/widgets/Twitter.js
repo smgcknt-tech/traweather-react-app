@@ -1,5 +1,4 @@
 import React, {memo, useEffect, useRef } from 'react'
-import "../../styles/components/Twitter.scss"
 
 export default memo(function Twitter() {
     const ref = useRef();

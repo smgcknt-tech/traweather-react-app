@@ -9,10 +9,11 @@ Chart.plugins.register([ChartAnnotation]);
 export default function ComparisonChart() {
     const { state } = useContext(context);
     const { selectedStock, indicators } = state;
+    const {stockData} = indicators
     const [chartData, setChartData] = useState({})
     useEffect(() => {
         const chart = () => {
-            (selectedStock && indicators) && setChartData({
+            (selectedStock && stockData) && setChartData({
                 labels: ["寄付", "支持", "仕切", "利確"],
                 datasets: [
                     {
@@ -29,35 +30,33 @@ export default function ComparisonChart() {
             })
         }
         chart()
-    }, [selectedStock, indicators])
+    }, [selectedStock, stockData])
     return (
         <>
-            {(selectedStock && indicators) && (
+            {(selectedStock && stockData) && (
                 <div className="comparison_chart">
                     <div className="chart_container">
                         <Line data={chartData} options={{
                             title: {
                                 display: true,
-                                text: `${indicators.stock_name} (${indicators.market}) [${indicators.industry}]`
+                                text: `${stockData.stock_name} (${stockData.market}) [${stockData.industry}]`
                             },
                             legend: {
                                 display: false
                             },
                             responsive: true,
                             scales: {
-                                display: false,
-                                ticks: {
-                                    max: Number(indicators.upper_range),
-                                    min: Number(indicators.lower_range)
-                                },
-                                yAxes: [
-                                    {
-                                        id: "y-axis-1",
+                                display: true,
+                                yAxes: [{
+                                    ticks: {
+                                        display: true,
+                                        suggestedMin: selectedStock.losscut - 100,
+                                        suggestedMax: selectedStock.exit_point + 100,
                                     },
-
-                                ],
+                                    id: "y-axis-1",
+                                }],
                             },
-                            annotation: {
+                            annotation: (selectedStock.entry_point > 0 && selectedStock.exit_point > 0) && {
                                 annotations: [
                                     {
                                         type: 'line',

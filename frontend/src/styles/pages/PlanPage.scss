@@ -20,22 +20,31 @@
     }
   }
   .main {
-    padding: 1rem;
-    .dashboard_container {
-      @include row(flex-start, flex-start);
-      .left_col {
+    > * {
+      margin: 2rem;
+    }
+    .dashboard {
+      > * {
         margin: 1rem;
-        > * {
-          margin-bottom: 2rem;
-        }
-        @include col(60%);
       }
-      .right_col {
-        margin: 1rem;
-        > * {
-          margin-bottom: 2rem;
+      .dashboard_row1 {
+        @include row(flex-start, flex-start);
+        .left_col {
+          @include col(60%);
+          > * {
+            margin: 2rem;
+          }
         }
-        @include col(30%);
+        .right_col {
+          @include col(30%);
+          > * {
+            margin: 2rem;
+          }
+        }
+      }
+      .dashboard_row2 {
+         @include row(flex-start, flex-start);
+         margin: 0 3rem;
       }
     }
   }

@@ -20,29 +20,59 @@
     }
   }
   .main {
-    > * {
-      margin: 2rem;
-    }
+    margin: 3rem 1rem;
     .profit_result {
-      padding: 2rem;
+      @include row(center, flex-start);
       background-color: #8b8b8b;
       color: #fff;
       font-size: 2rem;
       border-radius: 0.2rem;
-      box-shadow: 0 0 0.3rem #b4b4b4;
-    }
-    .dashboard_container {
-      @include row(flex-start, flex-start);
-      .left_col {
-        @include col(60%);
-        > * {
-          margin: 0 2rem 2rem 2rem;
+      > li {
+        padding: 1rem 2rem;
+        p {
+          padding-top: 0.5rem;
         }
       }
-      .right_col {
-        @include col(20%);
+    }
+    .dashboard {
+      .dashboard_row1 {
         > * {
-          margin: 0 2rem 2rem 2rem;
+          margin: 1rem 2rem;
+        }
+        @include row(flex-start, flex-start);
+        .indicators {
+          @include row(flex-start, flex-start);
+          width:100%;
+          > * {
+            margin: 1rem 2rem;
+          }
+          #todays_profit {
+            @include indicator_card(#337ab7, #fff);
+          }
+
+          #last_profit {
+            @include indicator_card(#dff0d8, #3c763d);
+          }
+
+          #monthly_profit {
+            @include indicator_card(#fcf8e3, #8c6f3e);
+          }
+        }
+      }
+
+      .dashboard_row2 {
+        @include row(center, flex-start);
+        .left_col {
+          @include col(60%);
+          > * {
+            margin: 2rem;
+          }
+        }
+        .right_col {
+          @include col(20%);
+          > * {
+            margin: 2rem;
+          }
         }
       }
     }

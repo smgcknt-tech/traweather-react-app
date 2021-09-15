@@ -2,13 +2,13 @@ import '../../styles/components/TradeFeedBackForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { context, actions } from '../../stores/TopPage';
-import { AppContext } from '../../stores/App';
+import { AppActions, AppContext } from '../../stores/App';
 import { helper } from '../../utils/helper';
 import { useHistory } from 'react-router';
 
 export default function TradeFeedBackForm(props) {
     const { dispatch } = useContext(context);
-    const { state: AppState } = useContext(AppContext);
+    const { state: AppState, dispatch:AppDispatch} = useContext(AppContext);
     const { user } = AppState
     const { register, handleSubmit, formState: { errors } } = useForm();
     let history = useHistory()
@@ -16,7 +16,7 @@ export default function TradeFeedBackForm(props) {
     const onSubmit = async(data) => {
         data.user_id = user.id
         data.date = helper.get_today()
-        const response = await helper.postData('/api/create_prediction', dispatch, actions, data)
+        const response = await helper.postData('/api/create_prediction', AppDispatch, AppActions, data)
         if(response){
             history.push('/plan')
         }

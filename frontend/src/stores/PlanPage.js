@@ -2,7 +2,6 @@ import React, { createContext, useReducer } from 'react'
 const initialState = {
     loading: false,
     error: false,
-    allStocks: null,
     planData: [],
     selectedStock:null,
     indicators: null,
@@ -13,7 +12,6 @@ export const context = createContext(initialState)
 export const actions = {
     SET_LOADING: 'SET_LOADING',
     SET_ERROR: 'SET_ERROR',
-    SET_ALL_STOCKS: 'SET_ALL_STOCKS',
     SET_SELECTED_STOCK: 'SET_SELECTED_STOCK',
     SET_INDICATORS: 'SET_INDICATORS',
     SET_PLAN: 'SET_PLAN',
@@ -29,9 +27,6 @@ export const PlanProvider = ({ children }) => {
                 return currentState
             case actions.SET_ERROR:
                 currentState.error = action.payload
-                return currentState
-            case actions.SET_ALL_STOCKS:
-                currentState.allStocks = action.payload
                 return currentState
             case actions.SET_SELECTED_STOCK:
                 currentState.selectedStock = action.payload

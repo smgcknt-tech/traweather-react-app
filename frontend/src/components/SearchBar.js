@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { context } from '../stores/PlanPage'
+import { AppContext } from '../stores/App';
 import "../styles/components/SearchBar.scss";
 import Indicators from './Indicators';
 export default function SearchBar() {
-    const { state } = useContext(context);
-    const { allStocks } = state;
+    const { state : AppState } = useContext(AppContext);
+    const { allStocks } = AppState;
     const [filteredData, setFilteredData] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [result, setResult] = useState(null);
@@ -38,7 +38,7 @@ export default function SearchBar() {
                 <div className="search_inputs">
                     <input type="text" placeholder="証券番号または会社名を入力してください" value={inputValue} onChange={handleFilter} />
                     <span className="search_icon">
-                        {result ? <i className="fas fa-times" onClick={handleClear}></i> : null}
+                        {result ? <i className="fas fa-times" onClick={handleClear}></i> : <i class="fas fa-search"></i>}
                     </span>
                 </div>
                 {(filteredData.length > 0) && (

@@ -175,3 +175,5 @@ CREATE TABLE trade_feed_back (
     created_at TIMESTAMP DEFAULT CURRENT_DATE,
     PRIMARY KEY (user_id, created_at)
 );
+
+ALTER TABLE market_prediction ALTER created_at SET DEFAULT CURRENT_DATE;

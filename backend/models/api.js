@@ -4,13 +4,13 @@ import { pool } from '../../postgresql.js';
 // import { env } from '../../env_variables.js';
 export const api = {
     create_prediction: async (payload) => {
-        const values = [payload['予想'], payload['戦略'], payload['注目セクター'], payload.user_id, payload.date]
+        const values = [payload['予想'], payload['戦略'], payload['注目セクター'], payload.user_id]
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")
                 await pool.query(`
-                INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id,created_at)
-                SELECT $1, $2, $3, $4, $5`, values)
+                INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
+                SELECT $1, $2, $3, $4`, values)
                 await pool.query("COMMIT")
                 return "SUCCESS"
             } catch (err) {
@@ -136,8 +136,42 @@ export const api = {
             return { error: "failed inserting csv data" }
         }
     },
+    get_monthly_profit: (user_id) => {
+        const query = `SELECT sum(total_profit_loss) FROM trade_result WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%';`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows[0].sum
+            }).catch((err) => {
+                console.error(err.stack)
+                return { error: "データの取得に失敗しました。" }
+            })
+        return data;
+    },
+    get_last_profit: (user_id) => {
+        const query = `SELECT sum(total_profit_loss) FROM trade_result WHERE user_id = ${user_id} AND created_at::text like '${helper.time().yesterday}%';`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows[0].sum
+            }).catch((err) => {
+                console.error(err.stack)
+                return { error: "データの取得に失敗しました。" }
+            })
+        return data;
+    },
+    get_todays_profit: (user_id) => {
+        const query = `SELECT sum(total_profit_loss) FROM trade_result WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%';`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows[0].sum
+            }).catch((err) => {
+                console.error(err.stack)
+                return { error: "データの取得に失敗しました。" }
+            })
+        return data;
+    },
+
     get_result: (user_id) => {
-        const query = `SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.get_today()}%';`;
+        const query = `SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows
@@ -201,10 +235,10 @@ export const api = {
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")
-                const result = await pool.query(`INSERT INTO trade_result (user_id,created_at)
-                VALUES($1, $2) RETURNING result_id;`, [user_id, helper.get_today()])
-                await pool.query(`INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,created_at,result_id)
-                VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9,$10,$11,$12);`, [code, market, stock_name, opening, support, losscut, goal, reason, strategy, user_id, helper.get_today(), result.rows[0].result_id])
+                const result = await pool.query(`INSERT INTO trade_result (user_id)
+                VALUES($1) RETURNING result_id;`, [user_id])
+                await pool.query(`INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,result_id)
+                VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9,$10,$11);`, [code, market, stock_name, opening, support, losscut, goal, reason, strategy, user_id, result.rows[0].result_id])
                 await pool.query("COMMIT")
                 return "SUCCESS"
             } catch (err) {
@@ -221,7 +255,7 @@ export const api = {
         }
     },
     get_plan: (user_id) => {
-        const query = `SELECT * FROM trade_plan WHERE user_id = ${user_id} AND created_at::text like '${helper.get_today()}%' ORDER BY code ASC;`;
+        const query = `SELECT * FROM trade_plan WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%' ORDER BY code ASC;`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows
@@ -302,7 +336,7 @@ export const api = {
     },
     delete_plan: async (payload) => {
         const { user_id, code } = payload
-        const query1 = `SELECT plan_id, result_id FROM trade_plan WHERE user_id=${user_id} AND code=${code} AND created_at::text like '${helper.get_today()}%';`
+        const query1 = `SELECT plan_id, result_id FROM trade_plan WHERE user_id=${user_id} AND code=${code} AND created_at::text like '${helper.time().today}%';`
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")

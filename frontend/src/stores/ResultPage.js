@@ -5,7 +5,12 @@ const initialState = {
     resultData:[],
     currentPage: 0,
     selectedStock:null,
-    indicators:null,
+    indicators:{
+        stockData:null,
+        monthly_profit:0,
+        last_profit: 0,
+        todays_profit: 0,
+    },
 
 }
 export const context = createContext(initialState)

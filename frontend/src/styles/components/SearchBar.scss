@@ -1,7 +1,6 @@
 @import "../variables.scss";
 
 .search {
-  margin: 2rem;
   @include row(center,center);
 
   .search_container {

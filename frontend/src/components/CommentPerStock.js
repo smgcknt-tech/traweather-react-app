@@ -1,13 +1,13 @@
 import '../styles/components/CommentPerStock.scss'
 import React, { useContext, useRef, useState } from 'react'
-import { AppContext } from '../stores/App';
+import { AppActions, AppContext } from '../stores/App';
 import { context, actions } from '../stores/ResultPage';
 import { helper } from '../utils/helper';
 
 export default function CommentPerStock() {
     const { state, dispatch } = useContext(context);
     const { selectedStock } = state;
-    const { state: AppState } = useContext(AppContext);
+    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
     const { user } = AppState
     const [open, setOpen] = useState(false)
     const textarea = useRef(null)
@@ -19,7 +19,7 @@ export default function CommentPerStock() {
             result_id: selectedStock.result_id,
             user_id: user.id,
         }
-        const response = await helper.postData(`/api/update_result_comment`, dispatch, actions, payload)
+        const response = await helper.postData(`/api/update_result_comment`, AppDispatch, AppActions, payload)
         if (response) {
             dispatch({ type: actions.SET_RESULT, payload: response });
             const foundSelectedStock = response.find((result) => result.code === selectedStock.code)
@@ -29,18 +29,20 @@ export default function CommentPerStock() {
 
     return (
         <div className="comment_per_stock" onBlur={() => { setOpen(false) }}>
-            <h2 className="title">コメント</h2>
-            <div className="content">
-                {selectedStock ? (
-                    <textarea
-                        key={selectedStock.comment}
-                        defaultValue={selectedStock.comment}
-                        onFocus={() => { setOpen(true) }}
-                        ref={textarea}
-                    >
-                    </textarea>) : "データがありません"}
-            </div>
-            {open && <div className="button"><span onMouseDown={handleSubmit}>保存</span></div>}
+            <section>
+                <h2 className="title">コメント</h2>
+                <div className="content">
+                    {selectedStock ? (
+                        <textarea
+                            key={selectedStock.comment}
+                            defaultValue={selectedStock.comment}
+                            onFocus={() => { setOpen(true) }}
+                            ref={textarea}
+                        >
+                        </textarea>) : "データがありません"}
+                </div>
+                {open && <div className="button"><span onMouseDown={handleSubmit}>保存</span></div>}
+            </section>
         </div>
     )
 }

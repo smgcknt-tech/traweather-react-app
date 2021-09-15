@@ -5,10 +5,9 @@
   background-color: #fff;
   border-radius: 0.2rem;
   box-shadow: 0 0 0.3rem #b4b4b4;
-  @include row(flex-start,flex-start);
+  @include row(center,flex-start);
   .chart_container {
-    @include col(60%);
-    padding-bottom: 2rem;
+    @include col(50%);
   }
 
   .indicators_table {

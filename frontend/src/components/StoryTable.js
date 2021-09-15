@@ -2,13 +2,13 @@ import "../styles/components/StoryTable.scss"
 import React, { useContext, useRef, useState } from 'react'
 import ReactPaginate from 'react-paginate';
 import { context, actions } from '../stores/PlanPage'
-import { AppContext } from '../stores/App'
+import { AppActions, AppContext } from '../stores/App'
 import { helper } from '../utils/helper'
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(context);
     const { currentPage, planData } = state
-    const { state: AppState } = useContext(AppContext);
+    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
     const { user } = AppState
     const refs = useRef([])
     const [show, setShow] = useState(false)
@@ -49,7 +49,7 @@ export default function StoryTable() {
             code: refs.current[index].querySelector("td[data-label='証券番号']").innerText,
             user_id: user.id,
         }
-        const response = await helper.postData(`/api/update_plan_numbers`, dispatch, actions, payload)
+        const response = await helper.postData(`/api/update_plan_numbers`, AppDispatch, AppActions,  payload)
         if (response) {
             dispatch({ type: actions.SET_PLAN, payload: response });
             dispatch({ type: actions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
@@ -63,10 +63,10 @@ export default function StoryTable() {
             user_id: user.id,
             code: code,
         }
-        const response = await helper.postData('/api/delete_plan', dispatch, actions, payload)
+        const response = await helper.postData('/api/delete_plan', AppDispatch, AppActions, payload)
         if (response) {
             dispatch({ type: actions.SET_PLAN, payload: response });
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: null })
+            dispatch({ type: actions.SET_SELECTED_STOCK, payload: response[index - 1]})
         }
     }
     return (

@@ -46,13 +46,14 @@ export default function StoryChart() {
                             responsive: true,
                             scales: {
                                 display: false,
-                                ticks: {
-                                    max: Number(indicators.upper_range),
-                                    min: Number(indicators.lower_range)
-                                },
+
                                 yAxes: [
                                     {
                                         id: "y-axis-1",
+                                        ticks: {
+                                            suggestedMin: selectedStock.opening - 100,
+                                            suggestedMax: selectedStock.goal + 100,
+                                        },
                                     },
 
                                 ],

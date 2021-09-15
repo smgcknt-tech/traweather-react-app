@@ -2,7 +2,7 @@
 
 .top_page {
   .header_menu {
-    @include row(center,flex-start);
+    @include row(center, flex-start);
     color: #fff;
     background-color: #8b8b8b;
     box-shadow: 0 0.2rem 0.2rem #b4b4b4;
@@ -11,7 +11,7 @@
       cursor: pointer;
       transition: 0.3s;
       &:hover {
-        background-color:rgba(255,255,255,0.3);
+        background-color: rgba(255, 255, 255, 0.3);
         transition: background-color 0.1s;
       }
       i {
@@ -20,24 +20,28 @@
     }
   }
   .main {
-    padding: 2rem;
-    .dashboard_row1{
-
+    > * {
+      margin: 2rem;
+    }
+    .dashboard_row1 {
+      @include row(flex-start, flex-start);
+      > * {
+        margin: 0 2rem 2rem 2rem;
+        width:100%;
+      }
     }
     .dashboard_row2 {
-      @include row(center,flex-start);
+      @include row(center, flex-start);
       .left_col {
         @include col(30%);
-        margin: 1rem;
         > * {
-          margin-bottom: 1rem;
+          margin: 0 2rem 2rem 2rem;
         }
       }
       .right_col {
         @include col(60%);
-        margin: 1rem;
         > * {
-          margin-bottom: 1rem;
+          margin: 0 2rem 2rem 2rem;
         }
       }
     }

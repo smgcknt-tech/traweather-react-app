@@ -2,13 +2,13 @@ import "../styles/components/ResultTable.scss"
 import React, { useContext, useRef, useState } from 'react'
 import ReactPaginate from 'react-paginate';
 import { context, actions } from '../stores/ResultPage'
-import { AppContext } from '../stores/App'
+import { AppActions, AppContext } from '../stores/App'
 import { helper } from '../utils/helper'
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(context);
     const { currentPage, resultData, selectedStock } = state
-    const { state: AppState } = useContext(AppContext);
+    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
     const { user } = AppState
     const refs = useRef([])
     const [show, setShow] = useState(false)
@@ -30,7 +30,7 @@ export default function StoryTable() {
                     <td data-label="上昇幅">{stock.profit_loss}</td>
                     <td data-label="上昇率">{stock.profit_loss_rate}</td>
                     <td data-label="合計損益額">{stock.total_profit_loss}</td>
-                    <td id="submit">{show === `tr_${index}` ? <i onClick={() => handleSubmit(index)} className="far fa-save"></i> : "---"}</td>
+                    <td id="submit">{show === `tr_${index}` ? <i onClick={(e) => handleSubmit(e, index)} className="far fa-save"></i> : "---"}</td>
                 </tr>
             )
         })
@@ -44,20 +44,28 @@ export default function StoryTable() {
         dispatch({ type: actions.SET_SELECTED_STOCK, payload: resultData[pagesVisited + index] })
     }
 
-    const handleSubmit = async (index) => {
-        const payload = {
-            lot: refs.current[index].querySelector("td[data-label='LOT'] > input ").value,
-            entry_point: refs.current[index].querySelector("td[data-label='ENTRY'] > input ").value,
-            exit_point: refs.current[index].querySelector("td[data-label='EXIT'] > input ").value,
-            result_id: selectedStock.result_id,
-            user_id: user.id,
-            date: helper.get_today()
-        }
-        const response = await helper.postData(`/api/update_result_numbers`, dispatch, actions, payload)
-        if (response) {
-            dispatch({ type: actions.SET_RESULT, payload: response });
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
-            dispatch({ type: actions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
+    const handleSubmit = async (e, index) => {
+        const lot = refs.current[index].querySelector("td[data-label='LOT'] > input ").value
+        const entry_point = refs.current[index].querySelector("td[data-label='ENTRY'] > input ").value
+        const exit_point = refs.current[index].querySelector("td[data-label='EXIT'] > input ").value
+        if (Number(lot) === 0 || Number(entry_point) === 0 || Number(exit_point) === 0) {
+            e.preventDefault();
+            alert("入力項目が０の状態では保存できません。")
+        } else {
+            const payload = {
+                lot: lot,
+                entry_point: entry_point,
+                exit_point: exit_point,
+                result_id: selectedStock.result_id,
+                user_id: user.id,
+                date: helper.get_today()
+            }
+            const response = await helper.postData(`/api/update_result_numbers`, AppDispatch, AppActions, payload)
+            if (response) {
+                dispatch({ type: actions.SET_RESULT, payload: response });
+                dispatch({ type: actions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
+                dispatch({ type: actions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
+            }
         }
     }
 

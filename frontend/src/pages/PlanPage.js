@@ -1,7 +1,7 @@
 import '../../src/styles/pages/PlanPage.scss'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { context, actions } from '../stores/PlanPage'
-import { AppContext } from '../stores/App'
+import { AppContext, AppActions } from '../stores/App'
 import { helper } from '../utils/helper';
 import StoryTable from '../components/StoryTable'
 import Loading from '../components/common/Loading';
@@ -15,15 +15,15 @@ import PlanAddForm from '../components/form/PlanAddForm'
 
 export default function PlanPage() {
     const { state, dispatch } = useContext(context);
-    const { selectedStock, planData, allStocks, prediction, loading, error } = state
-    const { state: AppState } = useContext(AppContext);
-    const { user } = AppState;
+    const { selectedStock, planData } = state
+    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
+    const { user, prediction, allStocks, loading, error } = AppState;
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
         if (user.id) {
             const fetchPlanPageData = async () => {
-                const fetchedPlan = await helper.fetchData(`/api/fetch_plan`, dispatch, actions, {
+                const fetchedPlan = await helper.fetchData(`/api/fetch_plan`, AppDispatch, AppActions, {
                     user_id: user.id
                 })
                 if (fetchedPlan?.length > 0) {
@@ -31,14 +31,14 @@ export default function PlanPage() {
                     dispatch({ type: actions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
                 }
 
-                const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, dispatch, actions, {
+                const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, AppDispatch, AppActions, {
                     user_id: user.id,
                     date: helper.get_today()
                 })
-                if (fetchedPrediction) dispatch({ type: actions.SET_PREDICTION, payload: fetchedPrediction });
+                if (fetchedPrediction) AppDispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
 
-                const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, dispatch, actions)
-                if (fetchedStocks) dispatch({ type: actions.SET_ALL_STOCKS, payload: fetchedStocks });
+                const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, AppDispatch, AppActions,)
+                if (fetchedStocks) AppDispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
             }
             fetchPlanPageData()
         }
@@ -50,7 +50,7 @@ export default function PlanPage() {
 
     useEffect(() => {
         if (selectedStock) dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
-    }, [indicatorsData]);
+    }, [indicatorsData, selectedStock]);
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
@@ -59,20 +59,26 @@ export default function PlanPage() {
             <ul className="header_menu">
                 <li onClick={() => { setOpen("add") }} ><i className="fas fa-edit" />銘柄追加</li>
             </ul>
+            {(planData?.length === 0) && <Message >プランデータがありません。まずはプランデータを作成しましょう。</Message>}
             <div className="main">
                 <SearchBar />
-                <div className="dashboard_container">
-                    <div className="left_col">
-                        {(open === "add" || planData.length === 0) && <PlanAddForm setOpen={setOpen} />}
-                        {planData.length > 0 && <StoryTable />}
-                        <StoryChart />
+                <div className="dashboard">
+                    <div className="dashboard_row1">
+                        <div className="left_col">
+                            {(open === "add" || planData.length === 0) && <PlanAddForm setOpen={setOpen} />}
+                            {planData.length > 0 && <StoryTable />}
+                            <StoryChart />
+                        </div>
+                        <div className="right_col">
+                            <Reason />
+
+                            <Strategy />
+                        </div>
                     </div>
-                    <div className="right_col">
-                        <Reason />
-                        <Strategy />
+                    <div className="dashboard_row2">
+                        {prediction && <Prediction />}
                     </div>
                 </div>
-                {prediction && <Prediction />}
             </div>
         </div>
     )

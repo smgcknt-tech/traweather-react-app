@@ -2,13 +2,13 @@ import '../../styles/components/PlanAddForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { context, actions } from '../../stores/PlanPage';
-import { AppContext } from '../../stores/App'
+import { AppActions, AppContext } from '../../stores/App'
 import { helper } from '../../utils/helper';
 
 export default function PlanAddForm(props) {
     const { state, dispatch } = useContext(context);
-    const { allStocks } = state;
-    const { state: AppState } = useContext(AppContext);
+    const { state: AppState, dispatch: AppDispatch} = useContext(AppContext);
+    const { allStocks } = AppState;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
 
@@ -17,7 +17,7 @@ export default function PlanAddForm(props) {
         data.market = foundStock.market
         data.stock_name = foundStock.stock_name
         data.user_id = AppState.user.id
-        const response = await helper.postData(`/api/create_plan`, dispatch, actions, data)
+        const response = await helper.postData(`/api/create_plan`, AppDispatch, AppActions, data)
         if (response) {
             dispatch({ type: actions.SET_PLAN, payload: response })
         }

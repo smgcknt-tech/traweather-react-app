@@ -1,39 +1,10 @@
 @import "../variables.scss";
 
-@mixin indicator_card($back_color, $color) {
-  border-radius: 0.5rem;
-  margin: 2rem 0 0 3rem;
-  width: 17rem;
-  height: 10rem;
-  background-color: white;
-  border: 0.1rem solid $back_color;
-
-  .card_value {
-    height: 60%;
-    font-size: 3rem;
-    color: $color;
-    background-color: $back_color;
-    @include place_center();
-  }
-
-  .card_title {
-    height: 40%;
-    font-size: 1.5rem;
-    color: #337ab7;
-    background-color: F5F5F5;
-    @include place_center();
-
-    .span {
-      font-size: 0.5rem;
-    }
-  }
-}
-
 .indicators_body {
   padding: 1rem 3rem;
 
   .profile {
-    @include row(center,flex-start);
+    @include row(center, flex-start);
   }
 
   .stock_name {
@@ -41,7 +12,10 @@
   }
 
   .indicators {
-    @include row(center,flex-start);
+    @include row(center, flex-start);
+    > * {
+      margin: 1.5rem;
+    }
 
     #price {
       @include indicator_card(#337ab7, #fff);
