@@ -13,8 +13,6 @@ app.use(cors());
 // routes
 app.use("/api", api_router);
 app.use("/user", user_router);
-
-
 //server
 const port = env.port || 5000;
 app.listen(port, () => {

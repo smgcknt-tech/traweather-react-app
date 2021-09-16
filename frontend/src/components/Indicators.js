@@ -5,38 +5,38 @@ import { helper } from '../utils/helper';
 
 export default function Indicators(props) {
     let {
-        stockname,
+        stock_name,
         industry,
-        previousclose,
-        stockdate,
+        previous_close,
+        stock_date,
         code,
         opening,
         high,
         low,
         price,
         change,
-        changeinpercent,
+        change_in_percent,
         vwap,
         volume,
-        volumeinpercent,
-        yearhigh,
-        yearhighdate,
-        yearlow,
-        yearlowdate
+        volume_in_percent,
+        year_high,
+        year_high_date,
+        year_low,
+        year_low_date
     } = props.result;
-    [stockdate, yearhighdate, yearlowdate] = helper.format_dates(stockdate, yearhighdate, yearlowdate)
-    
+    [stock_date, year_high_date, year_low_date] = helper.format_dates(stock_date, year_high_date, year_low_date)
+
     return (
         <div className="indicators_body">
-            <p id="stockDate">データ更新日: {stockdate}</p>
+            <p id="stock_date">データ更新日: {stock_date}</p>
             <div className="profile">
-                <h2 className="stock_name">{stockname}【{code}】</h2>
+                <h2 className="stock_name">{stock_name}【{code}】</h2>
                 <h2 className="industry">業種（{industry}）</h2>
             </div>
             <div className="indicators">
                 <div id="price">
                     <div className="card_value">{price}円</div>
-                    <div className="card_title">前日比: {change}円 {changeinpercent}%</div>
+                    <div className="card_title">前日比: {change}円 {change_in_percent}%</div>
                 </div>
                 <div id="opening">
                     <div className="card_value">{opening}円</div>
@@ -51,7 +51,7 @@ export default function Indicators(props) {
                     <div className="card_title">安値</div>
                 </div>
                 <div id="previous_close">
-                    <div className="card_value">{previousclose}円</div>
+                    <div className="card_value">{previous_close}円</div>
                     <div className="card_title">前日終値</div>
                 </div>
                 <div id="vwap">
@@ -63,16 +63,16 @@ export default function Indicators(props) {
                     <div className="card_title">出来高</div>
                 </div>
                 <div id="volume_percent">
-                    <div className="card_value">{volumeinpercent}%</div>
+                    <div className="card_value">{volume_in_percent}%</div>
                     <div className="card_title">出来高増加率</div>
                 </div>
                 <div id="year_high">
-                    <div className="card_value">{yearhigh}円</div>
-                    <div className="card_title">年初来高値<span>{yearhighdate}</span></div>
+                    <div className="card_value">{year_high}円</div>
+                    <div className="card_title">年初来高値<span>{year_high_date}</span></div>
                 </div>
                 <div id="year_low">
-                    <div className="card_value">{yearlow}円</div>
-                    <div className="card_title">年初来安値<span>{yearlowdate}</span></div>
+                    <div className="card_value">{year_low}円</div>
+                    <div className="card_title">年初来安値<span>{year_low_date}</span></div>
                 </div>
             </div>
         </div>

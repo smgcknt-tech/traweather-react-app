@@ -1,36 +1,44 @@
+
+@mixin row($option1, $option2) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: $option1;
+  justify-content: $option2;
+}
+
+@mixin col($base_width) {
+  flex: 1 1 $base_width;
+}
+
 @mixin place_center {
   display: grid;
   place-items: center;
 }
 
-@mixin hover {
-  transition: 0.3s;
-  &:hover {
-    background-color: #fff;
-    opacity: 0.3;
-    transition: background-color 0.3s;
+@mixin indicator_card($back_color, $color) {
+  border-radius: 0.5rem;
+  width: 17rem;
+  height: 10rem;
+  background-color: white;
+  border: 0.1rem solid $back_color;
+
+  .card_value {
+    height: 60%;
+    font-size: 3rem;
+    color: $color;
+    background-color: $back_color;
+    @include place_center();
   }
-}
 
-@mixin row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-}
+  .card_title {
+    height: 40%;
+    font-size: 1.5rem;
+    color: #337ab7;
+    background-color: F5F5F5;
+    @include place_center();
 
-@mixin center {
-  justify-content: center;
-}
-
-@mixin space_between {
-  justify-content: space-between;
-}
-
-@mixin top {
-  align-items: flex-start;
-}
-
-@mixin col ($base_width) {
-  flex: 1 1 $base_width;
+    .span {
+      font-size: 0.5rem;
+    }
+  }
 }

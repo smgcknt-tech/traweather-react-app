@@ -1,0 +1,80 @@
+@import "../variables.scss";
+
+.result_page {
+  .header_menu {
+    @include row(center, flex-start);
+    background-color: #8b8b8b;
+    color: #fff;
+    box-shadow: 0 0.2rem 0.2rem #b4b4b4;
+    li {
+      padding: 1rem 2rem;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        transition: background-color 0.1s;
+      }
+      i {
+        padding: 0 0.5rem;
+      }
+    }
+  }
+  .main {
+    margin: 3rem 1rem;
+    .profit_result {
+      @include row(center, flex-start);
+      background-color: #8b8b8b;
+      color: #fff;
+      font-size: 2rem;
+      border-radius: 0.2rem;
+      > li {
+        padding: 1rem 2rem;
+        p {
+          padding-top: 0.5rem;
+        }
+      }
+    }
+    .dashboard {
+      .dashboard_row1 {
+        > * {
+          margin: 1rem 2rem;
+        }
+        @include row(flex-start, flex-start);
+        .indicators {
+          @include row(flex-start, flex-start);
+          width:100%;
+          > * {
+            margin: 1rem 2rem;
+          }
+          #todays_profit {
+            @include indicator_card(#337ab7, #fff);
+          }
+
+          #last_profit {
+            @include indicator_card(#dff0d8, #3c763d);
+          }
+
+          #monthly_profit {
+            @include indicator_card(#fcf8e3, #8c6f3e);
+          }
+        }
+      }
+
+      .dashboard_row2 {
+        @include row(center, flex-start);
+        .left_col {
+          @include col(60%);
+          > * {
+            margin: 2rem;
+          }
+        }
+        .right_col {
+          @include col(20%);
+          > * {
+            margin: 2rem;
+          }
+        }
+      }
+    }
+  }
+}

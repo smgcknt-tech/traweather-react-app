@@ -1,10 +1,10 @@
-import '../styles/components/Strategy.scss'
+import '../styles/components/CommentPerStock.scss'
 import React, { useContext, useRef, useState } from 'react'
 import { AppActions, AppContext } from '../stores/App';
-import { context, actions } from '../stores/PlanPage';
+import { context, actions } from '../stores/ResultPage';
 import { helper } from '../utils/helper';
 
-export default function Strategy() {
+export default function CommentPerStock() {
     const { state, dispatch } = useContext(context);
     const { selectedStock } = state;
     const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
@@ -15,27 +15,27 @@ export default function Strategy() {
     const handleSubmit = async () => {
         setOpen(false)
         const payload = {
-            strategy: textarea.current.value,
+            comment: textarea.current.value,
+            result_id: selectedStock.result_id,
             user_id: user.id,
-            code: selectedStock.code
         }
-        const response = await helper.postData(`/api/update_plan_strategy`, AppDispatch, AppActions, payload)
+        const response = await helper.postData(`/api/update_result_comment`, AppDispatch, AppActions, payload)
         if (response) {
-            dispatch({ type: actions.SET_PLAN, payload: response });
-            const foundSelectedStock = response.find((plan) => plan.code === selectedStock.code)
+            dispatch({ type: actions.SET_RESULT, payload: response });
+            const foundSelectedStock = response.find((result) => result.code === selectedStock.code)
             dispatch({ type: actions.SET_SELECTED_STOCK, payload: foundSelectedStock })
         }
     }
 
     return (
-        <div className="strategy" onBlur={() => { setOpen(false) }}>
+        <div className="comment_per_stock" onBlur={() => { setOpen(false) }}>
             <section>
-                <h2 className="title">今日の戦略</h2>
+                <h2 className="title">コメント</h2>
                 <div className="content">
                     {selectedStock ? (
                         <textarea
-                            key={selectedStock.strategy}
-                            defaultValue={selectedStock.strategy}
+                            key={selectedStock.comment}
+                            defaultValue={selectedStock.comment}
                             onFocus={() => { setOpen(true) }}
                             ref={textarea}
                         >

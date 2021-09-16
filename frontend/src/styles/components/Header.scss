@@ -1,44 +1,43 @@
 @import "../variables.scss";
 
 header {
-  padding: 1rem;
   color: #fff;
   box-shadow: 0 0 0.5rem #b4b4b4;
   background-image: linear-gradient(132.6deg, #478bd6 23.3%, #25d8d3 84.7%);
 
   .header {
-    @include row();
-    @include space_between();
-
-    .left_menu > * {
-      padding: 0 1rem;
-    }
-
-    .right_menu > * {
-      font-size: 2rem;
-      padding: 0 1rem;
-    }
+    @include row(center, space-between);
 
     .left_menu {
-      @include row();
+      @include row(center, flex-start);
       .logo {
+        padding: 0 1.5rem;
         font-size: 3rem;
         transform: rotate(30deg);
+        cursor: default;
       }
 
       .logo_title {
-        padding-left: 1rem;
         font-size: 3rem;
         color: #fff;
-      }
-
-      .catch_copy {
-        font-size: 2rem;
+        cursor: pointer;
       }
     }
 
     .right_menu {
-      @include row();
+      @include row(center, flex-start);
+      > * {
+        font-size: 2rem;
+        padding: 1.5rem;
+      }
+      .log_out_bttn {
+        cursor: pointer;
+        transition: 0.3s;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.6);
+          transition: background-color 0.1s;
+        }
+      }
     }
   }
 }

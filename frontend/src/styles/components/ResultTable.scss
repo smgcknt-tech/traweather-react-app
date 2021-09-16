@@ -1,6 +1,6 @@
 @import "../variables.scss";
 
-.story_table {
+.result_table {
   @include col(60%);
   table {
     font-size: 1.5rem;
@@ -24,18 +24,17 @@
         &:hover {
           border: 0.2rem double rgb(245, 187, 111);
         }
-
-        [data-label="寄付値"],
-        [data-label="支持線"],
-        [data-label="仕切値"],
-        [data-label="目標値"] {
+        [data-label="LOT"],
+        [data-label="ENTRY"],
+        [data-label="EXIT"] {
+          background-color: #e9e7e7;
           transition: 0.3s;
           &:hover {
             background-color: rgba(245, 187, 111, 0.3);
             transition: background-color 0.3s;
           }
         }
-        
+
         td {
           input {
             cursor: pointer;
@@ -45,8 +44,7 @@
             background-color: transparent;
           }
         }
-        #submit,
-        #delete {
+        #submit{
           i {
             opacity: 0.6;
           }
@@ -125,8 +123,7 @@
             font-weight: bold;
           }
         }
-        #submit,
-        #delete {
+        #submit{
           text-align: center;
         }
       }

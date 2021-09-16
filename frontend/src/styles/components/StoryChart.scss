@@ -3,14 +3,11 @@
 .story_chart {
   padding: 2rem;
   background-color: #fff;
-  border-radius: 1rem;
+  border-radius: 0.2rem;
   box-shadow: 0 0 0.3rem #b4b4b4;
-  @include row();
-  @include top();
-
+  @include row(center,flex-start);
   .chart_container {
-    @include col(60%);
-    padding-bottom: 2rem;
+    @include col(50%);
   }
 
   .indicators_table {
@@ -20,7 +17,7 @@
     table {
       width:100%;
       tr {
-        @include row();
+        @include row(center,flex-start);
         width:100%;
         .date{
           width:100%;

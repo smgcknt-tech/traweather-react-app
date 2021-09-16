@@ -1,21 +1,24 @@
 @import "../variables.scss";
 
 .login_form {
-  @include row();
+  @include row(center, flex-start);
   background-color: #fff;
   padding: 2rem;
   border-radius: 0.2rem;
   box-shadow: 0 0 0.5rem #b4b4b4;
 
-
   .register_bttn {
-    padding:1rem 0;
+    padding: 1rem 0;
     cursor: pointer;
     color: #7a7878;
-    @include hover();
+    transition: 0.3s;
+    &:hover {
+      color: rgba(71, 139, 214, 0.8);
+      transition: color 0.3s;
+    }
   }
 
-  > .each_input {
+  .each_input {
     width: 100%;
     padding: 0 2rem;
     input {
@@ -36,8 +39,7 @@
   }
 
   .button {
-    @include row();
-    @include center();
+    @include row(center, center);
     width: 100%;
     margin: 1rem;
     input {

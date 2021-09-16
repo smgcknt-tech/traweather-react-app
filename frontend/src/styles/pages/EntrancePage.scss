@@ -1,8 +1,7 @@
 @import "../variables.scss";
 
 .entrance {
-  @include row();
-  @include center();
+  @include row(center, center);
   height: 100%;
   width: 100%;
 
@@ -47,13 +46,12 @@
   }
 
   .form_container {
-    width:50%;
+    width: 50%;
     .message {
-      @include row();
-      @include center();
+      @include row(center, center);
       color: #fff;
       font-size: 7rem;
-      p{
+      p {
         font-size: 2.5rem;
         font-style: italic;
       }

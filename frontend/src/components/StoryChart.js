@@ -38,7 +38,7 @@ export default function StoryChart() {
                         <Line data={chartData} options={{
                             title: {
                                 display: true,
-                                text: `${indicators.stockname} (${indicators.market}) [${indicators.industry}]`
+                                text: `${indicators.stock_name} (${indicators.market}) [${indicators.industry}]`
                             },
                             legend: {
                                 display: false
@@ -46,13 +46,14 @@ export default function StoryChart() {
                             responsive: true,
                             scales: {
                                 display: false,
-                                ticks: {
-                                    max: Number(indicators.upperrange),
-                                    min: Number(indicators.lowerrange)
-                                },
+
                                 yAxes: [
                                     {
                                         id: "y-axis-1",
+                                        ticks: {
+                                            suggestedMin: selectedStock.opening - 100,
+                                            suggestedMax: selectedStock.goal + 100,
+                                        },
                                     },
 
                                 ],
@@ -174,17 +175,18 @@ export default function StoryChart() {
                     <div className="indicators_table">
                         <table>
                             <tbody>
-                                <tr className="date"><th className="date">{helper.format_dates(indicators.stockdate)}</th></tr>
-                                <tr><th>前日比</th><td>{indicators.change} 円 ({indicators.changeinpercent}%)</td></tr>
+                                <tr className="date"><th className="date">{helper.format_dates(indicators.stock_date)}</th></tr>
+                                <tr><th>現在値</th><td>{indicators.price} 円</td></tr>
+                                <tr><th>前日比</th><td>{indicators.change} 円 ({indicators.change_in_percent}%)</td></tr>
                                 <tr><th>始値</th><td>{indicators.opening} 円</td></tr>
                                 <tr><th>高値</th><td>{indicators.high} 円</td></tr>
                                 <tr><th>安値</th><td>{indicators.low} 円</td></tr>
-                                <tr><th>前日終値</th><td>{indicators.previousclose} 円</td></tr>
+                                <tr><th>前日終値</th><td>{indicators.previous_close} 円</td></tr>
                                 <tr><th>VWAP</th><td>{indicators.vwap} 円</td></tr>
                                 <tr><th>出来高</th><td>{indicators.volume} 円</td></tr>
-                                <tr><th>出来高増加率</th><td>{indicators.volumeinpercent} 円</td></tr>
-                                <tr><th>年初来高値</th><td>{indicators.yearhigh} 円</td></tr>
-                                <tr><th>年初来安値</th><td>{indicators.yearlow} 円</td></tr>
+                                <tr><th>出来高増加率</th><td>{indicators.volume_in_percent} 円</td></tr>
+                                <tr><th>年初来高値</th><td>{indicators.year_high} 円</td></tr>
+                                <tr><th>年初来安値</th><td>{indicators.year_low} 円</td></tr>
                             </tbody>
                         </table>
                     </div>

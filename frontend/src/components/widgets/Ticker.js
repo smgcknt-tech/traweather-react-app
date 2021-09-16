@@ -1,5 +1,4 @@
 import React, {memo, useEffect, useRef } from 'react'
-import "../../styles/components/Ticker.scss"
 
 export default memo(function Ticker() {
     const ref = useRef();

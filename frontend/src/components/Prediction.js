@@ -1,20 +1,17 @@
 import React, { useContext, useRef, useState } from 'react'
-import { AppContext } from '../stores/App';
-import { context, actions } from '../stores/PlanPage';
+import { AppContext,AppActions } from '../stores/App';
 import '../styles/components/Prediction.scss'
 import { helper } from '../utils/helper';
 
 export default function Prediction() {
-    const { state, dispatch } = useContext(context);
-    const { prediction } = state;
-    const { state: AppState } = useContext(AppContext);
-    const { user } = AppState;
+    const { state: AppState, dispatch : AppDispatch } = useContext(AppContext);
+    const { user, prediction } = AppState;
     const [open, setOpen] = useState(false)
     const predictionText = useRef(null)
     const strategyText = useRef(null)
     const featuredSetorText = useRef(null)
 
-    const handleSubmit = (target) => {
+    const handleSubmit = async(target) => {
         setOpen(false)
         let payload = null;
         //target name should be same as market_prediction table column.
@@ -23,10 +20,10 @@ export default function Prediction() {
         target === "featured_sector" && (payload = { featured_sector: featuredSetorText.current.value })
         payload.user_id = user.id
         payload.created_at = helper.get_today()
-        helper.postData(`/api/update_prediction`, dispatch, actions, payload)
-            .then((data) => {
-                dispatch({ type: actions.SET_PREDICTION, payload: data });
-            })
+        const response = await helper.postData(`/api/update_prediction`,AppDispatch, AppActions, payload)
+        if(response){
+            AppDispatch({ type: AppActions.SET_PREDICTION, payload: response });
+        }
     }
 
     return (

@@ -2,8 +2,7 @@
 
 .plan_page {
   .header_menu {
-    @include row();
-    margin-bottom: 1rem;
+    @include row(center, flex-start);
     background-color: #8b8b8b;
     color: #fff;
     box-shadow: 0 0.2rem 0.2rem #b4b4b4;
@@ -21,33 +20,31 @@
     }
   }
   .main {
-    padding: 1rem;
+    > * {
+      margin: 2rem;
+    }
     .dashboard {
-      @include row();
-      @include top();
-
-      .left {
+      > * {
         margin: 1rem;
-        > * {
-          margin-bottom: 2rem;
-        }
-
-        .menu_button {
-          padding: 0 1rem;
-          @include row();
-          li {
-            cursor: pointer;
-            @include hover();
+      }
+      .dashboard_row1 {
+        @include row(flex-start, flex-start);
+        .left_col {
+          @include col(60%);
+          > * {
+            margin: 2rem;
           }
         }
-        @include col(60%);
-      }
-      .right {
-        margin: 1rem;
-        > * {
-          margin-bottom: 2rem;
+        .right_col {
+          @include col(30%);
+          > * {
+            margin: 2rem;
+          }
         }
-        @include col(30%);
+      }
+      .dashboard_row2 {
+         @include row(flex-start, flex-start);
+         margin: 0 3rem;
       }
     }
   }

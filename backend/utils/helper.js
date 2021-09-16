@@ -4,16 +4,13 @@ import request from "request";
 import moment from "moment"
 
 export const helper = {
-    now: () => {
-        const now = moment().format("YYYY-MM-DD HH:mm:ss");
-        return now;
+    time: () => {
+        return {
+            today : moment().format("YYYY-MM-DD"),
+            yesterday: moment().subtract(1, 'day').format("YYYY-MM-DD"),
+        }
     },
-    get_today: () => {
-        let today = new Date();
-        const date = today.getFullYear() + "0" + (today.getMonth() + 1) + "0" + today.getDate()
-        const result = moment(date).format("YYYY-MM-DD");
-        return result;
-    },
+
     csv_stream: async (url, callback) => {
         return new Promise((resolve, reject) => {
             let data = [];

@@ -1,17 +1,17 @@
 import React, { useContext, useState } from 'react';
-import { context } from '../stores/PlanPage'
+import { AppContext } from '../stores/App';
 import "../styles/components/SearchBar.scss";
 import Indicators from './Indicators';
 export default function SearchBar() {
-    const { state } = useContext(context);
-    const { allStocks } = state;
+    const { state : AppState } = useContext(AppContext);
+    const { allStocks } = AppState;
     const [filteredData, setFilteredData] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [result, setResult] = useState(null);
 
     const handleFilter = (event) => {
         const searchWord = String(event.target.value);
-        const filteredResult = allStocks.filter((stock) => stock.code.includes(searchWord) || stock.stockname.includes(searchWord));
+        const filteredResult = allStocks.filter((stock) => stock.code.includes(searchWord) || stock.stock_name.includes(searchWord));
         setInputValue(searchWord);
         if (searchWord === "") {
             setFilteredData([]);
@@ -20,9 +20,9 @@ export default function SearchBar() {
         }
     }
 
-    const handleSelect = (code, stockname) => {
+    const handleSelect = (code, stock_name) => {
         const foundData = allStocks.filter((stock) => code === stock.code);
-        setInputValue(stockname);
+        setInputValue(stock_name);
         setFilteredData([]);
         setResult(foundData[0]);
     }
@@ -38,7 +38,7 @@ export default function SearchBar() {
                 <div className="search_inputs">
                     <input type="text" placeholder="証券番号または会社名を入力してください" value={inputValue} onChange={handleFilter} />
                     <span className="search_icon">
-                        {result ? <i className="fas fa-times" onClick={handleClear}></i> : null}
+                        {result ? <i className="fas fa-times" onClick={handleClear}></i> : <i class="fas fa-search"></i>}
                     </span>
                 </div>
                 {(filteredData.length > 0) && (
@@ -47,8 +47,8 @@ export default function SearchBar() {
                             .slice(0, 15)
                             .map((value, key) => {
                                 return (
-                                    <p key={key} className="data_item" onClick={() => { handleSelect(value.code, value.stockname) }}>
-                                        {value.code}_{value.stockname}
+                                    <p key={key} className="data_item" onClick={() => { handleSelect(value.code, value.stock_name) }}>
+                                        {value.code}_{value.stock_name}
                                     </p>
                                 );
                             })}

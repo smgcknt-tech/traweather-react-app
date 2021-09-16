@@ -4,29 +4,30 @@
   background-color: #ffffff;
   box-shadow: 0.2rem 0 0.3rem #b4b4b4;
   height: 100%;
-
   ul {
     justify-content: column;
     text-align: center;
     li {
+      text-decoration: none;
+      padding: 2rem 0;
       transition: 0.3s;
       &:hover {
-        background-color: #fff;
-        opacity: 0.3;
+        i,p{
+          color:#fff;
+        }
+        background-color: rgba(71, 139, 214, 0.4);
         transition: background-color 0.3s;
       }
-      text-decoration: none;
 
       i {
-        padding: 2rem 0;
         font-size: 3rem;
         color: #8b8b8b;
       }
 
       p {
+        padding-top: 1rem;
         color: #8b8b8b;
         font-size: 1.5rem;
-        
       }
     }
   }

@@ -1,5 +1,4 @@
 import React, {memo, useEffect, useRef } from 'react'
-import "../../styles/components/Event.scss"
 
 export default memo(function Event(props) {
     const ref = useRef();

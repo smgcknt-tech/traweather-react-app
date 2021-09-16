@@ -1,15 +1,9 @@
 @import "../variables.scss";
 
 .plan_add_form {
-  @include row();
-  @include center();
-
-  .form > .each_input {
-    margin: 0.8rem 0;
-  }
+  @include row(center, center);
 
   .form {
-    margin: 0 0 1rem 0;
     width: 70%;
     background-color: #fff;
     padding: 1rem 1.5rem;
@@ -17,31 +11,31 @@
     box-shadow: 0 0 0.5rem #b4b4b4;
 
     i.fa-times {
-      opacity:0.5;
+      opacity: 0.5;
     }
 
-    .error {
-      padding: 0 1rem;
-      color: #a02020;
-    }
-
-    fieldset {
-      border: #bdbdbd solid 0.01rem;
+    .each_input {
       width: 100%;
-
-      legend {
-        color: #7a7878;
-      }
-      //do not put 'input' in 'legend'
-      textarea,
+      padding: 0 2rem;
       input {
-        display: block;
         width: 100%;
       }
+      fieldset {
+        border: #bdbdbd solid 0.01rem;
+        width: 100%;
+        margin: 1rem 0;
+        legend {
+          color: #7a7878;
+        }
+      }
+      .error {
+        margin: 0 1rem;
+        color: #a02020;
+      }
     }
+
     .button {
-      @include row();
-      @include center();
+      @include row(center, center);
       input {
         text-align: center;
         color: #fff;

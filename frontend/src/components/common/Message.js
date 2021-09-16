@@ -1,5 +1,5 @@
 import React from 'react'
-import "../styles/components/Message.scss"
+import "../../styles/components/Message.scss"
 
 export default function Message(props) {
     return (
