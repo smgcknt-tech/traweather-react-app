@@ -7,19 +7,28 @@ import { helper } from '../../utils/helper';
 
 export default function PlanAddForm(props) {
     const { state, dispatch } = useContext(context);
-    const { state: AppState, dispatch: AppDispatch} = useContext(AppContext);
+    const { planData } = state
+    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
     const { allStocks } = AppState;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
+    console.log(planData)
 
-    const onSubmit = async (data) => {
-        const foundStock = allStocks.find((stock) => stock.code === data.code)
-        data.market = foundStock.market
-        data.stock_name = foundStock.stock_name
-        data.user_id = AppState.user.id
-        const response = await helper.postData(`/api/create_plan`, AppDispatch, AppActions, data)
-        if (response) {
-            dispatch({ type: actions.SET_PLAN, payload: response })
+    const onSubmit = async (data, e) => {
+        if (planData.find((stock) => stock.code === Number(data.code))) {
+            e.preventDefault()
+            alert("その銘柄はすでに追加されています")
+        } else {
+            const foundStock = allStocks.find((stock) => stock.code === data.code)
+            data.market = foundStock.market
+            data.stock_name = foundStock.stock_name
+            data.user_id = AppState.user.id
+            const response = await helper.postData(`/api/create_plan`, AppDispatch, AppActions, data)
+            if (response) {
+                dispatch({ type: actions.SET_PLAN, payload: response })
+                const foundStock = response.find((stock) => stock.code === Number(data.code))
+                dispatch({ type: actions.SET_SELECTED_STOCK, payload: foundStock })
+            }
         }
         props.setOpen(null)
     }
