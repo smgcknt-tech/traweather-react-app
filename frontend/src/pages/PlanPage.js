@@ -33,7 +33,6 @@ export default function PlanPage() {
 
                 const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, AppDispatch, AppActions, {
                     user_id: user.id,
-                    date: helper.get_today()
                 })
                 if (fetchedPrediction) AppDispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
 
@@ -71,7 +70,6 @@ export default function PlanPage() {
                         </div>
                         <div className="right_col">
                             <Reason />
-
                             <Strategy />
                         </div>
                     </div>

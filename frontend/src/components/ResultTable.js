@@ -15,7 +15,6 @@ export default function StoryTable() {
     const rowsPerPage = 5;
     const pagesVisited = currentPage * rowsPerPage;
     const pageCount = Math.ceil(resultData?.length / rowsPerPage);
-
     const displayRows = resultData
         .slice(pagesVisited, pagesVisited + rowsPerPage)
         .map((stock, index) => {
@@ -36,7 +35,6 @@ export default function StoryTable() {
         })
     const changePage = ({ selected }) => {
         dispatch({ type: actions.SET_CURRENT_PAGE, payload: selected });
-
     }
 
     const handleSelect = (index) => {

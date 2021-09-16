@@ -51,8 +51,8 @@ export const api = {
         }
     },
     get_one_prediction: (payload) => {
-        const { user_id, date } = payload
-        const query = `SELECT * FROM market_prediction WHERE user_id =${user_id} AND created_at::text like '${date}%';`;
+        const { user_id} = payload
+        const query = `SELECT * FROM market_prediction WHERE user_id =${user_id} AND created_at::text like '${helper.time().today}%';`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows[0]
