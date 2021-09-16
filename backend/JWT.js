@@ -1,6 +1,7 @@
 
 import jwt from 'jsonwebtoken';
-import { env } from '../env_variables.js'
+import { env } from './env_variables.js';
+
 
 export const validation_token = (req, res, next) => {
     const access_token = req.headers['access_token']

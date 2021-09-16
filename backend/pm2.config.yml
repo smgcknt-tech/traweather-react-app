@@ -1,5 +1,5 @@
 name: traweather
-script: ./backend/pm2.js
+script: ./pm2.js
 cron_restart: "0 16 * * * *"
 watch: true
 node_args: "-r dotenv/config"

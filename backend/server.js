@@ -1,9 +1,9 @@
 import express from 'express';
 import { api_router } from './routes/apis.js';
 import { user_router } from './routes/users.js';
-import { env } from "../env_variables.js";
 import cors from "cors";
 import cookieParser from 'cookie-parser';
+import { env } from './env_variables.js';
 const app = express();
 // middleware
 app.use(express.json())

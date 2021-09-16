@@ -1,8 +1,8 @@
 import format from 'pg-format';
-import { pool } from '../../postgresql.js';
+import { pool } from '../postgresql.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { env } from '../../env_variables.js';
+import { env } from '../env_variables.js';
 export const user = {
     register: async (payload) => {
         const { username, password } = payload;

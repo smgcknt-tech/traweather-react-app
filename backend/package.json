@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --watch backend --exec node --experimental-modules backend/server.js"
+    "start": "NODE_ENV=development nodemon --watch ../backend --exec node --experimental-modules server.js"
   },
   "repository": {
     "type": "git",
