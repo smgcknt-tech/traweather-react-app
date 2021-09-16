@@ -1,6 +1,6 @@
 import format from 'pg-format';
 import { pool } from '../../postgresql.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { env } from '../../env_variables.js';
 export const user = {
