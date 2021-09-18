@@ -1,13 +1,11 @@
 import '../../styles/components/TradeFeedBackForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
-import { context, actions } from '../../stores/TopPage';
 import { AppActions, AppContext } from '../../stores/App';
 import { helper } from '../../utils/helper';
 import { useHistory } from 'react-router';
 
 export default function TradeFeedBackForm(props) {
-    const { dispatch } = useContext(context);
     const { state: AppState, dispatch:AppDispatch} = useContext(AppContext);
     const { user } = AppState
     const { register, handleSubmit, formState: { errors } } = useForm();

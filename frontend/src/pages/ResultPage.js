@@ -35,15 +35,15 @@ export default function ResultPage() {
             }
             fetchResultPageData()
         }
-    }, [user.id]);
+    }, [user.id]); // eslint-disable-line
 
     const selectedStockData = useMemo(() => {
         if (allStocks && selectedStock) return allStocks.find((stock) => selectedStock.code === Number(stock.code))
-    }, [selectedStock, allStocks, resultData])
+    }, [selectedStock, allStocks, resultData])// eslint-disable-line
 
     useEffect(() => {
         if (selectedStockData) dispatch({ type: actions.SET_INDICATORS, payload: { ...indicators, stockData: selectedStockData } });
-    }, [selectedStockData]);
+    }, [selectedStockData]);// eslint-disable-line
 
     const profitResult = useMemo(() => {
         return resultData

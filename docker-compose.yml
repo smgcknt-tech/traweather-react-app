@@ -1,0 +1,39 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_PASSWORD=$db_password
+  nginx:
+    depends_on:
+      - api
+      - frontend
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "3050:80"
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: "./backend"
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+    environment:
+      - PGUSER=$db_user
+      - PGHOST=host.docker.internal
+      - PGDATABASE=$db_name
+      - PGPASSWORD=$db_password
+      - PGPORT=$db_port
+  frontend:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./frontend
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app

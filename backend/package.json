@@ -1,12 +1,12 @@
 {
   "name": "traweather",
-  "proxy": "http://127.0.0.1:5000",
   "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --watch ../backend --exec node --experimental-modules server.js"
+    "dev": "nodemon --watch ../backend --exec node --experimental-modules server.js",
+    "start": "nodemon --watch ../backend --exec node --experimental-modules server.js"
   },
   "repository": {
     "type": "git",

@@ -10,7 +10,7 @@ export default memo(function Twitter() {
     }, []);
     return (
         <div className="twitter">
-            <a className="twitter-timeline" data-height="400" data-width="100%" href="https://twitter.com/traders_web?ref_src=twsrc%5Etfw" ref={ref} />
+            <a className="twitter-timeline" data-height="400" data-width="100%" href="https://twitter.com/traders_web?ref_src=twsrc%5Etfw" ref={ref} >twitter</a>
         </div>
     )
 })

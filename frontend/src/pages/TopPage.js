@@ -25,6 +25,7 @@ export default function TopPage() {
             }
             fetchData();
         }
+    // eslint-disable-next-line
     }, [user.id])
 
     if (loading) return <Loading />
