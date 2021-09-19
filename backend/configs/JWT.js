@@ -5,7 +5,6 @@ import { env } from './env_variables.js';
 
 export const validation_token = (req, res, next) => {
     const access_token = req.headers['access_token']
-    console.log(access_token)
     if (!access_token) {
         return res.json({ error: "ユーザー認証に失敗しました。もう一度ログインして下さい" })
     }

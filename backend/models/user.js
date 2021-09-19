@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import { env } from '../configs/env_variables.js';
 export const user = {
     register: async (payload) => {
-        console.log("register")
         const { username, password } = payload;
         const result = await bcrypt.hash(password, 5).then(async (hash) => {
             try {
@@ -20,7 +19,6 @@ export const user = {
         return result;
     },
     login: async (payload) => {
-        console.log("login")
         const { username, password } = payload;
         const user = await pool.query(`SELECT * FROM app_user WHERE username = '${username}'`).then(res => res.rows[0])
         if (!user) {

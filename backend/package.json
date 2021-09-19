@@ -5,8 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch ../backend --exec node --experimental-modules server.js",
-    "start": "nodemon --watch ../backend --exec node --experimental-modules server.js"
+    "local": "NODE_ENV=local nodemon --watch ../backend --exec node --experimental-modules server.js",
+    "dev": "NODE_ENV=development nodemon --watch ../backend --exec node --experimental-modules server.js",
+    "start": " NODE_ENV=production nodemon --watch ../backend --exec node --experimental-modules server.js"
   },
   "repository": {
     "type": "git",
