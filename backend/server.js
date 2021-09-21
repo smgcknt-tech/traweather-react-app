@@ -15,6 +15,6 @@ app.get('/',(req,res)=>{res.send("server is ready")})
 app.use("/api", api_router);
 app.use("/user", user_router);
 //server
-app.listen(env.port, () => {
+app.listen(env.port || 5000, () => {
     console.log(`server(PORT:${env.port}) is ready. ENVIRONMENT:${app.get('env')}`)
 });

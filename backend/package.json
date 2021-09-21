@@ -3,11 +3,11 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "local": "NODE_ENV=local nodemon --watch ../backend --exec node --experimental-modules server.js",
-    "dev": "NODE_ENV=development nodemon --watch ../backend --exec node --experimental-modules server.js",
-    "start": " NODE_ENV=production nodemon --watch ../backend --exec node --experimental-modules server.js"
+    "local": "NODE_ENV=local nodemon -L",
+    "dev": "NODE_ENV=development nodemon -L",
+    "start": " NODE_ENV=production node server.js"
   },
   "repository": {
     "type": "git",
