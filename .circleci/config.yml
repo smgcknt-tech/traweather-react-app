@@ -30,10 +30,3 @@ workflows:
           path: .
           requires:
             - test
-      - aws-ecr/build-and-push-image:
-          repo: traweather
-          tag: "frontend_${CIRCLE_BUILD_NUM}"
-          dockerfile: frontend/Dockerfile
-          path: .
-          requires:
-            - test
