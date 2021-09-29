@@ -1,7 +1,7 @@
 FROM node:14.17.6 as builder
 WORKDIR /app
-COPY ./package*.json ./
-RUN npm i -f
+COPY package*.json ./
+RUN npm ci
 COPY . .
 RUN npm run build
 
