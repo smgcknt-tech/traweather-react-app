@@ -1,7 +1,7 @@
 import format from 'pg-format';
 import { helper } from '../utils/helper.js';
-import { pool } from '../../postgresql.js';
-// import { env } from '../../env_variables.js';
+import { pool } from '../configs/postgresql.js';
+import { env } from '../configs/env_variables.js';
 export const api = {
     create_prediction: async (payload) => {
         const values = [payload['予想'], payload['戦略'], payload['注目セクター'], payload.user_id]
@@ -238,7 +238,8 @@ export const api = {
                 const result = await pool.query(`INSERT INTO trade_result (user_id)
                 VALUES($1) RETURNING result_id;`, [user_id])
                 await pool.query(`INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,result_id)
-                VALUES($1, $2, $3, $4,$5, $6, $7, $8,$9,$10,$11);`, [code, market, stock_name, opening, support, losscut, goal, reason, strategy, user_id, result.rows[0].result_id])
+                SELECT $1, $2, $3, $4,$5, $6, $7, $8,$9,$10,$11
+                WHERE NOT EXISTS (SELECT plan_id FROM trade_plan WHERE code = ${code} AND user_id = ${user_id} AND created_at::text like '${helper.time().today}%');`, [code, market, stock_name, opening, support, losscut, goal, reason, strategy, user_id, result.rows[0].result_id])
                 await pool.query("COMMIT")
                 return "SUCCESS"
             } catch (err) {

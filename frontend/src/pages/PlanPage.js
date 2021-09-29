@@ -41,15 +41,16 @@ export default function PlanPage() {
             }
             fetchPlanPageData()
         }
-    }, [user.id]);
+    }, [user.id]);// eslint-disable-line
 
     const indicatorsData = useMemo(() => {
         if (allStocks && selectedStock) return allStocks.find((stock) => selectedStock.code === Number(stock.code))
-    }, [selectedStock, allStocks, planData])
+
+    }, [selectedStock, allStocks, planData])// eslint-disable-line
 
     useEffect(() => {
         if (selectedStock) dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
-    }, [indicatorsData, selectedStock]);
+    }, [indicatorsData, selectedStock]);// eslint-disable-line
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>

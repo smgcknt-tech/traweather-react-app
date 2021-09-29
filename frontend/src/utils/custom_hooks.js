@@ -22,6 +22,6 @@ export const hooks = {
                     dispatch({ type: AppActions.SET_USER, payload: { ...user, status: false } })
                 })
             }
-        }, [user.status])
+        }, [user.status])// eslint-disable-line
     },
 };
