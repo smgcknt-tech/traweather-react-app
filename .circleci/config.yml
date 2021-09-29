@@ -30,3 +30,4 @@ workflows:
           path: .
           requires:
             - test
+            
