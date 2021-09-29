@@ -5,6 +5,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "test": "mocha --reporter mocha-junit-reporter --reporter-options mochaFile=/tmp/test-results/results.xml",
     "local": "NODE_ENV=local nodemon -L",
     "dev": "NODE_ENV=development nodemon -L",
     "start": " NODE_ENV=production node server.js"
@@ -38,6 +39,9 @@
   "devDependencies": {
     "eslint": "^7.31.0",
     "eslint-plugin-react": "^7.25.1",
-    "nodemon": "^2.0.12"
+    "mocha": "^9.1.2",
+    "mocha-junit-reporter": "^2.0.0",
+    "nodemon": "^2.0.12",
+    "power-assert": "^1.6.1"
   }
 }
