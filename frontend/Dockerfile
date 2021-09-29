@@ -1,6 +1,6 @@
 FROM node:14.17.6 as builder
 WORKDIR /app
-COPY ./package*.json ./
+COPY ./package.json ./
 RUN npm i
 COPY . .
 RUN npm run build
