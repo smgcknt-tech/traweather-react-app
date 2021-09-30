@@ -4,7 +4,7 @@ COPY . ./
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 RUN npm ci
 RUN yarn
-CMD ["npm", "run", "build"]
+RUN npm run build
 
 FROM nginx
 EXPOSE 3000
