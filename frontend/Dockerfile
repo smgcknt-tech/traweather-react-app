@@ -1,10 +1,9 @@
 FROM node:14 AS builder
 WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json yarn.lock ./
-RUN npm install
-RUN yarn
 COPY . ./
+ENV PATH /app/node_modules/.bin:$PATH
+RUN npm ci
+RUN yarn
 CMD ["npm", "run", "build"]
 
 FROM nginx
