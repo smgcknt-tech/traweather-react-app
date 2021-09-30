@@ -1,7 +1,7 @@
 FROM node:14 AS builder
-WORKDIR /usr/src/app
-COPY . ./
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
+WORKDIR /app
+COPY . .
+ENV PATH ./node_modules/.bin:$PATH
 RUN npm ci
 RUN yarn
 RUN npm run build
@@ -9,4 +9,4 @@ RUN npm run build
 FROM nginx
 EXPOSE 3000
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /usr/src/app/build /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
