@@ -1,9 +1,9 @@
 FROM node:14.17.6 as builder
 WORKDIR /app
 COPY ./package*.json ./
-RUN npm ci
+RUN npm i
 COPY . .
-RUN npm run build -- --output-path=./build
+RUN npm run-script build
 
 FROM nginx
 EXPOSE 3000
