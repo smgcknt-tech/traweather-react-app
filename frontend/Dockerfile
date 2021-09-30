@@ -1,11 +1,14 @@
-FROM node:14.17.6 as builder
+FROM node:14.17.6 AS builder
 WORKDIR /app
-COPY ./package*.json ./
-RUN npm i
-COPY . .
-RUN npm run-script build
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json ./
+COPY yarn.lock ./
+RUN npm install
+RUN yarn
+COPY . ./
+CMD ["npm", "run", "build"]
 
 FROM nginx
 EXPOSE 3000
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder ./build /usr/share/nginx/html
