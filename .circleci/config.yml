@@ -25,13 +25,13 @@ workflows:
       - test
       - aws-ecr/build-and-push-image:
           repo: traweather
-          tag: "frontend_${CIRCLE_BUILD_NUM}"
+          tag: "frontend_container"
           path: 'frontend/'
           requires:
             - test
       - aws-ecr/build-and-push-image:
           repo: traweather
-          tag: "backend_${CIRCLE_BUILD_NUM}"
+          tag: "backend_container"
           path: 'backend/'
           requires:
             - test
