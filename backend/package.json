@@ -7,7 +7,7 @@
   "scripts": {
     "local": "NODE_ENV=local nodemon -L",
     "dev": "NODE_ENV=development nodemon -L",
-    "start": " NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js"
   },
   "repository": {
     "type": "git",

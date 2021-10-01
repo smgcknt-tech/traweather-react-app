@@ -29,3 +29,9 @@ workflows:
           path: 'frontend/'
           requires:
             - test
+      - aws-ecr/build-and-push-image:
+          repo: traweather
+          tag: "backend_${CIRCLE_BUILD_NUM}"
+          path: 'backend/'
+          requires:
+            - test

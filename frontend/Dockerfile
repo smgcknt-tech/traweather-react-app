@@ -1,10 +1,10 @@
-FROM node:14 as build
+FROM node:14.17.6 as build
 WORKDIR /app
 ENV NODE_ENV production
 ENV PATH /app/node_modules/.bin:$PATH
 COPY . .
 RUN npm ci
-RUN npm run build 
+RUN npm run build
 
 FROM nginx
 WORKDIR /root/
