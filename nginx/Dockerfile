@@ -1,3 +1,3 @@
 FROM nginx
 EXPOSE 80
-COPY ./default.conf /etc/nginx/sites-available/default
+COPY nginx.conf /etc/nginx/nginx.conf
