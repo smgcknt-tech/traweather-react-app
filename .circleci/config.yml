@@ -25,8 +25,8 @@ workflows:
       - test
       - aws-ecr/build-and-push-image:
           repo: traweather
-          tag: "frontend_container"
-          path: 'frontend/'
+          tag: "proxy_container"
+          path: 'nginx/'
           requires:
             - test
       - aws-ecr/build-and-push-image:
@@ -35,4 +35,9 @@ workflows:
           path: 'backend/'
           requires:
             - test
-            
+      - aws-ecr/build-and-push-image:
+          repo: traweather
+          tag: "frontend_container"
+          path: 'frontend/'
+          requires:
+            - test
