@@ -28,6 +28,6 @@ workflows:
           requires:
             - test
           repo: traweather
-          tag: "proxy-${CIRCLE_SHA1}"
+          tag: "${CIRCLE_SHA1}"
           path: 'nginx/'
 
