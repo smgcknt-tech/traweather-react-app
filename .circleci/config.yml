@@ -28,12 +28,6 @@ workflows:
           requires:
             - test
           repo: traweather
-          tag: 'proxy-container'
+          tag: "proxy-${CIRCLE_SHA1}"
           path: 'nginx/'
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          family: 'traweather-task'
-          cluster-name: 'traweather-cluster'
-          service-name: 'traweather-service'
-          container-image-name-updates: 'container=proxy-container,tag=${CIRCLE_SHA1}'
+
