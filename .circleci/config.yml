@@ -24,20 +24,15 @@ workflows:
     jobs:
       - test
       - aws-ecr/build-and-push-image:
+          requires:
+            - test
           repo: traweather
-          tag: "proxy_container"
+          tag: 'proxy-container'
           path: 'nginx/'
+      - aws-ecs/deploy-service-update:
           requires:
-            - test
-      - aws-ecr/build-and-push-image:
-          repo: traweather
-          tag: "backend_container"
-          path: 'backend/'
-          requires:
-            - test
-      - aws-ecr/build-and-push-image:
-          repo: traweather
-          tag: "frontend_container"
-          path: 'frontend/'
-          requires:
-            - test
+            - aws-ecr/build-and-push-image
+          family: 'traweather-task'
+          cluster-name: 'traweather-cluster'
+          service-name: 'traweather-service'
+          container-image-name-updates: 'container=proxy-container,tag=${CIRCLE_SHA1}'
