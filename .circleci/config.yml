@@ -27,7 +27,15 @@ workflows:
       - aws-ecr/build-and-push-image:
           requires:
             - test
+          region: AWS_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
           repo: traweather
           tag: "${CIRCLE_SHA1}"
           path: 'nginx/'
-
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: 'traweather-task'
+          cluster-name: 'traweather-cluster'
+          service-name: 'traweather-service'
+          container-image-name-updates: 'container=proxy-container,tag=${CIRCLE_SHA1}'
