@@ -39,4 +39,4 @@ workflows:
           family: 'traweather-task'
           cluster-name: 'traweather-cluster'
           service-name: 'traweather-service'
-          container-image-name-updates: 'container=traweather-container,tag=${CIRCLE_SHA1}'
+          container-image-name-updates: 'container=proxy-container,tag=${CIRCLE_SHA1}'
