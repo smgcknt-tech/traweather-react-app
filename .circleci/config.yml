@@ -25,6 +25,15 @@ workflows:
     jobs:
       - test
       - aws-ecr/build-and-push-image:
+          name: "frontend-build-and-push-image"
+          requires:
+            - test
+          region: AWS_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: traweather
+          tag: "frontend-${CIRCLE_SHA1}"
+          path: 'frontend/'
+      - aws-ecr/build-and-push-image:
           name: "backend-build-and-push-image"
           requires:
             - test
@@ -35,10 +44,17 @@ workflows:
           path: 'backend/'
       - aws-ecs/deploy-service-update:
           requires:
+            - frontend-build-and-push-image
+          aws-region: AWS_DEFAULT_REGION
+          family: 'traweather-task'
+          cluster-name: 'traweather-cluster'
+          service-name: 'traweather-service'
+          container-image-name-updates: 'container=frontend-container,tag=frontend-${CIRCLE_SHA1}'
+      - aws-ecs/deploy-service-update:
+          requires:
             - backend-build-and-push-image
           aws-region: AWS_DEFAULT_REGION
           family: 'traweather-task'
           cluster-name: 'traweather-cluster'
           service-name: 'traweather-service'
           container-image-name-updates: 'container=backend-container,tag=backend-${CIRCLE_SHA1}'
-          
