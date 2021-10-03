@@ -30,13 +30,21 @@ workflows:
           region: AWS_REGION
           account-url: AWS_ECR_ACCOUNT_URL
           repo: traweather
-          tag: "${CIRCLE_SHA1}"
+          tag: "proxy-${CIRCLE_SHA1}"
           path: 'nginx/'
-      - aws-ecs/deploy-service-update:
+      - aws-ecr/build-and-push-image:
           requires:
-            - aws-ecr/build-and-push-image
-          aws-region: AWS_DEFAULT_REGION
-          family: 'traweather-task'
-          cluster-name: 'traweather-cluster'
-          service-name: 'traweather-service'
-          container-image-name-updates: 'container=proxy-container,tag=${CIRCLE_SHA1}'
+            - test
+          region: AWS_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: traweather
+          tag: "frontend-${CIRCLE_SHA1}"
+          path: 'frontend/'
+      - aws-ecr/build-and-push-image:
+          requires:
+            - test
+          region: AWS_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: traweather
+          tag: "backend-${CIRCLE_SHA1}"
+          path: 'backend/'
