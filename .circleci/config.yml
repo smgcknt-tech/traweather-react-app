@@ -75,4 +75,3 @@ workflows:
           cluster-name: 'traweather-cluster'
           service-name: 'traweather-service'
           container-image-name-updates: 'container=backend-container,tag=backend-${CIRCLE_SHA1}'
-          
