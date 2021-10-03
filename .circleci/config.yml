@@ -25,6 +25,7 @@ workflows:
     jobs:
       - test
       - aws-ecr/build-and-push-image:
+          name: "proxy-build-and-push-image"
           requires:
             - test
           region: AWS_REGION
@@ -33,6 +34,7 @@ workflows:
           tag: "proxy-${CIRCLE_SHA1}"
           path: 'nginx/'
       - aws-ecr/build-and-push-image:
+          name: "frontend-build-and-push-image"
           requires:
             - test
           region: AWS_REGION
@@ -41,6 +43,7 @@ workflows:
           tag: "frontend-${CIRCLE_SHA1}"
           path: 'frontend/'
       - aws-ecr/build-and-push-image:
+          name: "backend-build-and-push-image"
           requires:
             - test
           region: AWS_REGION
@@ -50,7 +53,7 @@ workflows:
           path: 'backend/'
       - aws-ecs/deploy-service-update:
           requires:
-            - aws-ecr/build-and-push-image
+            - proxy-build-and-push-image
           aws-region: AWS_DEFAULT_REGION
           family: 'traweather-task'
           cluster-name: 'traweather-cluster'
@@ -58,7 +61,7 @@ workflows:
           container-image-name-updates: 'container=proxy-container,tag=proxy-${CIRCLE_SHA1}'
       - aws-ecs/deploy-service-update:
           requires:
-            - aws-ecr/build-and-push-image
+            - frontend-build-and-push-image
           aws-region: AWS_DEFAULT_REGION
           family: 'traweather-task'
           cluster-name: 'traweather-cluster'
@@ -66,7 +69,7 @@ workflows:
           container-image-name-updates: 'container=frontend-container,tag=frontend-${CIRCLE_SHA1}'
       - aws-ecs/deploy-service-update:
           requires:
-            - aws-ecr/build-and-push-image
+            - backend-build-and-push-image
           aws-region: AWS_DEFAULT_REGION
           family: 'traweather-task'
           cluster-name: 'traweather-cluster'
