@@ -33,3 +33,11 @@ workflows:
           repo: traweather
           tag: "proxy-${CIRCLE_SHA1}"
           path: 'nginx/'
+      - aws-ecs/deploy-service-update:
+          requires:
+            - proxy-build-and-push-image
+          aws-region: AWS_DEFAULT_REGION
+          family: 'traweather-task'
+          cluster-name: 'traweather-cluster'
+          service-name: 'traweather-service'
+          container-image-name-updates: 'container=proxy-container,tag=proxy-${CIRCLE_SHA1}'
