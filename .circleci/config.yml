@@ -51,27 +51,3 @@ workflows:
           repo: traweather
           tag: "backend-${CIRCLE_SHA1}"
           path: 'backend/'
-      - aws-ecs/deploy-service-update:
-          requires:
-            - proxy-build-and-push-image
-          aws-region: AWS_DEFAULT_REGION
-          family: 'traweather-task'
-          cluster-name: 'traweather-cluster'
-          service-name: 'traweather-service'
-          container-image-name-updates: 'container=proxy-container,tag=proxy-${CIRCLE_SHA1}'
-      - aws-ecs/deploy-service-update:
-          requires:
-            - frontend-build-and-push-image
-          aws-region: AWS_DEFAULT_REGION
-          family: 'traweather-task'
-          cluster-name: 'traweather-cluster'
-          service-name: 'traweather-service'
-          container-image-name-updates: 'container=frontend-container,tag=frontend-${CIRCLE_SHA1}'
-      - aws-ecs/deploy-service-update:
-          requires:
-            - backend-build-and-push-image
-          aws-region: AWS_DEFAULT_REGION
-          family: 'traweather-task'
-          cluster-name: 'traweather-cluster'
-          service-name: 'traweather-service'
-          container-image-name-updates: 'container=backend-container,tag=backend-${CIRCLE_SHA1}'
