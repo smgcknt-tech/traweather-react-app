@@ -33,6 +33,10 @@ workflows:
           repo: traweather
           tag: "proxy-${CIRCLE_SHA1}"
           path: 'nginx/'
+          filters:
+              branches:
+                  only:
+                  - main
       - aws-ecr/build-and-push-image:
           name: "frontend-build-and-push-image"
           requires:
@@ -42,6 +46,10 @@ workflows:
           repo: traweather
           tag: "frontend-${CIRCLE_SHA1}"
           path: 'frontend/'
+          filters:
+              branches:
+                  only:
+                  - main
       - aws-ecr/build-and-push-image:
           name: "backend-build-and-push-image"
           requires:
@@ -51,6 +59,10 @@ workflows:
           repo: traweather
           tag: "backend-${CIRCLE_SHA1}"
           path: 'backend/'
+          filters:
+              branches:
+                  only:
+                  - main
       - aws-ecs/deploy-service-update:
           requires:
             - proxy-build-and-push-image
@@ -59,6 +71,10 @@ workflows:
           cluster-name: 'traweather-cluster'
           service-name: 'traweather-service'
           container-image-name-updates: 'container=proxy-container,tag=proxy-${CIRCLE_SHA1}'
+          filters:
+              branches:
+                  only:
+                  - main
       - aws-ecs/deploy-service-update:
           requires:
             - frontend-build-and-push-image
@@ -67,6 +83,10 @@ workflows:
           cluster-name: 'traweather-cluster'
           service-name: 'traweather-service'
           container-image-name-updates: 'container=frontend-container,tag=frontend-${CIRCLE_SHA1}'
+          filters:
+              branches:
+                  only:
+                  - main
       - aws-ecs/deploy-service-update:
           requires:
             - backend-build-and-push-image
@@ -75,3 +95,7 @@ workflows:
           cluster-name: 'traweather-cluster'
           service-name: 'traweather-service'
           container-image-name-updates: 'container=backend-container,tag=backend-${CIRCLE_SHA1}'
+          filters:
+              branches:
+                  only:
+                  - main
