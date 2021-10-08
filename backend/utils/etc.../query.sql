@@ -175,5 +175,11 @@ CREATE TABLE trade_feed_back (
     created_at TIMESTAMP DEFAULT CURRENT_DATE,
     PRIMARY KEY (user_id, created_at)
 );
-
 ALTER TABLE market_prediction ALTER created_at SET DEFAULT CURRENT_DATE;
+
+
+//pg_dump//
+pg_dump -U postgres -f traweather.pgsql traweather
+cp -i /Users/smgc-knt/desktop/security/traweather-key.pem traweather.pgsql ubuntu@18.181.247.49:/home/ubuntu/
+//restore//
+psql -f traweather.pgsql -h traweather.cbrmyezdv0g6.ap-northeast-1.rds.amazonaws.com -p 5432 -U smgcknt -d traweather
