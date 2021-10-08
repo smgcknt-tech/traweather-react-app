@@ -1,7 +1,8 @@
 version: 2.1
 orbs:
-  # https://circleci.com/developer/orbs/orb/circleci/node
-  node: circleci/node@4.1.0
+  node: circleci/node@4.7.0
+  aws-ecr: circleci/aws-ecr@6.15.0
+  aws-ecs: circleci/aws-ecs@2.2.1
 jobs:
   test:
     executor:
@@ -22,4 +23,79 @@ jobs:
 workflows:
   node-tests:
     jobs:
-    - test
+      - test
+      - aws-ecr/build-and-push-image:
+          name: "proxy-build-and-push-image"
+          requires:
+            - test
+          region: AWS_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: traweather
+          tag: "proxy-${CIRCLE_SHA1}"
+          path: 'nginx/'
+          filters:
+              branches:
+                  only:
+                  - main
+      - aws-ecr/build-and-push-image:
+          name: "frontend-build-and-push-image"
+          requires:
+            - test
+          region: AWS_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: traweather
+          tag: "frontend-${CIRCLE_SHA1}"
+          path: 'frontend/'
+          filters:
+              branches:
+                  only:
+                  - main
+      - aws-ecr/build-and-push-image:
+          name: "backend-build-and-push-image"
+          requires:
+            - test
+          region: AWS_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: traweather
+          tag: "backend-${CIRCLE_SHA1}"
+          path: 'backend/'
+          filters:
+              branches:
+                  only:
+                  - main
+      - aws-ecs/deploy-service-update:
+          requires:
+            - proxy-build-and-push-image
+          aws-region: AWS_DEFAULT_REGION
+          family: 'traweather-task'
+          cluster-name: 'traweather-cluster'
+          service-name: 'traweather-service'
+          container-image-name-updates: 'container=proxy-container,tag=proxy-${CIRCLE_SHA1}'
+          filters:
+              branches:
+                  only:
+                  - main
+      - aws-ecs/deploy-service-update:
+          requires:
+            - frontend-build-and-push-image
+          aws-region: AWS_DEFAULT_REGION
+          family: 'traweather-task'
+          cluster-name: 'traweather-cluster'
+          service-name: 'traweather-service'
+          container-image-name-updates: 'container=frontend-container,tag=frontend-${CIRCLE_SHA1}'
+          filters:
+              branches:
+                  only:
+                  - main
+      - aws-ecs/deploy-service-update:
+          requires:
+            - backend-build-and-push-image
+          aws-region: AWS_DEFAULT_REGION
+          family: 'traweather-task'
+          cluster-name: 'traweather-cluster'
+          service-name: 'traweather-service'
+          container-image-name-updates: 'container=backend-container,tag=backend-${CIRCLE_SHA1}'
+          filters:
+              branches:
+                  only:
+                  - main
