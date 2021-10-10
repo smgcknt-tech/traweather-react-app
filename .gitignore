@@ -1,3 +1,6 @@
+#docker
+mounted_pgdata
+
 # dependencies
 node_modules
 /.pnp

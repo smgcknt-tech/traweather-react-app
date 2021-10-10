@@ -2,8 +2,13 @@ version: "3"
 services:
   postgres:
     image: "postgres:latest"
+    user: postgres
     environment:
       POSTGRES_PASSWORD: ${PGPASSWORD}
+    volumes:
+      - type: bind
+        source: "./mounted_pgdata"
+        target: "/var/lib/postgresql/data"
   nginx:
     depends_on:
       - api
@@ -13,7 +18,7 @@ services:
       dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      - "3050:80"
+      - "3000:80"
   api:
     build:
       dockerfile: Dockerfile.dev

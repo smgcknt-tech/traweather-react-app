@@ -1,6 +1,6 @@
 @import "../variables.scss";
 
-.entrance {
+.login {
   @include row(center, center);
   height: 100%;
   width: 100%;
@@ -54,6 +54,23 @@
       p {
         font-size: 2.5rem;
         font-style: italic;
+        text-align: center;
+        width: 100%;
+      }
+      .button_container {
+        @include row(center, center);
+        margin: 2rem 1rem;
+        .button {
+          @include place_center();
+          width: 30rem;
+          color: #fff;
+          font-size: 2rem;
+          font-weight: bold;
+          height: 4rem;
+          border-radius: 0.5rem;
+          background-color: #ee6272;
+          box-shadow: 0 0 0.5rem #b4b4b4;
+        }
       }
     }
   }

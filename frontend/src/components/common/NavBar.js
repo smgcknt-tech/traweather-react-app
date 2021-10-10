@@ -6,7 +6,7 @@ export default function NavBar() {
     return (
         <div className="nav_bar">
             <ul className="nav_menu">
-                <Link to="/">
+                <Link to="/market">
                     <li><i className="fas fa-cloud-sun"></i><p>地合</p></li>
                 </Link>
                 <Link to="/plan">
