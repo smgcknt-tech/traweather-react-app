@@ -21,35 +21,36 @@ function App() {
   const { state, dispatch } = useContext(AppContext);
   const { user } = state
   hooks.useAuthentification(user, dispatch, AppActions)
-  if (!user.id || !user.status) return < BrowserRouter ><LoginPage /></BrowserRouter>
   return (
     <BrowserRouter>
-      <div className="grid-container">
-        <header>
-          <Header />
-        </header>
-        <nav>
-          <NavBar />
-        </nav>
-        <main>
-          <Switch>
-            <Route path="/" component={EntrancePage} exact />
-            <Route exact path="/market">
-              <MarketProvider><MarketPage /></MarketProvider>
-            </Route>
-            <Route exact path="/plan" >
-              <PlanProvider><PlanPage /></PlanProvider>
-            </Route>
-            <Route exact path="/result">
-              <ResultProvider><ResultPage /></ResultProvider>
-            </Route>
-            <Route path="*" component={NotFoundPage} exact />
-          </Switch>
-        </main>
-        <footer>
-          <Footer />
-        </footer>
-      </div>
+      {(!user.id || !user.status) ? <LoginPage /> :
+        <div className="grid-container">
+          <header>
+            <Header />
+          </header>
+          <nav>
+            <NavBar />
+          </nav>
+          <main>
+            <Switch>
+              <Route exact path="/" component={EntrancePage} />
+              <Route exact path="/market">
+                <MarketProvider><MarketPage /></MarketProvider>
+              </Route>
+              <Route exact path="/plan" >
+                <PlanProvider><PlanPage /></PlanProvider>
+              </Route>
+              <Route exact path="/result">
+                <ResultProvider><ResultPage /></ResultProvider>
+              </Route>
+              <Route path="*" component={NotFoundPage} exact />
+            </Switch>
+          </main>
+          <footer>
+            <Footer />
+          </footer>
+        </div>
+      }
     </BrowserRouter >
   );
 }
