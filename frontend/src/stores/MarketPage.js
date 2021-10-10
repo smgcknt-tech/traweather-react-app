@@ -7,7 +7,7 @@ export const actions = {
 
 
 }
-export const TopProvider = ({ children }) => {
+export const MarketProvider = ({ children }) => {
     const [state, dispatch] = useReducer((state, action) => {
         const currentState = { ...state }; // eslint-disable-line
         switch (action.type) {

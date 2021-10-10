@@ -19,7 +19,7 @@ export default function RegisterForm(props) {
                 } else {
                     localStorage.setItem("access_token", response.data)
                     dispatch({ type: AppActions.SET_USER, payload: { ...user, status: true } });
-                    history.push("/")
+                    history.push("/market")
                 }
             })
     }

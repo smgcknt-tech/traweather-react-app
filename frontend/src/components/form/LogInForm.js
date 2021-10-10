@@ -2,8 +2,8 @@ import '../../styles/components/LogInForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { AppActions, AppContext } from '../../stores/App'
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 export default function LogInForm(props) {
     const { state, dispatch } = useContext(AppContext);
@@ -19,7 +19,7 @@ export default function LogInForm(props) {
                 } else {
                     localStorage.setItem("access_token", response.data)
                     dispatch({ type: AppActions.SET_USER, payload: { ...user, status: true } });
-                    history.push("/")
+                    history.push("/market")
                 }
             })
     }

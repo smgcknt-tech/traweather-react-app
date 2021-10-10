@@ -1,4 +1,4 @@
-import '../../src/styles/pages/TopPage.scss'
+import '../../src/styles/pages/MarketPage.scss'
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext, AppActions } from '../stores/App';
 import { helper } from '../utils/helper';
@@ -10,7 +10,7 @@ import Twitter from '../components/widgets/Twitter';
 import Prediction from '../components/Prediction';
 import MarketPredictionForm from '../components/form/MarketPredictionForm';
 
-export default function TopPage() {
+export default function MarketPage() {
     const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
     const { user, prediction, loading, error } = AppState;
     const [open, setOpen] = useState(false)
@@ -31,7 +31,7 @@ export default function TopPage() {
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
     return (
-        <div className="top_page">
+        <div className="Market_page">
             <ul className="header_menu">
                 <li onClick={() => { setOpen('prediction') }}><i className="fas fa-edit"></i>予想記入</li>
             </ul>

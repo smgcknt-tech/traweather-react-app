@@ -39,7 +39,9 @@ html {
     main {
       grid-column: 2 / 3;
       grid-row-start: 2 / 3;
-      padding-bottom: 7rem;
+      div > {
+        padding-bottom: 7rem;
+      }
     }
 
     footer {

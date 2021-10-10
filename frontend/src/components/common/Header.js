@@ -13,7 +13,7 @@ export default function Header() {
     return (
         <div className="header">
             <div className="left_menu">
-                <Link to="/"><i className="logo fas fa-umbrella"></i><span className="logo_title">traweather</span></Link>
+                <Link to="/market"><i className="logo fas fa-umbrella"></i><span className="logo_title">traweather</span></Link>
             </div>
             <ul className="right_menu">
                 {user.status ? (

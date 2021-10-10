@@ -183,3 +183,16 @@ pg_dump -U postgres -f traweather.pgsql traweather
 cp -i /Users/smgc-knt/desktop/security/traweather-key.pem traweather.pgsql ubuntu@18.181.247.49:/home/ubuntu/
 //restore//
 psql -f traweather.pgsql -h traweather.cbrmyezdv0g6.ap-northeast-1.rds.amazonaws.com -p 5432 -U smgcknt -d traweather
+
+//pg_dump-development//
+pg_dump -U postgres -f traweather.pgsql traweather
+docker cp ./traweather.pgsql 94a4a96d8883:/tmp/
+docker exec -it 94a4a96d8883 /bin/bash
+//restore-development//
+su - postgres
+psql -U postgres
+create database traweather;
+create role smgcknt with password '88230513' login;
+ALTER USER smgcknt WITH SUPERUSER;
+ALTER DATABASE traweather OWNER TO smgcknt;
+psql -f traweather.pgsql -U smgcknt -d traweather
