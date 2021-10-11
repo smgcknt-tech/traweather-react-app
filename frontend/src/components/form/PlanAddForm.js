@@ -12,7 +12,6 @@ export default function PlanAddForm(props) {
     const { allStocks } = AppState;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
-    console.log(planData)
 
     const onSubmit = async (data, e) => {
         if (planData.find((stock) => stock.code === Number(data.code))) {

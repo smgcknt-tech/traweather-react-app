@@ -13,7 +13,7 @@ export default function TradeFeedBackForm(props) {
 
     const onSubmit = async(data) => {
         data.user_id = user.id
-        data.date = helper.get_today()
+        data.date = helper.time().today
         const response = await helper.postData('/api/create_prediction', AppDispatch, AppActions, data)
         if(response){
             history.push('/plan')

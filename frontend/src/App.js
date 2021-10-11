@@ -1,6 +1,6 @@
 import "./styles/destyle.css"
 import "./styles/App.scss";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { MarketProvider } from './stores/MarketPage'
 import { PlanProvider } from './stores/PlanPage'
 import { useContext } from "react";
@@ -21,7 +21,6 @@ function App() {
   const { state, dispatch } = useContext(AppContext);
   const { user } = state
   hooks.useAuthentification(user, dispatch, AppActions)
-  if (!user.id || !user.status) return < BrowserRouter ><LoginPage /></BrowserRouter>
   return (
     <BrowserRouter>
       <div className="grid-container">
@@ -33,15 +32,20 @@ function App() {
         </nav>
         <main>
           <Switch>
-            <Route path="/" component={EntrancePage} exact />
+            <Route exact path="/">
+              {(!user.id || !user.status) ? <Redirect to="/login" /> : <EntrancePage />}
+            </Route>
+            <Route exact path="/login">
+              {(!user.id || !user.status) ? <LoginPage />: <Redirect to="/" />}
+            </Route>
             <Route exact path="/market">
-              <MarketProvider><MarketPage /></MarketProvider>
+              {(!user.id || !user.status) ? <Redirect to="/login" /> : <MarketProvider><MarketPage /></MarketProvider>}
             </Route>
             <Route exact path="/plan" >
-              <PlanProvider><PlanPage /></PlanProvider>
+              {(!user.id || !user.status) ? <Redirect to="/login" /> : <PlanProvider><PlanPage /></PlanProvider>}
             </Route>
             <Route exact path="/result">
-              <ResultProvider><ResultPage /></ResultProvider>
+              {(!user.id || !user.status) ? <Redirect to="/login" /> : <ResultProvider><ResultPage /></ResultProvider>}
             </Route>
             <Route path="*" component={NotFoundPage} exact />
           </Switch>
