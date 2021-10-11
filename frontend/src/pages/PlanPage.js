@@ -19,6 +19,7 @@ export default function PlanPage() {
     const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
     const { user, prediction, allStocks, loading, error } = AppState;
     const [open, setOpen] = useState(false)
+    console.log(selectedStock, planData)
 
     useEffect(() => {
         if (user.id) {

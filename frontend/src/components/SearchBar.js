@@ -38,7 +38,7 @@ export default function SearchBar() {
                 <div className="search_inputs">
                     <input type="text" placeholder="証券番号または会社名を入力してください" value={inputValue} onChange={handleFilter} />
                     <span className="search_icon">
-                        {result ? <i className="fas fa-times" onClick={handleClear}></i> : <i class="fas fa-search"></i>}
+                        {result ? <i className="fas fa-times" onClick={handleClear}></i> : <i className="fas fa-search"></i>}
                     </span>
                 </div>
                 {(filteredData.length > 0) && (

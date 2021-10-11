@@ -10,7 +10,6 @@ export const helper = {
             yesterday: moment().subtract(1, 'day').format("YYYY-MM-DD"),
         }
     },
-
     csv_stream: async (url, callback) => {
         return new Promise((resolve, reject) => {
             let data = [];

@@ -56,7 +56,7 @@ export default function StoryTable() {
                 exit_point: exit_point,
                 result_id: selectedStock.result_id,
                 user_id: user.id,
-                date: helper.get_today()
+                date: helper.time().today
             }
             const response = await helper.postData(`/api/update_result_numbers`, AppDispatch, AppActions, payload)
             if (response) {

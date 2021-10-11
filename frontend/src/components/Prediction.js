@@ -19,7 +19,7 @@ export default function Prediction() {
         target === "strategy" && (payload = { strategy: strategyText.current.value })
         target === "featured_sector" && (payload = { featured_sector: featuredSetorText.current.value })
         payload.user_id = user.id
-        payload.created_at = helper.get_today()
+        payload.created_at = helper.time().today
         const response = await helper.postData(`/api/update_prediction`,AppDispatch, AppActions, payload)
         if(response){
             AppDispatch({ type: AppActions.SET_PREDICTION, payload: response });

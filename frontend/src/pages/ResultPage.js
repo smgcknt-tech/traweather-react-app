@@ -32,6 +32,7 @@ export default function ResultPage() {
                 }
                 const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, AppDispatch, AppActions,)
                 if (fetchedStocks) AppDispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
+                console.log(fetchedData, fetchedStocks)
             }
             fetchResultPageData()
         }
@@ -69,7 +70,7 @@ export default function ResultPage() {
                         <div className="indicators">
                             <div id="todays_profit">
                                 <div className="card_value">{profitResult}円</div>
-                                <div className="card_title">{helper.get_today()}</div>
+                                <div className="card_title">{helper.time().today}</div>
                             </div>
                             <div id="last_profit">
                                 <div className="card_value">{profitResult - last_profit}円</div>

@@ -16,12 +16,12 @@ export default function Header() {
                 <Link to="/market"><i className="logo fas fa-umbrella"></i><span className="logo_title">traweather</span></Link>
             </div>
             <ul className="right_menu">
-                {user.status ? (
+                {(user.id && user.status) ? (
                     <>
                         <li >{user.name}</li>
                         <li className="log_out_bttn" onClick={logout}>logout</li>
                     </>
-                ) : null}
+                ) : <li className="log_in_bttn" ><Link to="/login">login</Link></li>}
             </ul>
         </div>
     )
