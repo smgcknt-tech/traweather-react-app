@@ -23,5 +23,6 @@ export const hooks = {
                 })
             }
         }, [user.status])// eslint-disable-line
+        return {dispatch:dispatch}
     },
 };

@@ -1,26 +1,11 @@
-import React, { createContext, useReducer } from 'react'
-export const initialState = {
-    user: {
-        id:null,
-        name:null,
-        status:true
-    },
-    allStocks: null,
-    prediction: null,
-    loading: false,
-    error: false,
 
-}
-export const AppContext = createContext(initialState)
-export const AppActions = {
-    SET_USER: 'SET_USER',
-    SET_ALL_STOCKS: 'SET_ALL_STOCKS',
-    SET_PREDICTION: 'SET_PREDICTION',
-    SET_LOADING: 'SET_LOADING',
-    SET_ERROR: 'SET_ERROR',
-}
-export const AppProvider = ({ children }) => {
-    const [state, dispatch] = useReducer((state, action) => {
+import React, { useReducer } from 'react'
+import { AppActions, AppContext, initialState } from '../stores/App';
+
+//App test//
+export const MockDispatch = jest.fn();
+export const MockAppProvider = ({ children }) => {
+    const [state] = useReducer((state, action) => {
         const currentState = { ...state };
         switch (action.type) {
             case AppActions.SET_USER:
@@ -42,5 +27,5 @@ export const AppProvider = ({ children }) => {
                 throw new Error('no action matched')
         }
     }, initialState)
-    return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>
+    return <AppContext.Provider value={{ state, dispatch: MockDispatch }}>{children}</AppContext.Provider>
 }

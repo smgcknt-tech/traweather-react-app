@@ -17,8 +17,8 @@ export default function LogInForm(props) {
                 if (response.data.error) {
                     alert(response.data.error)
                 } else {
-                    localStorage.setItem("access_token", response.data)
                     dispatch({ type: AppActions.SET_USER, payload: { ...user, status: true } });
+                    localStorage.setItem("access_token", response.data)
                     history.push("/")
                 }
             })
@@ -32,7 +32,7 @@ export default function LogInForm(props) {
                     <fieldset>
                         <legend>ユーザー名</legend>
                         <label>
-                            <input type="text" autoComplete="off" defaultValue=""
+                            <input type="text" autoComplete="off" defaultValue="" data-testid="username"
                                 {...register('username', { required: `ユーザー名が入力されていません` })}
                             ></input>
                         </label>
@@ -43,14 +43,14 @@ export default function LogInForm(props) {
                     <fieldset>
                         <legend>パスワード</legend>
                         <label>
-                            <input type="text" autoComplete="off" defaultValue=""
+                            <input type="text" autoComplete="off" defaultValue="" data-testid="password"
                                 {...register('password', { required: `パスワードが入力されていません` })}
                             ></input>
                         </label>
                     </fieldset>
                     {(errors['password']) ? (<span className="error">{errors['password'].message}</span>) : null}
                 </div>
-                <div className="button"><input type="submit" value="LOG IN" /></div>
+                <div className="button"><input data-testid="login_btn" type="submit" value="LOG IN" /></div>
             </form>
         </div>
     )
