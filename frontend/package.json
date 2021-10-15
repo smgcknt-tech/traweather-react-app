@@ -23,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --silent=false --verbose false --collectCoverage",
+    "test": "react-scripts test --silent=false --verbose false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
