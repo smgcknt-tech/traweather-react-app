@@ -21,6 +21,7 @@ export default function LoginPage() {
                     <div>
                         {open === "register" ? <RegisterForm setOpen={setOpen} /> : <LogInForm setOpen={setOpen} />}
                     </div>
+                    
                 )}
             </div>
         </div>
