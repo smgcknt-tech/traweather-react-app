@@ -33,7 +33,7 @@ export default function MarketPredictionForm(props) {
                                 <fieldset>
                                     <legend>{key}</legend>
                                     <label>
-                                        <textarea type="text" autoComplete="off" defaultValue=""
+                                        <textarea type="text" autoComplete="off" defaultValue="" data-testid={key}
                                             {...register(key, { required: `${key}が入力されていません` })}
                                         ></textarea>
                                     </label>
@@ -44,7 +44,7 @@ export default function MarketPredictionForm(props) {
                             </div>
                         )
                     }))}
-                <div className="button"><input type="submit" value="保存" /></div>
+                <div className="button"><input data-testid="submit_btn"type="submit" value="保存" /></div>
             </form>
         </div>
     )

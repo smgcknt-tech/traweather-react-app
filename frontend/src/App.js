@@ -22,7 +22,7 @@ function App() {
   const { user } = state
   hooks.useAuthentification(user, dispatch, AppActions)
   return (
-    <BrowserRouter>
+    <BrowserRouter forceRefresh={true}>
       <div className="grid-container">
         <header>
           <Header />
@@ -32,20 +32,21 @@ function App() {
         </nav>
         <main>
           <Switch>
+            {(user.status === false) && <LoginPage />}
             <Route exact path="/">
-              {(!user.id || !user.status) ? <Redirect to="/login" /> : <EntrancePage />}
+              <EntrancePage />
             </Route>
             <Route exact path="/login">
-              {(!user.id || !user.status) ? <LoginPage />: <Redirect to="/" />}
+              <LoginPage />
             </Route>
             <Route exact path="/market">
-              {(!user.id || !user.status) ? <Redirect to="/login" /> : <MarketProvider><MarketPage /></MarketProvider>}
+              <MarketProvider><MarketPage /></MarketProvider>
             </Route>
             <Route exact path="/plan" >
-              {(!user.id || !user.status) ? <Redirect to="/login" /> : <PlanProvider><PlanPage /></PlanProvider>}
+              <PlanProvider><PlanPage /></PlanProvider>
             </Route>
             <Route exact path="/result">
-              {(!user.id || !user.status) ? <Redirect to="/login" /> : <ResultProvider><ResultPage /></ResultProvider>}
+              <ResultProvider><ResultPage /></ResultProvider>
             </Route>
             <Route path="*" component={NotFoundPage} exact />
           </Switch>

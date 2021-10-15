@@ -1,7 +1,6 @@
 import axios from "axios";
 import moment from "moment"
 
-
 export const helper = {
     fetchData: async (url, dispatch, actions, payload) => {
         dispatch({ type: actions.SET_LOADING, payload: true })

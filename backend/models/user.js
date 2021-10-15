@@ -1,4 +1,3 @@
-import format from 'pg-format';
 import { pool } from '../configs/postgresql.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';

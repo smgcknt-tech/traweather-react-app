@@ -36,7 +36,7 @@ export default function SearchBar() {
         <div className="search">
             <div className="search_container">
                 <div className="search_inputs">
-                    <input type="text" placeholder="証券番号または会社名を入力してください" value={inputValue} onChange={handleFilter} />
+                    <input data-testid="search_word" type="text" placeholder="証券番号または会社名を入力してください" value={inputValue} onChange={handleFilter} />
                     <span className="search_icon">
                         {result ? <i className="fas fa-times" onClick={handleClear}></i> : <i className="fas fa-search"></i>}
                     </span>
@@ -47,7 +47,7 @@ export default function SearchBar() {
                             .slice(0, 15)
                             .map((value, key) => {
                                 return (
-                                    <p key={key} className="data_item" onClick={() => { handleSelect(value.code, value.stock_name) }}>
+                                    <p key={key} className="data_item" data-testid={value.code} onClick={() => { handleSelect(value.code, value.stock_name) }}>
                                         {value.code}_{value.stock_name}
                                     </p>
                                 );

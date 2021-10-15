@@ -13,13 +13,8 @@ jobs:
     - node/install-packages:
         pkg-manager: npm
     - run:
-        command: npm test
-        name: Run Mocha tests
-    - store_artifacts:
-        path: /tmp/test-results
-        destination: raw-test-output
-    - store_test_results:
-        path: /tmp/test-results
+        command: cd frontend && npm install && CI=true npm test
+        name: Run Jest tests
 workflows:
   node-tests:
     jobs:
