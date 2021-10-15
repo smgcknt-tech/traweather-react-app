@@ -47,7 +47,7 @@ export default function SearchBar() {
                             .slice(0, 15)
                             .map((value, key) => {
                                 return (
-                                    <p key={key} className="data_item" onClick={() => { handleSelect(value.code, value.stock_name) }}>
+                                    <p key={key} className="data_item" data-testid={value.code} onClick={() => { handleSelect(value.code, value.stock_name) }}>
                                         {value.code}_{value.stock_name}
                                     </p>
                                 );

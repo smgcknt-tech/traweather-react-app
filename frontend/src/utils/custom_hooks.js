@@ -1,15 +1,12 @@
 import axios from "axios";
-import { useEffect} from "react";
+import { useEffect } from "react";
 
 export const hooks = {
     useAuthentification: (user, dispatch, AppActions) => {
         useEffect(() => {
             if (user.status === true) {
-                axios.get('/user/auth', {
-                    headers: {
-                        access_token: localStorage.getItem('access_token')
-                    }
-                }).then((res) => {
+                const access_token = localStorage.getItem('access_token')
+                axios.get('/user/auth', { headers: { access_token: access_token } }).then((res) => {
                     dispatch({
                         type: AppActions.SET_USER, payload: {
                             id: res.data.id,
@@ -23,6 +20,6 @@ export const hooks = {
                 })
             }
         }, [user.status])// eslint-disable-line
-        return {dispatch:dispatch}
+        return { dispatch: dispatch }
     },
 };

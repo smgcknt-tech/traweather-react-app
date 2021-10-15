@@ -2,18 +2,21 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import "../../styles/components/Header.scss"
 import { AppActions, AppContext } from '../../stores/App'
+import { useHistory } from 'react-router';
 
 export default function Header() {
     const { state, dispatch } = useContext(AppContext);
     const { user } = state
+    let history = useHistory()
     const logout = () => {
         localStorage.removeItem('access_token')
         dispatch({ type: AppActions.SET_USER, payload: { ...user, status: false } });
+        history.push('/')
     }
     return (
         <div className="header">
             <div className="left_menu">
-                <Link to="/market"><i className="logo fas fa-umbrella"></i><span className="logo_title">traweather</span></Link>
+                <Link to="/"><i className="logo fas fa-umbrella"></i><span className="logo_title">traweather</span></Link>
             </div>
             <ul className="right_menu">
                 {(user.id && user.status) ? (

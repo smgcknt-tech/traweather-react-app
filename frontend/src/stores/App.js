@@ -9,7 +9,6 @@ export const initialState = {
     prediction: null,
     loading: false,
     error: false,
-
 }
 export const AppContext = createContext(initialState)
 export const AppActions = {

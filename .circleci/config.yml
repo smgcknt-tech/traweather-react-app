@@ -15,11 +15,6 @@ jobs:
     - run:
         command: cd frontend && npm install && CI=true npm test
         name: Run Jest tests
-    - store_artifacts:
-        path: /tmp/test-results
-        destination: raw-test-output
-    - store_test_results:
-        path: /tmp/test-results
 workflows:
   node-tests:
     jobs:

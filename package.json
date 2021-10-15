@@ -1,9 +1,0 @@
-{
-  "scripts": {
-    "test": "mocha --reporter mocha-junit-reporter --reporter-options mochaFile=/tmp/test-results/results.xml"
-  },
-  "devDependencies": {
-    "mocha": "^9.1.2",
-    "mocha-junit-reporter": "^2.0.0"
-  }
-}

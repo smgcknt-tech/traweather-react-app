@@ -1,9 +1,8 @@
 import React from 'react'
-
+import Message from '../components/common/Message'
+import "../styles/components/Message.scss"
 export default function NotFoundPage() {
     return (
-        <div>
-            <div>お探しのページはございません。</div>
-        </div>
+        <Message variant="error">該当のページは見つかりませんでした。</Message>
     )
 }
