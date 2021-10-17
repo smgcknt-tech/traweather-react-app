@@ -1,23 +1,33 @@
 import '../../styles/components/TradeFeedBackForm.scss'
-import { useForm } from 'react-hook-form'
+import { AppContext } from '../../stores/App'
 import { useContext } from 'react';
-import { AppActions, AppContext } from '../../stores/App';
-import { helper } from '../../utils/helper';
-import { useHistory } from 'react-router';
+import { useForm } from 'react-hook-form'
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function TradeFeedBackForm(props) {
-    const { state: AppState, dispatch:AppDispatch} = useContext(AppContext);
-    const { user } = AppState
     const { register, handleSubmit, formState: { errors } } = useForm();
-    let history = useHistory()
+    const { state: AppState } = useContext(AppContext);
+    const [image, setImage] = useState('');
 
-    const onSubmit = async(data) => {
-        data.user_id = user.id
-        data.date = helper.time().today
-        const response = await helper.postData('/api/create_prediction', AppDispatch, AppActions, data)
-        if(response){
-            history.push('/plan')
-        }
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0];
+        const objectURL = URL.createObjectURL(file)
+        setImage(objectURL);
+    };
+
+    const onSubmit = async (data) => {
+        const file = data.image[0];
+        const bodyFormData = new FormData();
+        bodyFormData.append('image', file);
+        const response = await axios.post('/api/uploads', bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' } })
+        data.image_url = response.data
+        data.user_id = AppState.user.id
+        await axios.post(`/api/create_feed_back`, data)
+            .then((response) => {
+                if (response.data.error) alert(response.data.error)
+                if (!response.data.error) alert("振り返りを投稿しました")
+            })
         props.setOpen(null)
     }
 
@@ -30,11 +40,11 @@ export default function TradeFeedBackForm(props) {
                         <legend>タイトル</legend>
                         <label>
                             <input type="text" autoComplete="off" defaultValue=""
-                                {...register('username', { required: `ユーザー名が入力されていません` })}
+                                {...register('title', { required: `タイトルが入力されていません` })}
                             ></input>
                         </label>
                     </fieldset>
-                    {(errors['username']) ? (<span className="error">{errors['username'].message}</span>) : null}
+                    {(errors['title']) ? (<span className="error">{errors['title'].message}</span>) : null}
                 </div>
                 <div className="each_input" >
                     <fieldset>
@@ -45,18 +55,29 @@ export default function TradeFeedBackForm(props) {
                             ></textarea>
                         </label>
                     </fieldset>
-                    {(errors['password']) ? (<span className="error">{errors['password'].message}</span>) : null}
+                    {(errors['content']) ? (<span className="error">{errors['content'].message}</span>) : null}
                 </div>
+                {image && (
+                    <div className="each_input" >
+                        <fieldset>
+                            <legend>添付画像</legend>
+                            <label>
+                                <img src={image} alt="uploaded_image"></img>
+                            </label>
+                        </fieldset>
+                        {(errors['image_url']) ? (<span className="error">{errors['image_url'].message}</span>) : null}
+                    </div>)}
                 <div className="each_input" >
                     <fieldset>
                         <legend>画像</legend>
                         <label>
-                            <input type="text" autoComplete="off" defaultValue=""
-                                {...register('password', { required: `パスワードが入力されていません` })}
-                            ></input>
+                            <input type="file"
+                                {...register('image', { required: `画像がアップロードされていません` })}
+                                onChange={(e) => uploadFileHandler(e)}
+                            />
                         </label>
                     </fieldset>
-                    {(errors['password']) ? (<span className="error">{errors['password'].message}</span>) : null}
+                    {(errors['image']) ? (<span className="error">{errors['image'].message}</span>) : null}
                 </div>
                 <div className="button"><input type="submit" value="保存" /></div>
             </form>

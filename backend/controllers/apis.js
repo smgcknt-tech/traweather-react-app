@@ -172,5 +172,16 @@ export const apis = {
                     res.status(400).json({ error: data.error })
                 }
             })
-    }
+    },
+    create_feed_back: async (req, res) => {
+        const payload = req.body;
+        api.create_feed_back(payload)
+            .then((data) => {
+                if (!data.error) {
+                    res.json(data)
+                } else {
+                    res.json({ error: data.error })
+                }
+            })
+    },
 }

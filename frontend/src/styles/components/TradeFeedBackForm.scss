@@ -18,10 +18,17 @@
     .each_input {
       width: 100%;
       padding: 0 2rem;
+      input {
+        width: 100%;
+      }
       textarea {
+        width: 100%;
         resize: none;
         height: 8rem;
-        width: 100%;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
       }
       fieldset {
         border: #bdbdbd solid 0.01rem;

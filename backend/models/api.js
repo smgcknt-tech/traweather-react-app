@@ -51,7 +51,7 @@ export const api = {
         }
     },
     get_one_prediction: (payload) => {
-        const { user_id} = payload
+        const { user_id } = payload
         const query = `SELECT * FROM market_prediction WHERE user_id =${user_id} AND created_at::text like '${helper.time().today}%';`;
         const data = pool.query(query)
             .then((res) => {
@@ -357,6 +357,30 @@ export const api = {
             return await api.get_plan(user_id)
         } else {
             return { error: "プランの削除に失敗しました。" }
+        }
+    },
+    create_feed_back: async (payload) => {
+        const { title, content, image_url, user_id } = payload
+        const transaction = async () => {
+            try {
+                await pool.query("BEGIN")
+                await pool.query(`
+                INSERT INTO trade_feed_back (title, content, image_url, user_id)
+                VALUES($1, $2, $3, $4)`, [title, content, image_url, user_id])
+                await pool.query("COMMIT")
+                return "SUCCESS"
+            } catch (err) {
+                console.log(err.stack)
+                await pool.query('ROLLBACK')
+            }
+        }
+        const result = await transaction()
+        if (result === "SUCCESS") {
+            const res = await pool.query("SELECT * FROM trade_feed_back;")
+            return res.rows
+        } else {
+
+            return { error: "振り返りの作成に失敗しました。" }
         }
     },
 };
