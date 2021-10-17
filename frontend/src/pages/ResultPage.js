@@ -32,7 +32,6 @@ export default function ResultPage() {
                 }
                 const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, AppDispatch, AppActions,)
                 if (fetchedStocks) AppDispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
-                console.log(fetchedData, fetchedStocks)
             }
             fetchResultPageData()
         }
@@ -57,7 +56,7 @@ export default function ResultPage() {
 
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
-    if (resultData?.length === 0) return <Message >プランデータをまず作成して下さい</Message>
+    //if (resultData?.length === 0) return <Message >プランデータをまず作成して下さい</Message>
     return (
         <div className="result_page">
             <ul className="header_menu">
