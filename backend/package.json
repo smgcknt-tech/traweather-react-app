@@ -5,8 +5,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "local": "NODE_ENV=local nodemon --watch ../backend --exec node --experimental-modules server.js",
-    "dev": "NODE_ENV=development nodemon -L",
+    "dev": "NODE_ENV=development nodemon --watch ../backend --exec node --experimental-modules server.js",
+    "stage": "NODE_ENV=stage nodemon -L",
     "start": "NODE_ENV=production node server.js"
   },
   "repository": {

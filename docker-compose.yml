@@ -23,17 +23,17 @@ services:
       - /app/node_modules
       - ./backend:/app
     environment:
-      - PORT
       - kabu_plus_user
       - kabu_plus_password
       - jwt_secret_key
+      - AWSAccessKeyId
+      - AWSSecretKey
+      - API_PORT
       - PGUSER
       - PGDATABASE
       - PGHOST
       - PGPASSWORD
       - PGPORT
-      - AWSAccessKeyId
-      - AWSSecretKey
   frontend:
     environment:
       - CHOKIDAR_USEPOLLING=true

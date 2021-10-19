@@ -8,6 +8,7 @@ import cors from "cors";
 import cookieParser from 'cookie-parser';
 const app = express();
 const __dirname = path.resolve();
+
 // middleware
 app.use(express.json())
 app.use(cookieParser())
@@ -19,7 +20,8 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use("/api", api_router);
 app.use('/api/uploads', uploadRouter);
 app.use("/user", user_router);
-//server
-app.listen(env.port || 5000, () => {
-    console.log(`server(PORT:${env.port}) is ready. ENVIRONMENT:${app.get('env')}`)
+
+//api_server
+app.listen(env.API_PORT || 5000, () => {
+    console.log(`api-server is working on port:${env.API_PORT}. ENVIRONMENT='${app.get('env')}'`)
 });

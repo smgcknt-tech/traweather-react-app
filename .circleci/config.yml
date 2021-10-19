@@ -8,10 +8,10 @@ jobs:
     executor:
       name: node/default
     steps:
-    - checkout
-    - run:
-        command: cd frontend && npm install && CI=true npm test
-        name: Run Jest tests
+      - checkout
+      - run:
+          command: cd frontend && npm install && CI=true npm test
+          name: Run Jest tests
 workflows:
   node-tests:
     jobs:
@@ -24,11 +24,11 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL
           repo: traweather
           tag: "proxy-${CIRCLE_SHA1}"
-          path: 'nginx/'
+          path: "nginx/"
           filters:
-              branches:
-                  only:
-                  - main
+            branches:
+              only:
+                - main
       - aws-ecr/build-and-push-image:
           name: "frontend-build-and-push-image"
           requires:
@@ -37,11 +37,11 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL
           repo: traweather
           tag: "frontend-${CIRCLE_SHA1}"
-          path: 'frontend/'
+          path: "frontend/"
           filters:
-              branches:
-                  only:
-                  - main
+            branches:
+              only:
+                - main
       - aws-ecr/build-and-push-image:
           name: "backend-build-and-push-image"
           requires:
@@ -50,44 +50,44 @@ workflows:
           account-url: AWS_ECR_ACCOUNT_URL
           repo: traweather
           tag: "backend-${CIRCLE_SHA1}"
-          path: 'backend/'
+          path: "backend/"
           filters:
-              branches:
-                  only:
-                  - main
+            branches:
+              only:
+                - main
       - aws-ecs/deploy-service-update:
           requires:
             - proxy-build-and-push-image
           aws-region: AWS_DEFAULT_REGION
-          family: 'traweather-task'
-          cluster-name: 'traweather-cluster'
-          service-name: 'traweather-service'
-          container-image-name-updates: 'container=proxy-container,tag=proxy-${CIRCLE_SHA1}'
+          family: "traweather-task"
+          cluster-name: "traweather-cluster"
+          service-name: "traweather-service"
+          container-image-name-updates: "container=proxy-container,tag=proxy-${CIRCLE_SHA1}"
           filters:
-              branches:
-                  only:
-                  - main
+            branches:
+              only:
+                - main
       - aws-ecs/deploy-service-update:
           requires:
             - frontend-build-and-push-image
           aws-region: AWS_DEFAULT_REGION
-          family: 'traweather-task'
-          cluster-name: 'traweather-cluster'
-          service-name: 'traweather-service'
-          container-image-name-updates: 'container=frontend-container,tag=frontend-${CIRCLE_SHA1}'
+          family: "traweather-task"
+          cluster-name: "traweather-cluster"
+          service-name: "traweather-service"
+          container-image-name-updates: "container=frontend-container,tag=frontend-${CIRCLE_SHA1}"
           filters:
-              branches:
-                  only:
-                  - main
+            branches:
+              only:
+                - main
       - aws-ecs/deploy-service-update:
           requires:
             - backend-build-and-push-image
           aws-region: AWS_DEFAULT_REGION
-          family: 'traweather-task'
-          cluster-name: 'traweather-cluster'
-          service-name: 'traweather-service'
-          container-image-name-updates: 'container=backend-container,tag=backend-${CIRCLE_SHA1}'
+          family: "traweather-task"
+          cluster-name: "traweather-cluster"
+          service-name: "traweather-service"
+          container-image-name-updates: "container=backend-container,tag=backend-${CIRCLE_SHA1}"
           filters:
-              branches:
-                  only:
-                  - main
+            branches:
+              only:
+                - main

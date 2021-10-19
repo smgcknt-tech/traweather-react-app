@@ -1,33 +1,37 @@
 import dotenv from "dotenv";
+const PE = process.env
 let env = {};
-if (process.env.NODE_ENV === 'local') {
+
+if (PE.NODE_ENV === 'development') {
     dotenv.config();
     env = {
-        port: process.env.PORT,
-        kabu_plus_user: process.env.kabu_plus_user,
-        kabu_plus_password: process.env.kabu_plus_password,
-        jwt_secret_key: process.env.jwt_secret_key,
-        db_user: process.env.db_user,
-        db_password: process.env.db_password,
-        db_host: process.env.db_host,
-        db_port: process.env.db_port,
-        db_name: process.env.db_name,
-        AWSAccessKeyId: process.env.AWSAccessKeyId,
-        AWSSecretKey: process.env.AWSSecretKey,
+        AWSAccessKeyId: PE.AWSAccessKeyId,
+        AWSSecretKey: PE.AWSSecretKey,
+        kabu_plus_user: PE.kabu_plus_user,
+        kabu_plus_password: PE.kabu_plus_password,
+        jwt_secret_key: PE.jwt_secret_key,
+        API_PORT: PE.API_PORT,
+        PGUSER: PE.PGUSER,
+        PGPASSWORD: PE.PGPASSWORD,
+        PGHOST: PE.PGHOST,
+        PGPORT: PE.PGPORT,
+        PGDATABASE: PE.PGDATABASE,
     };
-} else {
+}
+
+if (PE.NODE_ENV === 'stage') {
     env = {
-        port: process.env.PORT,
-        kabu_plus_user: process.env.kabu_plus_user,
-        kabu_plus_password: process.env.kabu_plus_password,
-        jwt_secret_key: process.env.jwt_secret_key,
-        db_user: process.env.PGUSER,
-        db_password: process.env.PGPASSWORD,
-        db_host: process.env.PGHOST,
-        db_port: process.env.PGPORT,
-        db_name: process.env.PGDATABASE,
-        AWSAccessKeyId: process.env.AWSAccessKeyId,
-        AWSSecretKey: process.env.AWSSecretKey,
+        AWSAccessKeyId: PE.AWSAccessKeyId,
+        AWSSecretKey: PE.AWSSecretKey,
+        kabu_plus_user: PE.kabu_plus_user,
+        kabu_plus_password: PE.kabu_plus_password,
+        jwt_secret_key: PE.jwt_secret_key,
+        API_PORT: PE.API_PORT,
+        PGUSER: PE.PGUSER,
+        PGPASSWORD: PE.PGPASSWORD,
+        PGHOST: PE.PGHOST,
+        PGPORT: PE.PGPORT,
+        PGDATABASE: PE.PGDATABASE,
     };
 }
 export { env }
