@@ -18,9 +18,6 @@ export default function NavBar() {
                 <Link to="/reflection">
                     <li><i className="fas fa-book"></i><p>振返</p></li>
                 </Link>
-                <Link to="#">
-                    <li><i className="fas fa-cog"></i><p>設定</p></li>
-                </Link>
             </ul>
         </div>
     )
