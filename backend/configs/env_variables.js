@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-let env={};
-if (process.env.NODE_ENV === 'local'){
+let env = {};
+if (process.env.NODE_ENV === 'local') {
     dotenv.config();
     env = {
         port: process.env.PORT,
@@ -11,7 +11,9 @@ if (process.env.NODE_ENV === 'local'){
         db_password: process.env.db_password,
         db_host: process.env.db_host,
         db_port: process.env.db_port,
-        db_name: process.env.db_name
+        db_name: process.env.db_name,
+        AWSAccessKeyId: process.env.AWSAccessKeyId,
+        AWSSecretKey: process.env.AWSSecretKey,
     };
 } else {
     env = {
@@ -23,7 +25,9 @@ if (process.env.NODE_ENV === 'local'){
         db_password: process.env.PGPASSWORD,
         db_host: process.env.PGHOST,
         db_port: process.env.PGPORT,
-        db_name: process.env.PGDATABASE
+        db_name: process.env.PGDATABASE,
+        AWSAccessKeyId: process.env.AWSAccessKeyId,
+        AWSSecretKey: process.env.AWSSecretKey,
     };
 }
-export {env}
+export { env }

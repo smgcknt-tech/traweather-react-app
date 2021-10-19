@@ -32,6 +32,8 @@ services:
       - PGHOST
       - PGPASSWORD
       - PGPORT
+      - AWSAccessKeyId
+      - AWSSecretKey
   frontend:
     environment:
       - CHOKIDAR_USEPOLLING=true

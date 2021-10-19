@@ -20,7 +20,7 @@ export default function TradeFeedBackForm(props) {
         const file = data.image[0];
         const bodyFormData = new FormData();
         bodyFormData.append('image', file);
-        const response = await axios.post('/api/uploads', bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' } })
+        const response = await axios.post('/api/uploads/s3', bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' } })
         data.image_url = response.data
         data.user_id = AppState.user.id
         await axios.post(`/api/create_feed_back`, data)
