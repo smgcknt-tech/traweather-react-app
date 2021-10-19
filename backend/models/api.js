@@ -51,8 +51,8 @@ export const api = {
         }
     },
     get_one_prediction: (payload) => {
-        const { user_id } = payload
-        const query = `SELECT * FROM market_prediction WHERE user_id =${user_id} AND created_at::text like '${helper.time().today}%';`;
+        const { user_id,date } = payload
+        const query = `SELECT * FROM market_prediction WHERE user_id =${user_id} AND created_at::text like '${date}%';`;
         const data = pool.query(query)
             .then((res) => {
                 return res.rows[0]
@@ -169,7 +169,6 @@ export const api = {
             })
         return data;
     },
-
     get_result: (user_id) => {
         const query = `SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
         const data = pool.query(query)
@@ -229,6 +228,17 @@ export const api = {
         } else {
             return { error: "プランの更新に失敗しました。" }
         }
+    },
+    get_one_result: (user_id,date) => {
+        const query = `SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${date}%';`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows
+            }).catch((err) => {
+                console.error(err.stack)
+                return { error: "結果データの取得に失敗しました。" }
+            })
+        return data;
     },
     create_plan: async (payload) => {
         const { code, stock_name, market, opening, support, losscut, goal, reason, strategy, user_id } = payload
@@ -382,5 +392,16 @@ export const api = {
 
             return { error: "振り返りの作成に失敗しました。" }
         }
+    },
+    get_feed_back: (user_id) => {
+        const query = `SELECT * FROM trade_feed_back WHERE user_id = ${user_id} ORDER BY created_at ASC;`;
+        const data = pool.query(query)
+            .then((res) => {
+                return res.rows
+            }).catch((err) => {
+                console.error(err.stack)
+                return { error: "プランデータの取得に失敗しました。" }
+            })
+        return data;
     },
 };

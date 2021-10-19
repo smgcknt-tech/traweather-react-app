@@ -9,7 +9,7 @@ export default function Prediction() {
     const [open, setOpen] = useState(false)
     const predictionText = useRef(null)
     const strategyText = useRef(null)
-    const featuredSetorText = useRef(null)
+    const featuredSectorText = useRef(null)
 
     const handleSubmit = async(target) => {
         setOpen(false)
@@ -17,7 +17,7 @@ export default function Prediction() {
         //target name should be same as market_prediction table column.
         target === "prediction" && (payload = { prediction: predictionText.current.value })
         target === "strategy" && (payload = { strategy: strategyText.current.value })
-        target === "featured_sector" && (payload = { featured_sector: featuredSetorText.current.value })
+        target === "featured_sector" && (payload = { featured_sector: featuredSectorText.current.value })
         payload.user_id = user.id
         payload.created_at = helper.time().today
         const response = await helper.postData(`/api/update_prediction`,AppDispatch, AppActions, payload)
@@ -75,7 +75,7 @@ export default function Prediction() {
                                 key={prediction.featured_sector}
                                 defaultValue={prediction.featured_sector}
                                 onFocus={() => { setOpen("featured_sector") }}
-                                ref={featuredSetorText}
+                                ref={featuredSectorText}
                             >
                             </textarea>
                         ) : "データがありません"}

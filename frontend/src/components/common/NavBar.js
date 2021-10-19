@@ -15,7 +15,7 @@ export default function NavBar() {
                 <Link to="/result">
                     <li><i className="fas fa-chart-bar"></i><p>結果</p></li>
                 </Link>
-                <Link to="#">
+                <Link to="/reflection">
                     <li><i className="fas fa-book"></i><p>振返</p></li>
                 </Link>
                 <Link to="#">

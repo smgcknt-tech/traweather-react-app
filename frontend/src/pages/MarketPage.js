@@ -19,7 +19,7 @@ export default function MarketPage() {
         if (user.id) {
             const fetchData = async () => {
                 const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, AppDispatch, AppActions, {
-                    user_id: user.id,
+                    user_id: user.id, date: helper.time().today
                 })
                 if (fetchedPrediction) AppDispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
             }

@@ -8,13 +8,13 @@ import cors from "cors";
 import cookieParser from 'cookie-parser';
 const app = express();
 const __dirname = path.resolve();
-console.log(path.join(__dirname, '/uploads'))
 // middleware
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
 // routes
 app.use("/api", api_router);
 app.use('/api/uploads', uploadRouter);
