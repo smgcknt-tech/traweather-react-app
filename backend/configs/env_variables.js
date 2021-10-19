@@ -19,7 +19,7 @@ if (PE.NODE_ENV === 'development') {
     };
 }
 
-if (PE.NODE_ENV === 'stage') {
+if (PE.NODE_ENV === 'stage' || PE.NODE_ENV === 'production' ) {
     env = {
         AWSAccessKeyId: PE.AWSAccessKeyId,
         AWSSecretKey: PE.AWSSecretKey,
