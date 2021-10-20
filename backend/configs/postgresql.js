@@ -1,5 +1,5 @@
 import pg from 'pg';
-import { env } from "./env_variables.js";
+import { env } from "./config.js";
 
 export const pool = new pg.Pool({
     user: env.PGUSER,

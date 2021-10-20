@@ -1,4 +1,4 @@
-const Config = () => {
+const config = () => {
     if (process.env.NODE_ENV === 'test') {
         return {
             env: {
@@ -19,4 +19,4 @@ const Config = () => {
         }
     }
 }
-export const { env } = Config()
+export const { env } = config()

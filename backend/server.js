@@ -1,5 +1,5 @@
 import express from 'express';
-import { env } from './configs/env_variables.js';
+import { env } from './configs/config.js';
 import { api_router } from './routes/apis.js';
 import { user_router } from './routes/users.js';
 import { upload_router } from './routes/uploads.js';
@@ -17,8 +17,8 @@ app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // routes
-app.use("/api", api_router);
 app.use('/api/uploads', upload_router);
+app.use("/api", api_router);
 app.use("/user", user_router);
 
 //api_server

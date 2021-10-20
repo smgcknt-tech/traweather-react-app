@@ -5,6 +5,7 @@ export const user_router = express.Router()
 
 user_router
     .get('/auth', validation_token, users.auth)
+    
 user_router
     .post('/register', users.register)
     .post('/login', users.login)

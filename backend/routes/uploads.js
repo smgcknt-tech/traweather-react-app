@@ -2,7 +2,7 @@ import multer from 'multer';
 import express from 'express';
 import multerS3 from 'multer-s3';
 import aws from 'aws-sdk';
-import { env } from '../configs/env_variables.js';
+import { env } from '../configs/config.js';
 export const upload_router = express.Router();
 
 //file-upload in uploads aws-s3
