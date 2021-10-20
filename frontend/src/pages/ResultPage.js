@@ -48,9 +48,6 @@ export default function ResultPage() {
             .reduce((a, x) => a += x, 0);
     }, [resultData])
 
-
-
-
     if (loading) return <Loading />
     if (error) return <Message variant="error">{error}</Message>
     if (resultData?.length === 0) return <Message >プランデータをまず作成して下さい</Message>

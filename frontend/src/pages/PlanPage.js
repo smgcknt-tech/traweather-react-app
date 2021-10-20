@@ -1,7 +1,7 @@
-import '../../src/styles/pages/PlanPage.scss'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { AppContext, AppActions } from '../AppStore'
 import { helper } from '../utils/helper';
+import '../../src/styles/pages/PlanPage.scss'
 import StoryTable from '../components/StoryTable'
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
@@ -13,7 +13,7 @@ import Prediction from '../components/Prediction';
 import PlanAddForm from '../components/forms/PlanAddForm'
 
 export default function PlanPage() {
-    const { state, dispatch} = useContext(AppContext);
+    const { state, dispatch } = useContext(AppContext);
     const { user, prediction, allStocks, loading, error, selectedStock, planData } = state;
     const [open, setOpen] = useState(false)
 
@@ -40,7 +40,6 @@ export default function PlanPage() {
 
     const indicatorsData = useMemo(() => {
         if (allStocks && selectedStock) return allStocks.find((stock) => selectedStock.code === Number(stock.code))
-
     }, [selectedStock, allStocks, planData])// eslint-disable-line
 
     useEffect(() => {

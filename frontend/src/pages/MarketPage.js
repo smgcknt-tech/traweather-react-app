@@ -1,7 +1,7 @@
-import '../../src/styles/pages/MarketPage.scss'
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext, AppActions } from '../AppStore';
 import { helper } from '../utils/helper';
+import '../../src/styles/pages/MarketPage.scss'
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
 import Ticker from '../components/widgets/Ticker';
@@ -37,7 +37,7 @@ export default function MarketPage() {
             </ul>
             {!prediction && <Message >今日の市場予想がありません。まずは市場予想を作成しましょう。</Message>}
             <div className="main">
-                {(open === "prediction" || !prediction) && <MarketPredictionForm setOpen={setOpen} />}
+                {(open === "prediction") && <MarketPredictionForm setOpen={setOpen} />}
                 <div className="dashboard_row1">
                     {prediction && <Prediction />}
                     <Ticker />

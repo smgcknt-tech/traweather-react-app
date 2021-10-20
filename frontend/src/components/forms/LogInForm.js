@@ -1,9 +1,9 @@
-import '../../styles/components/LogInForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { AppActions, AppContext } from '../../AppStore'
-import axios from 'axios';
 import { useHistory } from 'react-router';
+import axios from 'axios';
+import '../../styles/components/LogInForm.scss'
 
 export default function LogInForm(props) {
     const { state, dispatch } = useContext(AppContext);
