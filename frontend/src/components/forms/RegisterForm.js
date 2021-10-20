@@ -1,7 +1,7 @@
 import '../../styles/components/RegisterForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
-import { AppActions, AppContext } from '../../stores/App'
+import { AppActions, AppContext } from '../../AppStore'
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 

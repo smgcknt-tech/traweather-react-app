@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import "../../styles/components/Header.scss"
-import { AppActions, AppContext } from '../../stores/App'
+import { AppActions, AppContext } from '../../AppStore'
 import { useHistory } from 'react-router';
 
 export default function Header() {

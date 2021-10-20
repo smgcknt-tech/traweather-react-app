@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
-import LogInForm from '../components/form/LogInForm';
-import RegisterForm from '../components/form/RegisterForm';
+import LogInForm from '../components/forms/LogInForm';
+import RegisterForm from '../components/forms/RegisterForm';
 import '../styles/pages/LoginPage.scss'
-import { AppContext } from '../stores/App';
+import { AppContext } from '../AppStore';
 import { Link } from 'react-router-dom';
 
 export default function LoginPage() {
@@ -21,7 +21,7 @@ export default function LoginPage() {
                     <div>
                         {open === "register" ? <RegisterForm setOpen={setOpen} /> : <LogInForm setOpen={setOpen} />}
                     </div>
-                    
+
                 )}
             </div>
         </div>

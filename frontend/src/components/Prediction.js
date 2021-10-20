@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react'
-import { AppContext,AppActions } from '../stores/App';
+import { AppContext,AppActions } from '../AppStore';
 import '../styles/components/Prediction.scss'
 import { helper } from '../utils/helper';
 

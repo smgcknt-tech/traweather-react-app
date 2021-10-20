@@ -1,7 +1,6 @@
 import '../../src/styles/pages/PlanPage.scss'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { context, actions } from '../stores/PlanPage'
-import { AppContext, AppActions } from '../stores/App'
+import { AppContext, AppActions } from '../AppStore'
 import { helper } from '../utils/helper';
 import StoryTable from '../components/StoryTable'
 import Loading from '../components/common/Loading';
@@ -11,33 +10,29 @@ import Strategy from '../components/Strategy';
 import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
 import Prediction from '../components/Prediction';
-import PlanAddForm from '../components/form/PlanAddForm'
+import PlanAddForm from '../components/forms/PlanAddForm'
 
 export default function PlanPage() {
-    const { state, dispatch } = useContext(context);
-    const { selectedStock, planData } = state
-    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
-    const { user, prediction, allStocks, loading, error } = AppState;
+    const { state, dispatch} = useContext(AppContext);
+    const { user, prediction, allStocks, loading, error, selectedStock, planData } = state;
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
         if (user.id) {
             const fetchPlanPageData = async () => {
-                const fetchedPlan = await helper.fetchData(`/api/fetch_plan`, AppDispatch, AppActions, {
+                const fetchedPlan = await helper.fetchData(`/api/fetch_plan`, dispatch, AppActions, {
                     user_id: user.id
                 })
                 if (fetchedPlan?.length > 0) {
-                    dispatch({ type: actions.SET_PLAN, payload: fetchedPlan });
-                    dispatch({ type: actions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
+                    dispatch({ type: AppActions.SET_PLAN, payload: fetchedPlan });
+                    dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
                 }
-
-                const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, AppDispatch, AppActions, {
+                const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, dispatch, AppActions, {
                     user_id: user.id, date: helper.time().today
                 })
-                if (fetchedPrediction) AppDispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
-
-                const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, AppDispatch, AppActions,)
-                if (fetchedStocks) AppDispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
+                if (fetchedPrediction) dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
+                const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, dispatch, AppActions,)
+                if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
             }
             fetchPlanPageData()
         }
@@ -49,7 +44,7 @@ export default function PlanPage() {
     }, [selectedStock, allStocks, planData])// eslint-disable-line
 
     useEffect(() => {
-        if (selectedStock) dispatch({ type: actions.SET_INDICATORS, payload: indicatorsData });
+        if (selectedStock) dispatch({ type: AppActions.SET_INDICATORS, payload: indicatorsData });
     }, [indicatorsData, selectedStock]);// eslint-disable-line
 
     if (loading) return <Loading />

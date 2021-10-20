@@ -1,14 +1,11 @@
 import '../styles/components/CommentPerStock.scss'
 import React, { useContext, useRef, useState } from 'react'
-import { AppActions, AppContext } from '../stores/App';
-import { context, actions } from '../stores/ResultPage';
+import { AppActions, AppContext } from '../AppStore';
 import { helper } from '../utils/helper';
 
 export default function CommentPerStock() {
-    const { state, dispatch } = useContext(context);
-    const { selectedStock } = state;
-    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
-    const { user } = AppState
+    const { state, dispatch  } = useContext(AppContext);
+    const { user, selectedStock } = state
     const [open, setOpen] = useState(false)
     const textarea = useRef(null)
 
@@ -19,11 +16,11 @@ export default function CommentPerStock() {
             result_id: selectedStock.result_id,
             user_id: user.id,
         }
-        const response = await helper.postData(`/api/update_result_comment`, AppDispatch, AppActions, payload)
+        const response = await helper.postData(`/api/update_result_comment`, dispatch, AppActions, payload)
         if (response) {
-            dispatch({ type: actions.SET_RESULT, payload: response });
+            dispatch({ type: AppActions.SET_RESULT, payload: response });
             const foundSelectedStock = response.find((result) => result.code === selectedStock.code)
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: foundSelectedStock })
+            dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: foundSelectedStock })
         }
     }
 

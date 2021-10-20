@@ -1,37 +1,34 @@
-import '../../src/styles/pages/ResultPage.scss'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { AppActions, AppContext } from '../AppStore';
+import { helper } from '../utils/helper';
+import '../../src/styles/pages/ResultPage.scss'
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
-import { AppActions, AppContext } from '../stores/App';
-import { actions, context } from '../stores/ResultPage';
-import { helper } from '../utils/helper';
 import ResultTable from '../components/ResultTable'
 import CommentPerStock from '../components/CommentPerStock'
 import ComparisonChart from '../components/ComparisonChart';
-import TradeFeedBackForm from '../components/form/TradeFeedBackForm';
+import TradeFeedBackForm from '../components/forms/TradeFeedBackForm';
 
 export default function ResultPage() {
-    const { state, dispatch } = useContext(context);
-    const { resultData, selectedStock, indicators } = state
-    const { monthly_profit, last_profit, todays_profit } = indicators
-    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
-    const { user, allStocks, loading, error } = AppState;
+    const { state, dispatch } = useContext(AppContext);
+    const { user, allStocks, loading, error, resultData, selectedStock, resultIndicators } = state;
+    const { monthly_profit, last_profit, todays_profit } = resultIndicators
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
         if (user.id) {
             const fetchResultPageData = async () => {
-                const fetchedData = await helper.fetchData(`/api/fetch_result`, AppDispatch, AppActions, {
+                const fetchedData = await helper.fetchData(`/api/fetch_result`, dispatch, AppActions, {
                     user_id: user.id
                 })
                 if (fetchedData) {
                     const { monthly_profit, last_profit, todays_profit, resultData } = fetchedData
-                    dispatch({ type: actions.SET_RESULT, payload: resultData });
-                    dispatch({ type: actions.SET_SELECTED_STOCK, payload: resultData[0] })
-                    dispatch({ type: actions.SET_INDICATORS, payload: { ...indicators, monthly_profit: Number(monthly_profit), last_profit: Number(last_profit), todays_profit: Number(todays_profit) } })
+                    dispatch({ type: AppActions.SET_RESULT, payload: resultData });
+                    dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[0] })
+                    dispatch({ type: AppActions.SET_RESULT_INDICATORS, payload: { ...resultIndicators, monthly_profit: Number(monthly_profit), last_profit: Number(last_profit), todays_profit: Number(todays_profit) } })
                 }
-                const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, AppDispatch, AppActions,)
-                if (fetchedStocks) AppDispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
+                const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, dispatch, AppActions,)
+                if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
             }
             fetchResultPageData()
         }
@@ -42,7 +39,7 @@ export default function ResultPage() {
     }, [selectedStock, allStocks, resultData])// eslint-disable-line
 
     useEffect(() => {
-        if (selectedStockData) dispatch({ type: actions.SET_INDICATORS, payload: { ...indicators, stockData: selectedStockData } });
+        if (selectedStockData) dispatch({ type: AppActions.SET_RESULT_INDICATORS, payload: { ...resultIndicators, stockData: selectedStockData } });
     }, [selectedStockData]);// eslint-disable-line
 
     const profitResult = useMemo(() => {

@@ -1,14 +1,11 @@
 import '../styles/components/Strategy.scss'
 import React, { useContext, useRef, useState } from 'react'
-import { AppActions, AppContext } from '../stores/App';
-import { context, actions } from '../stores/PlanPage';
+import { AppActions, AppContext } from '../AppStore';
 import { helper } from '../utils/helper';
 
 export default function Strategy() {
-    const { state, dispatch } = useContext(context);
-    const { selectedStock } = state;
-    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
-    const { user } = AppState
+    const { state, dispatch } = useContext(AppContext);
+    const { user, selectedStock } = state
     const [open, setOpen] = useState(false)
     const textarea = useRef(null)
 
@@ -19,11 +16,11 @@ export default function Strategy() {
             user_id: user.id,
             code: selectedStock.code
         }
-        const response = await helper.postData(`/api/update_plan_strategy`, AppDispatch, AppActions, payload)
+        const response = await helper.postData(`/api/update_plan_strategy`, dispatch, AppActions, payload)
         if (response) {
-            dispatch({ type: actions.SET_PLAN, payload: response });
+            dispatch({ type: AppActions.SET_PLAN, payload: response });
             const foundSelectedStock = response.find((plan) => plan.code === selectedStock.code)
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: foundSelectedStock })
+            dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: foundSelectedStock })
         }
     }
 

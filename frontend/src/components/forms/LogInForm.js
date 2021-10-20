@@ -1,7 +1,7 @@
 import '../../styles/components/LogInForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
-import { AppActions, AppContext } from '../../stores/App'
+import { AppActions, AppContext } from '../../AppStore'
 import axios from 'axios';
 import { useHistory } from 'react-router';
 

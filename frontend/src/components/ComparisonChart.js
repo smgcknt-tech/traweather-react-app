@@ -1,15 +1,15 @@
-import '../styles/components/ComparisonChart.scss'
 import React, { useEffect, useState, useContext } from 'react'
-import { context } from '../stores/ResultPage';
+import { AppContext } from '../AppStore';
+import '../styles/components/ComparisonChart.scss'
 import Chart from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
 import ComparisonTable from './ComparisonTable';
 Chart.plugins.register([ChartAnnotation]);
 export default function ComparisonChart() {
-    const { state } = useContext(context);
-    const { selectedStock, indicators } = state;
-    const {stockData} = indicators
+    const { state } = useContext(AppContext);
+    const { selectedStock, resultIndicators } = state;
+    const { stockData } = resultIndicators
     const [chartData, setChartData] = useState({})
     useEffect(() => {
         const chart = () => {
