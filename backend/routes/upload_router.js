@@ -36,6 +36,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+
+
+//upoload_router
+
 upload_router.post('/s3', uploadS3.single('image'), (req, res) => {
     res.send(req.file.location);
 });
