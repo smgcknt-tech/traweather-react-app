@@ -2,11 +2,9 @@ import '../../styles/components/TradeFeedBackForm.scss'
 import { AppContext } from '../../stores/App'
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form'
-import { env } from '../../config'
+import {env} from '../../config'
 import axios from 'axios';
 import { useState } from 'react';
-
-
 
 export default function TradeFeedBackForm(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();

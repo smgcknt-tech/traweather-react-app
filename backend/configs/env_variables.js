@@ -32,7 +32,6 @@ if (PE.NODE_ENV === 'stage' || PE.NODE_ENV === 'production' ) {
         PGHOST: PE.PGHOST,
         PGPORT: PE.PGPORT,
         PGDATABASE: PE.PGDATABASE,
-        imageUpload: '/api/uploads/s3'
     };
 };
 

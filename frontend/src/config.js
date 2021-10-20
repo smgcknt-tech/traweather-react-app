@@ -1,16 +1,22 @@
 const Config = () => {
-    if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'test') {
         return {
             env: {
-                uploadUrl: '/api/uploads'
+                uploadUrl: '/api/uploads',
+            }
+        }
+    } else if (process.env.NODE_ENV === 'development') {
+        return {
+            env: {
+                uploadUrl: '/api/uploads',
             }
         }
     } else if (process.env.NODE_ENV === 'production') {
         return {
             env: {
-                uploadUrl: '/api/uploads/s3'
+                uploadUrl: '/api/uploads/s3',
             }
         }
     }
 }
-export const {env} = Config()
+export const { env } = Config()
