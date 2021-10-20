@@ -3,7 +3,7 @@ import express from 'express';
 import multerS3 from 'multer-s3';
 import aws from 'aws-sdk';
 import { env } from '../configs/env_variables.js';
-export const uploadRouter = express.Router();
+export const upload_router = express.Router();
 
 //file-upload in uploads aws-s3
 
@@ -36,9 +36,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-uploadRouter.post('/s3', uploadS3.single('image'), (req, res) => {
+upload_router.post('/s3', uploadS3.single('image'), (req, res) => {
     res.send(req.file.location);
 });
-uploadRouter.post('/', upload.single('image'), (req, res) => {
+upload_router.post('/', upload.single('image'), (req, res) => {
     res.send(`/${req.file.path}`);
 });

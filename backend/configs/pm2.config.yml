@@ -4,3 +4,5 @@ cron_restart: "0 16 * * * *"
 watch: true
 node_args: "-r dotenv/config"
 log-date-format: "YYYY-MM-DD HH:mm Z"
+
+# A code for acquiring stock price data on a regular basis. However, due to the limited number of api requests, it is no longer used.

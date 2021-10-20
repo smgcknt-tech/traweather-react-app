@@ -1,7 +1,6 @@
 import { api } from "../models/api.js";
 // import { env } from "../../env_variables.js";
 // import { helper } from "../utils/helper.js";
-
 // const kabu_plus_auth = `${env.kabu_plus_user}:${env.kabu_plus_password}@`
 // const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus`
 
@@ -68,7 +67,7 @@ export const apis = {
         //     })
         // return result;
     },
-    fetch_result:async(req, res) => {
+    fetch_result: async (req, res) => {
         const monthly_profit = await api.get_monthly_profit(req.query.user_id)
         const last_profit = await api.get_last_profit(req.query.user_id)
         const todays_profit = await api.get_todays_profit(req.query.user_id)
@@ -78,8 +77,8 @@ export const apis = {
                     res.json({
                         monthly_profit: monthly_profit,
                         last_profit: last_profit,
-                        todays_profit:todays_profit,
-                        resultData:data
+                        todays_profit: todays_profit,
+                        resultData: data
                     })
                 } else {
                     res.status(400).json({ error: data.error })

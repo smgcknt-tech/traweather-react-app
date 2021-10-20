@@ -3,6 +3,7 @@ import { apis } from '../controllers/apis.js';
 import { validation_token } from '../configs/JWT.js';
 export const api_router = express.Router()
 
+//GET request
 api_router
     .get('/', (req, res) => { res.send("server is ready") })
     .get("/fetch_latest_stock", apis.fetch_latest_stock)
@@ -13,6 +14,8 @@ api_router
     .get("/fetch_feed_back", apis.fetch_feed_back)
     .get("/fetch_one_result", apis.fetch_one_result)
 
+
+//POST request
 api_router
     .post("/create_prediction", apis.create_prediction)
     .post("/update_prediction", apis.update_prediction)
@@ -24,4 +27,3 @@ api_router
     .post("/update_result_numbers", apis.update_result_numbers)
     .post("/update_result_comment", apis.update_result_comment)
     .post("/create_feed_back", apis.create_feed_back)
-    

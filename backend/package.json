@@ -39,10 +39,6 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "eslint": "^7.31.0",
-    "eslint-plugin-react": "^7.25.1",
-    "mocha": "^9.1.2",
-    "mocha-junit-reporter": "^2.0.0",
     "nodemon": "^2.0.12"
   }
 }

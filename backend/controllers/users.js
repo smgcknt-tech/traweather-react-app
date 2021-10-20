@@ -7,7 +7,7 @@ export const users = {
                 if (result === "SUCCESS") {
                     users.login(req, res)
                 } else {
-                    res.json({ error: "新規登録に失敗しました。"})
+                    res.json({ error: "新規登録に失敗しました。" })
                 }
             })
     },

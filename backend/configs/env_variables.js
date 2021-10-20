@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-const PE = process.env
+const PE = process.env;
 let env = {};
 
 if (PE.NODE_ENV === 'development') {
@@ -32,6 +32,8 @@ if (PE.NODE_ENV === 'stage' || PE.NODE_ENV === 'production' ) {
         PGHOST: PE.PGHOST,
         PGPORT: PE.PGPORT,
         PGDATABASE: PE.PGDATABASE,
+        imageUpload: '/api/uploads/s3'
     };
-}
-export { env }
+};
+
+export { env };
