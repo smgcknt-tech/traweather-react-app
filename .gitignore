@@ -7,10 +7,6 @@
 .env.test.local
 .env.production.local
 
-
-# yarn
-yarn-error.log
-
 # dependencies
 node_modules
 /.pnp

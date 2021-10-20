@@ -75,8 +75,6 @@ export default function ReflectionPage() {
             .reduce((a, x) => a += x, 0);
     }, [resultData])
 
-
-
     const archives = posts.map((post, index) => {
         const { title, image_url, created_at } = post
         const date = created_at.split('T')[0]
