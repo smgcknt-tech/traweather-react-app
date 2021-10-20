@@ -1,15 +1,12 @@
 import "../styles/components/ResultTable.scss"
 import React, { useContext, useRef, useState } from 'react'
 import ReactPaginate from 'react-paginate';
-import { context, actions } from '../stores/ResultPage'
-import { AppActions, AppContext } from '../stores/App'
+import { AppActions, AppContext } from '../AppStore'
 import { helper } from '../utils/helper'
 
 export default function StoryTable() {
-    const { state, dispatch } = useContext(context);
-    const { currentPage, resultData, selectedStock } = state
-    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
-    const { user } = AppState
+    const { state, dispatch } = useContext(AppContext);
+    const { user, currentPage, resultData, selectedStock} = state
     const refs = useRef([])
     const [show, setShow] = useState(false)
     const rowsPerPage = 5;
@@ -34,12 +31,12 @@ export default function StoryTable() {
             )
         })
     const changePage = ({ selected }) => {
-        dispatch({ type: actions.SET_CURRENT_PAGE, payload: selected });
+        dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: selected });
     }
 
     const handleSelect = (index) => {
         setShow(`tr_${index}`)
-        dispatch({ type: actions.SET_SELECTED_STOCK, payload: resultData[pagesVisited + index] })
+        dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[pagesVisited + index] })
     }
 
     const handleSubmit = async (e, index) => {
@@ -58,11 +55,11 @@ export default function StoryTable() {
                 user_id: user.id,
                 date: helper.time().today
             }
-            const response = await helper.postData(`/api/update_result_numbers`, AppDispatch, AppActions, payload)
+            const response = await helper.postData(`/api/update_result_numbers`, dispatch, AppActions, payload)
             if (response) {
-                dispatch({ type: actions.SET_RESULT, payload: response });
-                dispatch({ type: actions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
-                dispatch({ type: actions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
+                dispatch({ type: AppActions.SET_RESULT, payload: response });
+                dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
+                dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
             }
         }
     }

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { AppContext } from '../stores/App';
+import { AppContext } from '../AppStore';
 import "../styles/components/SearchBar.scss";
 import Indicators from './Indicators';
 export default function SearchBar() {

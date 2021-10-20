@@ -1,7 +1,7 @@
 import format from 'pg-format';
 import { helper } from '../utils/helper.js';
 import { pool } from '../configs/postgresql.js';
-import { env } from '../configs/config.js';
+
 export const api = {
     create_prediction: async (payload) => {
         const values = [payload['予想'], payload['戦略'], payload['注目セクター'], payload.user_id]

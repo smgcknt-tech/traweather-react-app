@@ -1,17 +1,14 @@
 import '../../src/styles/pages/ReflectionPage.scss'
 import React, { useContext, useEffect, useMemo, useRef } from 'react'
-import { AppContext, AppActions } from '../stores/App'
-import { actions, context } from '../stores/ReflectionPage';
+import { AppContext, AppActions } from '../AppStore'
 import { helper } from '../utils/helper';
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
 import ReactPaginate from 'react-paginate';
 
 export default function ReflectionPage() {
-    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
-    const { user, loading, error } = AppState;
-    const { state, dispatch } = useContext(context);
-    const { resultData, selectedStock, posts, selectedPost, currentPage, prediction } = state
+    const { state, dispatch} = useContext(AppContext);
+    const { user, loading, error, resultData, selectedStock, posts, selectedPost, currentPage, prediction} = state;
     const refs = useRef([])
     const rowsPerPage = 5;
     const pagesVisited = currentPage * rowsPerPage;
@@ -20,21 +17,21 @@ export default function ReflectionPage() {
     useEffect(() => {
         if (user.id) {
             (async () => {
-                const data = await helper.fetchData(`/api/fetch_feed_back`, AppDispatch, AppActions, { user_id: user.id })
-                if (data) dispatch({ type: actions.SET_POSTS, payload: data });
+                const data = await helper.fetchData(`/api/fetch_feed_back`, dispatch, AppActions, { user_id: user.id })
+                if (data) dispatch({ type: AppActions.SET_POSTS, payload: data });
             })()
         }
     }, [user.id]);// eslint-disable-line
 
     const handleClick = async (e, i, date) => {
-        const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, AppDispatch, AppActions, { user_id: user.id, date: date })
-        const fetchedResult = await helper.fetchData(`/api/fetch_one_result`, AppDispatch, AppActions, { user_id: user.id, date: date });
+        const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, dispatch, AppActions, { user_id: user.id, date: date })
+        const fetchedResult = await helper.fetchData(`/api/fetch_one_result`, dispatch, AppActions, { user_id: user.id, date: date });
         if (fetchedPrediction) {
-            dispatch({ type: actions.SET_RESULT, payload: fetchedResult });
+            dispatch({ type: AppActions.SET_RESULT, payload: fetchedResult });
         }
         if (fetchedResult) {
-            dispatch({ type: actions.SET_PREDICTION, payload: fetchedPrediction })
-            dispatch({ type: actions.SET_SELECTED_POST, payload: posts[i] });
+            dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction })
+            dispatch({ type: AppActions.SET_SELECTED_POST, payload: posts[i] });
         }
     }
     const displayRows = resultData
@@ -56,11 +53,11 @@ export default function ReflectionPage() {
         })
 
     const changePage = ({ selected }) => {
-        dispatch({ type: actions.SET_CURRENT_PAGE, payload: selected });
+        dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: selected });
     }
 
     const handleSelect = (index) => {
-        dispatch({ type: actions.SET_SELECTED_STOCK, payload: resultData[pagesVisited + index] })
+        dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[pagesVisited + index] })
     }
 
     const profitResult = useMemo(() => {
@@ -97,7 +94,7 @@ export default function ReflectionPage() {
             {!selectedPost && <div className="reflection_container">{archives}</div>}
             {selectedPost && (
                 <div className="description_container">
-                    <i className="fas fa-undo-alt" onClick={() => { dispatch({ type: actions.SET_SELECTED_POST, payload: null }); }}> 戻る </i>
+                    <i className="fas fa-undo-alt" onClick={() => { dispatch({ type: AppActions.SET_SELECTED_POST, payload: null }); }}> 戻る </i>
                     <div className="feed_back">
                         <h2>{selectedPost.title}</h2>
                         <p >{selectedPost.content}</p>

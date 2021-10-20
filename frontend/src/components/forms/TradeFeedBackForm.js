@@ -1,5 +1,5 @@
 import '../../styles/components/TradeFeedBackForm.scss'
-import { AppContext } from '../../stores/App'
+import { AppContext } from '../../AppStore'
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form'
 import {env} from '../../config'

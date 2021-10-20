@@ -1,13 +1,13 @@
 import '../styles/components/StoryChart.scss'
 import React, { useEffect, useState, useContext } from 'react'
 import { helper } from '../utils/helper';
-import { context } from '../stores/PlanPage';
+import { AppContext} from '../AppStore'
 import Chart from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
 Chart.plugins.register([ChartAnnotation]);
 export default function StoryChart() {
-    const { state } = useContext(context);
+    const { state } = useContext(AppContext);
     const { selectedStock, indicators } = state;
     const [chartData, setChartData] = useState({})
     useEffect(() => {

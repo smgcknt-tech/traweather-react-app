@@ -1,6 +1,6 @@
 import '../../src/styles/pages/MarketPage.scss'
 import React, { useContext, useEffect, useState } from 'react';
-import { AppContext, AppActions } from '../stores/App';
+import { AppContext, AppActions } from '../AppStore';
 import { helper } from '../utils/helper';
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
@@ -8,7 +8,7 @@ import Ticker from '../components/widgets/Ticker';
 import Event from '../components/widgets/Event';
 import Twitter from '../components/widgets/Twitter';
 import Prediction from '../components/Prediction';
-import MarketPredictionForm from '../components/form/MarketPredictionForm';
+import MarketPredictionForm from '../components/forms/MarketPredictionForm';
 
 export default function MarketPage() {
     const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
@@ -25,7 +25,7 @@ export default function MarketPage() {
             }
             fetchData();
         }
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [user.id])
 
     if (loading) return <Loading />

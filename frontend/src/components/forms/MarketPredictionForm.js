@@ -1,7 +1,7 @@
 import '../../styles/components/MarketPredictionForm.scss'
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
-import { AppActions, AppContext } from '../../stores/App';
+import { AppActions, AppContext } from '../../AppStore';
 import { helper } from '../../utils/helper';
 import { useHistory } from 'react-router';
 

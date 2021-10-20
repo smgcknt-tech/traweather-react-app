@@ -1,21 +1,27 @@
 version: "3"
 services:
-  postgres:
-    image: "postgres:latest"
-    user: postgres
-    environment:
-      POSTGRES_PASSWORD: ${PGPASSWORD}
   nginx:
     depends_on:
-      - api
       - frontend
+      - backend
     restart: always
     build:
       dockerfile: Dockerfile.stage
       context: ./nginx
     ports:
       - "3000:80"
-  api:
+  frontend:
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile.stage
+      context: ./frontend
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    stdin_open: true
+    tty: true
+  backend:
     build:
       dockerfile: Dockerfile.stage
       context: "./backend"
@@ -34,14 +40,8 @@ services:
       - PGHOST
       - PGPASSWORD
       - PGPORT
-  frontend:
+  postgres:
+    image: "postgres:12.8"
+    user: postgres
     environment:
-      - CHOKIDAR_USEPOLLING=true
-    build:
-      dockerfile: Dockerfile.stage
-      context: ./frontend
-    volumes:
-      - /app/node_modules
-      - ./frontend:/app
-    stdin_open: true
-    tty: true
+      POSTGRES_PASSWORD: ${PGPASSWORD}

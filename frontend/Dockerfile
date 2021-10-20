@@ -1,4 +1,4 @@
-FROM node:14.17.6 as builder
+FROM node:14.15.4 as builder
 WORKDIR /app
 ENV CI=true
 COPY ./package.json ./

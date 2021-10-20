@@ -1,15 +1,12 @@
 import "../styles/components/StoryTable.scss"
 import React, { useContext, useRef, useState } from 'react'
 import ReactPaginate from 'react-paginate';
-import { context, actions } from '../stores/PlanPage'
-import { AppActions, AppContext } from '../stores/App'
+import { AppActions, AppContext } from '../AppStore'
 import { helper } from '../utils/helper'
 
 export default function StoryTable() {
-    const { state, dispatch } = useContext(context);
-    const { currentPage, planData } = state
-    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
-    const { user } = AppState
+    const { state, dispatch } = useContext(AppContext);
+    const { user, currentPage, planData } = state
     const refs = useRef([])
     const [show, setShow] = useState(false)
     const rowsPerPage = 5;
@@ -34,11 +31,11 @@ export default function StoryTable() {
             )
         })
     const changePage = ({ selected }) => {
-        dispatch({ type: actions.SET_CURRENT_PAGE, payload: selected });
+        dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: selected });
     }
     const handleSelect = (index) => {
         setShow(`tr_${index}`)
-        dispatch({ type: actions.SET_SELECTED_STOCK, payload: planData[pagesVisited + index] })
+        dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: planData[pagesVisited + index] })
     }
     const handleSubmit = async (index) => {
         const payload = {
@@ -49,11 +46,11 @@ export default function StoryTable() {
             code: refs.current[index].querySelector("td[data-label='証券番号']").innerText,
             user_id: user.id,
         }
-        const response = await helper.postData(`/api/update_plan_numbers`, AppDispatch, AppActions,  payload)
+        const response = await helper.postData(`/api/update_plan_numbers`, dispatch, AppActions,  payload)
         if (response) {
-            dispatch({ type: actions.SET_PLAN, payload: response });
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
-            dispatch({ type: actions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
+            dispatch({ type: AppActions.SET_PLAN, payload: response });
+            dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
+            dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
         }
     }
 
@@ -63,10 +60,10 @@ export default function StoryTable() {
             user_id: user.id,
             code: code,
         }
-        const response = await helper.postData('/api/delete_plan', AppDispatch, AppActions, payload)
+        const response = await helper.postData('/api/delete_plan', dispatch, AppActions, payload)
         if (response) {
-            dispatch({ type: actions.SET_PLAN, payload: response });
-            dispatch({ type: actions.SET_SELECTED_STOCK, payload: response[index - 1]})
+            dispatch({ type: AppActions.SET_PLAN, payload: response });
+            dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: response[index - 1]})
         }
     }
     return (
