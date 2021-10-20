@@ -2,7 +2,7 @@ import express from 'express';
 import { env } from './configs/env_variables.js';
 import { api_router } from './routes/apis.js';
 import { user_router } from './routes/users.js';
-import { upload_router } from './routes/upload_router.js';
+import { upload_router } from './routes/uploads.js';
 import path from 'path';
 import cors from "cors";
 import cookieParser from 'cookie-parser';
@@ -22,6 +22,6 @@ app.use('/api/uploads', upload_router);
 app.use("/user", user_router);
 
 //api_server
-app.listen(env.API_PORT || 5000, () => {
+app.listen(env.API_PORT, () => {
     console.log(`api-server is working on port:${env.API_PORT}. ENVIRONMENT='${app.get('env')}'`)
 });
