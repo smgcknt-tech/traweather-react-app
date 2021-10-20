@@ -1,7 +1,6 @@
-etc
-
 # environment variable
 .env
+.env.dev
 .env.stage
 .env.local
 .env.development.local
