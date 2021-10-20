@@ -45,7 +45,7 @@
       .total_profit {
         @include indicator_card(#337ab7, #fff);
       }
-      .avg_pl_rate {
+      .profit_loss_rate {
         @include indicator_card(#dff0d8, #3c763d);
       }
     }
@@ -63,7 +63,7 @@
     }
 
     .result {
-      @include row(center, flex-start);
+      @include row(flex-start, flex-start);
       margin: 1.5rem;
       > * {
         padding: 1rem;
@@ -137,47 +137,6 @@
         }
       }
 
-      @media (max-width: 500px) {
-        .story_table {
-          table {
-            font-size: 1rem;
-            border-collapse: collapse;
-            thead {
-              display: none;
-            }
-            tbody {
-              @include row(center, flex-start);
-              width: 100%;
-            }
-            tr {
-              width: 30%;
-              display: block;
-              padding: 1rem;
-              td {
-                position: relative;
-                border-bottom: none;
-                height: 2.5rem;
-                display: block;
-                text-align: right;
-                line-height: 1.5rem;
-                padding: 0.5rem 1rem 0 0;
-
-                &:before {
-                  content: attr(data-label);
-                  position: absolute;
-                  left: 0;
-                  padding-left: 1rem;
-                  font-size: 1rem;
-                  font-weight: bold;
-                }
-              }
-              #submit {
-                text-align: center;
-              }
-            }
-          }
-        }
-      }
       .comment {
         @include col(20%);
         padding: 1.5rem;
@@ -205,6 +164,48 @@
 
         .content {
           padding: 1rem 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .result_list{
+    table {
+      font-size: 1rem;
+      border-collapse: collapse;
+      thead {
+        display: none;
+      }
+      tbody {
+        @include row(center, flex-start);
+        width: 100%;
+      }
+      tr {
+        width: 30%;
+        display: block;
+        padding: 1rem;
+        td {
+          position: relative;
+          border-bottom: none;
+          height: 2.5rem;
+          display: block;
+          text-align: right;
+          line-height: 1.5rem;
+          padding: 0.5rem 1rem 0 0;
+
+          &:before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            padding-left: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+          }
+        }
+        #submit {
+          text-align: center;
         }
       }
     }

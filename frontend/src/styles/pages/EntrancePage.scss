@@ -1,0 +1,77 @@
+@import "../variables.scss";
+
+.entrance {
+  @include row(center, center);
+  height: 100%;
+  width: 100%;
+
+  background: linear-gradient(58deg, #5975e8, #59e89d);
+  background-size: 400% 400%;
+  -webkit-animation: AnimationName 30s ease infinite;
+  -moz-animation: AnimationName 30s ease infinite;
+  animation: AnimationName 30s ease infinite;
+
+  @-webkit-keyframes AnimationName {
+    0% {
+      background-position: 0% 84%;
+    }
+    50% {
+      background-position: 100% 17%;
+    }
+    100% {
+      background-position: 0% 84%;
+    }
+  }
+  @-moz-keyframes AnimationName {
+    0% {
+      background-position: 0% 84%;
+    }
+    50% {
+      background-position: 100% 17%;
+    }
+    100% {
+      background-position: 0% 84%;
+    }
+  }
+  @keyframes AnimationName {
+    0% {
+      background-position: 0% 84%;
+    }
+    50% {
+      background-position: 100% 17%;
+    }
+    100% {
+      background-position: 0% 84%;
+    }
+  }
+
+  .main_container {
+    width: 50%;
+    .message {
+      @include row(center, center);
+      color: #fff;
+      font-size: 7rem;
+      p {
+        font-size: 2.5rem;
+        font-style: italic;
+        text-align: center;
+        width: 100%;
+      }
+      .button_container {
+        @include row(center, center);
+        margin: 2rem 1rem;
+        .button {
+          @include place_center();
+          width: 30rem;
+          color: #fff;
+          font-size: 2rem;
+          font-weight: bold;
+          height: 4rem;
+          border-radius: 0.5rem;
+          background-color: #ee6272;
+          box-shadow: 0 0 0.5rem #b4b4b4;
+        }
+      }
+    }
+  }
+}

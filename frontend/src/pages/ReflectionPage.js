@@ -66,7 +66,7 @@ export default function ReflectionPage() {
             .reduce((a, x) => a += x, 0);
     }, [resultData])
 
-    const avg_pl_rate = useMemo(() => {
+    const profit_loss_rate = useMemo(() => {
         return resultData
             .map((result) => { return result.profit_loss_rate })
             .reduce((a, x) => a += x, 0);
@@ -95,19 +95,19 @@ export default function ReflectionPage() {
             {selectedPost && (
                 <div className="description_container">
                     <i className="fas fa-undo-alt" onClick={() => { dispatch({ type: AppActions.SET_SELECTED_POST, payload: null }); }}> 戻る </i>
-                    <div className="feed_back">
-                        <h2>{selectedPost.title}</h2>
-                        <p >{selectedPost.content}</p>
-                    </div>
                     <div className="indicators">
                         <div className="total_profit">
                             <div className="card_value">{profitResult}円</div>
                             <div className="card_title">損益合計</div>
                         </div>
-                        <div className="avg_pl_rate">
-                            <div className="card_value">{avg_pl_rate}%</div>
+                        <div className="profit_loss_rate">
+                            <div className="card_value">{profit_loss_rate}%</div>
                             <div className="card_title">平均利確率</div>
                         </div>
+                    </div>
+                    <div className="feed_back">
+                        <h2>{selectedPost.title}</h2>
+                        <p >{selectedPost.content}</p>
                     </div>
                     <div className="result">
                         <div className="result_list">
@@ -146,7 +146,7 @@ export default function ReflectionPage() {
                         </div>
                         <div className="comment">
                             <h2>コメント</h2>
-                            <p>{selectedStock ? selectedStock.comment : ''}</p>
+                            <p>{selectedStock && selectedStock.comment}</p>
                         </div>
                     </div>
                     {prediction && (
