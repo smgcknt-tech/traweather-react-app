@@ -2,6 +2,7 @@ import { pool } from '../configs/postgresql.js';
 import { env } from '../configs/config.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+
 export const user = {
     register: async (payload) => {
         const { username, password } = payload;
