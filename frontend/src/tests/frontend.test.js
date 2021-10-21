@@ -1,19 +1,16 @@
-import React, { useContext } from 'react';
-import App from '../App';
-import EntrancePage from '../pages/EntrancePage';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { MockAppProvider, MockDispatch } from './testUtils';
+import { AppActions,AppProvider } from '../AppStore';
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import { renderHook } from "@testing-library/react-hooks";
+import { hooks } from '../utils/custom_hooks';
 import userEvent from '@testing-library/user-event';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { AppActions, AppContext, AppProvider } from '../stores/App';
-import { hooks } from '../utils/custom_hooks';
+import App from '../App';
 import MarketPage from '../pages/MarketPage';
-import { BrowserRouter } from 'react-router-dom';
-import SearchBar from '../components/SearchBar';
-import LoginPage from '../pages/LoginPage';
-import LogInForm from '../components/form/LogInForm';
+import LogInForm from '../components/forms/LogInForm';
 const mockAxios = new MockAdapter(axios);
 
 describe.skip('Unit', () => {

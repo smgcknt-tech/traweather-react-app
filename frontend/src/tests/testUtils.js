@@ -1,6 +1,6 @@
 
 import React, { useReducer } from 'react'
-import { AppActions, AppContext, initialState } from '../stores/App';
+import { AppActions, AppContext, initialState } from '../AppStore';
 
 //App test//
 export const MockDispatch = jest.fn();
