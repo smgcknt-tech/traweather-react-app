@@ -1,13 +1,13 @@
 import iconv from 'iconv-lite';
 import papa from "papaparse";
 import request from "request";
-import moment from "moment"
+import moment from "moment-timezone"
 
 export const helper = {
     time: () => {
         return {
-            today : moment().format("YYYY-MM-DD"),
-            yesterday: moment().subtract(1, 'day').format("YYYY-MM-DD"),
+            today: moment().tz("Asia/Tokyo").format("YYYY-MM-DD"),
+            yesterday: moment().tz("Asia/Tokyo").subtract(1, 'day').format("YYYY-MM-DD"),
         }
     },
     csv_stream: async (url, callback) => {
