@@ -8,7 +8,7 @@ const config = () => {
     } else if (process.env.NODE_ENV === 'development') {
         return {
             env: {
-                uploadUrl: '/api/uploads',
+                uploadUrl: '/api/uploads/s3',
             }
         }
     } else if (process.env.NODE_ENV === 'production') {

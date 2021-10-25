@@ -1,5 +1,10 @@
 version: "3"
 services:
+  postgres:
+    image: "postgres:12.8"
+    user: postgres
+    environment:
+      POSTGRES_PASSWORD: ${PGPASSWORD}
   nginx:
     depends_on:
       - frontend
@@ -40,8 +45,3 @@ services:
       - PGHOST
       - PGPASSWORD
       - PGPORT
-  postgres:
-    image: "postgres:12.8"
-    user: postgres
-    environment:
-      POSTGRES_PASSWORD: ${PGPASSWORD}
