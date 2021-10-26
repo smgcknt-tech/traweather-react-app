@@ -6,10 +6,11 @@ import { env } from '../configs/config.js';
 export const upload_router = express.Router();
 
 //file-upload in uploads aws-s3
+console.log(env.AWSAccessKeyIdForS3, env.AWSSecretKeyForS3)
 
 aws.config.update({
-    accessKeyId: env.AWSAccessKeyId,
-    secretAccessKey: env.AWSSecretKey,
+    accessKeyId: env.AWSAccessKeyIdForS3,
+    secretAccessKey: env.AWSSecretKeyForS3,
 });
 
 const s3 = new aws.S3();
