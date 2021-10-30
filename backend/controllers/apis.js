@@ -65,17 +65,6 @@ export const apis = {
                 }
             })
     },
-    update_result_comment: (req, res) => {
-        const payload = req.body;
-        api.update_result_comment(payload)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
-            })
-    },
     fetch_plan: (req, res) => {
         api.get_plan(req.query.user_id)
             .then((data) => {
@@ -83,17 +72,6 @@ export const apis = {
                     res.json(data)
                 } else {
                     res.status(400).json({ error: data.error })
-                }
-            })
-    },
-    create_feed_back: async (req, res) => {
-        const payload = req.body;
-        api.create_feed_back(payload)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.json({ error: data.error })
                 }
             })
     },

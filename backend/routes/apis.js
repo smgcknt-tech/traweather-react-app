@@ -40,5 +40,9 @@ api_router
     .post("/result/update_numbers", (req, res) => {
         apis.template(req, res, api.update_result_numbers)
     })
-    .post("/update_result_comment", apis.update_result_comment)
-    .post("/create_feed_back", apis.create_feed_back)
+    .post("/result/update_comment", (req, res) => {
+        apis.template(req, res, api.update_result_comment)
+    })
+    .post("/reflection/create", (req, res) => {
+        apis.template(req, res, api.create_feed_back)
+    })

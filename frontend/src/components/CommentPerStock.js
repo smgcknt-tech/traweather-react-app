@@ -16,7 +16,7 @@ export default function CommentPerStock() {
             result_id: selectedStock.result_id,
             user_id: user.id,
         }
-        const response = await helper.postData(`/api/update_result_comment`, dispatch, AppActions, payload)
+        const response = await helper.postData(`/api/result/update_comment`, dispatch, AppActions, payload)
         if (response) {
             dispatch({ type: AppActions.SET_RESULT, payload: response });
             const foundSelectedStock = response.find((result) => result.code === selectedStock.code)
