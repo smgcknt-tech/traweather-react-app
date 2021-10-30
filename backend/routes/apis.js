@@ -34,7 +34,9 @@ api_router
     .post("/plan/update_strategy", (req, res) => {
         apis.template(req, res, api.update_plan_strategy)
     })
-    .post("/delete_plan", apis.delete_plan)
+    .post("/plan/delete", (req, res) => {
+        apis.template(req, res, api.delete_plan)
+    })
     .post("/update_result_numbers", apis.update_result_numbers)
     .post("/update_result_comment", apis.update_result_comment)
     .post("/create_feed_back", apis.create_feed_back)
