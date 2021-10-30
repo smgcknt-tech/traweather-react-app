@@ -27,7 +27,7 @@ export default function ResultPage() {
                     dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[0] })
                     dispatch({ type: AppActions.SET_RESULT_INDICATORS, payload: { ...resultIndicators, monthly_profit: Number(monthly_profit), last_profit: Number(last_profit), todays_profit: Number(todays_profit) } })
                 }
-                const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, dispatch, AppActions,)
+                const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions,)
                 if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
             }
             fetchResultPageData()

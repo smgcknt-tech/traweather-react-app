@@ -6,7 +6,9 @@ export const api_router = express.Router()
 //GET request
 api_router
     .get('/', (req, res) => { res.send("server is ready") })
-    .get("/fetch_latest_stock", apis.fetch_latest_stock)
+    .get("/latest_stock", (req, res) => {
+        apis.template2(req, res, api.get_latest_stock)
+    })
     .get("/fetch_one_latest_stock", apis.fetch_one_latest_stock)
     .get("/fetch_plan", apis.fetch_plan)
     .get("/fetch_one_prediction", apis.fetch_one_prediction)

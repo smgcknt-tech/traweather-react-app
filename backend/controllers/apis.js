@@ -8,22 +8,20 @@ export const apis = {
                 res.send(err)
             })
     },
+    template2: async (req, res, callback) => {
+        await callback()
+            .then((data) => {
+                res.send(data)
+            }).catch((err) => {
+                res.send(err)
+            })
+    },
     fetch_one_prediction: (req, res) => {
         api.get_one_prediction(req.query)
             .then((data) => {
                 res.json(data)
             }).catch((err) => {
                 console.log(err.message)
-            })
-    },
-    fetch_latest_stock: (req, res) => {
-        api.get_latest_stock()
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
             })
     },
     fetch_one_latest_stock: (req, res) => {
