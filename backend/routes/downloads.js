@@ -15,8 +15,8 @@ export const dataSets = [
     ['traweather-bucket/csv', "japan-all-stock-prices-2.csv", api.upsert_latest_stock],
 ]
 export const downloadCsv = async (dataSets) => {
-    await dataSets.forEach(async (data) => {
-        try {
+    try {
+        dataSets.forEach(async (data) => {
             const file = s3
                 .getObject({ Bucket: data[0], Key: data[1], })
                 .createReadStream()
@@ -24,10 +24,10 @@ export const downloadCsv = async (dataSets) => {
             const json = await csv().fromStream(file);
             const values = json.map((obj) => Object.values(obj));
             await data[2](values);
-        } catch (err) {
-            console.log(err);
-        }
-    });
+        });
+    } catch (error) {
+        console.log(error);
+    }
 }
 download_router.post('/csv', async (req, res) => {
     await downloadCsv(dataSets);
