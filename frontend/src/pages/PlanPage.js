@@ -20,7 +20,7 @@ export default function PlanPage() {
     useEffect(() => {
         if (user.id) {
             const fetchPlanPageData = async () => {
-                const fetchedPlan = await helper.fetchData(`/api/fetch_plan`, dispatch, AppActions, {
+                const fetchedPlan = await helper.fetchData(`/api/plan`, dispatch, AppActions, {
                     user_id: user.id
                 })
                 if (fetchedPlan?.length > 0) {

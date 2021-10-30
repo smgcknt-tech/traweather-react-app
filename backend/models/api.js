@@ -261,12 +261,13 @@ export const api = {
         }
         const result = await transaction()
         if (result !== "FAILED") {
-            return await api.get_plan(user_id)
+            return await api.get_plan(payload)
         } else {
             return { error: "プランの作成に失敗しました。" }
         }
     },
-    get_plan: (user_id) => {
+    get_plan: (payload) => {
+        const {user_id } = payload
         const query = `SELECT * FROM trade_plan WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%' ORDER BY code ASC;`;
         const data = pool.query(query)
             .then((res) => {
@@ -295,7 +296,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_plan(user_id)
+            return await api.get_plan(payload)
         } else {
             return { error: "プランの作成に失敗しました。" }
         }
@@ -318,7 +319,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_plan(user_id)
+            return await api.get_plan(payload)
         } else {
             return { error: "プランの更新に失敗しました。" }
         }
@@ -341,7 +342,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_plan(user_id)
+            return await api.get_plan(payload)
         } else {
             return { error: "プランの更新に失敗しました。" }
         }
@@ -365,7 +366,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_plan(user_id)
+            return await api.get_plan(payload)
         } else {
             return { error: "プランの削除に失敗しました。" }
         }

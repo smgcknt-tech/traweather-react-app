@@ -61,16 +61,6 @@ export const apis = {
                 }
             })
     },
-    fetch_plan: (req, res) => {
-        api.get_plan(req.query.user_id)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
-            })
-    },
     fetch_feed_back: (req, res) => {
         api.get_feed_back(req.query.user_id)
             .then((data) => {
