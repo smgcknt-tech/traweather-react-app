@@ -12,8 +12,8 @@ const config = () => {
         dotenv.config();
         return {
             env: {
-                AWSAccessKeyId: "invalid",
-                AWSSecretKey: "invalid",
+                AWSAccessKeyIdForS3: PE.AWSAccessKeyIdForS3,
+                AWSSecretKeyForS3: PE.AWSSecretKeyForS3,
                 kabu_plus_user: "invalid",
                 kabu_plus_password: "invalid",
                 jwt_secret_key: PE.jwt_secret_key,
@@ -28,8 +28,8 @@ const config = () => {
     } else if (PE.NODE_ENV === 'stage' || PE.NODE_ENV === 'production') {
         return {
             env: {
-                AWSAccessKeyId: PE.AWSAccessKeyId,
-                AWSSecretKey: PE.AWSSecretKey,
+                AWSAccessKeyIdForS3: PE.AWSAccessKeyIdForS3,
+                AWSSecretKeyForS3: PE.AWSSecretKeyForS3,
                 kabu_plus_user: PE.kabu_plus_user,
                 kabu_plus_password: PE.kabu_plus_password,
                 jwt_secret_key: PE.jwt_secret_key,
