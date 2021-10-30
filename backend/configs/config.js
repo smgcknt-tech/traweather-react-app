@@ -12,8 +12,8 @@ const config = () => {
         dotenv.config();
         return {
             env: {
-                AWSAccessKeyIdForS3: "invalid",
-                AWSSecretKeyForS3: "invalid",
+                AWSAccessKeyIdForS3: PE.AWSAccessKeyIdForS3,
+                AWSSecretKeyForS3: PE.AWSSecretKeyForS3,
                 kabu_plus_user: "invalid",
                 kabu_plus_password: "invalid",
                 jwt_secret_key: PE.jwt_secret_key,
