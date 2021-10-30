@@ -73,7 +73,8 @@ export const api = {
             })
         return data;
     },
-    get_one_latest_stock: (code) => {
+    get_one_latest_stock: (payload) => {
+        const {code}= payload
         const query = `SELECT * FROM latest_stock_data WHERE code='${code}';`;
         const data = pool.query(query)
             .then((res) => {

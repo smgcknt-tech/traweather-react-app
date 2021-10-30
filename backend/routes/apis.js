@@ -9,7 +9,9 @@ api_router
     .get("/latest_stock", (req, res) => {
         apis.template2(req, res, api.get_latest_stock)
     })
-    .get("/fetch_one_latest_stock", apis.fetch_one_latest_stock)
+    .get("/one_latest_stock", (req, res) => {
+        apis.template3(req, res, api.get_one_latest_stock)
+    })
     .get("/fetch_plan", apis.fetch_plan)
     .get("/fetch_one_prediction", apis.fetch_one_prediction)
     .get("/fetch_result", apis.fetch_result)
