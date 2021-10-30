@@ -65,17 +65,6 @@ export const apis = {
                 }
             })
     },
-    update_result_numbers: (req, res) => {
-        const payload = req.body;
-        api.update_result_numbers(payload)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
-            })
-    },
     update_result_comment: (req, res) => {
         const payload = req.body;
         api.update_result_comment(payload)

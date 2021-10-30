@@ -55,7 +55,7 @@ export default function StoryTable() {
                 user_id: user.id,
                 date: helper.time().today
             }
-            const response = await helper.postData(`/api/update_result_numbers`, dispatch, AppActions, payload)
+            const response = await helper.postData(`/api/result/update_numbers`, dispatch, AppActions, payload)
             if (response) {
                 dispatch({ type: AppActions.SET_RESULT, payload: response });
                 dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
