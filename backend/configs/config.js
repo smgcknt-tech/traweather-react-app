@@ -14,8 +14,6 @@ const config = () => {
             env: {
                 AWSAccessKeyIdForS3: PE.AWSAccessKeyIdForS3,
                 AWSSecretKeyForS3: PE.AWSSecretKeyForS3,
-                kabu_plus_user: "invalid",
-                kabu_plus_password: "invalid",
                 jwt_secret_key: PE.jwt_secret_key,
                 API_PORT: PE.API_PORT,
                 PGUSER: PE.PGUSER,
@@ -30,8 +28,6 @@ const config = () => {
             env: {
                 AWSAccessKeyIdForS3: PE.AWSAccessKeyIdForS3,
                 AWSSecretKeyForS3: PE.AWSSecretKeyForS3,
-                kabu_plus_user: PE.kabu_plus_user,
-                kabu_plus_password: PE.kabu_plus_password,
                 jwt_secret_key: PE.jwt_secret_key,
                 API_PORT: PE.API_PORT,
                 PGUSER: PE.PGUSER,

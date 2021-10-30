@@ -1,9 +1,4 @@
 import { api } from "../models/api.js";
-// import { env } from "../../env_variables.js";
-// import { helper } from "../utils/helper.js";
-// const kabu_plus_auth = `${env.kabu_plus_user}:${env.kabu_plus_password}@`
-// const kabu_plus_url = `https://${kabu_plus_auth}csvex.com/kabu.plus`
-
 export const apis = {
     create_prediction: async (req, res) => {
         const payload = req.body;
@@ -54,18 +49,6 @@ export const apis = {
                     res.status(400).json({ error: data.error })
                 }
             })
-    },
-    upsert_latest_stock_table: async () => {
-        // const url = `${kabu_plus_url}/csv/japan-all-stock-prices-2/daily/japan-all-stock-prices-2.csv`;
-        // const result = await helper.csv_stream(url, api.upsert_latest_stock)
-        //     .then((res) => {
-        //         if (!res.error) {
-        //             return res
-        //         } else {
-        //             return res.error
-        //         }
-        //     })
-        // return result;
     },
     fetch_result: async (req, res) => {
         const monthly_profit = await api.get_monthly_profit(req.query.user_id)
