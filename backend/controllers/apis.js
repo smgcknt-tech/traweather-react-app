@@ -97,39 +97,6 @@ export const apis = {
                 }
             })
     },
-    update_plan_numbers: (req, res) => {
-        const payload = req.body;
-        api.update_plan_numbers(payload)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
-            })
-    },
-    update_plan_reason: (req, res) => {
-        const payload = req.body;
-        api.update_plan_reason(payload)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
-            })
-    },
-    update_plan_strategy: (req, res) => {
-        const payload = req.body;
-        api.update_plan_strategy(payload)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
-            })
-    },
     delete_plan: (req, res) => {
         const payload = req.body;
         api.delete_plan(payload)

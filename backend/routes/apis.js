@@ -25,9 +25,15 @@ api_router
     .post("/plan/create", (req, res) => {
         apis.template(req, res, api.create_plan)
     })
-    .post("/update_plan_numbers", apis.update_plan_numbers)
-    .post("/update_plan_reason", apis.update_plan_reason)
-    .post("/update_plan_strategy", apis.update_plan_strategy)
+    .post("/plan/update_numbers", (req, res) => {
+        apis.template(req, res, api.update_plan_numbers)
+    })
+    .post("/plan/update_reason", (req, res) => {
+        apis.template(req, res, api.update_plan_reason)
+    })
+    .post("/plan/update_strategy", (req, res) => {
+        apis.template(req, res, api.update_plan_strategy)
+    })
     .post("/delete_plan", apis.delete_plan)
     .post("/update_result_numbers", apis.update_result_numbers)
     .post("/update_result_comment", apis.update_result_comment)

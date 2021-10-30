@@ -15,7 +15,7 @@ export default function Reason() {
             user_id: user.id,
             code: selectedStock.code
         }
-        const response = await helper.postData(`/api/update_plan_reason`, dispatch, AppActions,payload)
+        const response = await helper.postData(`/api/plan/update_reason`, dispatch, AppActions,payload)
         if (response) {
             dispatch({ type: AppActions.SET_PLAN, payload: response });
             const foundSelectedStock = response.find((plan) => plan.code === selectedStock.code)
