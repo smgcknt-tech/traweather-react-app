@@ -20,7 +20,7 @@ export default function PlanAddForm(props) {
             data.market = foundStock.market
             data.stock_name = foundStock.stock_name
             data.user_id = state.user.id
-            const response = await helper.postData(`/api/create_plan`, dispatch, AppActions, data)
+            const response = await helper.postData(`/api/plan/create`, dispatch, AppActions, data)
             if (response) {
                 dispatch({ type: AppActions.SET_PLAN, payload: response })
                 const foundStock = response.find((stock) => stock.code === Number(data.code))

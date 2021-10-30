@@ -87,17 +87,6 @@ export const apis = {
                 }
             })
     },
-    create_plan: async (req, res) => {
-        const payload = req.body;
-        api.create_plan(payload)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
-            })
-    },
     fetch_plan: (req, res) => {
         api.get_plan(req.query.user_id)
             .then((data) => {

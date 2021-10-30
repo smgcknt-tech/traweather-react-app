@@ -14,7 +14,6 @@ api_router
     .get("/fetch_feed_back", apis.fetch_feed_back)
     .get("/fetch_one_result", apis.fetch_one_result)
 
-
 //POST request
 api_router
     .post("/prediction/create", (req, res) => {
@@ -23,8 +22,9 @@ api_router
     .post("/prediction/update", (req, res) => {
         apis.template(req, res, api.update_prediction)
     })
-    .post("/update_prediction", apis.update_prediction)
-    .post("/create_plan", apis.create_plan)
+    .post("/plan/create", (req, res) => {
+        apis.template(req, res, api.create_plan)
+    })
     .post("/update_plan_numbers", apis.update_plan_numbers)
     .post("/update_plan_reason", apis.update_plan_reason)
     .post("/update_plan_strategy", apis.update_plan_strategy)
