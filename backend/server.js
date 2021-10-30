@@ -38,5 +38,5 @@ cron.schedule('0 0 17 * * 1-5', async () => {
 
 //api_server
 app.listen(env.API_PORT, () => {
-    console.log(`api-server is working on port:${env.API_PORT}. ENVIRONMENT='${app.get('env')}'`)
+    console.log(`API_SERVER PORT:${env.API_PORT} ENVIRONMENT='${app.get('env')}'`)
 });

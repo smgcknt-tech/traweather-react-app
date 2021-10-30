@@ -1,14 +1,11 @@
 import { api } from "../models/api.js";
 export const apis = {
-    create_prediction: async (req, res) => {
-        const payload = req.body;
-        await api.create_prediction(payload)
+    template: async (req, res, callback) => {
+        await callback(req.body)
             .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
+                res.send(data)
+            }).catch((err) => {
+                res.send(err)
             })
     },
     update_prediction: async (req, res) => {

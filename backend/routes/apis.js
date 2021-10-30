@@ -1,5 +1,6 @@
 import express from "express"
 import { apis } from '../controllers/apis.js';
+import { api } from "../models/api.js";
 export const api_router = express.Router()
 
 //GET request
@@ -16,7 +17,9 @@ api_router
 
 //POST request
 api_router
-    .post("/create_prediction", apis.create_prediction)
+    .post("/prediction/create", (req, res) => {
+        apis.template(req, res, api.create_prediction)
+    })
     .post("/update_prediction", apis.update_prediction)
     .post("/create_plan", apis.create_plan)
     .post("/update_plan_numbers", apis.update_plan_numbers)
