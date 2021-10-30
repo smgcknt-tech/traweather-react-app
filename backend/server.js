@@ -26,7 +26,11 @@ app.use("/user", user_router);
 
 //task-scheduler
 cron.schedule('0 0 17 * * 1-5', async () => {
-    await downloadCsv(dataSets)
+    try {
+        await downloadCsv(dataSets)
+    } catch (err) {
+        console.log(err)
+    }
 }, {
     scheduled: true,
     timezone: "Asia/Tokyo"
