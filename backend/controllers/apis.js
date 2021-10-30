@@ -8,17 +8,6 @@ export const apis = {
                 res.send(err)
             })
     },
-    update_prediction: async (req, res) => {
-        const payload = req.body;
-        await api.update_prediction(payload)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
-            })
-    },
     fetch_one_prediction: (req, res) => {
         api.get_one_prediction(req.query)
             .then((data) => {

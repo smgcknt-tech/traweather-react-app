@@ -20,6 +20,9 @@ api_router
     .post("/prediction/create", (req, res) => {
         apis.template(req, res, api.create_prediction)
     })
+    .post("/prediction/update", (req, res) => {
+        apis.template(req, res, api.update_prediction)
+    })
     .post("/update_prediction", apis.update_prediction)
     .post("/create_plan", apis.create_plan)
     .post("/update_plan_numbers", apis.update_plan_numbers)
