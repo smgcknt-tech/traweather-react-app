@@ -5,14 +5,12 @@ import aws from 'aws-sdk';
 import { env } from '../configs/config.js';
 export const upload_router = express.Router();
 
-//file-upload in uploads aws-s3
-console.log(env.AWSAccessKeyIdForS3, env.AWSSecretKeyForS3)
-
 aws.config.update({
     accessKeyId: env.AWSAccessKeyIdForS3,
     secretAccessKey: env.AWSSecretKeyForS3,
 });
 
+//file-upload to S3
 const s3 = new aws.S3();
 const storageS3 = multerS3({
     s3,
@@ -25,7 +23,7 @@ const storageS3 = multerS3({
 });
 const uploadS3 = multer({ storage: storageS3 });
 
-//file-upload in uploads folder
+//file-upload to uploads folder
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
@@ -36,8 +34,6 @@ const storage = multer.diskStorage({
     },
 });
 const upload = multer({ storage: storage });
-
-
 
 //upoload_router
 
