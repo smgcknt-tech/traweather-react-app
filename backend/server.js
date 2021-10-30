@@ -21,8 +21,8 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 // routes
 app.use('/api/uploads', upload_router);
 app.use('/api/downloads', download_router);
+app.use("/api/user", user_router);
 app.use("/api", api_router);
-app.use("/user", user_router);
 
 //task-scheduler
 cron.schedule('0 0 17 * * 1-5', async () => {

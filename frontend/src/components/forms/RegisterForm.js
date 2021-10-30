@@ -12,7 +12,7 @@ export default function RegisterForm(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     let history = useHistory()
     const onSubmit = async (data) => {
-        axios.post(`/user/register`, data)
+        axios.post(`/api/user/register`, data)
             .then((response) => {
                 if (response.data.error) {
                     alert(response.data.error)

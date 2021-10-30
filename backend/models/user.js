@@ -29,7 +29,7 @@ export const user = {
                     if (!match) {
                         return { error: "wrong username and password" }
                     } else {
-                        const access_token = jwt.sign({ username: username, id: user.id }, env.jwt_secret_key,{'expiresIn': '1d'})
+                        const access_token = jwt.sign({ username: username, id: user.id }, env.jwt_secret_key)
                         return access_token
                     }
                 })
