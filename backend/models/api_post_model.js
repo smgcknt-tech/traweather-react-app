@@ -8,23 +8,26 @@ export const api_post_model = {
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")
-                await pool.query(`
+                //User can create prediction once a day
+                const res = await pool.query(`
                 INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
-                SELECT $1, $2, $3, $4`, values)
+                SELECT $1, $2, $3, $4
+                WHERE NOT EXISTS (SELECT id FROM market_prediction WHERE created_at::text like '${helper.time().today}%')
+                RETURNING *;`, values)
                 await pool.query("COMMIT")
-                return "SUCCESS"
+                if (res.rows.length > 0) return { data: res.rows[0] }
+                if (res.rows.length === 0) return "CANCEL"
             } catch (err) {
-                console.log(err.stack)
                 await pool.query('ROLLBACK')
+                console.log(err.stack)
+                return "FAIL"
             }
         }
         const result = await transaction()
-        if (result === "SUCCESS") {
-            const res = await pool.query("SELECT * FROM market_prediction;")
-            return res.rows
-        } else {
-            return { error: "市場予想の作成に失敗しました。" }
-        }
+        if (result.data) return { insertedData : result.data }
+        if (result === "CANCEL") return "市場予想の作成が中断されました。"
+        if (result === "FAIL") return "市場予想の作成に失敗しました。"
+
     },
     update_prediction: async (payload) => {
         const { created_at, user_id } = payload
