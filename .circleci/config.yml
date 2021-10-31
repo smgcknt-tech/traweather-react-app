@@ -15,7 +15,11 @@ jobs:
 workflows:
   node-tests:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              only:
+                - develop
       - aws-ecr/build-and-push-image:
           name: "proxy-build-and-push-image"
           requires:
