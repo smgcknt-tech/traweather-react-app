@@ -2,7 +2,7 @@ import format from 'pg-format';
 import { helper } from '../utils/helper.js';
 import { pool } from '../configs/postgresql.js';
 
-export const api = {
+export const api_model = {
     create_prediction: async (payload) => {
         const values = [payload['予想'], payload['戦略'], payload['注目セクター'], payload.user_id]
         const transaction = async () => {
@@ -203,7 +203,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_results(payload)
+            return await api_model.get_results(payload)
         } else {
             return { error: "プランの作成に失敗しました。" }
         }
@@ -226,7 +226,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_results(payload)
+            return await api_model.get_results(payload)
         } else {
             return { error: "プランの更新に失敗しました。" }
         }
@@ -263,7 +263,7 @@ export const api = {
         }
         const result = await transaction()
         if (result !== "FAILED") {
-            return await api.get_plan(payload)
+            return await api_model.get_plan(payload)
         } else {
             return { error: "プランの作成に失敗しました。" }
         }
@@ -298,7 +298,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_plan(payload)
+            return await api_model.get_plan(payload)
         } else {
             return { error: "プランの作成に失敗しました。" }
         }
@@ -321,7 +321,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_plan(payload)
+            return await api_model.get_plan(payload)
         } else {
             return { error: "プランの更新に失敗しました。" }
         }
@@ -344,7 +344,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_plan(payload)
+            return await api_model.get_plan(payload)
         } else {
             return { error: "プランの更新に失敗しました。" }
         }
@@ -368,7 +368,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_plan(payload)
+            return await api_model.get_plan(payload)
         } else {
             return { error: "プランの削除に失敗しました。" }
         }

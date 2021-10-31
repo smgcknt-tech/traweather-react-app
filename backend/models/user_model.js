@@ -3,7 +3,7 @@ import { env } from '../configs/config.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-export const user = {
+export const user_model = {
     register: async (payload) => {
         const { username, password } = payload;
         const result = await bcrypt.hash(password, 5).then(async (hash) => {

@@ -1,5 +1,5 @@
-import { api } from "../models/api.js";
-export const apis = {
+import { api_model } from "../models/api_model.js";
+export const api_controller = {
     template: async (req, res, callback) => {
         await callback(req.body)
             .then((data) => {
@@ -25,10 +25,10 @@ export const apis = {
             })
     },
     results: async (req, res) => {
-        const monthly_profit = await api.get_monthly_profit(req.query.user_id)
-        const last_profit = await api.get_last_profit(req.query.user_id)
-        const todays_profit = await api.get_todays_profit(req.query.user_id)
-        api.get_results(req.query)
+        const monthly_profit = await api_model.get_monthly_profit(req.query.user_id)
+        const last_profit = await api_model.get_last_profit(req.query.user_id)
+        const todays_profit = await api_model.get_todays_profit(req.query.user_id)
+        api_model.get_results(req.query)
             .then((data) => {
                 if (!data.error) {
                     res.json({
