@@ -3,21 +3,18 @@ import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { AppActions, AppContext } from '../../AppStore';
 import { helper } from '../../utils/helper';
-import { useHistory } from 'react-router';
 
 export default function MarketPredictionForm(props) {
-    const { state: AppState, dispatch: AppDispatch} = useContext(AppContext);
-    const { user } = AppState
+    const { state, dispatch } = useContext(AppContext);
+    const { user } = state
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { "予想": "", "戦略": "", "注目セクター": "" }
-    let history = useHistory()
 
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
         data.user_id = user.id
-        const response = await helper.postData('/api/create_prediction', AppDispatch, AppActions, data)
-        if(response){
-            history.push('/plan')
-        }
+        const res = await helper.postData('/api/prediction/create', dispatch, AppActions, data)
+        if (res.insertedData) dispatch({ type: AppActions.SET_PREDICTION, payload: res.insertedData });
+        if (!res.insertedData) alert(res)
         props.setOpen(null)
     }
 
@@ -44,7 +41,7 @@ export default function MarketPredictionForm(props) {
                             </div>
                         )
                     }))}
-                <div className="button"><input data-testid="submit_btn"type="submit" value="保存" /></div>
+                <div className="button"><input data-testid="submit_btn" type="submit" value="保存" /></div>
             </form>
         </div>
     )

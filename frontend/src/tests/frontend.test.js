@@ -32,7 +32,7 @@ describe.skip('Unit', () => {
         });
         await waitFor(async () => {
             userEvent.click(getByTestId('login_btn'))
-            mockAxios.onPost(`/user/login`).reply(200, "access_token");
+            mockAxios.onPost(`/api/user/login`).reply(200, "access_token");
             expect(MockDispatch).toHaveBeenCalledWith({ "payload": { "id": null, "name": null, "status": true }, "type": "SET_USER" });
         });
         await waitFor(async () => {
@@ -43,7 +43,7 @@ describe.skip('Unit', () => {
     test('Auth', async () => {
         render(<AppProvider><App /></AppProvider>)
         await waitFor(async () => {
-            mockAxios.onGet(`/user/auth`).reply(200, { id: 7, username: "smgcknt" });
+            mockAxios.onGet(`/api/user/auth`).reply(200, { id: 7, username: "smgcknt" });
             //expect(screen.queryByText(/利用開始/)).toBeNull();
         });
         await waitFor(async () => {
@@ -52,7 +52,7 @@ describe.skip('Unit', () => {
         //screen.debug();
     });
     test('useAuthentification', async () => {
-        mockAxios.onGet(`/user/auth`).reply(200, { id: 7, username: "smgcknt" });
+        mockAxios.onGet(`/api/user/auth`).reply(200, { id: 7, username: "smgcknt" });
         render(<MockAppProvider><App /></MockAppProvider>)
         await waitFor(async () => {
             const { result } = renderHook(
@@ -64,7 +64,7 @@ describe.skip('Unit', () => {
         });
     });
     test('MarketPredictionForm', async () => {
-        mockAxios.onGet(`/user/auth`).reply(200, { id: 7, username: "smgcknt" });
+        mockAxios.onGet(`/api/user/auth`).reply(200, { id: 7, username: "smgcknt" });
         mockAxios.onPost(`/api/create_prediction`).reply(200, "created data");
         const { getByTestId } = render(<MockAppProvider><BrowserRouter><MarketPage /></BrowserRouter></MockAppProvider>)
         await waitFor(async () => {

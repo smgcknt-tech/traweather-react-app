@@ -34,8 +34,6 @@ services:
       - /app/node_modules
       - ./backend:/app
     environment:
-      - kabu_plus_user
-      - kabu_plus_password
       - jwt_secret_key
       - AWSAccessKeyIdForS3
       - AWSSecretKeyForS3

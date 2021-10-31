@@ -24,7 +24,7 @@ export default function TradeFeedBackForm(props) {
         const response = await axios.post(env.uploadUrl, bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' } })
         data.image_url = response.data
         data.user_id = AppState.user.id
-        await axios.post(`/api/create_feed_back`, data)
+        await axios.post(`/api/reflection/create`, data)
             .then((response) => {
                 if (response.data.error) alert(response.data.error)
                 if (!response.data.error) alert("振り返りを投稿しました")

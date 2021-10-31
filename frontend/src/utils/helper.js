@@ -10,12 +10,7 @@ export const helper = {
                 return res.data
             })
             .catch((err) => {
-                if (err.response.data.error) {
-                    const { error } = err.response.data
-                    dispatch({ type: actions.SET_ERROR, payload: error })
-                } else {
-                    dispatch({ type: actions.SET_ERROR, payload: err.message })
-                }
+                dispatch({ type: actions.SET_ERROR, payload: err.message })
             }).finally(() => {
                 dispatch({ type: actions.SET_LOADING, payload: false })
             })
@@ -29,13 +24,8 @@ export const helper = {
                 return res.data
             })
             .catch((err) => {
-                if (err.response.data.error) {
-                    const { error } = err.response.data
-                    dispatch({ type: actions.SET_ERROR, payload: error })
-                } else {
-                    dispatch({ type: actions.SET_ERROR, payload: err.message })
-                }
-            }).finally(()=> {
+                dispatch({ type: actions.SET_ERROR, payload: err.message })
+            }).finally(() => {
                 dispatch({ type: actions.SET_LOADING, payload: false })
             })
         return data;

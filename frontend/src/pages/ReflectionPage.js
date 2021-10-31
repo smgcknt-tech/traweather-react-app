@@ -17,15 +17,15 @@ export default function ReflectionPage() {
     useEffect(() => {
         if (user.id) {
             (async () => {
-                const data = await helper.fetchData(`/api/fetch_feed_back`, dispatch, AppActions, { user_id: user.id })
+                const data = await helper.fetchData(`/api/feed_back`, dispatch, AppActions, { user_id: user.id })
                 if (data) dispatch({ type: AppActions.SET_POSTS, payload: data });
             })()
         }
     }, [user.id]);// eslint-disable-line
 
     const handleClick = async (e, i, date) => {
-        const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, dispatch, AppActions, { user_id: user.id, date: date })
-        const fetchedResult = await helper.fetchData(`/api/fetch_one_result`, dispatch, AppActions, { user_id: user.id, date: date });
+        const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, { user_id: user.id, date: date })
+        const fetchedResult = await helper.fetchData(`/api/one_result`, dispatch, AppActions, { user_id: user.id, date: date });
         if (fetchedPrediction) {
             dispatch({ type: AppActions.SET_RESULT, payload: fetchedResult });
         }

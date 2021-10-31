@@ -20,18 +20,18 @@ export default function PlanPage() {
     useEffect(() => {
         if (user.id) {
             const fetchPlanPageData = async () => {
-                const fetchedPlan = await helper.fetchData(`/api/fetch_plan`, dispatch, AppActions, {
+                const fetchedPlan = await helper.fetchData(`/api/plan`, dispatch, AppActions, {
                     user_id: user.id
                 })
                 if (fetchedPlan?.length > 0) {
                     dispatch({ type: AppActions.SET_PLAN, payload: fetchedPlan });
                     dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
                 }
-                const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, dispatch, AppActions, {
+                const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, {
                     user_id: user.id, date: helper.time().today
                 })
                 if (fetchedPrediction) dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
-                const fetchedStocks = await helper.fetchData(`/api/fetch_latest_stock`, dispatch, AppActions,)
+                const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions,)
                 if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
             }
             fetchPlanPageData()

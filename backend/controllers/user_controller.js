@@ -1,18 +1,18 @@
-import { user } from "../models/user.js";
+import { user_model } from "../models/user_model.js";
 
-export const users = {
+export const user_controller = {
     register: async (req, res) => {
-        user.register(req.body).
+        user_model.register(req.body).
             then((result) => {
                 if (result === "SUCCESS") {
-                    users.login(req, res)
+                    user_controller.login(req, res)
                 } else {
                     res.json({ error: "新規登録に失敗しました。" })
                 }
             })
     },
     login: async (req, res) => {
-        await user.login(req.body)
+        await user_model.login(req.body)
             .then((data) => {
                 if (!data.error) {
                     res.json(data)

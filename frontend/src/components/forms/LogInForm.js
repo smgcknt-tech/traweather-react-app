@@ -12,7 +12,7 @@ export default function LogInForm(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     let history = useHistory()
     const onSubmit = async (data) => {
-        axios.post(`/user/login`, data)
+        axios.post(`/api/user/login`, data)
             .then((response) => {
                 if (response.data.error) {
                     alert(response.data.error)

@@ -46,7 +46,7 @@ export default function StoryTable() {
             code: refs.current[index].querySelector("td[data-label='証券番号']").innerText,
             user_id: user.id,
         }
-        const response = await helper.postData(`/api/update_plan_numbers`, dispatch, AppActions,  payload)
+        const response = await helper.postData(`/api/plan/update_numbers`, dispatch, AppActions,  payload)
         if (response) {
             dispatch({ type: AppActions.SET_PLAN, payload: response });
             dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
@@ -60,7 +60,7 @@ export default function StoryTable() {
             user_id: user.id,
             code: code,
         }
-        const response = await helper.postData('/api/delete_plan', dispatch, AppActions, payload)
+        const response = await helper.postData('/api/plan/delete', dispatch, AppActions, payload)
         if (response) {
             dispatch({ type: AppActions.SET_PLAN, payload: response });
             dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: response[index - 1]})
