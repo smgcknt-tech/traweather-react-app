@@ -396,7 +396,8 @@ export const api = {
             return { error: "振り返りの作成に失敗しました。" }
         }
     },
-    get_feed_back: (user_id) => {
+    get_feed_back: (payload) => {
+        const {user_id} = payload
         const query = `SELECT * FROM trade_feed_back WHERE user_id = ${user_id} ORDER BY created_at ASC;`;
         const data = pool.query(query)
             .then((res) => {

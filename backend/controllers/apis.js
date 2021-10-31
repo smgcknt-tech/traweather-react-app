@@ -42,14 +42,4 @@ export const apis = {
                 }
             })
     },
-    fetch_feed_back: (req, res) => {
-        api.get_feed_back(req.query.user_id)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.json({ error: data.error })
-                }
-            })
-    },
 }

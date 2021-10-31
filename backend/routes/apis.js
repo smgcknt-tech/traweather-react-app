@@ -21,8 +21,10 @@ api_router
     .get("/one_result", (req, res) => {
         apis.template3(req, res, api.get_one_result)
     })
+    .get("/feed_back", (req, res) => {
+        apis.template3(req, res, api.get_feed_back)
+    })
     .get("/fetch_result", apis.fetch_result)
-    .get("/fetch_feed_back", apis.fetch_feed_back)
 
 //POST request
 api_router

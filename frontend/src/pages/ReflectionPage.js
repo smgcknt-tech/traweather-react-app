@@ -17,7 +17,7 @@ export default function ReflectionPage() {
     useEffect(() => {
         if (user.id) {
             (async () => {
-                const data = await helper.fetchData(`/api/fetch_feed_back`, dispatch, AppActions, { user_id: user.id })
+                const data = await helper.fetchData(`/api/feed_back`, dispatch, AppActions, { user_id: user.id })
                 if (data) dispatch({ type: AppActions.SET_POSTS, payload: data });
             })()
         }
