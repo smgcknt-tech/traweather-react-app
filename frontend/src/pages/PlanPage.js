@@ -27,7 +27,7 @@ export default function PlanPage() {
                     dispatch({ type: AppActions.SET_PLAN, payload: fetchedPlan });
                     dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
                 }
-                const fetchedPrediction = await helper.fetchData(`/api/fetch_one_prediction`, dispatch, AppActions, {
+                const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, {
                     user_id: user.id, date: helper.time().today
                 })
                 if (fetchedPrediction) dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });

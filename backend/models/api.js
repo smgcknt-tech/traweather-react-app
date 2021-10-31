@@ -50,7 +50,7 @@ export const api = {
             return { error: "市場予想の更新に失敗しました。" }
         }
     },
-    get_one_prediction: (payload) => {
+    get_prediction: (payload) => {
         const { user_id,date } = payload
         const query = `SELECT * FROM market_prediction WHERE user_id =${user_id} AND created_at::text like '${date}%';`;
         const data = pool.query(query)

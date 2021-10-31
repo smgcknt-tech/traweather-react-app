@@ -15,7 +15,9 @@ api_router
     .get("/plan", (req, res) => {
         apis.template3(req, res, api.get_plan)
     })
-    .get("/fetch_one_prediction", apis.fetch_one_prediction)
+    .get("/prediction", (req, res) => {
+        apis.template3(req, res, api.get_prediction)
+    })
     .get("/fetch_result", apis.fetch_result)
     .get("/fetch_feed_back", apis.fetch_feed_back)
     .get("/fetch_one_result", apis.fetch_one_result)

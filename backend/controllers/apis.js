@@ -24,14 +24,6 @@ export const apis = {
                 res.send(err)
             })
     },
-    fetch_one_prediction: (req, res) => {
-        api.get_one_prediction(req.query)
-            .then((data) => {
-                res.json(data)
-            }).catch((err) => {
-                console.log(err.message)
-            })
-    },
     fetch_result: async (req, res) => {
         const monthly_profit = await api.get_monthly_profit(req.query.user_id)
         const last_profit = await api.get_last_profit(req.query.user_id)
