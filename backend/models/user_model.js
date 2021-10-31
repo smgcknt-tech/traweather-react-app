@@ -14,6 +14,7 @@ export const user_model = {
                 return "SUCCESS"
             } catch (err) {
                 await pool.query('ROLLBACK')
+                console.log(err.stack)
             }
         })
         return result;

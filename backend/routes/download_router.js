@@ -3,7 +3,7 @@ import aws from 'aws-sdk';
 import csv from 'csvtojson';
 import iconv from 'iconv-lite';
 import { env } from '../configs/config.js';
-import { api_model } from '../models/api_model.js';
+import { api_post_model } from '../models/api_post_model.js';
 export const download_router = express.Router();
 
 aws.config.update({
@@ -12,7 +12,7 @@ aws.config.update({
 });
 const s3 = new aws.S3();
 export const dataSets = [
-    ['traweather-bucket/csv', "japan-all-stock-prices-2.csv", api_model.upsert_latest_stock],
+    ['traweather-bucket/csv', "japan-all-stock-prices-2.csv", api_post_model.upsert_latest_stock],
 ]
 export const downloadCsv = async (dataSets) => {
     try {

@@ -2,7 +2,7 @@ import format from 'pg-format';
 import { helper } from '../utils/helper.js';
 import { pool } from '../configs/postgresql.js';
 
-export const api_model = {
+export const api_post_model = {
     create_prediction: async (payload) => {
         const values = [payload['予想'], payload['戦略'], payload['注目セクター'], payload.user_id]
         const transaction = async () => {
@@ -49,41 +49,6 @@ export const api_model = {
         } else {
             return { error: "市場予想の更新に失敗しました。" }
         }
-    },
-    get_prediction: (payload) => {
-        const { user_id,date } = payload
-        const query = `SELECT * FROM market_prediction WHERE user_id =${user_id} AND created_at::text like '${date}%';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows[0]
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "市場予想の取得に失敗しました。" }
-            })
-        return data;
-    },
-    get_latest_stock: () => {
-        const query = `SELECT * FROM latest_stock_data WHERE code NOT IN ( '0001', '0002' );`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "最新の株価データの取得に失敗しました。" }
-            })
-        return data;
-    },
-    get_one_latest_stock: (payload) => {
-        const {code}= payload
-        const query = `SELECT * FROM latest_stock_data WHERE code='${code}';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows[0]
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "対象の株価データの取得に失敗しました。" }
-            })
-        return data;
     },
     upsert_latest_stock: async (values) => {
         const query = format(`
@@ -137,51 +102,6 @@ export const api_model = {
             return { error: "failed inserting csv data" }
         }
     },
-    get_monthly_profit: (user_id) => {
-        const query = `SELECT sum(total_profit_loss) FROM trade_result WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows[0].sum
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "データの取得に失敗しました。" }
-            })
-        return data;
-    },
-    get_last_profit: (user_id) => {
-        const query = `SELECT sum(total_profit_loss) FROM trade_result WHERE user_id = ${user_id} AND created_at::text like '${helper.time().yesterday}%';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows[0].sum
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "データの取得に失敗しました。" }
-            })
-        return data;
-    },
-    get_todays_profit: (user_id) => {
-        const query = `SELECT sum(total_profit_loss) FROM trade_result WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows[0].sum
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "データの取得に失敗しました。" }
-            })
-        return data;
-    },
-    get_results: (payload) => {
-        const {user_id }= payload
-        const query = `SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "結果データの取得に失敗しました。" }
-            })
-        return data;
-    },
     update_result_numbers: async (payload) => {
         const { lot, entry_point, exit_point, result_id, user_id, date } = payload
         const profit_loss = exit_point - entry_point
@@ -203,7 +123,7 @@ export const api_model = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api_model.get_results(payload)
+            return await api_get_model.get_results(payload)
         } else {
             return { error: "プランの作成に失敗しました。" }
         }
@@ -226,22 +146,10 @@ export const api_model = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api_model.get_results(payload)
+            return await api_get_model.get_results(payload)
         } else {
             return { error: "プランの更新に失敗しました。" }
         }
-    },
-    get_one_result: (payload) => {
-        const { user_id, date } = payload
-        const query = `SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${date}%';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "結果データの取得に失敗しました。" }
-            })
-        return data;
     },
     create_plan: async (payload) => {
         const { code, stock_name, market, opening, support, losscut, goal, reason, strategy, user_id } = payload
@@ -263,22 +171,10 @@ export const api_model = {
         }
         const result = await transaction()
         if (result !== "FAILED") {
-            return await api_model.get_plan(payload)
+            return await api_get_model.get_plan(payload)
         } else {
             return { error: "プランの作成に失敗しました。" }
         }
-    },
-    get_plan: (payload) => {
-        const {user_id } = payload
-        const query = `SELECT * FROM trade_plan WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%' ORDER BY code ASC;`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "プランデータの取得に失敗しました。" }
-            })
-        return data;
     },
     update_plan_numbers: async (payload) => {
         const { opening, support, losscut, goal, user_id, code } = payload
@@ -298,7 +194,7 @@ export const api_model = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api_model.get_plan(payload)
+            return await api_get_model.get_plan(payload)
         } else {
             return { error: "プランの作成に失敗しました。" }
         }
@@ -321,7 +217,7 @@ export const api_model = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api_model.get_plan(payload)
+            return await api_get_model.get_plan(payload)
         } else {
             return { error: "プランの更新に失敗しました。" }
         }
@@ -344,7 +240,7 @@ export const api_model = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api_model.get_plan(payload)
+            return await api_get_model.get_plan(payload)
         } else {
             return { error: "プランの更新に失敗しました。" }
         }
@@ -368,7 +264,7 @@ export const api_model = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api_model.get_plan(payload)
+            return await api_get_model.get_plan(payload)
         } else {
             return { error: "プランの削除に失敗しました。" }
         }
@@ -396,17 +292,5 @@ export const api_model = {
 
             return { error: "振り返りの作成に失敗しました。" }
         }
-    },
-    get_feed_back: (payload) => {
-        const {user_id} = payload
-        const query = `SELECT * FROM trade_feed_back WHERE user_id = ${user_id} ORDER BY created_at ASC;`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows
-            }).catch((err) => {
-                console.error(err.stack)
-                return { error: "プランデータの取得に失敗しました。" }
-            })
-        return data;
-    },
+    }
 };
