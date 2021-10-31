@@ -10,10 +10,10 @@ export const api_post_model = {
                 await pool.query("BEGIN")
                 //User can create prediction once a day
                 const res = await pool.query(`
-                INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
-                SELECT $1, $2, $3, $4
-                WHERE NOT EXISTS (SELECT id FROM market_prediction WHERE created_at::text like '${helper.time().today}%')
-                RETURNING *;`, values)
+                    INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
+                    SELECT $1, $2, $3, $4
+                    WHERE NOT EXISTS (SELECT id FROM market_prediction WHERE created_at::text like '${helper.time().today}%')
+                    RETURNING *;`, values)
                 await pool.query("COMMIT")
                 if (res.rows.length > 0) return { data: res.rows[0] }
                 if (res.rows.length === 0) return "CANCEL"
@@ -24,7 +24,7 @@ export const api_post_model = {
             }
         }
         const result = await transaction()
-        if (result.data) return { insertedData : result.data }
+        if (result.data) return { insertedData: result.data }
         if (result === "CANCEL") return "市場予想の作成が中断されました。"
         if (result === "FAIL") return "市場予想の作成に失敗しました。"
 
@@ -33,13 +33,17 @@ export const api_post_model = {
         const { created_at, user_id } = payload
         const column = Object.keys(payload)[0]
         const values = [payload[column]]
-        const query = `UPDATE market_prediction SET ${column}=$1 WHERE user_id =${user_id} AND created_at::text like '${created_at}%' RETURNING *;`
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")
-                const result = await pool.query(query, values)
+                const res = await pool.query(`
+                    UPDATE market_prediction
+                    SET ${column}=$1
+                    WHERE user_id =${user_id} AND created_at::text like '${created_at}%'
+                    RETURNING *;`, values)
                 await pool.query("COMMIT")
-                return result.rows[0]
+                if (res.rows.length > 0) return { data: res.rows[0] }
+                if (res.rows.length === 0) return "CANCEL"
             } catch (err) {
                 await pool.query('ROLLBACK')
                 console.log(err.stack)
@@ -47,11 +51,9 @@ export const api_post_model = {
             }
         }
         const result = await transaction()
-        if (result !== "FAILED") {
-            return result
-        } else {
-            return { error: "市場予想の更新に失敗しました。" }
-        }
+        if (result.data) return { updatedData: result.data }
+        if (result === "CANCEL") return "市場予想の更新が中断されました。"
+        if (result === "FAIL") return "市場予想の作成に失敗しました。"
     },
     upsert_latest_stock: async (values) => {
         const query = format(`
