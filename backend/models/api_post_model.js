@@ -91,21 +91,20 @@ export const api_post_model = {
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")
-                const result = await pool.query(query, [])
+                const res = await pool.query(query, [])
                 await pool.query("COMMIT")
-                return result.rows
+                if (res.rows.length > 0) return { data: res.rows }
+                if (res.rows.length === 0) return "CANCEL"
             } catch (err) {
                 await pool.query('ROLLBACK')
                 console.log(err.stack)
-                return "FAILED"
+                return "FAIL"
             }
         }
         const result = await transaction()
-        if (result !== "FAILED") {
-            return `${result.length} of streamed csv data is upserted into latest_stock_data table...`
-        } else {
-            return { error: "failed inserting csv data" }
-        }
+        if (result.data) return `${result.data.length} 銘柄のデータが更新されました。`
+        if (result === "CANCEL") return "更新が中断されました。"
+        if (result === "FAIL") return "更新に失敗しました。"
     },
     update_result_numbers: async (payload) => {
         const { lot, entry_point, exit_point, result_id, user_id, date } = payload
