@@ -1,6 +1,7 @@
 import format from 'pg-format';
 import { helper } from '../utils/helper.js';
 import { pool } from '../configs/postgresql.js';
+import {api_get_model} from './api_get_model.js'
 
 export const api_post_model = {
     create_prediction: async (payload) => {
@@ -107,30 +108,30 @@ export const api_post_model = {
         if (result === "FAIL") return "更新に失敗しました。"
     },
     update_result_numbers: async (payload) => {
-        const { lot, entry_point, exit_point, result_id, user_id, date } = payload
-        const profit_loss = exit_point - entry_point
-        const profit_loss_rate = (exit_point - entry_point) / entry_point * 100
-        const total_profit_loss = profit_loss * lot
+        const { lot, entry_point, exit_point, result_id, user_id, date, profit_loss, profit_loss_rate, total_profit_loss } = payload
         const values = [lot, entry_point, exit_point, profit_loss, profit_loss_rate.toFixed(1), total_profit_loss]
-        const query = `UPDATE trade_result SET lot=$1,entry_point=$2,exit_point=$3,profit_loss=$4, profit_loss_rate=$5,total_profit_loss=$6  WHERE user_id=${user_id} AND result_id=${result_id} AND created_at::text like '${date}%';`
         const transaction = async () => {
             try {
                 await pool.query("BEGIN")
-                await pool.query(query, values)
+                const res = await pool.query(`
+                    UPDATE trade_result
+                    SET lot=$1,entry_point=$2,exit_point=$3,profit_loss=$4, profit_loss_rate=$5,total_profit_loss=$6
+                    WHERE user_id=${user_id} AND result_id=${result_id} AND created_at::text like '${date}%'
+                    RETURNING *;`, values)
                 await pool.query("COMMIT")
-                return "SUCCESS"
+                if (res.rows.length > 0) return "SUCCESS"
             } catch (err) {
                 await pool.query('ROLLBACK')
                 console.log(err.stack)
-                return "FAILED"
+                return "FAIL"
             }
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api_get_model.get_results(payload)
-        } else {
-            return { error: "プランの作成に失敗しました。" }
+            const updatedResults = await api_get_model.get_results(payload)
+            return {data:updatedResults}
         }
+        if (result === "FAIL") return "プランの作成に失敗しました。"
     },
     update_result_comment: async (payload) => {
         const { comment, result_id, user_id } = payload

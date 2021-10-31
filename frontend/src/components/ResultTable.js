@@ -47,19 +47,27 @@ export default function StoryTable() {
             e.preventDefault();
             alert("入力項目が０の状態では保存できません。")
         } else {
+            const profit_loss = exit_point - entry_point
+            const profit_loss_rate = (exit_point - entry_point) / entry_point * 100
+            const total_profit_loss = profit_loss * lot
             const payload = {
                 lot: lot,
                 entry_point: entry_point,
                 exit_point: exit_point,
                 result_id: selectedStock.result_id,
                 user_id: user.id,
-                date: helper.time().today
+                date: helper.time().today,
+                profit_loss: profit_loss,
+                profit_loss_rate: profit_loss_rate,
+                total_profit_loss: total_profit_loss
             }
-            const response = await helper.postData(`/api/result/update_numbers`, dispatch, AppActions, payload)
-            if (response) {
-                dispatch({ type: AppActions.SET_RESULT, payload: response });
-                dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: response[pagesVisited + index] })
+            const res = await helper.postData(`/api/result/update_numbers`, dispatch, AppActions, payload)
+            if (res.data) {
+                dispatch({ type: AppActions.SET_RESULT, payload: res.data });
+                dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: res.data[pagesVisited + index] })
                 dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
+            } else {
+                alert(res)
             }
         }
     }
