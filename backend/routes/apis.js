@@ -24,7 +24,9 @@ api_router
     .get("/feed_back", (req, res) => {
         apis.template3(req, res, api.get_feed_back)
     })
-    .get("/fetch_result", apis.fetch_result)
+    .get("/results", (req, res) => {
+        apis.results(req, res, api.get_results)
+    })
 
 //POST request
 api_router

@@ -170,7 +170,8 @@ export const api = {
             })
         return data;
     },
-    get_result: (user_id) => {
+    get_results: (payload) => {
+        const {user_id }= payload
         const query = `SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
         const data = pool.query(query)
             .then((res) => {
@@ -202,7 +203,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_result(user_id)
+            return await api.get_results(payload)
         } else {
             return { error: "プランの作成に失敗しました。" }
         }
@@ -225,7 +226,7 @@ export const api = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            return await api.get_result(user_id)
+            return await api.get_results(payload)
         } else {
             return { error: "プランの更新に失敗しました。" }
         }

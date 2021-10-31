@@ -24,11 +24,11 @@ export const apis = {
                 res.send(err)
             })
     },
-    fetch_result: async (req, res) => {
+    results: async (req, res) => {
         const monthly_profit = await api.get_monthly_profit(req.query.user_id)
         const last_profit = await api.get_last_profit(req.query.user_id)
         const todays_profit = await api.get_todays_profit(req.query.user_id)
-        api.get_result(req.query.user_id)
+        api.get_results(req.query)
             .then((data) => {
                 if (!data.error) {
                     res.json({

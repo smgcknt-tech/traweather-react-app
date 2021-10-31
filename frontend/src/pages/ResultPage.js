@@ -18,7 +18,7 @@ export default function ResultPage() {
     useEffect(() => {
         if (user.id) {
             const fetchResultPageData = async () => {
-                const fetchedData = await helper.fetchData(`/api/fetch_result`, dispatch, AppActions, {
+                const fetchedData = await helper.fetchData(`/api/results`, dispatch, AppActions, {
                     user_id: user.id
                 })
                 if (fetchedData) {
