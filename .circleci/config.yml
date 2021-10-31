@@ -4,7 +4,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@6.15.0
   aws-ecs: circleci/aws-ecs@2.2.1
 jobs:
-  test:
+  frontend-test:
     executor:
       name: node/default
     steps:
@@ -13,13 +13,17 @@ jobs:
           command: cd frontend && npm install && CI=true npm test
           name: Run Jest tests
 workflows:
-  node-tests:
+  code-test:
     jobs:
-      - test
+      - frontend-test:
+          filters:
+            branches:
+              only:
+                - develop
+  deploy:
+    jobs:
       - aws-ecr/build-and-push-image:
           name: "proxy-build-and-push-image"
-          requires:
-            - test
           region: AWS_REGION
           account-url: AWS_ECR_ACCOUNT_URL
           repo: traweather
@@ -31,8 +35,6 @@ workflows:
                 - main
       - aws-ecr/build-and-push-image:
           name: "frontend-build-and-push-image"
-          requires:
-            - test
           region: AWS_REGION
           account-url: AWS_ECR_ACCOUNT_URL
           repo: traweather
@@ -44,8 +46,6 @@ workflows:
                 - main
       - aws-ecr/build-and-push-image:
           name: "backend-build-and-push-image"
-          requires:
-            - test
           region: AWS_REGION
           account-url: AWS_ECR_ACCOUNT_URL
           repo: traweather
