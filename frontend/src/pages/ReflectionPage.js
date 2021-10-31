@@ -25,7 +25,7 @@ export default function ReflectionPage() {
 
     const handleClick = async (e, i, date) => {
         const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, { user_id: user.id, date: date })
-        const fetchedResult = await helper.fetchData(`/api/fetch_one_result`, dispatch, AppActions, { user_id: user.id, date: date });
+        const fetchedResult = await helper.fetchData(`/api/one_result`, dispatch, AppActions, { user_id: user.id, date: date });
         if (fetchedPrediction) {
             dispatch({ type: AppActions.SET_RESULT, payload: fetchedResult });
         }

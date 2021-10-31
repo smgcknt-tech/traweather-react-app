@@ -230,7 +230,8 @@ export const api = {
             return { error: "プランの更新に失敗しました。" }
         }
     },
-    get_one_result: (user_id,date) => {
+    get_one_result: (payload) => {
+        const { user_id, date } = payload
         const query = `SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${date}%';`;
         const data = pool.query(query)
             .then((res) => {

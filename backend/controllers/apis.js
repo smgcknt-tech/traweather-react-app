@@ -42,17 +42,6 @@ export const apis = {
                 }
             })
     },
-    fetch_one_result: async (req, res) => {
-        const { user_id, date } = req.query
-        api.get_one_result(user_id, date)
-            .then((data) => {
-                if (!data.error) {
-                    res.json(data)
-                } else {
-                    res.json({ error: data.error })
-                }
-            })
-    },
     fetch_feed_back: (req, res) => {
         api.get_feed_back(req.query.user_id)
             .then((data) => {
