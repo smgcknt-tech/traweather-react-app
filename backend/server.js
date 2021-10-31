@@ -35,7 +35,6 @@ cron.schedule('0 0 17 * * 1-5', async () => {
     scheduled: true,
     timezone: "Asia/Tokyo"
 });
-
 //api_server
 app.listen(env.API_PORT, () => {
     console.log(`API_SERVER PORT:${env.API_PORT} ENVIRONMENT='${app.get('env')}'`)

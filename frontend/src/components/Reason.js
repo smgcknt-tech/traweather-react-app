@@ -19,7 +19,6 @@ export default function Reason() {
         if (response) {
             dispatch({ type: AppActions.SET_PLAN, payload: response });
             const foundSelectedStock = response.find((plan) => plan.code === selectedStock.code)
-            console.log(foundSelectedStock )
             dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: foundSelectedStock })
         }
         setOpen(false)

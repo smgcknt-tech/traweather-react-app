@@ -30,16 +30,14 @@ export const api_controller = {
         const todays_profit = await api_get_model.get_todays_profit(req.query.user_id)
         api_get_model.get_results(req.query)
             .then((data) => {
-                if (!data.error) {
-                    res.json({
-                        monthly_profit: monthly_profit,
-                        last_profit: last_profit,
-                        todays_profit: todays_profit,
-                        resultData: data
-                    })
-                } else {
-                    res.status(400).json({ error: data.error })
-                }
+                res.json({
+                    monthly_profit: monthly_profit,
+                    last_profit: last_profit,
+                    todays_profit: todays_profit,
+                    resultData: data
+                })
+            }).catch((err) => {
+                res.send(err)
             })
     },
 }
