@@ -62,7 +62,7 @@ export const api_get_model = {
             const monthly_profit = await pool.query(query2)
             const last_profit = await pool.query(query3)
             const todays_profit = await pool.query(query4)
-            console.log(monthly_profit.rows[0])
+            console.log(resultData.rows)
             return {
                 resultData: resultData.rows,
                 monthly_profit: monthly_profit.rows[0].sum,
