@@ -41,4 +41,9 @@ export const helper = {
         const dates = arr.map(x => moment(x).format("YYYY-MM-DD"))
         return dates
     },
+    FullNumToHalfNum: (num) => {
+        return num.replace(/[０-９]/g, function (s) {
+            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        });
+    },
 };
