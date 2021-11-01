@@ -4,7 +4,6 @@ import { api_post_model } from "../models/api_post_model.js";
 import { api_get_model } from "../models/api_get_model.js";
 export const api_router = express.Router()
 
-//GET request
 api_router
     .get('/', (req, res) => { res.send("server is ready") })
     .get("/latest_stock", (req, res) => {
@@ -26,10 +25,9 @@ api_router
         api_controller.template3(req, res, api_get_model.get_feed_back)
     })
     .get("/results", (req, res) => {
-        api_controller.results(req, res, api_get_model.get_results)
+        api_controller.template3(req, res, api_get_model.get_results)
     })
 
-//POST request
 api_router
     .post("/prediction/create", (req, res) => {
         api_controller.template(req, res, api_post_model.create_prediction)

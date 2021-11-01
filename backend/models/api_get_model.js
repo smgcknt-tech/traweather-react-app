@@ -40,57 +40,34 @@ export const api_get_model = {
             })
         return data;
     },
-    get_monthly_profit: (user_id) => {
-        const query = `
+    get_results: async(payload) => {
+        const { user_id } = payload
+        const query1 = `
+            SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id
+            WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
+        const query2 = `
             SELECT to_char(created_at, 'YYYY-MM') AS month,
             SUM(total_profit_loss)
             FROM trade_result
             WHERE user_id = 11 AND to_char(created_at, 'YYYY-MM') = '${helper.time().thisMonth}'
             GROUP BY month;`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows[0].sum
-            }).catch((err) => {
-                console.error(err.stack)
-            })
-        return data;
-    },
-    get_last_profit: (user_id) => {
-        const query = `
+        const query3 = `
             SELECT sum(total_profit_loss) FROM trade_result
-            WHERE user_id = ${user_id} AND created_at::text like '${helper.time().yesterday}%';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows[0].sum
-            }).catch((err) => {
-                console.error(err.stack)
-            })
-        return data;
-    },
-    get_todays_profit: (user_id) => {
-        const query = `
+            WHERE user_id = ${user_id} AND created_at::text like '${helper.time().yesterday}%';`
+        const query4 = `
             SELECT sum(total_profit_loss) FROM trade_result
             WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows[0].sum
-            }).catch((err) => {
-                console.error(err.stack)
-            })
-        return data;
-    },
-    get_results: (payload) => {
-        const { user_id } = payload
-        const query = `
-            SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-            WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
-        const data = pool.query(query)
-            .then((res) => {
-                return res.rows
-            }).catch((err) => {
-                console.error(err.stack)
-            })
-        return data;
+        const resultData = await pool.query(query1);
+        const monthly_profit = await pool.query(query2)
+        const last_profit = await pool.query(query3)
+        const todays_profit = await pool.query(query4)
+        return {
+            resultData: resultData.rows,
+            monthly_profit: monthly_profit.rows[0].sum,
+            last_profit: last_profit.rows[0].sum,
+            todays_profit: todays_profit.rows[0].sum,
+            check: monthly_profit.rows[0],
+        };
     },
     get_one_result: (payload) => {
         const { user_id, date } = payload

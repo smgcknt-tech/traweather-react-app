@@ -1,4 +1,3 @@
-import { api_get_model } from "../models/api_get_model.js";
 export const api_controller = {
     template: async (req, res, callback) => {
         await callback(req.body)
@@ -23,21 +22,5 @@ export const api_controller = {
             }).catch((err) => {
                 res.send(err)
             })
-    },
-    results: async (req, res) => {
-        const monthly_profit = await api_get_model.get_monthly_profit(req.query.user_id)
-        const last_profit = await api_get_model.get_last_profit(req.query.user_id)
-        const todays_profit = await api_get_model.get_todays_profit(req.query.user_id)
-        api_get_model.get_results(req.query)
-            .then((data) => {
-                res.json({
-                    monthly_profit: monthly_profit,
-                    last_profit: last_profit,
-                    todays_profit: todays_profit,
-                    resultData: data
-                })
-            }).catch((err) => {
-                res.send(err)
-            })
-    },
+    }
 }
