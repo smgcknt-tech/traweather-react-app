@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../AppStore';
 import "../styles/components/SearchBar.scss";
+import { helper } from '../utils/helper';
 import Indicators from './Indicators';
 export default function SearchBar() {
     const { state : AppState } = useContext(AppContext);
@@ -11,7 +12,7 @@ export default function SearchBar() {
 
     const handleFilter = (event) => {
         const searchWord = String(event.target.value);
-        const filteredResult = allStocks.filter((stock) => stock.code.includes(searchWord) || stock.stock_name.includes(searchWord));
+        const filteredResult = allStocks.filter((stock) => stock.code.includes(helper.FullNumToHalfNum(searchWord)) || stock.stock_name.includes(searchWord));
         setInputValue(searchWord);
         if (searchWord === "") {
             setFilteredData([]);
