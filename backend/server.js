@@ -3,11 +3,12 @@ import { env } from './configs/config.js';
 import { api_router } from './routes/api_router.js';
 import { user_router } from './routes/user_router.js';
 import { upload_router } from './routes/upload_router.js';
-import { dataSets, downloadCsv, download_router } from './routes/download_router.js';
+import {dataSets, downloadCsv, download_router } from './routes/download_router.js';
 import path from 'path';
 import cors from "cors";
 import cron from "node-cron"
 import cookieParser from 'cookie-parser';
+import { api_post_model } from './models/api_post_model.js';
 const app = express();
 const __dirname = path.resolve();
 
@@ -25,7 +26,7 @@ app.use("/api/user", user_router);
 app.use("/api", api_router);
 
 //task-scheduler
-cron.schedule('0 0 17 * * 1-5', async () => {
+cron.schedule('0 0 18 * * 1-5', async () => {
     try {
         await downloadCsv(dataSets)
     } catch (err) {
