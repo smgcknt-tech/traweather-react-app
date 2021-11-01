@@ -21,6 +21,7 @@ export default function ResultPage() {
                 const fetchedData = await helper.fetchData(`/api/results`, dispatch, AppActions, {
                     user_id: user.id
                 })
+                console.log(fetchedData);
                 if (fetchedData) {
                     const { monthly_profit, last_profit, todays_profit, resultData} = fetchedData
                     dispatch({ type: AppActions.SET_RESULT, payload: resultData });

@@ -43,7 +43,8 @@ export const api_get_model = {
     get_results: async (payload) => {
         const { user_id } = payload
         const query1 = `
-            SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id
+            SELECT * FROM trade_plan
+            JOIN trade_result ON trade_plan.result_id = trade_result.result_id
             WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
         const query2 = `
             SELECT to_char(created_at, 'YYYY-MM') AS month,
@@ -62,15 +63,14 @@ export const api_get_model = {
             const monthly_profit = await pool.query(query2)
             const last_profit = await pool.query(query3)
             const todays_profit = await pool.query(query4)
-            console.log(resultData.rows)
-            return {
+            const dataSets =  {
                 resultData: resultData.rows,
-                monthly_profit: monthly_profit.rows[0].sum,
-                last_profit: last_profit.rows[0].sum,
-                todays_profit: todays_profit.rows[0].sum,
-                check: monthly_profit.rows,
-                check2: query2
+                monthly_profit: monthly_profit.rows,
+                last_profit: last_profit.rows,
+                todays_profit: todays_profit.rows,
             };
+            console.log(dataSets)
+            return dataSets
         } catch (err) {
             console.log(err)
         }
