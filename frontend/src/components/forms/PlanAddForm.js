@@ -1,6 +1,6 @@
 import '../../styles/components/PlanAddForm.scss'
 import { useForm } from 'react-hook-form'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AppActions, AppContext } from '../../AppStore'
 import { helper } from '../../utils/helper';
 
@@ -10,6 +10,13 @@ export default function PlanAddForm(props) {
     const { allStocks, planData } = state;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const obj = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" }
+    const [values, setValues] = useState(obj);
+    const handleInput =(e)=>{
+        const target = e.target;
+        const value = target.type === "checkbox" ? target.checked : target.value;
+        const name = target.name;
+        setValues({ ...values, [name]: helper.FullNumToHalfNum(value) });
+    }
 
     const onSubmit = async (data, e) => {
         if (planData.find((stock) => stock.code === Number(data.code))) {
@@ -47,8 +54,9 @@ export default function PlanAddForm(props) {
                                 <fieldset>
                                     <legend>{key}</legend>
                                     <label>
-                                        <input type="text" autoComplete="off" defaultValue=""
+                                        <input type="text" autoComplete="off" defaultValue={values[key]} value={values[key]}
                                             {...register(key, { required: `${key}が入力されていません` })}
+                                            onChange={(e) => handleInput(e)}
                                         />
                                     </label>
                                 </fieldset>

@@ -40,9 +40,9 @@ export default function StoryTable() {
     }
 
     const handleSubmit = async (e, index) => {
-        const lot = refs.current[index].querySelector("td[data-label='LOT'] > input ").value
-        const entry_point = refs.current[index].querySelector("td[data-label='ENTRY'] > input ").value
-        const exit_point = refs.current[index].querySelector("td[data-label='EXIT'] > input ").value
+        const lot = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='LOT'] > input ").value)
+        const entry_point = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='ENTRY'] > input ").value)
+        const exit_point = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='EXIT'] > input ").value)
         if (Number(lot) === 0 || Number(entry_point) === 0 || Number(exit_point) === 0) {
             e.preventDefault();
             alert("入力項目が０の状態では保存できません。")
