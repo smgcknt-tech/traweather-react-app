@@ -8,21 +8,21 @@
     padding: 3rem;
     width: 100%;
     .post {
+      margin: 2rem;
       border-radius: 0.5rem;
       box-shadow: 0 0.2rem 0.2rem #b4b4b4;
-      margin: 2rem;
       background-color: #ffffff;
-      width: 30%;
       .post_header {
-        padding: 1rem;
+        padding: 0.5rem;
         h2 {
-          padding: 0.3rem 0;
+          padding: 0.5rem 0;
         }
       }
+      .image_container {
+        max-width:30rem;
+        height:20rem;
+        @include place_center();
 
-      img {
-        width: 100%;
-        height: 30rem;
       }
     }
   }

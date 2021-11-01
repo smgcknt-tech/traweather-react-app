@@ -5,6 +5,7 @@ export const helper = {
         return {
             today: moment().tz("Asia/Tokyo").format("YYYY-MM-DD"),
             yesterday: moment().tz("Asia/Tokyo").subtract(1, 'day').format("YYYY-MM-DD"),
+            thisMonth: moment().tz("Asia/Tokyo").format("YYYY-MM"),
         }
     }
 };
