@@ -39,10 +39,10 @@ export default function StoryTable() {
     }
     const handleSubmit = async (index) => {
         const payload = {
-            opening: refs.current[index].querySelector("td[data-label='寄付値'] > input ").value,
-            support: refs.current[index].querySelector("td[data-label='支持線'] > input ").value,
-            losscut: refs.current[index].querySelector("td[data-label='仕切値'] > input ").value,
-            goal: refs.current[index].querySelector("td[data-label='目標値'] > input ").value,
+            opening: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='寄付値'] > input ").value),
+            support: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='支持線'] > input ").value),
+            losscut: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='仕切値'] > input ").value),
+            goal: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='目標値'] > input ").value),
             code: refs.current[index].querySelector("td[data-label='証券番号']").innerText,
             user_id: user.id,
         }
