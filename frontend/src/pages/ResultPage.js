@@ -22,9 +22,9 @@ export default function ResultPage() {
                     user_id: user.id
                 })
                 if (fetchedData) {
-                    const { monthly_profit, last_profit, todays_profit, resultData,check } = fetchedData
+                    const { monthly_profit, last_profit, todays_profit, resultData, check, check2 } = fetchedData
                     console.log(monthly_profit, last_profit, todays_profit)
-                    console.log('check',check)
+                    console.log('check',check,check2)
                     dispatch({ type: AppActions.SET_RESULT, payload: resultData });
                     dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[0] })
                     dispatch({ type: AppActions.SET_RESULT_INDICATORS, payload: { ...resultIndicators, monthly_profit: Number(monthly_profit), last_profit: Number(last_profit), todays_profit: Number(todays_profit) } })
