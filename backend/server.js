@@ -26,7 +26,7 @@ app.use("/api/user", user_router);
 app.use("/api", api_router);
 
 //task-scheduler
-cron.schedule('0 0 18 * * 1-5', async () => {
+cron.schedule('0 15 18 * * 1-5', async () => {
     try {
         await downloadCsv(dataSets)
     } catch (err) {
