@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { AppContext, AppActions } from '../AppStore'
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { AppContext, AppActions } from '../AppStore';
 import { helper } from '../utils/helper';
-import '../../src/styles/pages/PlanPage.scss'
-import StoryTable from '../components/StoryTable'
+import '../../src/styles/pages/PlanPage.scss';
+import StoryTable from '../components/StoryTable';
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
 import Reason from '../components/Reason';
@@ -10,44 +10,44 @@ import Strategy from '../components/Strategy';
 import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
 import Prediction from '../components/Prediction';
-import PlanAddForm from '../components/forms/PlanAddForm'
+import PlanAddForm from '../components/forms/PlanAddForm';
 
 export default function PlanPage() {
     const { state, dispatch } = useContext(AppContext);
     const { user, prediction, allStocks, loading, error, selectedStock, planData } = state;
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if (user.id) {
             const fetchPlanPageData = async () => {
                 const fetchedPlan = await helper.fetchData(`/api/plan`, dispatch, AppActions, {
                     user_id: user.id
-                })
+                });
                 if (fetchedPlan?.length > 0) {
                     dispatch({ type: AppActions.SET_PLAN, payload: fetchedPlan });
                     dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: fetchedPlan[0] })
-                }
+                };
                 const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, {
                     user_id: user.id, date: helper.time().today
-                })
+                });
                 if (fetchedPrediction) dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
-                const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions,)
+                const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions,);
                 if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
             }
-            fetchPlanPageData()
+            fetchPlanPageData();
         }
     }, [user.id]);// eslint-disable-line
 
     const indicatorsData = useMemo(() => {
-        if (allStocks && selectedStock) return allStocks.find((stock) => selectedStock.code === Number(stock.code))
-    }, [selectedStock, allStocks, planData])// eslint-disable-line
+        if (allStocks && selectedStock) return allStocks.find((stock) => selectedStock.code === Number(stock.code));
+    }, [selectedStock, allStocks, planData]);// eslint-disable-line
 
     useEffect(() => {
         if (selectedStock) dispatch({ type: AppActions.SET_INDICATORS, payload: indicatorsData });
     }, [indicatorsData, selectedStock]);// eslint-disable-line
 
-    if (loading) return <Loading />
-    if (error) return <Message variant="error">{error}</Message>
+    if (loading) return <Loading />;
+    if (error) return <Message variant="error">{error}</Message>;
     return (
         <div className="plan_page">
             <ul className="header_menu">
@@ -74,5 +74,5 @@ export default function PlanPage() {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

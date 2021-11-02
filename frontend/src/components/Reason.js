@@ -1,31 +1,30 @@
-import React, { useContext, useRef, useState } from 'react'
-import { AppActions, AppContext } from '../AppStore'
-import '../styles/components/Reason.scss'
+import React, { useContext, useRef, useState } from 'react';
+import { AppActions, AppContext } from '../AppStore';
 import { helper } from '../utils/helper';
+import '../styles/components/Reason.scss';
 
 export default function Reason() {
     const { state, dispatch } = useContext(AppContext);
-    const { user, selectedStock } = state
-    const [open, setOpen] = useState(false)
-    const textarea = useRef(null)
+    const { user, selectedStock } = state;
+    const [open, setOpen] = useState(false);
+    const textarea = useRef(null);
 
     const handleSubmit = async () => {
         const payload = {
             reason: textarea.current.value,
             user_id: user.id,
             code: selectedStock.code
-        }
-        const response = await helper.postData(`/api/plan/update_reason`, dispatch, AppActions,payload)
+        };
+        const response = await helper.postData(`/api/plan/update_reason`, dispatch, AppActions,payload);
         if (response) {
             dispatch({ type: AppActions.SET_PLAN, payload: response });
-            const foundSelectedStock = response.find((plan) => plan.code === selectedStock.code)
-            dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: foundSelectedStock })
-        }
-        setOpen(false)
-    }
+            const foundSelectedStock = response.find((plan) => plan.code === selectedStock.code);
+            dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: foundSelectedStock });
+        };
+        setOpen(false);
+    };
 
     return (
-
         <div className="reason" onBlur={() => { setOpen(false) }}>
             <section>
                 <h2 className="title">選定理由</h2>
@@ -45,6 +44,5 @@ export default function Reason() {
                 )}
             </section>
         </div>
-
-    )
-}
+    );
+};

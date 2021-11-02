@@ -1,14 +1,14 @@
-import "../styles/components/ResultTable.scss"
-import React, { useContext, useRef, useState } from 'react'
+import "../styles/components/ResultTable.scss";
+import React, { useContext, useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import { AppActions, AppContext } from '../AppStore'
-import { helper } from '../utils/helper'
+import { AppActions, AppContext } from '../AppStore';
+import { helper } from '../utils/helper';
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(AppContext);
-    const { user, currentPage, resultData, selectedStock} = state
-    const refs = useRef([])
-    const [show, setShow] = useState(false)
+    const { user, currentPage, resultData, selectedStock} = state;
+    const refs = useRef([]);
+    const [show, setShow] = useState(false);
     const rowsPerPage = 5;
     const pagesVisited = currentPage * rowsPerPage;
     const pageCount = Math.ceil(resultData?.length / rowsPerPage);
@@ -28,28 +28,26 @@ export default function StoryTable() {
                     <td data-label="合計損益額">{stock.total_profit_loss}</td>
                     <td id="submit">{show === `tr_${index}` ? <i onClick={(e) => handleSubmit(e, index)} className="far fa-save"></i> : "---"}</td>
                 </tr>
-            )
-        })
+            );
+        });
     const changePage = ({ selected }) => {
         dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: selected });
-    }
-
+    };
     const handleSelect = (index) => {
-        setShow(`tr_${index}`)
-        dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[pagesVisited + index] })
-    }
-
+        setShow(`tr_${index}`);
+        dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[pagesVisited + index] });
+    };
     const handleSubmit = async (e, index) => {
-        const lot = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='LOT'] > input ").value)
-        const entry_point = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='ENTRY'] > input ").value)
-        const exit_point = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='EXIT'] > input ").value)
+        const lot = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='LOT'] > input ").value);
+        const entry_point = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='ENTRY'] > input ").value);
+        const exit_point = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='EXIT'] > input ").value);
         if (Number(lot) === 0 || Number(entry_point) === 0 || Number(exit_point) === 0) {
             e.preventDefault();
-            alert("入力項目が０の状態では保存できません。")
+            alert("入力項目が０の状態では保存できません。");
         } else {
-            const profit_loss = exit_point - entry_point
-            const profit_loss_rate = (exit_point - entry_point) / entry_point * 100
-            const total_profit_loss = profit_loss * lot
+            const profit_loss = exit_point - entry_point;
+            const profit_loss_rate = (exit_point - entry_point) / entry_point * 100;
+            const total_profit_loss = profit_loss * lot;
             const payload = {
                 lot: lot,
                 entry_point: entry_point,
@@ -60,17 +58,17 @@ export default function StoryTable() {
                 profit_loss: profit_loss,
                 profit_loss_rate: profit_loss_rate,
                 total_profit_loss: total_profit_loss
-            }
-            const updatedResultData = await helper.postData(`/api/result/update_numbers`, dispatch, AppActions, payload)
+            };
+            const updatedResultData = await helper.postData(`/api/result/update_numbers`, dispatch, AppActions, payload);
             if (updatedResultData.rows) {
                 dispatch({ type: AppActions.SET_RESULT, payload: updatedResultData.rows });
-                dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: updatedResultData.rows[pagesVisited + index] })
+                dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: updatedResultData.rows[pagesVisited + index] });
                 dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
             } else {
-                alert(updatedResultData)
-            }
-        }
-    }
+                alert(updatedResultData);
+            };
+        };
+    };
 
     return (
         <div className="result_table">
@@ -108,5 +106,5 @@ export default function StoryTable() {
                 />
             )}
         </div>
-    )
-}
+    );
+};

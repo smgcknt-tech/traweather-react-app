@@ -1,7 +1,7 @@
-import express from "express"
+import express from "express";
 import { user_controller } from '../controllers/user_controller.js';
 import { validation_token } from '../configs/JWT.js';
-export const user_router = express.Router()
+export const user_router = express.Router();
 
 user_router
     .get('/auth', validation_token, user_controller.auth)

@@ -1,8 +1,8 @@
-import '../../styles/components/TradeFeedBackForm.scss'
-import { AppContext } from '../../AppStore'
+import '../../styles/components/TradeFeedBackForm.scss';
+import { AppContext } from '../../AppStore';
 import { useContext } from 'react';
-import { useForm } from 'react-hook-form'
-import {env} from '../../config'
+import { useForm } from 'react-hook-form';
+import {env} from '../../config';
 import axios from 'axios';
 import { useState } from 'react';
 
@@ -13,24 +13,23 @@ export default function TradeFeedBackForm(props) {
 
     const uploadFileHandler = async (e) => {
         const file = e.target.files[0];
-        const objectURL = URL.createObjectURL(file)
+        const objectURL = URL.createObjectURL(file);
         setImage(objectURL);
     };
     const onSubmit = async (data) => {
-
         const file = data.image[0];
         const bodyFormData = new FormData();
         bodyFormData.append('image', file);
-        const response = await axios.post(env.uploadUrl, bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' } })
-        data.image_url = response.data
-        data.user_id = AppState.user.id
+        const response = await axios.post(env.uploadUrl, bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' } });
+        data.image_url = response.data;
+        data.user_id = AppState.user.id;
         await axios.post(`/api/reflection/create`, data)
             .then((response) => {
-                if (response.data.error) alert(response.data.error)
-                if (!response.data.error) alert("振り返りを投稿しました")
+                if (response.data.error) alert(response.data.error);
+                if (!response.data.error) alert("振り返りを投稿しました");
             })
-        props.setOpen(null)
-    }
+        props.setOpen(null);
+    };
 
     return (
         <div className="trade_feed_back_form">
@@ -83,5 +82,5 @@ export default function TradeFeedBackForm(props) {
                 <div className="button"><input type="submit" value="保存" /></div>
             </form>
         </div>
-    )
-}
+    );
+};

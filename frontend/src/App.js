@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AppContext, AppActions } from "./AppStore";
-import { hooks } from '../src/utils/custom_hooks'
-import "./styles/destyle.css"
+import { hooks } from '../src/utils/custom_hooks';
+import "./styles/destyle.css";
 import "./styles/App.scss";
 import Header from "./components/common/Header";
 import NavBar from "./components/common/NavBar";
@@ -17,8 +17,8 @@ import ResultPage from "./pages/ResultPage";
 
 function App() {
   const { state, dispatch } = useContext(AppContext);
-  const { user } = state
-  hooks.useAuthentification(user, dispatch, AppActions)
+  const { user } = state;
+  hooks.useAuthentification(user, dispatch, AppActions);
   return (
     <BrowserRouter forceRefresh={true}>
       <div className="grid-container">
@@ -46,5 +46,5 @@ function App() {
       </div>
     </BrowserRouter >
   );
-}
+};
 export default App;

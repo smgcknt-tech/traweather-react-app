@@ -7,4 +7,4 @@ export const pool = new pg.Pool({
     host: env.PGHOST,
     port: env.PGPORT,
     database: env.PGDATABASE
-})
+});

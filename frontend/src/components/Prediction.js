@@ -1,29 +1,32 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react';
 import { AppContext, AppActions } from '../AppStore';
-import '../styles/components/Prediction.scss'
+import '../styles/components/Prediction.scss';
 import { helper } from '../utils/helper';
 
 export default function Prediction() {
     const { state, dispatch } = useContext(AppContext);
     const { user, prediction } = state;
-    const [open, setOpen] = useState(false)
-    const predictionText = useRef(null)
-    const strategyText = useRef(null)
-    const featuredSectorText = useRef(null)
+    const [open, setOpen] = useState(false);
+    const predictionText = useRef(null);
+    const strategyText = useRef(null);
+    const featuredSectorText = useRef(null);
 
     const handleSubmit = async (target) => {
-        setOpen(false)
+        setOpen(false);
         let payload = null;
         //target name should be same as market_prediction table column.
-        target === "prediction" && (payload = { prediction: predictionText.current.value })
-        target === "strategy" && (payload = { strategy: strategyText.current.value })
-        target === "featured_sector" && (payload = { featured_sector: featuredSectorText.current.value })
-        payload.user_id = user.id
-        payload.created_at = helper.time().today
-        const res = await helper.postData(`api/prediction/update`, dispatch, AppActions, payload)
-        if (res.updatedData) dispatch({ type: AppActions.SET_PREDICTION, payload: res.updatedData });
-        if (!res.updatedData) alert(res)
-    }
+        target === "prediction" && (payload = { prediction: predictionText.current.value });
+        target === "strategy" && (payload = { strategy: strategyText.current.value });
+        target === "featured_sector" && (payload = { featured_sector: featuredSectorText.current.value });
+        payload.user_id = user.id;
+        payload.created_at = helper.time().today;
+        const res = await helper.postData(`api/prediction/update`, dispatch, AppActions, payload);
+        if (res.updatedData) {
+            dispatch({ type: AppActions.SET_PREDICTION, payload: res.updatedData });
+        } else {
+            alert(res);
+        };
+    };
 
     return (
         <div className="prediction" onBlur={() => { setOpen(false) }}>
@@ -85,5 +88,5 @@ export default function Prediction() {
                 </section>
             </div>
         </div>
-    )
-}
+    );
+};

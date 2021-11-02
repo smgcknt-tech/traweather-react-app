@@ -15,11 +15,11 @@ export const hooks = {
                         }
                     });
                 }).catch((err) => {
-                    localStorage.removeItem('access_token')
-                    dispatch({ type: AppActions.SET_USER, payload: { ...user, status: false } })
-                })
-            }
-        }, [user.status])// eslint-disable-line
-        return { dispatch: dispatch }
+                    localStorage.removeItem('access_token');
+                    dispatch({ type: AppActions.SET_USER, payload: { ...user, status: false } });
+                });
+            };
+        }, [user.status]);// eslint-disable-line
+        return { dispatch: dispatch };
     },
 };

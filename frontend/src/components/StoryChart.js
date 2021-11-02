@@ -1,15 +1,16 @@
-import '../styles/components/StoryChart.scss'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react';
 import { helper } from '../utils/helper';
-import { AppContext} from '../AppStore'
+import { AppContext} from '../AppStore';
 import Chart from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
+import '../styles/components/StoryChart.scss';
 Chart.plugins.register([ChartAnnotation]);
+
 export default function StoryChart() {
     const { state } = useContext(AppContext);
     const { selectedStock, indicators } = state;
-    const [chartData, setChartData] = useState({})
+    const [chartData, setChartData] = useState({});
     useEffect(() => {
         const chart = () => {
             (selectedStock && indicators) && setChartData({
@@ -25,11 +26,11 @@ export default function StoryChart() {
                         tension: 0.1
                     }
                 ]
+            });
+        };
+        chart();
+    }, [selectedStock, indicators]);
 
-            })
-        }
-        chart()
-    }, [selectedStock, indicators])
     return (
         <>
             {(selectedStock && indicators) && (
@@ -191,7 +192,7 @@ export default function StoryChart() {
                         </table>
                     </div>
                 </div>
-            )}
+            )};
         </>
-    )
-}
+    );
+};

@@ -1,4 +1,4 @@
-import moment from "moment-timezone"
+import moment from "moment-timezone";
 
 export const helper = {
     time: () => {
@@ -6,6 +6,6 @@ export const helper = {
             today: moment().tz("Asia/Tokyo").format("YYYY-MM-DD"),
             yesterday: moment().tz("Asia/Tokyo").subtract(1, 'day').format("YYYY-MM-DD"),
             thisMonth: moment().tz("Asia/Tokyo").format("YYYY-MM"),
-        }
+        };
     }
 };

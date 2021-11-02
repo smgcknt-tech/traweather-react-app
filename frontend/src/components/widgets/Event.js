@@ -1,10 +1,10 @@
-import React, {memo, useEffect, useRef } from 'react'
+import React, {memo, useEffect, useRef } from 'react';
 
 export default memo(function Event(props) {
     const ref = useRef();
     useEffect(() => {
         const script = document.createElement('script');
-        script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-events.js'
+        script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-events.js';
         script.async = true;
         script.innerHTML = JSON.stringify({
             "width": "100%",
@@ -14,7 +14,7 @@ export default memo(function Event(props) {
             "locale": "ja",
             "importanceFilter": "-1,0,1",
             "currencyFilter": "JPY"
-        })
+        });
         ref.current.appendChild(script);
     }, []);
 
@@ -24,5 +24,5 @@ export default memo(function Event(props) {
                 <div className="tradingview-widget-container__widget"></div>
             </div>
         </div>
-    )
-})
+    );
+});

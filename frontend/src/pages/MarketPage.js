@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext, AppActions } from '../AppStore';
 import { helper } from '../utils/helper';
-import '../../src/styles/pages/MarketPage.scss'
+import '../../src/styles/pages/MarketPage.scss';
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
 import Ticker from '../components/widgets/Ticker';
@@ -13,7 +13,7 @@ import MarketPredictionForm from '../components/forms/MarketPredictionForm';
 export default function MarketPage() {
     const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
     const { user, prediction, loading, error } = AppState;
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if (user.id) {
@@ -22,14 +22,14 @@ export default function MarketPage() {
                     user_id: user.id, date: helper.time().today
                 })
                 if (fetchedPrediction) AppDispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
-            }
+            };
             fetchData();
-        }
+        };
         // eslint-disable-next-line
-    }, [user.id])
+    }, [user.id]);
 
-    if (loading) return <Loading />
-    if (error) return <Message variant="error">{error}</Message>
+    if (loading) return <Loading />;
+    if (error) return <Message variant="error">{error}</Message>;
     return (
         <div className="Market_page">
             <ul className="header_menu">
@@ -52,5 +52,5 @@ export default function MarketPage() {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

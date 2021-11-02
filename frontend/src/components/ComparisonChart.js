@@ -1,16 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react';
 import { AppContext } from '../AppStore';
-import '../styles/components/ComparisonChart.scss'
+import '../styles/components/ComparisonChart.scss';
 import Chart from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import * as ChartAnnotation from 'chartjs-plugin-annotation';
 import ComparisonTable from './ComparisonTable';
 Chart.plugins.register([ChartAnnotation]);
+
 export default function ComparisonChart() {
     const { state } = useContext(AppContext);
     const { selectedStock, resultIndicators } = state;
-    const { stockData } = resultIndicators
-    const [chartData, setChartData] = useState({})
+    const { stockData } = resultIndicators;
+    const [chartData, setChartData] = useState({});
+
     useEffect(() => {
         const chart = () => {
             (selectedStock && stockData) && setChartData({
@@ -26,11 +28,11 @@ export default function ComparisonChart() {
                         tension: 0.1
                     }
                 ]
+            });
+        };
+        chart();
+    }, [selectedStock, stockData]);
 
-            })
-        }
-        chart()
-    }, [selectedStock, stockData])
     return (
         <>
             {(selectedStock && stockData) && (
@@ -118,7 +120,7 @@ export default function ComparisonChart() {
                     </div>
                     <ComparisonTable />
                 </div>
-            )}
+            )};
         </>
-    )
-}
+    );
+};
