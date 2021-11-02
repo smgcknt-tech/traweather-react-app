@@ -21,8 +21,11 @@ export default function Prediction() {
         payload.user_id = user.id
         payload.created_at = helper.time().today
         const res = await helper.postData(`api/prediction/update`, dispatch, AppActions, payload)
-        if (res.updatedData) dispatch({ type: AppActions.SET_PREDICTION, payload: res.updatedData });
-        if (!res.updatedData) alert(res)
+        if (res.updatedData) {
+            dispatch({ type: AppActions.SET_PREDICTION, payload: res.updatedData })
+        } else {
+            alert(res)
+        }
     }
 
     return (

@@ -25,7 +25,7 @@ export const api_post_model = {
             }
         }
         const result = await transaction()
-        if (result.data) return { insertedData: result.data }
+        if (result.data) return { createdData: result.data }
         if (result === "CANCEL") return "市場予想の作成が中断されました。"
         if (result === "FAIL") return "市場予想の作成に失敗しました。"
 

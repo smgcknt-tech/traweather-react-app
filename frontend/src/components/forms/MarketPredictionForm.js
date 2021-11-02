@@ -13,8 +13,11 @@ export default function MarketPredictionForm(props) {
     const onSubmit = async (data) => {
         data.user_id = user.id
         const res = await helper.postData('/api/prediction/create', dispatch, AppActions, data)
-        if (res.insertedData) dispatch({ type: AppActions.SET_PREDICTION, payload: res.insertedData });
-        if (!res.insertedData) alert(res)
+        if (res.createdData){
+            dispatch({ type: AppActions.SET_PREDICTION, payload: res.createdData })
+        } else {
+            alert(res)
+        }
         props.setOpen(null)
     }
 
