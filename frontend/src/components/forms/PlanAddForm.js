@@ -66,7 +66,7 @@ export default function PlanAddForm(props) {
         <div className="plan_add_form">
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
                 <div><span onClick={() => { props.setOpen(null) }}><i className="fas fa-times"></i></span></div>
-                {displayForm};
+                {displayForm}
                 <div className="button"><input type="submit" value="保存" /></div>
             </form>
         </div>
