@@ -72,5 +72,8 @@ describe.skip('Unit', () => {
     test('User is redirected to notFoundPage when they link to a link that does not exist.', async () => {
         //TBD
     });
+    test('User cant upload anything but image', async () => {
+        //TBD
+    });
 
 });

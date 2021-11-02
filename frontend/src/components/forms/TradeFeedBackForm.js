@@ -13,8 +13,8 @@ export default function TradeFeedBackForm(props) {
 
     const uploadFileHandler = async (e) => {
         const file = e.target.files[0];
-        const objectURL = URL.createObjectURL(file);
-        setImage(objectURL);
+        //const objectURL = URL.createObjectURL(file);
+        //setImage(objectURL);
     };
     const onSubmit = async (data) => {
         const file = data.image[0];
@@ -71,7 +71,7 @@ export default function TradeFeedBackForm(props) {
                     <fieldset>
                         <legend>画像</legend>
                         <label>
-                            <input type="file"
+                            <input type="file" accept="image/*"
                                 {...register('image', { required: `画像がアップロードされていません` })}
                                 onChange={(e) => uploadFileHandler(e)}
                             />
