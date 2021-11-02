@@ -41,7 +41,7 @@ export const api_get_model = {
         return data;
     },
     get_results: async (payload) => {
-        const { user_id } = payload
+        const { user_id } = payload;
         const query1 = `
             SELECT * FROM trade_plan
             JOIN trade_result ON trade_plan.result_id = trade_result.result_id
@@ -54,29 +54,24 @@ export const api_get_model = {
             GROUP BY month;`;
         const query3 = `
             SELECT sum(total_profit_loss) FROM trade_result
-            WHERE user_id = ${user_id} AND created_at::text like '${helper.time().yesterday}%';`
-        const query4 = `
-            SELECT sum(total_profit_loss) FROM trade_result
-            WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%';`;
+            WHERE user_id = ${user_id} AND created_at::text like '${helper.time().yesterday}%';`;
         try {
             const resultData = await pool.query(query1);
-            const monthly_profit = await pool.query(query2)
-            const last_profit = await pool.query(query3)
-            const todays_profit = await pool.query(query4)
-            const dataSets =  {
+            const monthly_profit = await pool.query(query2);
+            const last_profit = await pool.query(query3);
+            const dataSets = {
                 resultData: resultData.rows,
-                monthly_profit: monthly_profit.rows,
-                last_profit: last_profit.rows,
-                todays_profit: todays_profit.rows,
+                monthly_profit: monthly_profit.rows[0].sum || 0,
+                last_profit: last_profit.rows[0].sum || 0,
             };
-            console.log(dataSets)
-            return dataSets
+            console.log(dataSets.resultData);
+            return dataSets;
         } catch (err) {
-            console.log(err)
+            console.error(err.stack);
         }
     },
     get_one_result: (payload) => {
-        const { user_id, date } = payload
+        const { user_id, date } = payload;
         const query = `
             SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id
             WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${date}%';`;
@@ -110,9 +105,9 @@ export const api_get_model = {
             ORDER BY created_at ASC;`;
         const data = pool.query(query)
             .then((res) => {
-                return res.rows
+                return res.rows;
             }).catch((err) => {
-                console.error(err.stack)
+                console.error(err.stack);
             })
         return data;
     },

@@ -61,13 +61,13 @@ export default function StoryTable() {
                 profit_loss_rate: profit_loss_rate,
                 total_profit_loss: total_profit_loss
             }
-            const res = await helper.postData(`/api/result/update_numbers`, dispatch, AppActions, payload)
-            if (res.data) {
-                dispatch({ type: AppActions.SET_RESULT, payload: res.data });
-                dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: res.data[pagesVisited + index] })
+            const updatedResultData = await helper.postData(`/api/result/update_numbers`, dispatch, AppActions, payload)
+            if (updatedResultData.rows) {
+                dispatch({ type: AppActions.SET_RESULT, payload: updatedResultData.rows });
+                dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: updatedResultData.rows[pagesVisited + index] })
                 dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: pagesVisited / rowsPerPage });
             } else {
-                alert(res)
+                alert(updatedResultData)
             }
         }
     }
