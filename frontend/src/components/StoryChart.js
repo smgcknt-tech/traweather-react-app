@@ -192,7 +192,7 @@ export default function StoryChart() {
                         </table>
                     </div>
                 </div>
-            )};
+            )}
         </>
     );
 };
