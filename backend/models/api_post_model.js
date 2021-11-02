@@ -13,7 +13,7 @@ export const api_post_model = {
                 const res = await pool.query(`
                     INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
                     SELECT $1, $2, $3, $4
-                    WHERE NOT EXISTS (SELECT id FROM market_prediction WHERE created_at::text like '${helper.time().today}%')
+                    WHERE NOT EXISTS (SELECT id FROM market_prediction WHERE to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}')
                     RETURNING *;`, values);
                 await pool.query("COMMIT");
                 if (res.rows.length > 0) return { data: res.rows[0] };
@@ -39,7 +39,7 @@ export const api_post_model = {
                 const res = await pool.query(`
                     UPDATE market_prediction
                     SET ${column}=$1
-                    WHERE user_id =${user_id} AND created_at::text like '${created_at}%'
+                    WHERE user_id =${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
                     RETURNING *;`, values);
                 await pool.query("COMMIT");
                 if (res.rows.length > 0) return { data: res.rows[0] };
@@ -115,7 +115,7 @@ export const api_post_model = {
                 const res = await pool.query(`
                     UPDATE trade_result
                     SET lot=$1,entry_point=$2,exit_point=$3,profit_loss=$4, profit_loss_rate=$5,total_profit_loss=$6
-                    WHERE user_id=${user_id} AND result_id=${result_id} AND created_at::text like '${date}%'
+                    WHERE user_id=${user_id} AND result_id=${result_id} AND to_char(created_at, 'YYYY-MM-DD') = '${date}'
                     RETURNING *;`, values);
                 await pool.query("COMMIT");
                 if (res.rows.length > 0) return "SUCCESS";
@@ -130,8 +130,8 @@ export const api_post_model = {
             const query = `
                 SELECT * FROM trade_plan
                 JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-                WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
-            return await pool.query(query);
+                WHERE trade_plan.user_id = ${user_id} AND to_char( trade_plan.created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
+                return await pool.query(query);
         };
         if (result === "FAIL") return "プランの作成に失敗しました。";
     },
@@ -155,9 +155,10 @@ export const api_post_model = {
         const result = await transaction();
         if (result === "SUCCESS") {
             const query = `
-                SELECT * FROM trade_plan
+                SELECT *
+                FROM trade_plan
                 JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-                WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
+                AND to_char( trade_plan.created_at, 'YYYY-MM-DD' ) = '${helper.time().today}';`;
             return await pool.query(query);
         };
         if (result === "FAIL") return "プランの更新に失敗しました。";
@@ -173,7 +174,7 @@ export const api_post_model = {
                 await pool.query(`
                     INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,result_id)
                     SELECT $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
-                    WHERE NOT EXISTS (SELECT plan_id FROM trade_plan WHERE code = ${code} AND user_id = ${user_id} AND created_at::text like '${helper.time().today}%');`
+                    WHERE NOT EXISTS (SELECT plan_id FROM trade_plan WHERE code = ${code} AND user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}');`
                     , [code, market, stock_name, opening, support, losscut, goal, reason, strategy, user_id, result.rows[0].result_id]);
                 await pool.query("COMMIT");
                 return "SUCCESS";
@@ -262,7 +263,7 @@ export const api_post_model = {
                 const res = await pool.query(`
                     SELECT plan_id, result_id
                     FROM trade_plan
-                    WHERE user_id=${user_id} AND code=${code} AND created_at::text like '${helper.time().today}%';`);
+                    WHERE user_id=${user_id} AND code=${code} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}';`);
                 await pool.query(`
                     DELETE FROM trade_plan
                     WHERE plan_id = ${res.rows[0].plan_id};`);

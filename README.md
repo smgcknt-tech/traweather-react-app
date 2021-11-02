@@ -1,6 +1,6 @@
 アプリケーション概要:株式トレードサポートツールです.
 URL
-http://ec2-35-76-244-232.ap-northeast-1.compute.amazonaws.com
+https://traweather.xyz/　
 
 機能
 ーログイン機能
@@ -27,8 +27,12 @@ Proxyサーバー（NGINX）
 -Jest
 -PostMan
 -Git hub
+※スキーマの差分管理はrecord.sqlファイルでマニュアル管理　　
 外部API
 -KABU+(株価のCSVデータを取得するため)
 
-全体イメージ
-![Screen Shot 2021-10-21 at 15 07 29](https://user-images.githubusercontent.com/54715182/138222897-c1889397-c3ee-4372-8a66-31e457ea2370.png)
+その他
+  - タブレットやワイドディスプレイへのレスポンシブ対応はしていますが、スマホのレスポンシブ対応はしていないです。　　
+
+本番環境のアーキテクチャ　　
+![Screen Shot 2021-11-02 at 13 59 31](https://user-images.githubusercontent.com/54715182/139789313-283e3df3-4af1-4aab-b395-297e1bb1704a.png)

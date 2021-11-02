@@ -19,7 +19,7 @@ export default function LoginPage() {
                         <div className="button_container">
                             <Link to="/market"><div className="button">利用開始</div></Link>
                         </div>
-                    };
+                    }
                 </div>
                 {(!user.status || !user.id) && (
                     <div>

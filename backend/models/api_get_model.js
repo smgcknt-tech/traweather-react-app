@@ -5,8 +5,9 @@ export const api_get_model = {
     get_prediction: async (payload) => {
         const { user_id, date } = payload;
         const query = `
-            SELECT * FROM market_prediction
-            WHERE user_id =${user_id} AND created_at::text like '${date}%';`;
+            SELECT *
+            FROM market_prediction
+            WHERE user_id =${user_id} AND to_char( created_at, 'YYYY-MM-DD' ) = '${date}';`;
         try {
             const res = await pool.query(query);
             return res.rows[0];
@@ -16,7 +17,8 @@ export const api_get_model = {
     },
     get_latest_stock: async () => {
         const query = `
-            SELECT * FROM latest_stock_data
+            SELECT *
+            FROM latest_stock_data
             WHERE code NOT IN ( '0001', '0002' );`;
         try {
             const res = await pool.query(query);
@@ -28,18 +30,20 @@ export const api_get_model = {
     get_results: async (payload) => {
         const { user_id } = payload;
         const query1 = `
-            SELECT * FROM trade_plan
+            SELECT *
+            FROM trade_plan
             JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-            WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
+            AND to_char( trade_plan.created_at, 'YYYY-MM-DD' ) = '${helper.time().today}';`;
         const query2 = `
             SELECT to_char(created_at, 'YYYY-MM') AS month,
             SUM(total_profit_loss)
             FROM trade_result
-            WHERE user_id = 11 AND to_char(created_at, 'YYYY-MM') = '${helper.time().thisMonth}'
+            WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM') = '${helper.time().thisMonth}'
             GROUP BY month;`;
         const query3 = `
-            SELECT sum(total_profit_loss) FROM trade_result
-            WHERE user_id = ${user_id} AND created_at::text like '${helper.time().yesterday}%';`;
+            SELECT SUM(total_profit_loss)
+            FROM trade_result
+            WHERE user_id = ${user_id} AND to_char( created_at, 'YYYY-MM-DD' ) = '${helper.time().yesterday}'`;
         try {
             const resultData = await pool.query(query1);
             const monthly_profit = await pool.query(query2);
@@ -55,10 +59,12 @@ export const api_get_model = {
         };
     },
     get_one_result: async (payload) => {
-        const { user_id, date } = payload;
+        const { date } = payload;
         const query = `
-            SELECT * FROM trade_plan JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-            WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${date}%';`;
+            SELECT *
+            FROM trade_plan
+            JOIN trade_result ON trade_plan.result_id = trade_result.result_id
+            AND to_char( trade_plan.created_at, 'YYYY-MM-DD' ) = '${date}';`;
         try {
             const res = await pool.query(query);
             return res.rows;
@@ -70,7 +76,7 @@ export const api_get_model = {
         const { user_id } = payload;
         const query = `
             SELECT * FROM trade_plan
-            WHERE user_id = ${user_id} AND created_at::text like '${helper.time().today}%'
+            WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
             ORDER BY code ASC;`;
         try {
             const res = await pool.query(query);

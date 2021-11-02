@@ -22,7 +22,7 @@ export default function ResultPage() {
                     user_id: user.id
                 });
                 if (fetchedData) {
-                    const { monthly_profit, last_profit,resultData } = fetchedData
+                    const { monthly_profit, last_profit, resultData } = fetchedData
                     dispatch({ type: AppActions.SET_RESULT, payload: resultData });
                     dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[0] });
                     dispatch({type: AppActions.SET_RESULT_INDICATORS, payload: {...resultIndicators　,　monthly_profit: monthly_profit, last_profit: last_profit}});
