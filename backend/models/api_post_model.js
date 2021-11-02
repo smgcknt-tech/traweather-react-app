@@ -130,8 +130,8 @@ export const api_post_model = {
             const query = `
                 SELECT * FROM trade_plan
                 JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-                WHERE trade_plan.user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
-            return await pool.query(query);
+                WHERE trade_plan.user_id = ${user_id} AND to_char( trade_plan.created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
+                return await pool.query(query);
         };
         if (result === "FAIL") return "プランの作成に失敗しました。";
     },

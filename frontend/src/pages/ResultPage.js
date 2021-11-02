@@ -14,7 +14,6 @@ export default function ResultPage() {
     const { user, allStocks, loading, error, resultData, selectedStock, resultIndicators } = state;
     const { monthly_profit, last_profit} = resultIndicators;
     const [open, setOpen] = useState(false);
-    console.log(resultData, resultData.length)
 
     useEffect(() => {
         if (user.id) {

@@ -48,7 +48,6 @@ export const api_get_model = {
             const resultData = await pool.query(query1);
             const monthly_profit = await pool.query(query2);
             const last_profit = await pool.query(query3);
-            console.log(monthly_profit.rows[0].sum, last_profit.rows[0].sum)
             const dataSets = {
                 resultData: resultData.rows,
                 monthly_profit: monthly_profit.rows[0].sum || 0,
