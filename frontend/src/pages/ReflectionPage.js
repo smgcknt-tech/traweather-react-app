@@ -68,9 +68,10 @@ export default function ReflectionPage() {
     }, [resultData]);
 
     const profit_loss_rate = useMemo(() => {
-        return resultData
+        const sum =  resultData
             .map((result) => { return result.profit_loss_rate })
-            .reduce((a, x) => a += x, 0);
+            .reduce((a, x) => a += x, 0)
+        return (sum / resultData.length).toFixed(2)
     }, [resultData]);
 
     const archives = posts.map((post, index) => {
