@@ -128,13 +128,16 @@ export const api_post_model = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            const updatedResults = await api_get_model.get_results(payload)
-            return { data: updatedResults }
+            const query = `
+                SELECT * FROM trade_plan
+                JOIN trade_result ON trade_plan.result_id = trade_result.result_id
+                WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
+            return await pool.query(query)
         }
         if (result === "FAIL") return "プランの作成に失敗しました。"
     },
     update_result_comment: async (payload) => {
-        const { comment, result_id } = payload
+        const { comment, result_id, user_id } = payload
         const values = [comment]
         const transaction = async () => {
             try {
@@ -152,8 +155,11 @@ export const api_post_model = {
         }
         const result = await transaction()
         if (result === "SUCCESS") {
-            const updatedResults = await api_get_model.get_results(payload)
-            return { data: updatedResults }
+            const query = `
+                SELECT * FROM trade_plan
+                JOIN trade_result ON trade_plan.result_id = trade_result.result_id
+                WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
+            return await pool.query(query)
         }
         if (result === "FAIL") return "プランの更新に失敗しました。"
     },

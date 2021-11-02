@@ -16,11 +16,13 @@ export default function CommentPerStock() {
             result_id: selectedStock.result_id,
             user_id: user.id,
         }
-        const res= await helper.postData(`/api/result/update_comment`, dispatch, AppActions, payload)
-        if (res.data) {
-            dispatch({ type: AppActions.SET_RESULT, payload: res.data });
-            const foundSelectedStock = res.data.find((result) => result.code === selectedStock.code)
+        const updatedResultData = await helper.postData(`/api/result/update_comment`, dispatch, AppActions, payload)
+        if (updatedResultData.rows) {
+            dispatch({ type: AppActions.SET_RESULT, payload: updatedResultData.rows });
+            const foundSelectedStock = updatedResultData.rows.find((result) => result.code === selectedStock.code)
             dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: foundSelectedStock })
+        } else {
+            alert(updatedResultData)
         }
     }
 

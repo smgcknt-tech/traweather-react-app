@@ -12,7 +12,7 @@ import TradeFeedBackForm from '../components/forms/TradeFeedBackForm';
 export default function ResultPage() {
     const { state, dispatch } = useContext(AppContext);
     const { user, allStocks, loading, error, resultData, selectedStock, resultIndicators } = state;
-    const { monthly_profit, last_profit, todays_profit } = resultIndicators
+    const { monthly_profit, last_profit} = resultIndicators
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
@@ -22,12 +22,10 @@ export default function ResultPage() {
                     user_id: user.id
                 })
                 if (fetchedData) {
-                    const { monthly_profit, last_profit, todays_profit, resultData,check } = fetchedData
-                    console.log(monthly_profit, last_profit, todays_profit)
-                    console.log('check',check)
+                    const { monthly_profit, last_profit,resultData } = fetchedData
                     dispatch({ type: AppActions.SET_RESULT, payload: resultData });
                     dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[0] })
-                    dispatch({ type: AppActions.SET_RESULT_INDICATORS, payload: { ...resultIndicators, monthly_profit: Number(monthly_profit), last_profit: Number(last_profit), todays_profit: Number(todays_profit) } })
+                    dispatch({type: AppActions.SET_RESULT_INDICATORS, payload: {...resultIndicators　,　monthly_profit: monthly_profit, last_profit: last_profit}})
                 }
                 const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions,)
                 if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
@@ -46,8 +44,8 @@ export default function ResultPage() {
 
     const profitResult = useMemo(() => {
         return resultData
-            .map((result) => { return result.total_profit_loss })
-            .reduce((a, x) => a += x, 0);
+        .map((result) => { return result.total_profit_loss })
+        .reduce((prev, crr) => prev += crr, 0);
     }, [resultData])
 
     if (loading) return <Loading />
@@ -68,11 +66,11 @@ export default function ResultPage() {
                                 <div className="card_title">{helper.time().today}</div>
                             </div>
                             <div id="last_profit">
-                                <div className="card_value">{profitResult - last_profit}円</div>
-                                <div className="card_title">前日比</div>
+                                <div className="card_value">{last_profit}円</div>
+                                <div className="card_title">前日利益</div>
                             </div>
                             <div id="monthly_profit">
-                                <div className="card_value">{monthly_profit + profitResult - todays_profit}円</div>
+                                <div className="card_value">{monthly_profit}円</div>
                                 <div className="card_title">今月累計</div>
                             </div>
                         </div>
