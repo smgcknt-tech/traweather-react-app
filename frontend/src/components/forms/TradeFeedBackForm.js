@@ -68,7 +68,7 @@ export default function TradeFeedBackForm(props) {
                     <fieldset>
                         <legend>画像</legend>
                         <label>
-                            <input type="file" accept="image/*;capture=camera"
+                            <input type="file" accept="image/*"
                                 {...register('image', { required: `画像がアップロードされていません` })}
                                 onChange={(e) => uploadFileHandler(e)}
                             />
