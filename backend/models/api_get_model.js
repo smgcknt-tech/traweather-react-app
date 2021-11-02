@@ -30,7 +30,7 @@ export const api_get_model = {
         const query1 = `
             SELECT * FROM trade_plan
             JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-            WHERE trade_plan.user_id = ${user_id} AND trade_plan.created_at::text like '${helper.time().today}%';`;
+            AND to_char( trade_plan.created_at, 'YYYY-MM-DD' ) = '${helper.time().today}';`;
         const query2 = `
             SELECT to_char(created_at, 'YYYY-MM') AS month,
             SUM(total_profit_loss)
@@ -44,6 +44,8 @@ export const api_get_model = {
             const resultData = await pool.query(query1);
             const monthly_profit = await pool.query(query2);
             const last_profit = await pool.query(query3);
+            console.log("IDと日付", user_id, helper.time().today)
+            console.log(resultData.rows)
             const dataSets = {
                 resultData: resultData.rows,
                 monthly_profit: monthly_profit.rows[0].sum || 0,

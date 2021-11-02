@@ -14,6 +14,7 @@ export default function ResultPage() {
     const { user, allStocks, loading, error, resultData, selectedStock, resultIndicators } = state;
     const { monthly_profit, last_profit} = resultIndicators;
     const [open, setOpen] = useState(false);
+    console.log(resultData, resultData.length)
 
     useEffect(() => {
         if (user.id) {
@@ -22,7 +23,7 @@ export default function ResultPage() {
                     user_id: user.id
                 });
                 if (fetchedData) {
-                    const { monthly_profit, last_profit,resultData } = fetchedData
+                    const { monthly_profit, last_profit, resultData } = fetchedData
                     dispatch({ type: AppActions.SET_RESULT, payload: resultData });
                     dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[0] });
                     dispatch({type: AppActions.SET_RESULT_INDICATORS, payload: {...resultIndicators　,　monthly_profit: monthly_profit, last_profit: last_profit}});
