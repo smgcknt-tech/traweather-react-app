@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React from 'react';
 import "../styles/components/Indicators.scss";
 import { helper } from '../utils/helper';
 
@@ -24,7 +24,7 @@ export default function Indicators(props) {
         year_low,
         year_low_date
     } = props.result;
-    [stock_date, year_high_date, year_low_date] = helper.format_dates(stock_date, year_high_date, year_low_date)
+    [stock_date, year_high_date, year_low_date] = helper.format_dates(stock_date, year_high_date, year_low_date);
 
     return (
         <div className="indicators_body">
@@ -76,5 +76,5 @@ export default function Indicators(props) {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

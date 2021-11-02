@@ -7,7 +7,7 @@ const config = () => {
             env: {
 
             }
-        }
+        };
     } else if (process.env.NODE_ENV === 'local') {
         dotenv.config();
         return {
@@ -21,8 +21,8 @@ const config = () => {
                 PGHOST: PE.PGHOST,
                 PGPORT: PE.PGPORT,
                 PGDATABASE: PE.PGDATABASE,
-            }
-        }
+            },
+        };
     } else if (PE.NODE_ENV === 'stage' || PE.NODE_ENV === 'production') {
         return {
             env: {
@@ -35,9 +35,9 @@ const config = () => {
                 PGHOST: PE.PGHOST,
                 PGPORT: PE.PGPORT,
                 PGDATABASE: PE.PGDATABASE,
-            }
-        }
-    }
-}
+            },
+        };
+    };
+};
 
-export const { env } = config()
+export const { env } = config();

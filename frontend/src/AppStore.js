@@ -1,9 +1,9 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer } from 'react';
 export const initialState = {
     user: {
-        id:null,
-        name:null,
-        status:true
+        id: null,
+        name: null,
+        status: true
     },
     allStocks: null,
     prediction: null,
@@ -22,9 +22,8 @@ export const initialState = {
     },
     posts: [],
     selectedPost: null,
-
-}
-export const AppContext = createContext(initialState)
+};
+export const AppContext = createContext(initialState);
 export const AppActions = {
     SET_LOADING: 'SET_LOADING',
     SET_ERROR: 'SET_ERROR',
@@ -39,53 +38,53 @@ export const AppActions = {
     SET_RESULT_INDICATORS: 'SET_RESULT_INDICATORS',
     SET_POSTS: 'SET_POSTS',
     SET_SELECTED_POST: 'SET_SELECTED_POST',
-}
+};
 export const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer((state, action) => {
         const currentState = { ...state };
         switch (action.type) {
             case AppActions.SET_USER:
-                currentState.user = action.payload
-                return currentState
+                currentState.user = action.payload;
+                return currentState;
             case AppActions.SET_PREDICTION:
-                currentState.prediction = action.payload
-                return currentState
+                currentState.prediction = action.payload;
+                return currentState;
             case AppActions.SET_ALL_STOCKS:
-                currentState.allStocks = action.payload
-                return currentState
+                currentState.allStocks = action.payload;
+                return currentState;
             case AppActions.SET_LOADING:
-                currentState.loading = action.payload
-                return currentState
+                currentState.loading = action.payload;
+                return currentState;
             case AppActions.SET_ERROR:
-                currentState.error = action.payload
-                return currentState
+                currentState.error = action.payload;
+                return currentState;
             case AppActions.SET_SELECTED_STOCK:
-                currentState.selectedStock = action.payload
-                return currentState
+                currentState.selectedStock = action.payload;
+                return currentState;
             case AppActions.SET_INDICATORS:
-                currentState.indicators = action.payload
-                return currentState
+                currentState.indicators = action.payload;
+                return currentState;
             case AppActions.SET_PLAN:
-                currentState.planData = action.payload
-                return currentState
+                currentState.planData = action.payload;
+                return currentState;
             case AppActions.SET_CURRENT_PAGE:
-                currentState.currentPage = action.payload
-                return currentState
+                currentState.currentPage = action.payload;
+                return currentState;
             case AppActions.SET_RESULT:
-                currentState.resultData = action.payload
-                return currentState
+                currentState.resultData = action.payload;
+                return currentState;
             case AppActions.SET_RESULT_INDICATORS:
-                currentState.resultIndicators = action.payload
-                return currentState
+                currentState.resultIndicators = action.payload;
+                return currentState;
             case AppActions.SET_POSTS:
-                currentState.posts = action.payload
-                return currentState
+                currentState.posts = action.payload;
+                return currentState;
             case AppActions.SET_SELECTED_POST:
-                currentState.selectedPost = action.payload
-                return currentState
+                currentState.selectedPost = action.payload;
+                return currentState;
             default:
-                throw new Error('no action matched')
+                throw new Error('no action matched');
         }
-    }, initialState)
-    return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>
-}
+    }, initialState);
+    return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
+};

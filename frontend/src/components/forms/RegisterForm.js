@@ -1,33 +1,33 @@
-import '../../styles/components/RegisterForm.scss'
-import { useForm } from 'react-hook-form'
+import '../../styles/components/RegisterForm.scss';
+import { useForm } from 'react-hook-form';
 import { useContext } from 'react';
-import { AppActions, AppContext } from '../../AppStore'
+import { AppActions, AppContext } from '../../AppStore';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function RegisterForm(props) {
     const { state, dispatch } = useContext(AppContext);
     const { user } = state;
-    const { setOpen } = props
+    const { setOpen } = props;
     const { register, handleSubmit, formState: { errors } } = useForm();
     let history = useHistory()
     const onSubmit = async (data) => {
         axios.post(`/api/user/register`, data)
             .then((response) => {
                 if (response.data.error) {
-                    alert(response.data.error)
+                    alert(response.data.error);
                 } else {
-                    localStorage.setItem("access_token", response.data)
+                    localStorage.setItem("access_token", response.data);
                     dispatch({ type: AppActions.SET_USER, payload: { ...user, status: true } });
-                    history.push("/market")
-                }
-            })
-    }
-
+                    history.push("/market");
+                };
+            });
+    };
+    
     return (
         <div >
             <form className="register_form" onSubmit={handleSubmit(onSubmit)}>
-                <span className="login_bttn" onClick={()=>{setOpen(null)}}>ログインはこちら</span>
+                <span className="login_bttn" onClick={() => { setOpen(null) }}>ログインはこちら</span>
                 <div className="each_input" >
                     <fieldset>
                         <legend>ユーザー名</legend>
@@ -53,5 +53,5 @@ export default function RegisterForm(props) {
                 <div className="button"><input type="submit" value="REGISTER" /></div>
             </form>
         </div>
-    )
-}
+    );
+};

@@ -1,42 +1,42 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { AppActions, AppContext } from '../AppStore';
 import { helper } from '../utils/helper';
-import '../../src/styles/pages/ResultPage.scss'
+import '../../src/styles/pages/ResultPage.scss';
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
-import ResultTable from '../components/ResultTable'
-import CommentPerStock from '../components/CommentPerStock'
+import ResultTable from '../components/ResultTable';
+import CommentPerStock from '../components/CommentPerStock';
 import ComparisonChart from '../components/ComparisonChart';
 import TradeFeedBackForm from '../components/forms/TradeFeedBackForm';
 
 export default function ResultPage() {
     const { state, dispatch } = useContext(AppContext);
     const { user, allStocks, loading, error, resultData, selectedStock, resultIndicators } = state;
-    const { monthly_profit, last_profit} = resultIndicators
-    const [open, setOpen] = useState(false)
+    const { monthly_profit, last_profit} = resultIndicators;
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if (user.id) {
             const fetchResultPageData = async () => {
                 const fetchedData = await helper.fetchData(`/api/results`, dispatch, AppActions, {
                     user_id: user.id
-                })
+                });
                 if (fetchedData) {
                     const { monthly_profit, last_profit,resultData } = fetchedData
                     dispatch({ type: AppActions.SET_RESULT, payload: resultData });
-                    dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[0] })
-                    dispatch({type: AppActions.SET_RESULT_INDICATORS, payload: {...resultIndicators　,　monthly_profit: monthly_profit, last_profit: last_profit}})
-                }
-                const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions,)
+                    dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[0] });
+                    dispatch({type: AppActions.SET_RESULT_INDICATORS, payload: {...resultIndicators　,　monthly_profit: monthly_profit, last_profit: last_profit}});
+                };
+                const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions,);
                 if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
-            }
-            fetchResultPageData()
-        }
+            };
+            fetchResultPageData();
+        };
     }, [user.id]); // eslint-disable-line
 
     const selectedStockData = useMemo(() => {
-        if (allStocks && selectedStock) return allStocks.find((stock) => selectedStock.code === Number(stock.code))
-    }, [selectedStock, allStocks, resultData])// eslint-disable-line
+        if (allStocks && selectedStock) return allStocks.find((stock) => selectedStock.code === Number(stock.code));
+    }, [selectedStock, allStocks, resultData]);// eslint-disable-line
 
     useEffect(() => {
         if (selectedStockData) dispatch({ type: AppActions.SET_RESULT_INDICATORS, payload: { ...resultIndicators, stockData: selectedStockData } });
@@ -48,9 +48,9 @@ export default function ResultPage() {
         .reduce((prev, crr) => prev += crr, 0);
     }, [resultData])
 
-    if (loading) return <Loading />
-    if (error) return <Message variant="error">{error}</Message>
-    if (resultData?.length === 0) return <Message >プランデータをまず作成して下さい</Message>
+    if (loading) return <Loading />;
+    if (error) return <Message variant="error">{error}</Message>;
+    if (resultData?.length === 0) return <Message >プランデータをまず作成して下さい</Message>;
     return (
         <div className="result_page">
             <ul className="header_menu">
@@ -87,5 +87,5 @@ export default function ResultPage() {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

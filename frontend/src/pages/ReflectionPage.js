@@ -1,6 +1,6 @@
-import '../../src/styles/pages/ReflectionPage.scss'
-import React, { useContext, useEffect, useMemo, useRef } from 'react'
-import { AppContext, AppActions } from '../AppStore'
+import '../../src/styles/pages/ReflectionPage.scss';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import { AppContext, AppActions } from '../AppStore';
 import { helper } from '../utils/helper';
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
@@ -9,7 +9,7 @@ import ReactPaginate from 'react-paginate';
 export default function ReflectionPage() {
     const { state, dispatch} = useContext(AppContext);
     const { user, loading, error, resultData, selectedStock, posts, selectedPost, currentPage, prediction} = state;
-    const refs = useRef([])
+    const refs = useRef([]);
     const rowsPerPage = 5;
     const pagesVisited = currentPage * rowsPerPage;
     const pageCount = Math.ceil(resultData?.length / rowsPerPage);
@@ -19,21 +19,22 @@ export default function ReflectionPage() {
             (async () => {
                 const data = await helper.fetchData(`/api/feed_back`, dispatch, AppActions, { user_id: user.id })
                 if (data) dispatch({ type: AppActions.SET_POSTS, payload: data });
-            })()
-        }
+            })();
+        };
     }, [user.id]);// eslint-disable-line
 
     const handleClick = async (e, i, date) => {
-        const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, { user_id: user.id, date: date })
+        const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, { user_id: user.id, date: date });
         const fetchedResult = await helper.fetchData(`/api/one_result`, dispatch, AppActions, { user_id: user.id, date: date });
         if (fetchedPrediction) {
             dispatch({ type: AppActions.SET_RESULT, payload: fetchedResult });
-        }
+        };
         if (fetchedResult) {
             dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction })
             dispatch({ type: AppActions.SET_SELECTED_POST, payload: posts[i] });
-        }
+        };
     }
+
     const displayRows = resultData
         .slice(pagesVisited, pagesVisited + rowsPerPage)
         .map((stock, index) => {
@@ -50,31 +51,31 @@ export default function ReflectionPage() {
                     <td data-label="合計損益額">{stock.total_profit_loss}</td>
                 </tr>
             )
-        })
+        });
 
     const changePage = ({ selected }) => {
         dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: selected });
-    }
+    };
 
     const handleSelect = (index) => {
         dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[pagesVisited + index] })
-    }
+    };
 
     const profitResult = useMemo(() => {
         return resultData
             .map((result) => { return result.total_profit_loss })
             .reduce((a, x) => a += x, 0);
-    }, [resultData])
+    }, [resultData]);
 
     const profit_loss_rate = useMemo(() => {
         return resultData
             .map((result) => { return result.profit_loss_rate })
             .reduce((a, x) => a += x, 0);
-    }, [resultData])
+    }, [resultData]);
 
     const archives = posts.map((post, index) => {
-        const { title, image_url, created_at } = post
-        const date = created_at.split('T')[0]
+        const { title, image_url, created_at } = post;
+        const date = created_at.split('T')[0];
         return (
             <div className="post" key={index} onClick={(e) => { handleClick(e, index, date) }}>
                 <div className="post_header">
@@ -84,12 +85,12 @@ export default function ReflectionPage() {
                 <div className="image_container"><img src={`${image_url}`} alt="thumbnail" /></div>
 
             </div>
-        )
-    })
+        );
+    });
 
-    if (loading) return <Loading />
-    if (error) return <Message variant="error">{error}</Message>
-    if (archives.length === 0) return <Message>振返データがありません!</Message>
+    if (loading) return <Loading />;
+    if (error) return <Message variant="error">{error}</Message>;
+    if (archives.length === 0) return <Message>振返データがありません!</Message>;
     return (
         <div className="reflection_page">
             {!selectedPost && <div className="reflection_container">{archives}</div>}
@@ -169,5 +170,5 @@ export default function ReflectionPage() {
                 </div>
             )}
         </div>
-    )
-}
+    );
+};

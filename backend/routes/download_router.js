@@ -13,7 +13,7 @@ aws.config.update({
 const s3 = new aws.S3();
 export const dataSets = [
     ['traweather-bucket/csv', "japan-all-stock-prices-2.csv", api_post_model.upsert_latest_stock],
-]
+];
 export const downloadCsv = async (dataSets) => {
     try {
         dataSets.forEach(async (data) => {
@@ -27,7 +27,7 @@ export const downloadCsv = async (dataSets) => {
         });
     } catch (error) {
         console.log(error);
-    }
+    };
 }
 download_router.post('/csv', async (req, res) => {
     await downloadCsv(dataSets);

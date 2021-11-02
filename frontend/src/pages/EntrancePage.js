@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import '../styles/pages/EntrancePage.scss'
+import '../styles/pages/EntrancePage.scss';
 export default function LoginPage() {
     return (
         <div className="entrance">
@@ -13,5 +13,5 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

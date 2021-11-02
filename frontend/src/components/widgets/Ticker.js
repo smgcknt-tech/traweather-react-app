@@ -1,10 +1,10 @@
-import React, {memo, useEffect, useRef } from 'react'
+import React, {memo, useEffect, useRef } from 'react';
 
 export default memo(function Ticker() {
     const ref = useRef();
     useEffect(() => {
         const script = document.createElement('script');
-        script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-tickers.js'
+        script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-tickers.js';
         script.async = true;
         script.innerHTML = JSON.stringify({
             "symbols": [
@@ -30,7 +30,7 @@ export default memo(function Ticker() {
             "isTransparent": false,
             "showSymbolLogo": false,
             "locale": "ja"
-        })
+        });
         ref.current.appendChild(script);
     }, []);
     return (
@@ -39,5 +39,5 @@ export default memo(function Ticker() {
                 <div className="tradingview-widget-container__widget"></div>
             </div>
         </div>
-    )
-})
+    );
+});

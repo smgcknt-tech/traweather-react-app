@@ -1,18 +1,18 @@
-import React, { useContext } from 'react'
-import { AppActions, AppContext } from '../../AppStore'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { AppActions, AppContext } from '../../AppStore';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import "../../styles/components/Header.scss"
+import "../../styles/components/Header.scss";
 
 export default function Header() {
     const { state, dispatch } = useContext(AppContext);
-    const { user } = state
-    let history = useHistory()
+    const { user } = state;
+    let history = useHistory();
     const logout = () => {
-        localStorage.removeItem('access_token')
+        localStorage.removeItem('access_token');
         dispatch({ type: AppActions.SET_USER, payload: { ...user, status: false } });
-        history.push('/')
-    }
+        history.push('/');
+    };
     return (
         <div className="header">
             <div className="left_menu">
@@ -27,5 +27,5 @@ export default function Header() {
                 ) : <li className="log_in_bttn" ><Link to="/login">login</Link></li>}
             </ul>
         </div>
-    )
-}
+    );
+};

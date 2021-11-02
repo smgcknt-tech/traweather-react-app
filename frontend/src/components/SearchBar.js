@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../AppStore';
-import "../styles/components/SearchBar.scss";
 import { helper } from '../utils/helper';
+import "../styles/components/SearchBar.scss";
 import Indicators from './Indicators';
 export default function SearchBar() {
     const { state : AppState } = useContext(AppContext);
@@ -18,20 +18,20 @@ export default function SearchBar() {
             setFilteredData([]);
         } else {
             setFilteredData(filteredResult);
-        }
-    }
+        };
+    };
 
     const handleSelect = (code, stock_name) => {
         const foundData = allStocks.filter((stock) => code === stock.code);
         setInputValue(stock_name);
         setFilteredData([]);
         setResult(foundData[0]);
-    }
+    };
 
     const handleClear = () => {
         setInputValue("");
-        setResult(null)
-    }
+        setResult(null);
+    };
 
     return (
         <div className="search">
@@ -52,11 +52,11 @@ export default function SearchBar() {
                                         {value.code}_{value.stock_name}
                                     </p>
                                 );
-                            })}
+                            })};
                     </div>
                 )}
             </div>
             {(result) && (<Indicators result={result} />)}
         </div>
-    )
-}
+    );
+};
