@@ -84,8 +84,7 @@ export default function ReflectionPage() {
                     <div>{date}</div>
                     <h2>{title}</h2>
                 </div>
-                <div className="image_container"><img src={`${image_url}` || noImage} alt="thumbnail" /></div>
-
+                <div className="image_container"><img src={image_url ? `${image_url}` : noImage} alt="thumbnail" /></div>
             </div>
         );
     });

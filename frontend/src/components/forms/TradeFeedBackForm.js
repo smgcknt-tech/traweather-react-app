@@ -1,10 +1,9 @@
 import '../../styles/components/TradeFeedBackForm.scss';
 import { AppContext } from '../../AppStore';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import {env} from '../../config';
+import { env } from '../../config';
 import axios from 'axios';
-import { useState } from 'react';
 
 export default function TradeFeedBackForm(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -17,11 +16,13 @@ export default function TradeFeedBackForm(props) {
         setImage(objectURL);
     };
     const onSubmit = async (data) => {
-        const file = data.image[0];
-        const bodyFormData = new FormData();
-        bodyFormData.append('image', file);
-        const response = await axios.post(env.uploadUrl, bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' } });
-        data.image_url = response.data;
+        if (data.image[0]) {
+            const file = data.image[0];
+            const bodyFormData = new FormData();
+            bodyFormData.append('image', file);
+            const response = await axios.post(env.uploadUrl, bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' } });
+            data.image_url = response.data;
+        }
         data.user_id = AppState.user.id;
         const res = await axios.post(`/api/reflection/create`, data);
         if (res) alert("振り返りを投稿しました");
