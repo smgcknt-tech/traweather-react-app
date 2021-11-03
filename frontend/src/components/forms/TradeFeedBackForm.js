@@ -13,8 +13,8 @@ export default function TradeFeedBackForm(props) {
 
     const uploadFileHandler = async (e) => {
         const file = e.target.files[0];
-        //const objectURL = URL.createObjectURL(file);
-        //setImage(objectURL);
+        const objectURL = URL.createObjectURL(file);
+        setImage(objectURL);
     };
     const onSubmit = async (data) => {
         const file = data.image[0];
@@ -23,11 +23,8 @@ export default function TradeFeedBackForm(props) {
         const response = await axios.post(env.uploadUrl, bodyFormData, { headers: { 'Content-Type': 'multipart/form-data' } });
         data.image_url = response.data;
         data.user_id = AppState.user.id;
-        await axios.post(`/api/reflection/create`, data)
-            .then((response) => {
-                if (response.data.error) alert(response.data.error);
-                if (!response.data.error) alert("振り返りを投稿しました");
-            })
+        const res = await axios.post(`/api/reflection/create`, data);
+        if (res) alert("振り返りを投稿しました");
         props.setOpen(null);
     };
 
