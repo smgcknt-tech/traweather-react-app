@@ -24,32 +24,32 @@ export default function LogInForm(props) {
             });
     };
 
+    const formList = { "username": "", "password": "" };
+    const displayForm = Object
+        .keys(formList)
+        .map((key, index) => {
+            return (
+                <div className="each_input" key={index}>
+                    <fieldset>
+                        <legend>{key}</legend>
+                        <label>
+                            <input type="text" autoComplete="off" defaultValue="" data-testid={key}
+                                {...register(key, { required: `${key}が入力されていません` })}
+                            ></input>
+                        </label>
+                    </fieldset>
+                    {(errors[key]) ? (
+                        <span key={index} className="error">{errors[key].message}</span>
+                    ) : null}
+                </div>
+            )
+        })
+
     return (
         <div >
             <form className="login_form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="register_bttn" onClick={() => { setOpen("register") }}>新規登録はこちら</div>
-                <div className="each_input" >
-                    <fieldset>
-                        <legend>ユーザー名</legend>
-                        <label>
-                            <input type="text" autoComplete="off" defaultValue="" data-testid="username"
-                                {...register('username', { required: `ユーザー名が入力されていません` })}
-                            ></input>
-                        </label>
-                    </fieldset>
-                    {(errors['username']) ? (<span className="error">{errors['username'].message}</span>) : null}
-                </div>
-                <div className="each_input" >
-                    <fieldset>
-                        <legend>パスワード</legend>
-                        <label>
-                            <input type="text" autoComplete="off" defaultValue="" data-testid="password"
-                                {...register('password', { required: `パスワードが入力されていません` })}
-                            ></input>
-                        </label>
-                    </fieldset>
-                    {(errors['password']) ? (<span className="error">{errors['password'].message}</span>) : null}
-                </div>
+                {displayForm}
                 <div className="button"><input data-testid="login_btn" type="submit" value="LOG IN" /></div>
             </form>
         </div>

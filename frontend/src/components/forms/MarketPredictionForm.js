@@ -44,7 +44,9 @@ export default function MarketPredictionForm(props) {
     return (
         <div className="market_prediction_form">
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                <div><span onClick={() => { props.setOpen(null) }}><i className="fas fa-times"></i></span></div>
+                <div>
+                    <span onClick={() => { props.setOpen(null) }}> <i className="fas fa-times"></i></span>
+                </div>
                 {displayForm}
                 <div className="button"><input data-testid="submit_btn" type="submit" value="保存" /></div>
             </form>

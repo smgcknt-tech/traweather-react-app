@@ -36,6 +36,7 @@
 
     .button {
       @include row(center, center);
+      padding: 0.5rem 0;
       input {
         text-align: center;
         color: #fff;
