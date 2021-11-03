@@ -30,7 +30,7 @@ export const api_post_model = {
         if (result === "FAIL") return "市場予想の作成に失敗しました。";
     },
     update_prediction: async (payload) => {
-        const { created_at, user_id } = payload;
+        const { user_id } = payload;
         const column = Object.keys(payload)[0];
         const values = [payload[column]];
         const transaction = async () => {
@@ -131,7 +131,7 @@ export const api_post_model = {
                 SELECT * FROM trade_plan
                 JOIN trade_result ON trade_plan.result_id = trade_result.result_id
                 WHERE trade_plan.user_id = ${user_id} AND to_char( trade_plan.created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
-                return await pool.query(query);
+            return await pool.query(query);
         };
         if (result === "FAIL") return "プランの作成に失敗しました。";
     },

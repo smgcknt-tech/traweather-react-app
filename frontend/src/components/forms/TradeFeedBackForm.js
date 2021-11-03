@@ -69,7 +69,7 @@ export default function TradeFeedBackForm(props) {
                         <legend>画像</legend>
                         <label>
                             <input type="file" accept="image/*"
-                                {...register('image', { required: `画像がアップロードされていません` })}
+                                {...register('image')}
                                 onChange={(e) => uploadFileHandler(e)}
                             />
                         </label>

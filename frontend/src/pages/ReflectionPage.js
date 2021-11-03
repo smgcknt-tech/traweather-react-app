@@ -5,6 +5,7 @@ import { helper } from '../utils/helper';
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
 import ReactPaginate from 'react-paginate';
+import noImage from '../images//noImage.jpg';
 
 export default function ReflectionPage() {
     const { state, dispatch} = useContext(AppContext);
@@ -83,7 +84,7 @@ export default function ReflectionPage() {
                     <div>{date}</div>
                     <h2>{title}</h2>
                 </div>
-                <div className="image_container"><img src={`${image_url}`} alt="thumbnail" /></div>
+                <div className="image_container"><img src={`${image_url}` || noImage} alt="thumbnail" /></div>
 
             </div>
         );
