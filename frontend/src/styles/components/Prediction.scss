@@ -1,19 +1,19 @@
 @import "../variables.scss";
 
 .prediction {
-  width:100%;
+  width: 100%;
   box-shadow: 0 0 0.2rem #b4b4b4;
-  color:#fff;
+  color: #fff;
   .prediction_container {
     @include row(center, space-evenly);
     border-radius: 0.2rem;
     background-color: #fff;
     section {
       @include col(30%);
-      border-radius:0.2rem;
+      border-radius: 0.2rem;
       background-color: #b4b4b4;
       height: 100%;
-      margin:1rem;
+      margin: 1rem;
       border: 0.1rem solid #b4b4b4;
       .title {
         padding: 1rem;
@@ -27,7 +27,7 @@
         height: 60%;
         padding: 1rem;
         textarea {
-          cursor:pointer;
+          cursor: pointer;
           resize: none;
           height: 10rem;
           width: 100%;
@@ -36,7 +36,7 @@
 
       .button {
         @include row(center, center);
-        cursor:pointer;
+        cursor: pointer;
         padding: 1rem;
         span {
           text-align: center;

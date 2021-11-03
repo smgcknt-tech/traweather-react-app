@@ -3,10 +3,10 @@
 .comparison_table {
   @include col(40%);
   color: #8b8b8b;
-  padding:1rem;
+  padding: 1rem;
 
   table {
-    width:100%;
+    width: 100%;
     thead {
       th {
         text-align: center;
@@ -27,7 +27,7 @@
         height: 2rem;
         line-height: 2rem;
         text-align: center;
-        font-size:1.5rem;
+        font-size: 1.5rem;
       }
     }
   }

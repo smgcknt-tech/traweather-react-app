@@ -98,4 +98,17 @@ export const api_get_model = {
             console.error(err.stack);
         };
     },
+    postedFeedBack: async (payload) => {
+        const { user_id } = payload;
+        const query = `
+            SELECT feed_back_id
+            FROM trade_feed_back
+            WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
+        try {
+            const res = await pool.query(query);
+            return res.rows;
+        } catch (err) {
+            console.error(err.stack);
+        };
+    },
 };
