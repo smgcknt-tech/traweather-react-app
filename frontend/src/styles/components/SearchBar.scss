@@ -1,12 +1,12 @@
 @import "../variables.scss";
 
 .search {
-  @include row(center,center);
+  @include row(center, center);
 
   .search_container {
     width: 50%;
     .search_inputs {
-      @include row(center,flex-start);
+      @include row(center, flex-start);
 
       input {
         width: 80%;

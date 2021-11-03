@@ -1,15 +1,15 @@
-import '../../src/styles/pages/ReflectionPage.scss';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { AppContext, AppActions } from '../AppStore';
 import { helper } from '../utils/helper';
+import ReactPaginate from 'react-paginate';
+import '../../src/styles/pages/ReflectionPage.scss';
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
-import ReactPaginate from 'react-paginate';
 import noImage from '../images//noImage.jpg';
 
 export default function ReflectionPage() {
-    const { state, dispatch} = useContext(AppContext);
-    const { user, loading, error, resultData, selectedStock, posts, selectedPost, currentPage, prediction} = state;
+    const { state, dispatch } = useContext(AppContext);
+    const { user, loading, error, resultData, selectedStock, posts, selectedPost, currentPage, prediction } = state;
     const refs = useRef([]);
     const rowsPerPage = 5;
     const pagesVisited = currentPage * rowsPerPage;
@@ -69,7 +69,7 @@ export default function ReflectionPage() {
     }, [resultData]);
 
     const profit_loss_rate = useMemo(() => {
-        const sum =  resultData
+        const sum = resultData
             .map((result) => { return result.profit_loss_rate })
             .reduce((a, x) => a += x, 0)
         return (sum / resultData.length).toFixed(2)

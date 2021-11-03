@@ -2,6 +2,7 @@ import express from "express"
 import { api_controller } from '../controllers/api_controller.js';
 import { api_post_model } from "../models/api_post_model.js";
 import { api_get_model } from "../models/api_get_model.js";
+import { limit_check } from "./middle_ware.js";
 export const api_router = express.Router();
 
 api_router
@@ -53,6 +54,6 @@ api_router
     .post("/result/update_comment", (req, res) => {
         api_controller.passBody(req, res, api_post_model.update_result_comment);
     })
-    .post("/reflection/create", (req, res) => {
+    .post("/reflection/create", limit_check, (req, res) => {
         api_controller.passBody(req, res, api_post_model.create_feed_back);
     })

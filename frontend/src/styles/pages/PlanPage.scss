@@ -43,8 +43,8 @@
         }
       }
       .dashboard_row2 {
-         @include row(flex-start, flex-start);
-         margin: 0 3rem;
+        @include row(flex-start, flex-start);
+        margin: 0 3rem;
       }
     }
   }

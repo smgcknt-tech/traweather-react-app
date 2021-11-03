@@ -12,8 +12,9 @@
       padding: 2rem 0;
       transition: 0.3s;
       &:hover {
-        i,p{
-          color:#fff;
+        i,
+        p {
+          color: #fff;
         }
         background-color: rgba(71, 139, 214, 0.4);
         transition: background-color 0.3s;

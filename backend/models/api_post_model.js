@@ -47,7 +47,7 @@ export const api_post_model = {
             } catch (err) {
                 await pool.query('ROLLBACK');
                 console.log(err.stack);
-                return "FAILED";
+                return "FAIL";
             }
         }
         const result = await transaction();
@@ -136,7 +136,7 @@ export const api_post_model = {
         if (result === "FAIL") return "プランの作成に失敗しました。";
     },
     update_result_comment: async (payload) => {
-        const { comment, result_id, user_id } = payload;
+        const { comment, result_id } = payload;
         const values = [comment];
         const transaction = async () => {
             try {
@@ -259,7 +259,6 @@ export const api_post_model = {
         const transaction = async () => {
             try {
                 await pool.query("BEGIN");
-                //Obtain the trade plan and result ID of a specific stock of the day and delete them.
                 const res = await pool.query(`
                     SELECT plan_id, result_id
                     FROM trade_plan
