@@ -19,6 +19,7 @@ export default function TradeFeedBackForm(props) {
 
     const onSubmit = async (data) => {
         if (data.image[0]) {
+            if (data.image[0].name.match(/[^\x01-\x7E]/)) alert("ファイル名に日本語含めないでください")
             const file = data.image[0];
             const bodyFormData = new FormData();
             bodyFormData.append('image', file);
