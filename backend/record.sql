@@ -8,3 +8,6 @@ ALTER TABLE market_prediction ALTER COLUMN created_at SET DEFAULT CURRENT_TIMEST
 
 -- 20211103 manually migrated into the production DB.
 ALTER TABLE trade_feed_back ALTER COLUMN image_url DROP NOT NULL;
+
+-- 20211104 manually migrated into the production DB.
+ALTER TABLE trade_feed_back ALTER COLUMN image_url TYPE VARCHAR(500);

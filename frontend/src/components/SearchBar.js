@@ -51,8 +51,8 @@ export default function SearchBar() {
                                     <p key={key} className="data_item" data-testid={value.code} onClick={() => { handleSelect(value.code, value.stock_name) }}>
                                         {value.code}_{value.stock_name}
                                     </p>
-                                );
-                            })};
+                                )
+                            })}
                     </div>
                 )}
             </div>
