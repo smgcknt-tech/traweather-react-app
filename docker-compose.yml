@@ -1,10 +1,5 @@
 version: "3"
 services:
-  postgres:
-    image: "postgres:12.8"
-    user: postgres
-    environment:
-      POSTGRES_PASSWORD: ${PGPASSWORD}
   nginx:
     depends_on:
       - frontend
@@ -22,8 +17,8 @@ services:
       dockerfile: Dockerfile.stage
       context: ./frontend
     volumes:
-      - /app/node_modules
       - ./frontend:/app
+      - /app/node_modules
     stdin_open: true
     tty: true
   backend:
@@ -31,8 +26,8 @@ services:
       dockerfile: Dockerfile.stage
       context: "./backend"
     volumes:
-      - /app/node_modules
       - ./backend:/app
+      - /app/node_modules
     environment:
       - jwt_secret_key
       - AWSAccessKeyIdForS3
