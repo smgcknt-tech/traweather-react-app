@@ -4,7 +4,7 @@ import moment from "moment";
 export const helper = {
     fetchData: async (url, dispatch, actions, payload) => {
         dispatch({ type: actions.SET_LOADING, payload: true });
-        const data = await axios.get(url, { params: payload || {} })
+        return await axios.get(url, { params: payload || {} })
             .then((res) => {
                 dispatch({ type: actions.SET_LOADING, payload: false });
                 return res.data
@@ -14,11 +14,10 @@ export const helper = {
             }).finally(() => {
                 dispatch({ type: actions.SET_LOADING, payload: false });
             });
-        return data;
     },
     postData: async (url, dispatch, actions, postData) => {
         dispatch({ type: actions.SET_LOADING, payload: true });
-        const data = await axios.post(url, postData)
+        return await axios.post(url, postData)
             .then((res) => {
                 dispatch({ type: actions.SET_LOADING, payload: false });
                 return res.data;
@@ -28,7 +27,6 @@ export const helper = {
             }).finally(() => {
                 dispatch({ type: actions.SET_LOADING, payload: false });
             });
-        return data;
     },
     time: () => {
         return {

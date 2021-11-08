@@ -1,59 +1,59 @@
 import express from "express"
-import { api_controller } from '../controllers/api_controller.js';
-import { api_post_model } from "../models/api_post_model.js";
-import { api_get_model } from "../models/api_get_model.js";
-import { limit_check } from "./middle_ware.js";
+import { api_controller as ac } from '../controllers/api_controller.js';
+import { api_post_model as apm } from "../models/api_post_model.js";
+import { api_get_model as agm } from "../models/api_get_model.js";
+import { middle_ware as mw } from "./middle_ware.js";
 export const api_router = express.Router();
 
 api_router
     .get('/', (req, res) => { res.send("server is ready") })
     .get("/latest_stock", (req, res) => {
-        api_controller.passNothing(req, res, api_get_model.get_latest_stock);
+        ac.passNothing(req, res, agm.get_latest_stock);
     })
     .get("/plan", (req, res) => {
-        api_controller.passQuery(req, res, api_get_model.get_plan);
+        ac.passQuery(req, res, agm.get_plan);
     })
     .get("/prediction", (req, res) => {
-        api_controller.passQuery(req, res, api_get_model.get_prediction);
+        ac.passQuery(req, res, agm.get_prediction);
     })
     .get("/one_result", (req, res) => {
-        api_controller.passQuery(req, res, api_get_model.get_one_result);
+        ac.passQuery(req, res, agm.get_one_result);
     })
     .get("/feed_back", (req, res) => {
-        api_controller.passQuery(req, res, api_get_model.get_feed_back);
+        ac.passQuery(req, res, agm.get_feed_back);
     })
     .get("/results", (req, res) => {
-        api_controller.passQuery(req, res, api_get_model.get_results);
+        ac.passQuery(req, res, agm.get_results);
     })
 
 api_router
-    .post("/prediction/create", (req, res) => {
-        api_controller.passBody(req, res, api_post_model.create_prediction);
+    .post("/prediction/create", mw.limit_prediction, (req, res) => {
+        ac.passBody(req, res, apm.create_prediction);
     })
     .post("/prediction/update", (req, res) => {
-        api_controller.passBody(req, res, api_post_model.update_prediction);
+        ac.passBody(req, res, apm.update_prediction);
     })
     .post("/plan/create", (req, res) => {
-        api_controller.passBody(req, res, api_post_model.create_plan);
+        ac.passBody(req, res, apm.create_plan);
     })
     .post("/plan/update_numbers", (req, res) => {
-        api_controller.passBody(req, res, api_post_model.update_plan_numbers);
+        ac.passBody(req, res, apm.update_plan_numbers);
     })
     .post("/plan/update_reason", (req, res) => {
-        api_controller.passBody(req, res, api_post_model.update_plan_reason);
+        ac.passBody(req, res, apm.update_plan_reason);
     })
     .post("/plan/update_strategy", (req, res) => {
-        api_controller.passBody(req, res, api_post_model.update_plan_strategy);
+        ac.passBody(req, res, apm.update_plan_strategy);
     })
     .post("/plan/delete", (req, res) => {
-        api_controller.passBody(req, res, api_post_model.delete_plan);
+        ac.passBody(req, res, apm.delete_plan);
     })
     .post("/result/update_numbers", (req, res) => {
-        api_controller.passBody(req, res, api_post_model.update_result_numbers);
+        ac.passBody(req, res, apm.update_result_numbers);
     })
     .post("/result/update_comment", (req, res) => {
-        api_controller.passBody(req, res, api_post_model.update_result_comment);
+        ac.passBody(req, res, apm.update_result_comment);
     })
-    .post("/reflection/create", limit_check, (req, res) => {
-        api_controller.passBody(req, res, api_post_model.create_feed_back);
+    .post("/reflection/create", mw.limit_feed_back, (req, res) => {
+        ac.passBody(req, res, apm.create_feed_back);
     })

@@ -44,7 +44,6 @@ export default function LogInForm(props) {
                 </div>
             )
         })
-
     return (
         <div >
             <form className="login_form" onSubmit={handleSubmit(onSubmit)}>
@@ -53,5 +52,5 @@ export default function LogInForm(props) {
                 <div className="button"><input data-testid="login_btn" type="submit" value="LOG IN" /></div>
             </form>
         </div>
-    );
+    )
 };
