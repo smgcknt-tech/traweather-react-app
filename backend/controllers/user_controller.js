@@ -1,8 +1,8 @@
-import { user_model } from "../models/user_model.js";
+import { user_model as um } from "../models/user_model.js";
 
 export const user_controller = {
     register: async (req, res) => {
-        user_model.register(req.body).
+        um.register(req.body).
             then((result) => {
                 if (result === "SUCCESS") {
                     user_controller.login(req, res);
@@ -12,7 +12,7 @@ export const user_controller = {
             });
     },
     login: async (req, res) => {
-        await user_model.login(req.body)
+        await um.login(req.body)
             .then((data) => {
                 if (!data.error) {
                     res.json(data);

@@ -1,7 +1,6 @@
 import format from 'pg-format';
 import { helper } from '../utils/helper.js';
 import { pool } from '../configs/postgresql.js';
-import { api_get_model } from './api_get_model.js';
 
 export const api_post_model = {
     create_prediction: async (payload) => {
@@ -9,7 +8,6 @@ export const api_post_model = {
         const transaction = async () => {
             try {
                 await pool.query("BEGIN");
-                //User can create prediction once a day
                 const res = await pool.query(`
                     INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
                     SELECT $1, $2, $3, $4
@@ -17,7 +15,6 @@ export const api_post_model = {
                     RETURNING *;`, values);
                 await pool.query("COMMIT");
                 if (res.rows.length > 0) return { data: res.rows[0] };
-                if (res.rows.length === 0) return "CANCEL";
             } catch (err) {
                 await pool.query('ROLLBACK');
                 console.log(err.stack);
@@ -26,8 +23,6 @@ export const api_post_model = {
         }
         const result = await transaction();
         if (result.data) return { createdData: result.data };
-        if (result === "CANCEL") return "市場予想の作成が中断されました。";
-        if (result === "FAIL") return "市場予想の作成に失敗しました。";
     },
     update_prediction: async (payload) => {
         const { user_id } = payload;
@@ -43,7 +38,6 @@ export const api_post_model = {
                     RETURNING *;`, values);
                 await pool.query("COMMIT");
                 if (res.rows.length > 0) return { data: res.rows[0] };
-                if (res.rows.length === 0) return "CANCEL";
             } catch (err) {
                 await pool.query('ROLLBACK');
                 console.log(err.stack);
@@ -52,12 +46,10 @@ export const api_post_model = {
         }
         const result = await transaction();
         if (result.data) return { updatedData: result.data };
-        if (result === "CANCEL") return "市場予想の更新が中断されました。";
-        if (result === "FAIL") return "市場予想の作成に失敗しました。";
     },
     upsert_latest_stock: async (values) => {
         const query = format(`
-                INSERT INTO latest_stock_data(code,stock_name,market,industry,stock_date,price,change,change_in_percent,previous_close,opening,high,low,vwap,volume,volume_in_percent,trading_value,market_cap,lower_range,upper_range,year_high_date,year_high,year_high_divergence_rate,year_low_date,year_low,year_low_divergence_rate)
+                INSERT INTO latest_stock_data (code,stock_name,market,industry,stock_date,price,change,change_in_percent,previous_close,opening,high,low,vwap,volume,volume_in_percent,trading_value,market_cap,lower_range,upper_range,year_high_date,year_high,year_high_divergence_rate,year_low_date,year_low,year_low_divergence_rate)
                 VALUES %L
                 ON CONFLICT(code)
                 DO UPDATE SET
@@ -94,7 +86,6 @@ export const api_post_model = {
                 const res = await pool.query(query, []);
                 await pool.query("COMMIT");
                 if (res.rows.length > 0) return { data: res.rows };
-                if (res.rows.length === 0) return "CANCEL";
             } catch (err) {
                 await pool.query('ROLLBACK');
                 console.log(err.stack);
@@ -103,8 +94,6 @@ export const api_post_model = {
         }
         const result = await transaction();
         if (result.data) return `${result.data.length} 銘柄のデータが更新されました。`;
-        if (result === "CANCEL") return "更新が中断されました。";
-        if (result === "FAIL") return "更新に失敗しました。";
     },
     update_result_numbers: async (payload) => {
         const { lot, entry_point, exit_point, result_id, user_id, date, profit_loss, profit_loss_rate, total_profit_loss } = payload;
@@ -133,7 +122,6 @@ export const api_post_model = {
                 WHERE trade_plan.user_id = ${user_id} AND to_char( trade_plan.created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
             return await pool.query(query);
         };
-        if (result === "FAIL") return "プランの作成に失敗しました。";
     },
     update_result_comment: async (payload) => {
         const { comment, result_id } = payload;
@@ -176,8 +164,12 @@ export const api_post_model = {
                     SELECT $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
                     WHERE NOT EXISTS (SELECT plan_id FROM trade_plan WHERE code = ${code} AND user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}');`
                     , [code, market, stock_name, opening, support, losscut, goal, reason, strategy, user_id, result.rows[0].result_id]);
+                const result2 = await pool.query(`
+                    SELECT * FROM trade_plan
+                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+                    ORDER BY code ASC;`);
                 await pool.query("COMMIT");
-                return "SUCCESS";
+                return { data: result2.rows };
             } catch (err) {
                 await pool.query('ROLLBACK');
                 console.log(err.stack);
@@ -185,8 +177,7 @@ export const api_post_model = {
             }
         }
         const result = await transaction();
-        if (result === "SUCCESS") return await api_get_model.get_plan(payload);
-        if (result === "FAIL") return "プランの作成に失敗しました。";
+        if (result.data) return result.data;
     },
     update_plan_numbers: async (payload) => {
         const { opening, support, losscut, goal, user_id, code } = payload;
@@ -198,8 +189,12 @@ export const api_post_model = {
                     UPDATE trade_plan
                     SET opening=$1,support=$2,losscut=$3,goal=$4
                     WHERE user_id=${user_id} AND code=${code};`, values);
+                const result = await pool.query(`
+                    SELECT * FROM trade_plan
+                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+                    ORDER BY code ASC;`);
                 await pool.query("COMMIT");
-                return "SUCCESS";
+                return { data: result.rows };
             } catch (err) {
                 await pool.query('ROLLBACK');
                 console.log(err.stack);
@@ -207,8 +202,7 @@ export const api_post_model = {
             };
         };
         const result = await transaction();
-        if (result === "SUCCESS") return await api_get_model.get_plan(payload);
-        if (result === "FAIL") return "プランの更新に失敗しました。";
+        if (result.data) return result.data;
     },
     update_plan_reason: async (payload) => {
         const { reason, user_id, code } = payload;
@@ -220,8 +214,12 @@ export const api_post_model = {
                     UPDATE trade_plan
                     SET reason=$1
                     WHERE user_id=${user_id} AND code=${code};`, values);
+                const result = await pool.query(`
+                    SELECT * FROM trade_plan
+                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+                    ORDER BY code ASC;`);
                 await pool.query("COMMIT");
-                return "SUCCESS";
+                return { data: result.rows };
             } catch (err) {
                 await pool.query('ROLLBACK');
                 console.log(err.stack);
@@ -229,8 +227,7 @@ export const api_post_model = {
             };
         };
         const result = await transaction();
-        if (result === "SUCCESS") return await api_get_model.get_plan(payload);
-        if (result === "FAIL") return "プランの更新に失敗しました。";
+        if (result.data) return result.data;
     },
     update_plan_strategy: async (payload) => {
         const { strategy, user_id, code } = payload;
@@ -242,8 +239,12 @@ export const api_post_model = {
                     UPDATE trade_plan
                     SET strategy=$1
                     WHERE user_id=${user_id} AND code=${code};`, values);
+                const result = await pool.query(`
+                    SELECT * FROM trade_plan
+                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+                    ORDER BY code ASC;`);
                 await pool.query("COMMIT");
-                return "SUCCESS";
+                return { data: result.rows };
             } catch (err) {
                 await pool.query('ROLLBACK');
                 console.log(err.stack);
@@ -251,8 +252,7 @@ export const api_post_model = {
             };
         };
         const result = await transaction();
-        if (result === "SUCCESS") return await api_get_model.get_plan(payload);
-        if (result === "FAIL") return "プランの更新に失敗しました。";
+        if (result.data) return result.data;
     },
     delete_plan: async (payload) => {
         const { user_id, code } = payload;
@@ -269,8 +269,12 @@ export const api_post_model = {
                 await pool.query(`
                     DELETE FROM trade_result
                     WHERE result_id = ${res.rows[0].result_id};`);
+                const result = await pool.query(`
+                    SELECT * FROM trade_plan
+                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+                    ORDER BY code ASC;`);
                 await pool.query("COMMIT");
-                return "SUCCESS";
+                if (result.data) return result.data;
             } catch (err) {
                 await pool.query('ROLLBACK');
                 console.log(err.stack);
@@ -278,8 +282,7 @@ export const api_post_model = {
             };
         }
         const result = await transaction();
-        if (result === "SUCCESS") return await api_get_model.get_plan(payload);
-        if (result === "FAIL") return "プランの削除に失敗しました。";
+        if (result.data) return result.data;
     },
     create_feed_back: async (payload) => {
         const { title, content, image_url, user_id } = payload;
@@ -299,6 +302,5 @@ export const api_post_model = {
         }
         const result = await transaction();
         if (result === "SUCCESS") return await pool.query("SELECT * FROM trade_feed_back;");
-        if (result === "FAIL") return "振り返りの作成に失敗しました。";
     },
 };
