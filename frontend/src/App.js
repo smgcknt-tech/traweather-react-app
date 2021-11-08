@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { useLocation, Route, Switch } from 'react-router-dom';
 import { AppContext, AppActions } from "./AppStore";
 import { hooks } from '../src/utils/custom_hooks';
 import "./styles/destyle.css";
@@ -19,32 +19,25 @@ function App() {
   const { state, dispatch } = useContext(AppContext);
   const { user } = state;
   hooks.useAuthentification(user, dispatch, AppActions);
+  const location = useLocation();
   return (
-    <BrowserRouter forceRefresh={true}>
-      <div className="grid-container">
-        <header>
-          <Header />
-        </header>
-        <nav>
-          <NavBar />
-        </nav>
-        <main>
-          <Switch>
-            {(user.status === false) && <LoginPage />}
-            <Route exact path="/" component={EntrancePage } />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/market" component={MarketPage}/>
-            <Route exact path="/plan" component={PlanPage} />
-            <Route exact path="/result" component={ResultPage} />
-            <Route exact path="/reflection" component={ReflectionPage} />
-            <Route path="*" component={NotFoundPage} exact />
-          </Switch>
-        </main>
-        <footer>
-          <Footer />
-        </footer>
-      </div>
-    </BrowserRouter >
+    <div className="grid-container">
+      {(location.pathname !== '/') && < header > <Header /></header>}
+      {(location.pathname !== '/') && <nav><NavBar /></nav>}
+      <main>
+        <Switch>
+          {(user.status === false) && <LoginPage />}
+          <Route exact path="/" component={EntrancePage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/market" component={MarketPage} />
+          <Route exact path="/plan" component={PlanPage} />
+          <Route exact path="/result" component={ResultPage} />
+          <Route exact path="/reflection" component={ReflectionPage} />
+          <Route path="*" component={NotFoundPage} exact />
+        </Switch>
+      </main>
+      {(location.pathname !== '/') && <footer> <Footer /></footer>}
+    </div>
   );
 };
 export default App;
