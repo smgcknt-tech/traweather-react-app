@@ -1,12 +1,11 @@
 @import "../variables.scss";
 
 .entrance {
+  width: 100%;
+  height:100vh;
   .main_container {
     @include gradation_background();
     @include row(center, center);
-    width: 100%;
-    height: 80rem;
-
     .message {
       @include row(center, center);
       color: #fff;
@@ -36,10 +35,8 @@
   }
   .explanation_container {
     .feature_list_container {
-      padding: 5rem;
+      padding: 3rem;
       background-color: #fafafa;
-      width: 100%;
-      height: 60rem;
       h2 {
         text-align: center;
       }
@@ -55,17 +52,34 @@
           padding: 1rem;
           margin: 2rem;
           i {
-            font-size:8rem;
-            color:#6AE3A4;
-            width:100%;
-            height:70%;
+            font-size: 8rem;
+            color: #6ae3a4;
+            width: 100%;
+            height: 70%;
             @include place_center();
           }
           p {
-            padding:1rem;
+            padding: 1rem;
             font-size: large;
             text-align: center;
           }
+        }
+      }
+    }
+  }
+  .user_review_container {
+    padding: 5rem;
+    background-color: #fafafa;
+    @include row(center, center);
+    .review {
+      padding: 2rem;
+      text-align: center;
+      .user_profile {
+        img {
+          padding: 2rem;
+          width: 15rem;
+          height: 100%;
+          border-radius: 10rem;
         }
       }
     }

@@ -22,9 +22,7 @@ export default function LoginPage() {
                     }
                 </div>
                 {(!user.status || !user.id) && (
-                    <div>
-                        {open === "register" ? <RegisterForm setOpen={setOpen} /> : <LogInForm setOpen={setOpen} />}
-                    </div>
+                    <div>{open === "register" ? <RegisterForm setOpen={setOpen} /> : <LogInForm setOpen={setOpen} />} </div>
                 )}
             </div>
         </div>
