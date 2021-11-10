@@ -12,7 +12,7 @@ import TradeFeedBackForm from '../components/forms/TradeFeedBackForm';
 export default function ResultPage() {
     const { state, dispatch } = useContext(AppContext);
     const { user, allStocks, loading, error, resultData, selectedStock, resultIndicators } = state;
-    const { monthly_profit, last_profit, weekly_profit } = resultIndicators;
+    const { monthly_profit, last_profit, weekly_profit, win_lose } = resultIndicators;
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -22,10 +22,10 @@ export default function ResultPage() {
                     user_id: user.id
                 });
                 if (fetchedData) {
-                    const { monthly_profit, last_profit, weekly_profit, resultData } = fetchedData
+                    const { monthly_profit, last_profit, weekly_profit, win_lose, resultData } = fetchedData
                     dispatch({ type: AppActions.SET_RESULT, payload: resultData });
                     dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[0] });
-                    dispatch({ type: AppActions.SET_RESULT_INDICATORS, payload: { ...resultIndicators, monthly_profit: monthly_profit, last_profit: last_profit, weekly_profit: weekly_profit } });
+                    dispatch({ type: AppActions.SET_RESULT_INDICATORS, payload: { ...resultIndicators, monthly_profit, last_profit, weekly_profit, win_lose } });
                 };
                 const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions,);
                 if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
@@ -76,6 +76,10 @@ export default function ResultPage() {
                             <div id="weekly_profit">
                                 <div className="card_value">{weekly_profit}円</div>
                                 <div className="card_title">今週損益</div>
+                            </div>
+                            <div id="weekly_profit">
+                                <div className="card_value">{win_lose.monthly_win}W-{win_lose.monthly_lose}L</div>
+                                <div className="card_title">今月勝敗</div>
                             </div>
                         </div>
                         {resultData.length > 0 && <ResultTable />}
