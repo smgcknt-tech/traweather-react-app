@@ -1,7 +1,7 @@
-FROM node:14-alpine as builder
+FROM node:14.15.4 as builder
 WORKDIR /app
 ENV CI=true
-COPY ./package*.json ./
+COPY ./package.json ./
 RUN npm i
 COPY . .
 RUN npm run build
