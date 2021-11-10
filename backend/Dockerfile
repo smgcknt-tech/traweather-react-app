@@ -1,6 +1,6 @@
-FROM node:14-alpine
+FROM node:14.15.4
 WORKDIR /app
-COPY package*.json ./
+COPY ./package.json ./
 RUN npm i
 COPY . .
 EXPOSE 5000
