@@ -43,15 +43,37 @@ export const api_get_model = {
         const query3 = `
             SELECT SUM(total_profit_loss)
             FROM trade_result
-            WHERE user_id = ${user_id} AND to_char( created_at, 'YYYY-MM-DD' ) = '${helper.time().yesterday}'`;
+            WHERE user_id = ${user_id} AND to_char( created_at, 'YYYY-MM-DD' ) = '${helper.time().yesterday}';`;
+        const query4 = `
+            SELECT date_trunc('week', created_at::date) AS week,
+            SUM(total_profit_loss)
+            FROM trade_result
+            GROUP BY week
+            HAVING date_trunc('week', created_at::date)::text like '${helper.time().thisMonday}%';`;
+        const query5 = `
+            SELECT COUNT(*)
+            FROM trade_result
+            WHERE profit_loss_rate > 0 AND to_char(created_at, 'YYYY-MM') = '${helper.time().thisMonth}';`;
+        const query6 = `
+            SELECT COUNT(*)
+            FROM trade_result
+            WHERE profit_loss_rate <= 0 AND to_char(created_at, 'YYYY-MM') = '${helper.time().thisMonth}';`;
         try {
             const resultData = await pool.query(query1);
             const monthly_profit = await pool.query(query2);
             const last_profit = await pool.query(query3);
+            const weekly_profit = await pool.query(query4);
+            const monthly_win = await pool.query(query5);
+            const monthly_lose = await pool.query(query6);
             const dataSets = {
                 resultData: resultData.rows,
                 monthly_profit: monthly_profit.rows[0].sum || 0,
                 last_profit: last_profit.rows[0].sum || 0,
+                weekly_profit: weekly_profit.rows[0].sum || 0,
+                win_lose: {
+                    monthly_win: monthly_win.rows[0].count || 0,
+                    monthly_lose: monthly_lose.rows[0].count || 0,
+                }
             };
             return dataSets;
         } catch (err) {

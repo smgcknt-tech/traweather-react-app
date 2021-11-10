@@ -1,6 +1,7 @@
-FROM node:14.15.4
+FROM node:14-alpine
 WORKDIR /app
 ENV CI=true
+COPY package*.json ./
+RUN npm i 
 COPY . .
-RUN npm i
 CMD ["npm", "run", "start"]

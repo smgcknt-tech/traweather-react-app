@@ -19,6 +19,11 @@ export const initialState = {
         monthly_profit: 0,
         last_profit: 0,
         todays_profit: 0,
+        weekly_profit:0,
+        win_lose:{
+            monthly_win:0,
+            monthly_lose:0,
+        }
     },
     posts: [],
     selectedPost: null,

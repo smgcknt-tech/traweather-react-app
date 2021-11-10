@@ -57,6 +57,10 @@
           #monthly_profit {
             @include indicator_card(#fcf8e3, #8c6f3e);
           }
+
+          #weekly_profit {
+            @include indicator_card(#f2dede, #a94442);
+          }
         }
       }
 

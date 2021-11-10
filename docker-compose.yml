@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile.stage
       context: ./frontend
     volumes:
-      - ./frontend:/app
+      - ./frontend:/app:cached
       - /app/node_modules
     stdin_open: true
     tty: true
@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile.stage
       context: "./backend"
     volumes:
-      - ./backend:/app
+      - ./backend:/app:cached
       - /app/node_modules
     environment:
       - jwt_secret_key

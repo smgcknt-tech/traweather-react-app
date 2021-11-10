@@ -1,11 +1,11 @@
 import '../../styles/components/RegisterForm.scss';
 import { useForm } from 'react-hook-form';
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { AppActions, AppContext } from '../../AppStore';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-export default function RegisterForm(props) {
+export default memo(function RegisterForm(props) {
     const { state, dispatch } = useContext(AppContext);
     const { user } = state;
     const { setOpen } = props;
@@ -54,4 +54,4 @@ export default function RegisterForm(props) {
             </form>
         </div>
     );
-};
+});

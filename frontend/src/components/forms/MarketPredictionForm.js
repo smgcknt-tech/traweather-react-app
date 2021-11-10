@@ -1,10 +1,10 @@
 import '../../styles/components/MarketPredictionForm.scss';
 import { useForm } from 'react-hook-form';
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { AppActions, AppContext } from '../../AppStore';
 import { helper } from '../../utils/helper';
 
-export default function MarketPredictionForm(props) {
+export default memo(function MarketPredictionForm(props) {
     const { state, dispatch } = useContext(AppContext);
     const { user } = state;
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -49,4 +49,4 @@ export default function MarketPredictionForm(props) {
             </form>
         </div>
     );
-};
+});
