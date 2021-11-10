@@ -1,11 +1,11 @@
 import { AppContext } from '../../AppStore';
-import { useState, useContext } from 'react';
+import { memo, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { env } from '../../config';
 import axios from 'axios';
 import '../../styles/components/TradeFeedBackForm.scss';
 
-export default function TradeFeedBackForm(props) {
+export default memo(function TradeFeedBackForm(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { state } = useContext(AppContext);
     const { user } = state;
@@ -81,4 +81,4 @@ export default function TradeFeedBackForm(props) {
             </form>
         </div>
     );
-};
+});

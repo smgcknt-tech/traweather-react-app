@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { AppActions, AppContext } from '../../AppStore';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import '../../styles/components/LogInForm.scss';
 
-export default function LogInForm(props) {
+export default memo(function LogInForm(props) {
     const { state, dispatch } = useContext(AppContext);
     const { user } = state;
     const { setOpen } = props;
@@ -53,4 +53,4 @@ export default function LogInForm(props) {
             </form>
         </div>
     )
-};
+});

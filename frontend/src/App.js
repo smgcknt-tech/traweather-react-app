@@ -22,8 +22,8 @@ function App() {
   const location = useLocation();
   return (
     <div className="grid-container">
-      {(location.pathname !== '/') && < header > <Header /></header>}
-      {(location.pathname !== '/') && <nav><NavBar /></nav>}
+      {(location.pathname !== '/' ) && < header > <Header /></header>}
+      {(location.pathname !== '/' ) && <nav><NavBar /></nav>}
       <main>
         <Switch>
           {(user.status === false) && <LoginPage />}
@@ -36,7 +36,7 @@ function App() {
           <Route path="*" component={NotFoundPage} exact />
         </Switch>
       </main>
-      {(location.pathname !== '/') && <footer> <Footer /></footer>}
+      {(location.pathname !== '/' ) && <footer> <Footer /></footer>}
     </div>
   );
 };
