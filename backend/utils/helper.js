@@ -1,11 +1,13 @@
 import moment from "moment-timezone";
+moment.tz.setDefault('Asia/Tokyo');
 
 export const helper = {
     time: () => {
         return {
-            today: moment().tz("Asia/Tokyo").format("YYYY-MM-DD"),
-            yesterday: moment().tz("Asia/Tokyo").subtract(1, 'day').format("YYYY-MM-DD"),
-            thisMonth: moment().tz("Asia/Tokyo").format("YYYY-MM"),
+            today: moment().format("YYYY-MM-DD"),
+            yesterday: moment().subtract(1, 'day').format("YYYY-MM-DD"),
+            thisMonth: moment().format("YYYY-MM"),
+            thisMonday: moment().day(1).format("YYYY-MM-DD"),
         };
     }
 };
