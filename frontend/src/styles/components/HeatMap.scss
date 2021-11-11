@@ -2,12 +2,12 @@
 
 .heatmap {
   color: #8b8b8b;
-  padding: 1rem;
-
+  box-shadow: 0 0 0.2rem #b4b4b4;
   table {
     width: 100%;
     thead {
       th {
+        font-size:1rem;
         text-align: center;
       }
     }
