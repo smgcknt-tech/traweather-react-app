@@ -9,6 +9,7 @@ import Event from '../components/widgets/Event';
 import Twitter from '../components/widgets/Twitter';
 import Prediction from '../components/Prediction';
 import MarketPredictionForm from '../components/forms/MarketPredictionForm';
+import HeatMap from '../components/HeatMap';
 
 export default function MarketPage() {
     const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
@@ -40,6 +41,7 @@ export default function MarketPage() {
                 {(open === "prediction") && <MarketPredictionForm setOpen={setOpen} />}
                 <div className="dashboard_row1">
                     {prediction && <Prediction />}
+                    <HeatMap />
                     <Ticker />
                 </div>
                 <div className="dashboard_row2">
