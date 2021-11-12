@@ -27,7 +27,7 @@ export const initialState = {
     },
     posts: [],
     selectedPost: null,
-    heatmapData:null,
+    heatmapData:[],
 };
 export const AppContext = createContext(initialState);
 export const AppActions = {
