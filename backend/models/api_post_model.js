@@ -161,8 +161,7 @@ export const api_post_model = {
                     VALUES($1) RETURNING result_id;`, [user_id]);
                 await pool.query(`
                     INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,result_id)
-                    SELECT $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
-                    WHERE NOT EXISTS (SELECT plan_id FROM trade_plan WHERE code = ${code} AND user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}');`
+                    VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`
                     , [code, market, stock_name, opening, support, losscut, goal, reason, strategy, user_id, result.rows[0].result_id]);
                 const result2 = await pool.query(`
                     SELECT * FROM trade_plan

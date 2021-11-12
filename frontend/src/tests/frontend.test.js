@@ -48,6 +48,9 @@ describe.skip('Unit', () => {
     test('User can see selectedStocks chart data when they click it in planTabel and resultTable ', async () => {
         //TBD
     });
+    test('User can create plan of same stock for multiple times at same day', async () => {
+        //TBD
+    });
     test('User can change planTable and resultTable by pagenation ', async () => {
         //TBD
     });

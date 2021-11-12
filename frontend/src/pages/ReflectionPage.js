@@ -15,6 +15,7 @@ export default function ReflectionPage() {
     const pagesVisited = currentPage * rowsPerPage;
     const pageCount = Math.ceil(resultData?.length / rowsPerPage);
 
+
     useEffect(() => {
         if (user.id) {
             (async () => {
@@ -28,10 +29,10 @@ export default function ReflectionPage() {
         const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, { user_id: user.id, date: date });
         const fetchedResult = await helper.fetchData(`/api/one_result`, dispatch, AppActions, { user_id: user.id, date: date });
         if (fetchedPrediction) {
-            dispatch({ type: AppActions.SET_RESULT, payload: fetchedResult });
+            dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
         };
         if (fetchedResult) {
-            dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction })
+            dispatch({ type: AppActions.SET_RESULT, payload: fetchedResult });
             dispatch({ type: AppActions.SET_SELECTED_POST, payload: posts[i] });
         };
     }

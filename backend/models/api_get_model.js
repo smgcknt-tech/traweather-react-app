@@ -97,6 +97,7 @@ export const api_get_model = {
                     monthly_lose: monthly_lose.rows[0].count || 0,
                 }
             };
+            console.log(datasets)
             return dataSets;
         } catch (err) {
             console.error(err.stack);
