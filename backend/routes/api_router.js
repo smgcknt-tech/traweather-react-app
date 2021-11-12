@@ -10,6 +10,9 @@ api_router
     .get("/latest_stock", (req, res) => {
         ac.passNothing(req, res, agm.get_latest_stock);
     })
+    .get("/market_heatmap", (req, res) => {
+        ac.passNothing(req, res, agm.get_market_heatmap);
+    })
     .get("/plan", (req, res) => {
         ac.passQuery(req, res, agm.get_plan);
     })

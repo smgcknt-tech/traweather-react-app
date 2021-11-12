@@ -4,12 +4,12 @@ import { pool } from '../configs/postgresql.js';
 export const api_get_model = {
     get_prediction: async (payload) => {
         const { user_id, date } = payload;
-        const query = `
+        const query1 = `
             SELECT *
             FROM market_prediction
             WHERE user_id =${user_id} AND to_char( created_at, 'YYYY-MM-DD' ) = '${date}';`;
         try {
-            const res = await pool.query(query);
+            const res = await pool.query(query1);
             return res.rows[0];
         } catch (err) {
             console.error(err.stack);
@@ -23,6 +23,28 @@ export const api_get_model = {
         try {
             const res = await pool.query(query);
             return res.rows;
+        } catch (err) {
+            console.error(err.stack);
+        };
+    },
+    get_market_heatmap: async () => {
+        const query1 = `
+            SELECT market,
+                CASE WHEN cast(price as numeric) < 3000 THEN '小型'
+                        WHEN cast(price as numeric) BETWEEN 3000 AND 4999 THEN '中型'
+                        WHEN cast(price as numeric) > 5000 THEN '大型'
+                END AS range,
+                ROUND(AVG(cast(change_in_percent as numeric)),2) AS avg
+            FROM latest_stock_data
+            WHERE price <> '-'
+                AND NOT market LIKE '%名証%'
+                AND NOT market LIKE '%福証%'
+                AND NOT market LIKE '%札証%'
+            GROUP BY range, market
+            ORDER BY market DESC;`;
+        try {
+            const res = await pool.query(query1);
+            return res.rows
         } catch (err) {
             console.error(err.stack);
         };

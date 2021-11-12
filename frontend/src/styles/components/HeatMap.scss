@@ -1,0 +1,33 @@
+@import "../variables.scss";
+
+.heatmap {
+  color: #8b8b8b;
+  box-shadow: 0 0 0.2rem #b4b4b4;
+  table {
+    width: 100%;
+    thead {
+      th {
+        font-size:1rem;
+        text-align: center;
+      }
+    }
+    tr {
+      th {
+        padding: 1rem;
+        text-align: center;
+        border: 0.1rem #dfdcdc solid;
+        background-color: #8b8b8b;
+        color: #fff;
+      }
+      td {
+        background-color: #fff;
+        border: 0.1rem #dfdcdc solid;
+        padding: 1rem;
+        height: 2rem;
+        line-height: 2rem;
+        text-align: center;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

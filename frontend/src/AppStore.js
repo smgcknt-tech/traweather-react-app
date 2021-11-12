@@ -27,6 +27,7 @@ export const initialState = {
     },
     posts: [],
     selectedPost: null,
+    heatmapData:[],
 };
 export const AppContext = createContext(initialState);
 export const AppActions = {
@@ -43,6 +44,7 @@ export const AppActions = {
     SET_RESULT_INDICATORS: 'SET_RESULT_INDICATORS',
     SET_POSTS: 'SET_POSTS',
     SET_SELECTED_POST: 'SET_SELECTED_POST',
+    SET_HEAT_MAP: 'SET_HEAT_MAP',
 };
 export const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer((state, action) => {
@@ -86,6 +88,9 @@ export const AppProvider = ({ children }) => {
                 return currentState;
             case AppActions.SET_SELECTED_POST:
                 currentState.selectedPost = action.payload;
+                return currentState;
+            case AppActions.SET_HEAT_MAP:
+                currentState.heatmapData = action.payload;
                 return currentState;
             default:
                 throw new Error('no action matched');

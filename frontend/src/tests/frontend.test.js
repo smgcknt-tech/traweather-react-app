@@ -18,7 +18,10 @@ describe.skip('Unit', () => {
     test('User can go to topPage when they click logo in header', async () => {
         //TBD
     });
-    test('User can change pageby clicking button in sidebar', async () => {
+    test('User can change page by clicking button in sidebar', async () => {
+        //TBD
+    });
+    test('User can see HeatMap component', async () => {
         //TBD
     });
     test('User can see loading while api is working', async () => {

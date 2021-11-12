@@ -9,24 +9,26 @@ import Event from '../components/widgets/Event';
 import Twitter from '../components/widgets/Twitter';
 import Prediction from '../components/Prediction';
 import MarketPredictionForm from '../components/forms/MarketPredictionForm';
+import HeatMap from '../components/HeatMap';
 
 export default function MarketPage() {
-    const { state: AppState, dispatch: AppDispatch } = useContext(AppContext);
-    const { user, prediction, loading, error } = AppState;
+    const { state, dispatch } = useContext(AppContext);
+    const { user, prediction, heatmapData, loading, error } = state;
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if (user.id) {
             const fetchData = async () => {
-                const fetchedPrediction = await helper.fetchData(`/api/prediction`, AppDispatch, AppActions, {
+                const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, {
                     user_id: user.id, date: helper.time().today
                 })
-                if (fetchedPrediction) AppDispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
+                if (fetchedPrediction) dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
+                const fetchedHeatmapData = await helper.fetchData(`/api/market_heatmap`, dispatch, AppActions);
+                if (fetchedHeatmapData) dispatch({ type: AppActions.SET_HEAT_MAP, payload: fetchedHeatmapData });
             };
             fetchData();
-        };
-        // eslint-disable-next-line
-    }, [user.id]);
+        }
+    }, [user.id]);// eslint-disable-line
 
     if (loading) return <Loading />;
     if (error) return <Message variant="error">{error}</Message>;
@@ -40,6 +42,7 @@ export default function MarketPage() {
                 {(open === "prediction") && <MarketPredictionForm setOpen={setOpen} />}
                 <div className="dashboard_row1">
                     {prediction && <Prediction />}
+                    <HeatMap />
                     <Ticker />
                 </div>
                 <div className="dashboard_row2">
