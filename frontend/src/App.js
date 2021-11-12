@@ -14,6 +14,7 @@ import PlanPage from "./pages/PlanPage";
 import LoginPage from "./pages/LoginPage";
 import EntrancePage from "./pages/EntrancePage";
 import ResultPage from "./pages/ResultPage";
+import ScreeningPage from "./pages/ScreeningPage";
 
 function App() {
   const { state, dispatch } = useContext(AppContext);
@@ -22,22 +23,37 @@ function App() {
   const location = useLocation();
   return (
     <div className="grid-container">
-      {(location.pathname !== '/') && < header > <Header /></header>}
-      {(location.pathname !== '/') && <nav><NavBar /></nav>}
+      {location.pathname !== '/' && (
+        <header>
+          {' '}
+          <Header />
+        </header>
+      )}
+      {location.pathname !== '/' && (
+        <nav>
+          <NavBar />
+        </nav>
+      )}
       <main>
         <Switch>
-          {(user.status === false) && <LoginPage />}
+          {user.status === false && <LoginPage />}
           <Route exact path="/" component={EntrancePage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/market" component={MarketPage} />
           <Route exact path="/plan" component={PlanPage} />
           <Route exact path="/result" component={ResultPage} />
           <Route exact path="/reflection" component={ReflectionPage} />
+          <Route exact path="/screening" component={ScreeningPage} />
           <Route path="*" component={NotFoundPage} exact />
         </Switch>
       </main>
-      {(location.pathname !== '/') && <footer> <Footer /></footer>}
+      {location.pathname !== '/' && (
+        <footer>
+          {' '}
+          <Footer />
+        </footer>
+      )}
     </div>
-  );
+  )
 };
 export default App;

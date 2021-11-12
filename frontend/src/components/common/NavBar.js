@@ -4,21 +4,39 @@ import { Link } from 'react-router-dom';
 
 export default function NavBar() {
     return (
-        <div className="nav_bar">
-            <ul className="nav_menu">
-                <Link to="/market">
-                    <li><i className="fas fa-cloud-sun"></i><p>地合</p></li>
-                </Link>
-                <Link to="/plan">
-                    <li><i className="fas fa-chess-pawn"></i><p>計画</p></li>
-                </Link>
-                <Link to="/result">
-                    <li><i className="fas fa-chart-bar"></i><p>結果</p></li>
-                </Link>
-                <Link to="/reflection">
-                    <li><i className="fas fa-book"></i><p>振返</p></li>
-                </Link>
-            </ul>
-        </div>
+      <div className="nav_bar">
+        <ul className="nav_menu">
+          <Link to="/market">
+            <li>
+              <i className="fas fa-cloud-sun"></i>
+              <p>地合</p>
+            </li>
+          </Link>
+          <Link to="/plan">
+            <li>
+              <i className="fas fa-chess-pawn"></i>
+              <p>計画</p>
+            </li>
+          </Link>
+          <Link to="/result">
+            <li>
+              <i className="fas fa-chart-bar"></i>
+              <p>結果</p>
+            </li>
+          </Link>
+          <Link to="/reflection">
+            <li>
+              <i className="fas fa-book"></i>
+              <p>振返</p>
+            </li>
+          </Link>
+          <Link to="/screening">
+            <li>
+              <i className="fas fa-search-plus"></i>
+              <p>検索</p>
+            </li>
+          </Link>
+        </ul>
+      </div>
     );
 };
