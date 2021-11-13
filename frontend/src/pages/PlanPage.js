@@ -32,8 +32,6 @@ export default function PlanPage() {
           date: helper.time().today,
         });
         if (fetchedPrediction) dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
-        const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions);
-        if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
       };
       fetchPlanPageData();
     }

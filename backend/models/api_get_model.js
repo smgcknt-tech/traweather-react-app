@@ -116,7 +116,7 @@ export const api_get_model = {
       console.error(err.stack);
     }
   },
-  get_trade_histry: async (payload) => {
+  get_trade_history: async (payload) => {
     const { code } = payload;
     const query = `
             SELECT *

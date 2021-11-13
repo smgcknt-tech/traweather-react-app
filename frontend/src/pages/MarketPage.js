@@ -13,7 +13,7 @@ import HeatMap from '../components/HeatMap';
 
 export default function MarketPage() {
     const { state, dispatch } = useContext(AppContext);
-    const { user, prediction, heatmapData, loading, error } = state;
+    const { user, prediction, loading, error } = state;
     const [open, setOpen] = useState(false);
 
     useEffect(() => {

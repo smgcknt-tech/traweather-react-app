@@ -29,7 +29,7 @@ export const initialState = {
   selectedPost: null,
   heatmapData: [],
   searchedStock: null,
-  tradeHistry: null,
+  tradeHistory: null,
 };
 export const AppContext = createContext(initialState)
 export const AppActions = {
@@ -100,7 +100,7 @@ export const AppProvider = ({ children }) => {
         currentState.searchedStock = action.payload;
         return currentState;
       case AppActions.SET_TRADE_HISTRY:
-        currentState.tradeHistry = action.payload;
+        currentState.tradeHistory = action.payload;
         return currentState;
       default:
         throw new Error("no action matched");

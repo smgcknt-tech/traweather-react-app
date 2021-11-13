@@ -39,8 +39,6 @@ export default function ResultPage() {
             },
           });
         }
-        const fetchedStocks = await helper.fetchData(`/api/latest_stock`, dispatch, AppActions);
-        if (fetchedStocks) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: fetchedStocks });
       };
       fetchResultPageData();
     }

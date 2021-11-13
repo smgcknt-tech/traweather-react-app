@@ -1,43 +1,39 @@
 import React, { useContext, useEffect } from 'react';
 import { AppActions, AppContext } from '../../AppStore';
+import { useHistory } from 'react-router';
 import { helper } from '../../utils/helper';
 import Indicators from '../../components/Indicators';
-import TradeHistry from './TradeHistry';
-import Message from './Message';
-import '../../styles/components/StockDescription.scss'
+import TradeHistory from './TradeHistory';
+import '../../styles/components/StockDescription.scss';
 
-export default function StockDescription() {
+export default function StockDescription(props) {
   const { state, dispatch } = useContext(AppContext);
-  const { searchedStock, allStocks, indicators, tradeHistry } = state;
-
-  useEffect(() => {
-    const indicatorsData = allStocks.find((stock) => searchedStock.code === stock.code);
-    if (indicatorsData) dispatch({ type: AppActions.SET_INDICATORS, payload: indicatorsData });
-  }, []); // eslint-disable-line
+  const { allStocks, indicators, tradeHistory } = state;
+  const { code } = props;
+  let history = useHistory();
 
   useEffect(() => {
     (async () => {
-      const fetchedHistry = await helper.fetchData(`/api/trade_histry`, dispatch, AppActions, {
-        code: searchedStock.code,
-      });
-      if (fetchedHistry.length > 0) dispatch({ type: AppActions.SET_TRADE_HISTRY, payload: fetchedHistry });
+      const indicatorsData = allStocks?.find((stock) => code === stock.code);
+      if (indicatorsData) dispatch({ type: AppActions.SET_INDICATORS, payload: indicatorsData });
+      const fetchedHistory = await helper.fetchData(`/api/trade_history`, dispatch, AppActions, { code: code });
+      if (fetchedHistory.length > 0) dispatch({ type: AppActions.SET_TRADE_HISTRY, payload: fetchedHistory });
     })();
-  }, [searchedStock]); // eslint-disable-line
+  }, [code, allStocks, dispatch]);
 
   const handleClose = () => {
-    dispatch({ type: AppActions.SET_SEARCHED_STOCK, payload: null });
-    dispatch({ type: AppActions.SET_TRADE_HISTRY, payload: null });
+    history.push('/screening');
   };
 
   return (
     <div className="stock_description">
       <div className="close_btn">
         <i className="fas fa-undo-alt" onClick={handleClose}>
-          検索画面に戻る
+          戻る
         </i>
       </div>
       {indicators && <Indicators result={indicators} />}
-      {tradeHistry ? <TradeHistry /> : <Message>トレード実績なし</Message>}
+      {tradeHistory && <TradeHistory />}
     </div>
   );
 }

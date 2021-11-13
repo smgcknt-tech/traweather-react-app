@@ -30,8 +30,8 @@ api_router
   .get('/results', (req, res) => {
     ac.passQuery(req, res, agm.get_results);
   })
-  .get('/trade_histry', (req, res) => {
-    ac.passQuery(req, res, agm.get_trade_histry);
+  .get('/trade_history', (req, res) => {
+    ac.passQuery(req, res, agm.get_trade_history);
   });
 
 api_router

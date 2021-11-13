@@ -1,24 +1,24 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
-.search {
+.header_search_box {
   @include row(center, center);
 
   .search_container {
-    width: 50rem;
+    width: 30rem;
     .search_inputs {
       @include row(center, flex-start);
       input {
         width: 90%;
-        height: 6rem;
+        color: #8b8b8b;
+        height: 4rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         background-color: white;
         border: 0;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
-        font-size: 1.8rem;
-        padding: 1.5rem;
-
+        font-size: 1.5rem;
+        padding: 0.8rem;
         &:focus {
           outline: none;
         }
@@ -26,23 +26,23 @@
 
       .search_icon {
         width: 10%;
-        height: 6rem;
+        height: 4rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         border-top-right-radius: 1rem;
         border-bottom-right-radius: 1rem;
         background-color: #8b8b8b;
         color: white;
-        display: grid;
-        place-items: center;
-
+        @include place_center();
         i {
-          font-size: 3.5rem;
+          font-size: 2rem;
         }
       }
     }
   }
-
   .data_result {
+    position:fixed;
+    z-index:10;
+    font-size: 1rem;
     margin-top: 0.5rem;
     width: 30rem;
     height: 20rem;
@@ -54,7 +54,6 @@
     &::-webkit-scrollbar {
       display: none;
     }
-
     .data_item {
       width: 100%;
       height: 5rem;
@@ -62,7 +61,6 @@
       align-items: center;
       color: black;
       padding-left: 1rem;
-
       &:hover {
         background-color: lightgrey;
       }

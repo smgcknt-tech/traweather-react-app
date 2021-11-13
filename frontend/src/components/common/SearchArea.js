@@ -1,21 +1,22 @@
-import React, { useContext, useState } from "react";
-import { AppActions, AppContext } from "../../AppStore";
-import { helper } from "../../utils/helper";
-import "../../styles/components/SearchArea.scss";
+import React, { useContext, useState } from 'react';
+import { AppContext } from '../../AppStore';
+import { helper } from '../../utils/helper';
+import '../../styles/components/SearchArea.scss';
+import { useHistory } from 'react-router';
 export default function SearchBar() {
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   const { allStocks } = state;
   const [filteredData, setFilteredData] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
+  let history = useHistory();
+
   const handleFilter = (event) => {
     const searchWord = String(event.target.value);
     const filteredResult = allStocks.filter(
-      (stock) =>
-        stock.code.includes(helper.FullNumToHalfNum(searchWord)) ||
-        stock.stock_name.includes(searchWord)
+      (stock) => stock.code.includes(helper.FullNumToHalfNum(searchWord)) || stock.stock_name.includes(searchWord)
     );
     setInputValue(searchWord);
-    if (searchWord === "") {
+    if (searchWord === '') {
       setFilteredData([]);
     } else {
       setFilteredData(filteredResult);
@@ -24,12 +25,7 @@ export default function SearchBar() {
 
   const handleSelect = (code) => {
     const foundData = allStocks.filter((stock) => code === stock.code);
-    if (foundData) {
-      dispatch({
-        type: AppActions.SET_SEARCHED_STOCK,
-        payload: foundData[0],
-      });
-    }
+    if (foundData) history.push({ pathname: '/search', state: code });
   };
 
   return (

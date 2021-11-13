@@ -1,31 +1,32 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 import { useLocation, Route, Switch } from 'react-router-dom';
-import { AppContext, AppActions } from "./AppStore";
+import { AppContext, AppActions } from './AppStore';
 import { hooks } from '../src/utils/custom_hooks';
-import "./styles/destyle.css";
-import "./styles/App.scss";
-import Header from "./components/common/Header";
-import NavBar from "./components/common/NavBar";
-import Footer from "./components/common/Footer";
-import MarketPage from "./pages/MarketPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import ReflectionPage from "./pages/ReflectionPage";
-import PlanPage from "./pages/PlanPage";
-import LoginPage from "./pages/LoginPage";
-import EntrancePage from "./pages/EntrancePage";
-import ResultPage from "./pages/ResultPage";
-import ScreeningPage from "./pages/ScreeningPage";
+import './styles/destyle.css';
+import './styles/App.scss';
+import Header from './components/common/Header';
+import NavBar from './components/common/NavBar';
+import Footer from './components/common/Footer';
+import MarketPage from './pages/MarketPage';
+import NotFoundPage from './pages/NotFoundPage';
+import ReflectionPage from './pages/ReflectionPage';
+import PlanPage from './pages/PlanPage';
+import LoginPage from './pages/LoginPage';
+import EntrancePage from './pages/EntrancePage';
+import ResultPage from './pages/ResultPage';
+import ScreeningPage from './pages/ScreeningPage';
+import SearchResultPage from './pages/SearchResultPage';
 
 function App() {
   const { state, dispatch } = useContext(AppContext);
   const { user } = state;
   hooks.useAuthentification(user, dispatch, AppActions);
   const location = useLocation();
+
   return (
     <div className="grid-container">
       {location.pathname !== '/' && (
         <header>
-          {' '}
           <Header />
         </header>
       )}
@@ -44,16 +45,16 @@ function App() {
           <Route exact path="/result" component={ResultPage} />
           <Route exact path="/reflection" component={ReflectionPage} />
           <Route exact path="/screening" component={ScreeningPage} />
+          <Route exact path="/search" component={SearchResultPage} />
           <Route path="*" component={NotFoundPage} exact />
         </Switch>
       </main>
       {location.pathname !== '/' && (
         <footer>
-          {' '}
           <Footer />
         </footer>
       )}
     </div>
-  )
-};
+  );
+}
 export default App;

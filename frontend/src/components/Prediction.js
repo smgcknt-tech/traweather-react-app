@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from 'react';
 import { AppContext, AppActions } from '../AppStore';
-import '../styles/components/Prediction.scss';
 import { helper } from '../utils/helper';
+import '../styles/components/Prediction.scss';
 
 export default function Prediction() {
     const { state, dispatch } = useContext(AppContext);

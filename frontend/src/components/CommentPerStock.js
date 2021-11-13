@@ -29,7 +29,7 @@ export default function CommentPerStock() {
     return (
         <div className="comment_per_stock" onBlur={() => { setOpen(false) }}>
             <section>
-                <h2 className="title">コメント</h2>
+                <h2 className="title">コメント</h2>
                 <div className="content">
                     {selectedStock ? (
                         <textarea
