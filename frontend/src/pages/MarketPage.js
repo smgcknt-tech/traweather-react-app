@@ -12,48 +12,53 @@ import MarketPredictionForm from '../components/forms/MarketPredictionForm';
 import HeatMap from '../components/HeatMap';
 
 export default function MarketPage() {
-    const { state, dispatch } = useContext(AppContext);
-    const { user, prediction, heatmapData, loading, error } = state;
-    const [open, setOpen] = useState(false);
+  const { state, dispatch } = useContext(AppContext);
+  const { user, prediction, loading, error } = state;
+  const [open, setOpen] = useState(false);
 
-    useEffect(() => {
-        if (user.id) {
-            const fetchData = async () => {
-                const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, {
-                    user_id: user.id, date: helper.time().today
-                })
-                if (fetchedPrediction) dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
-                const fetchedHeatmapData = await helper.fetchData(`/api/market_heatmap`, dispatch, AppActions);
-                if (fetchedHeatmapData) dispatch({ type: AppActions.SET_HEAT_MAP, payload: fetchedHeatmapData });
-            };
-            fetchData();
-        }
-    }, [user.id]);// eslint-disable-line
+  useEffect(() => {
+    if (user.id) {
+      (async () => {
+        const { prediction, heatmap } = await helper.fetchData(`/api/prediction`, dispatch, AppActions, {
+          user_id: user.id,
+          date: helper.time().today,
+        });
+        if (heatmap) dispatch({ type: AppActions.SET_HEAT_MAP, payload: heatmap });
+        if (prediction) dispatch({ type: AppActions.SET_PREDICTION, payload: prediction });
+      })();
+    }
+  }, [user, dispatch]);
 
-    if (loading) return <Loading />;
-    if (error) return <Message variant="error">{error}</Message>;
-    return (
-        <div className="Market_page">
-            <ul className="header_menu">
-                <li onClick={() => { setOpen('prediction') }}><i className="fas fa-edit"></i>予想記入</li>
-            </ul>
-            {!prediction && <Message >今日の市場予想がありません。まずは市場予想を作成しましょう。</Message>}
-            <div className="main">
-                {(open === "prediction") && <MarketPredictionForm setOpen={setOpen} />}
-                <div className="dashboard_row1">
-                    {prediction && <Prediction />}
-                    <HeatMap />
-                    <Ticker />
-                </div>
-                <div className="dashboard_row2">
-                    <div className="left_col">
-                        <Twitter />
-                    </div>
-                    <div className="right_col">
-                        <Event />
-                    </div>
-                </div>
-            </div>
+  if (loading) return <Loading />;
+  if (error) return <Message variant="error">{error}</Message>;
+  return (
+    <div className="Market_page">
+      <ul className="header_menu">
+        <li
+          onClick={() => {
+            setOpen('prediction');
+          }}
+        >
+          <i className="fas fa-edit"></i>予想記入
+        </li>
+      </ul>
+      {!prediction && <Message>今日の市場予想がありません。まずは市場予想を作成しましょう。</Message>}
+      <div className="main">
+        {open === 'prediction' && <MarketPredictionForm setOpen={setOpen} />}
+        <div className="dashboard_row1">
+          {prediction && <Prediction />}
+          <HeatMap />
+          <Ticker />
         </div>
-    );
-};
+        <div className="dashboard_row2">
+          <div className="left_col">
+            <Twitter />
+          </div>
+          <div className="right_col">
+            <Event />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

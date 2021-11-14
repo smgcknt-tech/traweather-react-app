@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
 import { AppContext } from '../AppStore';
 import { helper } from '../utils/helper';
-import '../styles/components/SearchBar.scss';
-import Indicators from './Indicators';
-export default function SearchBar() {
-  const { state: AppState } = useContext(AppContext);
-  const { allStocks } = AppState;
+import '../styles/components/SearchBox.scss';
+
+export default function SearchBox() {
+  const { state } = useContext(AppContext);
+  const { allStocks } = state;
   const [filteredData, setFilteredData] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [result, setResult] = useState(null);
+  let history = useHistory();
 
   const handleFilter = (event) => {
     const searchWord = String(event.target.value);
@@ -23,20 +24,12 @@ export default function SearchBar() {
     }
   };
 
-  const handleSelect = (code, stock_name) => {
+  const handleSelect = (code) => {
     const foundData = allStocks.filter((stock) => code === stock.code);
-    setInputValue(stock_name);
-    setFilteredData([]);
-    setResult(foundData[0]);
+    if (foundData) history.push({ pathname: '/search', state: code });
   };
-
-  const handleClear = () => {
-    setInputValue('');
-    setResult(null);
-  };
-
   return (
-    <div className="search">
+    <div className="search_box">
       <div className="search_container">
         <div className="search_inputs">
           <input
@@ -47,7 +40,7 @@ export default function SearchBar() {
             onChange={handleFilter}
           />
           <span className="search_icon">
-            {result ? <i className="fas fa-times" onClick={handleClear}></i> : <i className="fas fa-search"></i>}
+            <i className="fas fa-search"></i>
           </span>
         </div>
         {filteredData.length > 0 && (
@@ -57,8 +50,9 @@ export default function SearchBar() {
                 <p
                   key={key}
                   className="data_item"
+                  data-testid={value.code}
                   onClick={() => {
-                    handleSelect(value.code, value.stock_name);
+                    handleSelect(value.code);
                   }}
                 >
                   {value.code}_{value.stock_name}
@@ -68,7 +62,6 @@ export default function SearchBar() {
           </div>
         )}
       </div>
-      {result && <Indicators result={result} />}
     </div>
   );
 }

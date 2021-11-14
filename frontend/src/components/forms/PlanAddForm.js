@@ -6,7 +6,7 @@ import { helper } from '../../utils/helper';
 
 export default memo(function PlanAddForm(props) {
     const { state, dispatch } = useContext(AppContext);
-    const { allStocks, planData } = state;
+    const { allStocks } = state;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const formList = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" };
     const [values, setValues] = useState(formList);
@@ -18,24 +18,19 @@ export default memo(function PlanAddForm(props) {
     };
 
     const onSubmit = async (data, e) => {
-        if (planData.find((stock) => stock.code === Number(data.code))) {
+        const foundStock = allStocks.find((stock) => stock.code === data.code);
+        if (!foundStock) {
             e.preventDefault();
-            alert("その銘柄はすでに追加されています");
+            alert("株価データがないため、プランを作成できません。");
         } else {
-            const foundStock = allStocks.find((stock) => stock.code === data.code);
-            if (!foundStock) {
-                e.preventDefault();
-                alert("株価データがないため、プランを作成できません。");
-            } else {
-                data.market = foundStock.market;
-                data.stock_name = foundStock.stock_name;
-                data.user_id = state.user.id;
-                const response = await helper.postData(`/api/plan/create`, dispatch, AppActions, data);
-                if (response) {
-                    dispatch({ type: AppActions.SET_PLAN, payload: response });
-                    const foundStock = response.find((stock) => stock.code === Number(data.code));
-                    dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: foundStock });
-                };
+            data.market = foundStock.market;
+            data.stock_name = foundStock.stock_name;
+            data.user_id = state.user.id;
+            const response = await helper.postData(`/api/plan/create`, dispatch, AppActions, data);
+            if (response) {
+                dispatch({ type: AppActions.SET_PLAN, payload: response });
+                const foundStock = response.find((stock) => stock.code === Number(data.code));
+                dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: foundStock });
             };
         };
         props.setOpen(null);

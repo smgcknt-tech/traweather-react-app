@@ -10,6 +10,10 @@ header {
 
     .left_menu {
       @include row(center, flex-start);
+      > * {
+        font-size: 2rem;
+        padding: 1rem;
+      }
       .logo {
         padding: 0 1.5rem;
         font-size: 3rem;
@@ -28,7 +32,7 @@ header {
       @include row(center, flex-start);
       > * {
         font-size: 2rem;
-        padding: 1.5rem;
+        padding: 1rem;
       }
       .log_in_bttn,
       .log_out_bttn {

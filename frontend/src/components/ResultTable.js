@@ -6,7 +6,7 @@ import { helper } from '../utils/helper';
 
 export default function StoryTable() {
     const { state, dispatch } = useContext(AppContext);
-    const { user, currentPage, resultData, selectedStock} = state;
+    const { user, currentPage, resultData, selectedStock, resultIndicators, allStocks } = state;
     const refs = useRef([]);
     const [show, setShow] = useState(false);
     const rowsPerPage = 5;
@@ -30,13 +30,18 @@ export default function StoryTable() {
                 </tr>
             );
         });
+        
     const changePage = ({ selected }) => {
         dispatch({ type: AppActions.SET_CURRENT_PAGE, payload: selected });
     };
-    const handleSelect = (index) => {
+
+    const handleSelect = async (index) => {
         setShow(`tr_${index}`);
         dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: resultData[pagesVisited + index] });
+        const indicators = await allStocks.find((stock) => selectedStock.code === Number(stock.code));
+        dispatch({ type: AppActions.SET_RESULT_INDICATORS, payload: { ...resultIndicators, stockData: indicators } });
     };
+
     const handleSubmit = async (e, index) => {
         const lot = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='LOT'] > input ").value);
         const entry_point = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='ENTRY'] > input ").value);

@@ -1,0 +1,14 @@
+@import '../variables.scss';
+
+.screening_page {
+    background:linear-gradient(rgba(152, 195, 241, 0.7), rgba(31, 88, 150, 0.8)),url(../../images/search_background.jpg);
+    background-repeat:  no-repeat;
+    background-size:cover;
+    background-position: center;
+    height:100vh;
+    padding:  1rem;
+    .center_area {
+        @include row(center,center);
+        height:100vh;
+    }
+}
