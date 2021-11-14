@@ -19,14 +19,15 @@ export default memo(function TradeFeedBackForm(props) {
 
     const onSubmit = async (data) => {
         if (data.image[0]) {
-            if (data.image[0].name.match(/[^\x01-\x7E]/)) alert("ファイル名に日本語含めないでください")
-            const file = data.image[0];
-            const bodyFormData = new FormData();
-            bodyFormData.append('image', file);
-            const response = await axios.post(env.uploadUrl, bodyFormData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-            data.image_url = response.data;
+          // eslint-disable-next-line
+          if (data.image[0].name.match(/[^\x01-\x7E]/)) alert('ファイル名に日本語含めないでください');
+          const file = data.image[0];
+          const bodyFormData = new FormData();
+          bodyFormData.append('image', file);
+          const response = await axios.post(env.uploadUrl, bodyFormData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          });
+          data.image_url = response.data;
         }
         data.user_id = user.id;
         const res = await axios.post(`/api/reflection/create`, data);

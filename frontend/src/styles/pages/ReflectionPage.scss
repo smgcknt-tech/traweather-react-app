@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 .reflection_page {
   width: 100%;
@@ -30,11 +30,15 @@
     padding: 3rem;
     width: 100%;
     height: 100%;
+    .close_btn {
+      cursor: pointer;
+      > * {
+        padding: 0.5rem;
+         color: #7a7878;
+      }
 
-    i {
-      margin: 1rem;
-      color: #7a7878;
     }
+
 
     .indicators {
       @include row(flex-start, flex-start);

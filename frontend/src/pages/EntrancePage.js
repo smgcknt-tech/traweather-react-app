@@ -26,7 +26,7 @@ export default function LoginPage() {
                             <p>Trade plan recording</p>
                         </div>
                         <div className="card">
-                            <i class="fas fa-chart-bar"></i>
+                            <i className="fas fa-chart-bar"></i>
                             <p>Trade result analysis</p>
                         </div>
                         <div className="card">

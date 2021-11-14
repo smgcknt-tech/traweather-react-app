@@ -1,3 +1,11 @@
 .stock_description {
-  padding:2rem;
+  height: 100vh;
+  padding: 2rem;
+  .close_btn {
+    cursor: pointer;
+    > * {
+      padding: 0.5rem;
+      color: #7a7878;
+    }
+  }
 }

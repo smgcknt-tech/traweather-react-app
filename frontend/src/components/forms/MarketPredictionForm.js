@@ -55,7 +55,7 @@ export default memo(function MarketPredictionForm(props) {
               props.setOpen(null);
             }}
           >
-          <i className="fas fa-times"></i>
+            <i className="fas fa-times"></i>
           </span>
         </div>
         {displayForm}

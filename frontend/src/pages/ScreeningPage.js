@@ -1,13 +1,15 @@
 import React from 'react';
-import '../../src/styles/pages/ScreeningPage.scss';
-import SearchArea from '../components/common/SearchArea';
+import SearchBox from '../components/SearchBox';
+import '../styles/pages/ScreeningPage.scss';
+
 
 export default function ScreeningPage() {
   return (
     <div className="screening_page">
       <div className="center_area">
-        <SearchArea />
+        <SearchBox/>
       </div>
+
     </div>
   );
 }

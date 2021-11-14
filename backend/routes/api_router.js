@@ -9,23 +9,20 @@ api_router
   .get('/', (req, res) => {
     res.send('server is ready');
   })
+  .get('/prediction', (req, res) => {
+    ac.prediction(req, res);
+  })
+  .get('/plan', (req, res) => {
+    ac.plan(req, res);
+  })
+  .get('/feedback', (req, res) => {
+    ac.feedback(req, res);
+  })
   .get('/latest_stock', (req, res) => {
     ac.passNothing(req, res, agm.get_latest_stock);
   })
-  .get('/market_heatmap', (req, res) => {
-    ac.passNothing(req, res, agm.get_market_heatmap);
-  })
-  .get('/plan', (req, res) => {
-    ac.passQuery(req, res, agm.get_plan);
-  })
-  .get('/prediction', (req, res) => {
-    ac.passQuery(req, res, agm.get_prediction);
-  })
-  .get('/one_result', (req, res) => {
-    ac.passQuery(req, res, agm.get_one_result);
-  })
-  .get('/feed_back', (req, res) => {
-    ac.passQuery(req, res, agm.get_feed_back);
+  .get('/feedback_list', (req, res) => {
+    ac.passQuery(req, res, agm.get_feedback_list);
   })
   .get('/results', (req, res) => {
     ac.passQuery(req, res, agm.get_results);

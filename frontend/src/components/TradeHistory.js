@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
+import { AppActions, AppContext } from '../AppStore';
 import ReactPaginate from 'react-paginate';
-import { AppActions, AppContext } from '../../AppStore';
-import '../../styles/components/TradeHistory.scss';
-import { helper } from '../../utils/helper';
+import { helper } from '../utils/helper';
+import '../styles/components/TradeHistory.scss';
 
 export default function TradeHistory() {
   const { state, dispatch } = useContext(AppContext);
@@ -33,6 +33,7 @@ export default function TradeHistory() {
 
   return (
     <div className="trade_history">
+      <h3>トレード記録</h3>
       <div className="table_container">
         <table>
           <thead>

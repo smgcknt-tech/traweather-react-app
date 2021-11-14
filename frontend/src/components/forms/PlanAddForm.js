@@ -6,7 +6,7 @@ import { helper } from '../../utils/helper';
 
 export default memo(function PlanAddForm(props) {
     const { state, dispatch } = useContext(AppContext);
-    const { allStocks, planData } = state;
+    const { allStocks } = state;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const formList = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" };
     const [values, setValues] = useState(formList);

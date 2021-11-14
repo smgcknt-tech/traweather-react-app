@@ -17,7 +17,7 @@ import ResultPage from './pages/ResultPage';
 import ScreeningPage from './pages/ScreeningPage';
 import SearchResultPage from './pages/SearchResultPage';
 
-function App() {
+export default function App() {
   const { state, dispatch } = useContext(AppContext);
   const { user } = state;
   hooks.useAuthentification(user, dispatch, AppActions);
@@ -26,14 +26,14 @@ function App() {
   return (
     <div className="grid-container">
       {location.pathname !== '/' && (
-        <header>
-          <Header />
-        </header>
-      )}
-      {location.pathname !== '/' && (
-        <nav>
-          <NavBar />
-        </nav>
+        <>
+          <header>
+            <Header />
+          </header>
+          <nav>
+            <NavBar />
+          </nav>
+        </>
       )}
       <main>
         <Switch>
@@ -57,4 +57,3 @@ function App() {
     </div>
   );
 }
-export default App;

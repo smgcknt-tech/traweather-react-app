@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { AppActions, AppContext } from "../AppStore";
-import { helper } from "../utils/helper";
-import "../../src/styles/pages/ResultPage.scss";
-import Loading from "../components/common/Loading";
-import Message from "../components/common/Message";
-import ResultTable from "../components/ResultTable";
-import CommentPerStock from "../components/CommentPerStock";
-import ComparisonChart from "../components/ComparisonChart";
-import TradeFeedBackForm from "../components/forms/TradeFeedBackForm";
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { AppActions, AppContext } from '../AppStore';
+import { helper } from '../utils/helper';
+import '../../src/styles/pages/ResultPage.scss';
+import Loading from '../components/common/Loading';
+import Message from '../components/common/Message';
+import ResultTable from '../components/ResultTable';
+import CommentPerStock from '../components/CommentPerStock';
+import ComparisonChart from '../components/ComparisonChart';
+import TradeFeedBackForm from '../components/forms/TradeFeedBackForm';
 
 export default function ResultPage() {
   const { state, dispatch } = useContext(AppContext);
@@ -15,14 +15,15 @@ export default function ResultPage() {
   const { monthly_profit, last_profit, weekly_profit, win_lose } = resultIndicators;
   const [open, setOpen] = useState(false);
 
+
   useEffect(() => {
     if (user.id) {
-      const fetchResultPageData = async () => {
-        const fetchedData = await helper.fetchData(`/api/results`, dispatch, AppActions, {
+      (async () => {
+        const data = await helper.fetchData(`/api/results`, dispatch, AppActions, {
           user_id: user.id,
         });
-        if (fetchedData) {
-          const { monthly_profit, last_profit, weekly_profit, win_lose, resultData } = fetchedData;
+        if (data) {
+          const { monthly_profit, last_profit, weekly_profit, win_lose, resultData } = data;
           dispatch({ type: AppActions.SET_RESULT, payload: resultData });
           dispatch({
             type: AppActions.SET_SELECTED_STOCK,
@@ -39,22 +40,10 @@ export default function ResultPage() {
             },
           });
         }
-      };
-      fetchResultPageData();
+      })();
     }
-  }, [user.id]); // eslint-disable-line
-
-  const selectedStockData = useMemo(() => {
-    if (allStocks && selectedStock) return allStocks.find((stock) => selectedStock.code === Number(stock.code));
-  }, [selectedStock, allStocks, resultData]); // eslint-disable-line
-
-  useEffect(() => {
-    if (selectedStockData)
-      dispatch({
-        type: AppActions.SET_RESULT_INDICATORS,
-        payload: { ...resultIndicators, stockData: selectedStockData },
-      });
-  }, [selectedStockData]); // eslint-disable-line
+    // Do not set resultIndicators in dependency array
+  }, [user, dispatch]); // eslint-disable-line
 
   const profitResult = useMemo(() => {
     return resultData
@@ -72,7 +61,7 @@ export default function ResultPage() {
       <ul className="header_menu">
         <li
           onClick={() => {
-            setOpen("feed_back");
+            setOpen('feed_back');
           }}
         >
           <i className="fas fa-edit" />
@@ -80,7 +69,7 @@ export default function ResultPage() {
         </li>
       </ul>
       <div className="main">
-        {open === "feed_back" && <TradeFeedBackForm setOpen={setOpen} />}
+        {open === 'feed_back' && <TradeFeedBackForm setOpen={setOpen} />}
         <div className="dashboard">
           <div className="dashboard_row1">
             <div className="indicators">

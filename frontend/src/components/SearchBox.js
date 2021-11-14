@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { AppContext } from '../../AppStore';
-import { helper } from '../../utils/helper';
-import '../../styles/components/SearchArea.scss';
 import { useHistory } from 'react-router';
-export default function SearchBar() {
+import { AppContext } from '../AppStore';
+import { helper } from '../utils/helper';
+import '../styles/components/SearchBox.scss';
+
+export default function SearchBox() {
   const { state } = useContext(AppContext);
   const { allStocks } = state;
   const [filteredData, setFilteredData] = useState([]);
@@ -27,9 +28,8 @@ export default function SearchBar() {
     const foundData = allStocks.filter((stock) => code === stock.code);
     if (foundData) history.push({ pathname: '/search', state: code });
   };
-
   return (
-    <div className="search_area">
+    <div className="search_box">
       <div className="search_container">
         <div className="search_inputs">
           <input

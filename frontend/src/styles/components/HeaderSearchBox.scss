@@ -10,7 +10,7 @@
       input {
         width: 90%;
         color: #8b8b8b;
-        height: 4rem;
+        height: 3rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         background-color: white;
         border: 0;
@@ -26,7 +26,7 @@
 
       .search_icon {
         width: 10%;
-        height: 4rem;
+        height: 3rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         border-top-right-radius: 1rem;
         border-bottom-right-radius: 1rem;
@@ -34,7 +34,7 @@
         color: white;
         @include place_center();
         i {
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
       }
     }

@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { AppContext, AppActions } from '../AppStore';
 import { helper } from '../utils/helper';
 import ReactPaginate from 'react-paginate';
-import '../../src/styles/pages/ReflectionPage.scss';
 import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
 import noImage from '../images//noImage.jpg';
+import '../styles/pages/ReflectionPage.scss';
 
 export default function ReflectionPage() {
   const { state, dispatch } = useContext(AppContext);
@@ -18,26 +18,22 @@ export default function ReflectionPage() {
   useEffect(() => {
     if (user.id) {
       (async () => {
-        const data = await helper.fetchData(`/api/feed_back`, dispatch, AppActions, { user_id: user.id });
+        const data = await helper.fetchData(`/api/feedback_list`, dispatch, AppActions, { user_id: user.id });
         if (data) dispatch({ type: AppActions.SET_POSTS, payload: data });
       })();
     }
-  }, [user.id]); // eslint-disable-line
+  }, [user, dispatch]);
 
   const handleClick = async (e, i, date) => {
-    const fetchedPrediction = await helper.fetchData(`/api/prediction`, dispatch, AppActions, {
+    const { prediction, dailyResult } = await helper.fetchData(`/api/feedback`, dispatch, AppActions, {
       user_id: user.id,
       date: date,
     });
-    const fetchedResult = await helper.fetchData(`/api/one_result`, dispatch, AppActions, {
-      user_id: user.id,
-      date: date,
-    });
-    if (fetchedPrediction) {
-      dispatch({ type: AppActions.SET_PREDICTION, payload: fetchedPrediction });
+    if (prediction) {
+      dispatch({ type: AppActions.SET_PREDICTION, payload: prediction });
     }
-    if (fetchedResult) {
-      dispatch({ type: AppActions.SET_RESULT, payload: fetchedResult });
+    if (dailyResult) {
+      dispatch({ type: AppActions.SET_RESULT, payload: dailyResult });
       dispatch({ type: AppActions.SET_SELECTED_POST, payload: posts[i] });
     }
   };
@@ -116,9 +112,10 @@ export default function ReflectionPage() {
       {!selectedPost && <div className="reflection_container">{archives}</div>}
       {selectedPost && (
         <div className="description_container">
-          <i className="fas fa-undo-alt" onClick={handleClose}>
-            戻る
-          </i>
+          <div className="close_btn" onClick={handleClose}>
+            <i className="fas fa-undo-alt" />
+            <span>BACK</span>
+          </div>
           <div className="indicators">
             <div className="total_profit">
               <div className="card_value">{profitResult}円</div>

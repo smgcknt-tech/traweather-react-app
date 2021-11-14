@@ -1,6 +1,11 @@
 @import '../variables.scss';
 .trade_history {
   padding: 3rem 5rem;
+
+  h3 {
+    padding-bottom:1rem;
+  }
+
   .table_container {
     table {
       font-size: 1.5rem;
