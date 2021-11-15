@@ -38,6 +38,7 @@ export const api_get_model = {
                 ROUND(AVG(cast(change_in_percent as numeric)),2) AS avg
             FROM latest_stock_data
             WHERE price <> '-'
+                AND NOT market LIKE '%市場%'
                 AND NOT market LIKE '%名証%'
                 AND NOT market LIKE '%福証%'
                 AND NOT market LIKE '%札証%'
