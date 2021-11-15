@@ -19,6 +19,7 @@
       .stock_list {
         @include row(flex-start, flex-start);
         li {
+          cursor:pointer;
           font-size: 2rem;
           padding: 1rem;
         }

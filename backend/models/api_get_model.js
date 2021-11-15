@@ -161,9 +161,9 @@ export const api_get_model = {
   get_feedback_list: async (payload) => {
     const { user_id } = payload;
     const query = `
-            SELECT * FROM trade_feed_back
-            WHERE user_id = ${user_id}
-            ORDER BY created_at ASC;`;
+      SELECT * FROM trade_feed_back
+      WHERE user_id = ${user_id}
+      ORDER BY created_at ASC;`;
     try {
       const res = await pool.query(query);
       return res.rows;
@@ -174,10 +174,10 @@ export const api_get_model = {
   limit_feed_back: async (payload) => {
     const { user_id } = payload;
     const query = `
-            SELECT feed_back_id
-            FROM trade_feed_back
-            WHERE user_id = ${user_id}
-            AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
+      SELECT feed_back_id
+      FROM trade_feed_back
+      WHERE user_id = ${user_id}
+      AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
     try {
       const res = await pool.query(query);
       return res.rows;
@@ -188,10 +188,37 @@ export const api_get_model = {
   limit_prediction: async (payload) => {
     const { user_id } = payload;
     const query = `
-            SELECT id
-            FROM market_prediction
-            WHERE user_id = ${user_id}
-            AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
+      SELECT id
+      FROM market_prediction
+      WHERE user_id = ${user_id}
+      AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
+    try {
+      const res = await pool.query(query);
+      return res.rows;
+    } catch (err) {
+      console.error(err.stack);
+    }
+  },
+  get_favorite_trade_list: async (payload) => {
+    const { user_id } = payload;
+    const query = `
+      SELECT t1.code, t1.market,t1.stock_name,t3.industry,
+        COUNT(t2.result_id) AS try,
+        COUNT(t2.profit_loss > 0 OR NULL) AS win,
+        COUNT(t2.profit_loss <= 0 OR NULL) AS lose,
+        SUM(t2.profit_loss) AS pl,
+        ROUND (AVG(t2.profit_loss),0) AS avg_pl,
+        ROUND (AVG(t2.profit_loss_rate::integer),1) AS avg_plr,
+        MAX(t2.profit_loss) AS max,
+        MIN(t2.profit_loss) AS min
+      FROM trade_plan AS t1
+      JOIN trade_result AS t2
+        ON t1.result_id = t2.result_id
+      RIGHT JOIN latest_stock_data AS t3
+        ON t1.code = t3.code::integer
+      WHERE t1.user_id = ${user_id}
+      GROUP BY t1.code,t1.market,t1.stock_name,t3.industry
+      ORDER BY pl DESC;`;
     try {
       const res = await pool.query(query);
       return res.rows;

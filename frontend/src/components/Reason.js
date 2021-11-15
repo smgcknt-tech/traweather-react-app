@@ -11,9 +11,9 @@ export default function Reason() {
 
     const handleSubmit = async () => {
         const payload = {
-            reason: textarea.current.value,
-            user_id: user.id,
-            code: selectedStock.code
+          reason: textarea.current.value,
+          user_id: user.id,
+          plan_id: selectedStock.plan_id,
         };
         const response = await helper.postData(`/api/plan/update_reason`, dispatch, AppActions,payload);
         if (response) {

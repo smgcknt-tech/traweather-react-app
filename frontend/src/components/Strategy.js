@@ -14,7 +14,7 @@ export default function Strategy() {
     const payload = {
       strategy: textarea.current.value,
       user_id: user.id,
-      code: selectedStock.code,
+      plan_id: selectedStock.plan_id,
     };
     const response = await helper.postData(`/api/plan/update_strategy`, dispatch, AppActions, payload);
     if (response) {

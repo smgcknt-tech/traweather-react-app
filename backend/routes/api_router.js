@@ -29,6 +29,9 @@ api_router
   })
   .get('/trade_history', (req, res) => {
     ac.passQuery(req, res, agm.get_trade_history);
+  })
+  .get('/list/favorite', (req, res) => {
+    ac.passQuery(req, res, agm.get_favorite_trade_list);
   });
 
 api_router

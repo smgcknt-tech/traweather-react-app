@@ -60,11 +60,11 @@ export default function StoryTable() {
             user_id: user.id,
             code: code,
         };
-        const response = await helper.postData('/api/plan/delete', dispatch, AppActions, payload);
-        if (response) {
-            dispatch({ type: AppActions.SET_PLAN, payload: response });
-            dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: response[index - 1] });
-        };
+        const res = await helper.postData('/api/plan/delete', dispatch, AppActions, payload);
+        if (res) {
+            dispatch({ type: AppActions.SET_PLAN, payload: res});
+            dispatch({ type: AppActions.SET_SELECTED_STOCK, payload: res[0] });
+        }
     };
     return (
         <div className="story_table">

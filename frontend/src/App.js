@@ -16,6 +16,7 @@ import EntrancePage from './pages/EntrancePage';
 import ResultPage from './pages/ResultPage';
 import ScreeningPage from './pages/ScreeningPage';
 import SearchResultPage from './pages/SearchResultPage';
+import PickupDisplayPage from './pages/PickupDisplayPage';
 
 export default function App() {
   const { state, dispatch } = useContext(AppContext);
@@ -46,6 +47,7 @@ export default function App() {
           <Route exact path="/reflection" component={ReflectionPage} />
           <Route exact path="/screening" component={ScreeningPage} />
           <Route exact path="/search" component={SearchResultPage} />
+          <Route exact path="/pickup" component={PickupDisplayPage} />
           <Route path="*" component={NotFoundPage} exact />
         </Switch>
       </main>
