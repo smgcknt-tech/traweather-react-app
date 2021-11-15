@@ -2,7 +2,7 @@
 
 .search_box {
   @include row(center, center);
-  width: 50rem;
+  width: 70rem;
 
   .search_container {
     width: 100%;
@@ -10,7 +10,7 @@
       @include row(center, flex-start);
 
       input {
-        width: 80%;
+        width: 90%;
         height: 6rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         background-color: white;
@@ -27,7 +27,7 @@
       }
 
       .search_icon {
-        width: 20%;
+        width: 10%;
         height: 6rem;
         box-shadow: 0rem 0 0.2rem #b4b4b4;
         border-top-right-radius: 1rem;

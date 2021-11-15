@@ -1,8 +1,8 @@
+import '../styles/components/SearchBox.scss';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { AppContext } from '../AppStore';
 import { helper } from '../utils/helper';
-import '../styles/components/SearchBox.scss';
 
 export default function SearchBox() {
   const { state } = useContext(AppContext);
