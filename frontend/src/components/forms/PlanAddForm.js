@@ -6,7 +6,7 @@ import { helper } from '../../utils/helper';
 
 export default memo(function PlanAddForm(props) {
     const { state, dispatch } = useContext(AppContext);
-    const { allStocks } = state;
+    const { allStocks, planData } = state;
     const { register, handleSubmit, formState: { errors } } = useForm();
     const formList = { code: "", opening: "", support: "", losscut: "", goal: "", reason: "", strategy: "" };
     const [values, setValues] = useState(formList);
@@ -60,7 +60,7 @@ export default memo(function PlanAddForm(props) {
     return (
         <div className="plan_add_form">
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                <div><span onClick={() => { props.setOpen(null) }}><i className="fas fa-times"></i></span></div>
+                { planData.length ? <div><span onClick={() => { props.setOpen(null) }}><i className="fas fa-times"></i></span></div> : null}
                 {displayForm}
                 <div className="button"><input type="submit" value="保存" /></div>
             </form>
