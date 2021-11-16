@@ -164,9 +164,9 @@ export default function ReflectionPage() {
                     <th>損益額</th>
                   </tr>
                 </thead>
-                <tbody>{resultData.length && displayRows}</tbody>
+                <tbody>{resultData.length > 0 && displayRows}</tbody>
               </table>
-              {resultData.length && (
+              {resultData.length > 0 && (
                 <ReactPaginate
                   previousLabel={'<'}
                   nextLabel={'>'}

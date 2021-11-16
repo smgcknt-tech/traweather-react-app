@@ -61,8 +61,8 @@ export default function PlanPage() {
         <div className="dashboard">
           <div className="dashboard_row1">
             <div className="left_col">
-              {(open === 'add' || planData.length === 0) && <PlanAddForm setOpen={setOpen} />}
-              {planData.length > 0 ? <StoryTable /> : null}
+              {(open === 'add' || !planData.length) && <PlanAddForm setOpen={setOpen} />}
+              {planData.length ? <StoryTable /> : null}
               <StoryChart />
             </div>
             <div className="right_col">
