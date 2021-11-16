@@ -1,24 +1,6 @@
 @import '../variables.scss';
 
 .result_page {
-  .header_menu {
-    @include row(center, flex-start);
-    background-color: #8b8b8b;
-    color: #fff;
-    box-shadow: 0 0.2rem 0.2rem #b4b4b4;
-    li {
-      padding: 1rem 2rem;
-      cursor: pointer;
-      transition: 0.3s;
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-        transition: background-color 0.1s;
-      }
-      i {
-        padding: 0 0.5rem;
-      }
-    }
-  }
   .main {
     margin: 3rem 1rem;
     .profit_result {

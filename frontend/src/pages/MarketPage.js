@@ -29,20 +29,21 @@ export default function MarketPage() {
     }
   }, [user, dispatch]);
 
+  const openPrediction = () => {
+    setOpen('prediction');
+  };
+
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
   return (
     <div className="Market_page">
       <ul className="header_menu">
-        <li
-          onClick={() => {
-            setOpen('prediction');
-          }}
-        >
-          <i className="fas fa-edit"></i>予想記入
+        <li onClick={openPrediction}>
+          <i className="fas fa-edit" />
+          POST
         </li>
       </ul>
-      {!prediction && <Message>今日の市場予想がありません。まずは市場予想を作成しましょう。</Message>}
+      {!prediction && <Message>上のメニューから今日の予想を投稿しましょう。</Message>}
       <div className="main">
         {open === 'prediction' && <MarketPredictionForm setOpen={setOpen} />}
         <div className="dashboard_row1">

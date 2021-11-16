@@ -92,20 +92,24 @@
   .feature_pickup_container {
     padding: 3rem;
     .title {
+      p {
+        padding: 0.3rem;
+      }
       text-align: center;
     }
     .pickup_body {
       padding: 5rem;
       @include row(flex-start, flex-start);
       .text {
+        padding: 2rem;
         h2,
         p {
-          padding: 0.5rem;
+          padding: 1rem;
         }
         width: 50%;
       }
       img {
-        padding: 3rem;
+        padding: 5rem;
         width: 50%;
       }
     }
