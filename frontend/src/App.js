@@ -38,7 +38,7 @@ export default function App() {
       )}
       <main>
         <Switch>
-          {user.status === false && <LoginPage />}
+          {location.pathname !== '/' && user.status === false && <LoginPage />}
           <Route exact path="/" component={EntrancePage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/market" component={MarketPage} />

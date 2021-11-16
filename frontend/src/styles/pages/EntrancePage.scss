@@ -1,8 +1,8 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 .entrance {
   width: 100%;
-  height:100vh;
+  height: 100vh;
   .main_container {
     @include gradation_background();
     @include row(center, center);
@@ -37,7 +37,9 @@
     .feature_list_container {
       padding: 3rem;
       background-color: #fafafa;
-      h2 {
+      h2,
+      p {
+        padding: 0.2rem;
         text-align: center;
       }
       .feature_cards {
@@ -59,7 +61,7 @@
             @include place_center();
           }
           p {
-            padding: 1rem;
+            padding: 0.2rem;
             font-size: large;
             text-align: center;
           }
@@ -74,6 +76,9 @@
     .review {
       padding: 2rem;
       text-align: center;
+      p {
+        padding: 0.3rem;
+      }
       .user_profile {
         img {
           padding: 2rem;
@@ -81,6 +86,27 @@
           height: 100%;
           border-radius: 10rem;
         }
+      }
+    }
+  }
+  .feature_pickup_container {
+    padding: 3rem;
+    .title {
+      text-align: center;
+    }
+    .pickup_body {
+      padding: 5rem;
+      @include row(flex-start, flex-start);
+      .text {
+        h2,
+        p {
+          padding: 0.5rem;
+        }
+        width: 50%;
+      }
+      img {
+        padding: 3rem;
+        width: 50%;
       }
     }
   }
