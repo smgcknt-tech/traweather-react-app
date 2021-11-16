@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import user1 from '../images/user1.jpg';
-import marketPage from '../images/marketPage.png'
+import marketPage from '../images/marketPage.png';
 import planPage from '../images/planPage.png';
 import resultPage from '../images/resultPage.png';
 import reflection from '../images/reflection.png';
@@ -48,7 +48,7 @@ export default function LoginPage() {
             <div className="card">
               <i className="fas fa-search-plus"></i>
               <p>銘柄選定</p>
-              <p>Stock screening</p>
+              <p>Stock Screening</p>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function LoginPage() {
         </div>
         <div className="pickup_body">
           <div className="text">
-            <h2>Trade result review</h2>
+            <h2>Stock Screening</h2>
             <p>
               トレード銘柄の選定の際に役立つ検索機能。証券番号や銘柄名から検索が可能。また独自のテーマで集めた銘柄リストを紹介するPICKUP機能もご利用いただけます。
             </p>

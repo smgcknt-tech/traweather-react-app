@@ -1,4 +1,4 @@
-import { AppContext } from '../../AppStore';
+import { AppActions, AppContext } from '../../AppStore';
 import { memo, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { env } from '../../config';
@@ -7,7 +7,7 @@ import '../../styles/components/TradeFeedBackForm.scss';
 
 export default memo(function TradeFeedBackForm(props) {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { state } = useContext(AppContext);
+    const { state, dispatch } = useContext(AppContext);
     const { user } = state;
     const [image, setImage] = useState('');
 
@@ -32,6 +32,7 @@ export default memo(function TradeFeedBackForm(props) {
         data.user_id = user.id;
         const res = await axios.post(`/api/reflection/create`, data);
         if (res.data.message) alert(res.data.message);
+        if(res.data.length) dispatch({ type: AppActions.SET_POSTS, payload: res.data });
         props.setOpen(null);
     };
 

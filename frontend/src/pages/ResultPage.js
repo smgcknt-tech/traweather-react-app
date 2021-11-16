@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { AppActions, AppContext } from '../AppStore';
 import { helper } from '../utils/helper';
 import '../../src/styles/pages/ResultPage.scss';
@@ -7,17 +7,14 @@ import Message from '../components/common/Message';
 import ResultTable from '../components/ResultTable';
 import CommentPerStock from '../components/CommentPerStock';
 import ComparisonChart from '../components/ComparisonChart';
-import TradeFeedBackForm from '../components/forms/TradeFeedBackForm';
 
 export default function ResultPage() {
   const { state, dispatch } = useContext(AppContext);
-  const { user, loading, error, resultData, selectedStock, resultIndicators } = state;
+  const { user, loading, error, resultData, resultIndicators, allStocks } = state;
   const { monthly_profit, last_profit, weekly_profit, win_lose } = resultIndicators;
-  const [open, setOpen] = useState(false);
-
 
   useEffect(() => {
-    if (user.id) {
+    if (user.id && allStocks) {
       (async () => {
         const data = await helper.fetchData(`/api/results`, dispatch, AppActions, {
           user_id: user.id,
@@ -29,10 +26,14 @@ export default function ResultPage() {
             type: AppActions.SET_SELECTED_STOCK,
             payload: resultData[0],
           });
+          const initialStockData = resultData.length
+            ? await allStocks?.find((stock) => resultData[0].code === Number(stock.code))
+            : null;
           dispatch({
             type: AppActions.SET_RESULT_INDICATORS,
             payload: {
               ...resultIndicators,
+              stockData: initialStockData,
               monthly_profit,
               last_profit,
               weekly_profit,
@@ -43,7 +44,7 @@ export default function ResultPage() {
       })();
     }
     // Do not set resultIndicators in dependency array
-  }, [user, dispatch]); // eslint-disable-line
+  }, [user, dispatch, allStocks]); // eslint-disable-line
 
   const profitResult = useMemo(() => {
     return resultData
@@ -55,21 +56,10 @@ export default function ResultPage() {
 
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
-  if (resultData?.length === 0) return <Message>プランデータをまず作成して下さい</Message>;
+  if (!resultData.length) return <Message>プランデータをまず作成して下さい</Message>;
   return (
     <div className="result_page">
-      <ul className="header_menu">
-        <li
-          onClick={() => {
-            setOpen('feed_back');
-          }}
-        >
-          <i className="fas fa-edit" />
-          反省追加
-        </li>
-      </ul>
       <div className="main">
-        {open === 'feed_back' && <TradeFeedBackForm setOpen={setOpen} />}
         <div className="dashboard">
           <div className="dashboard_row1">
             <div className="indicators">
@@ -96,10 +86,12 @@ export default function ResultPage() {
                 <div className="card_title">今月勝敗</div>
               </div>
             </div>
-            {resultData.length > 0 && <ResultTable />}
+            <ResultTable />
           </div>
           <div className="dashboard_row2">
-            <div className="left_col">{selectedStock && <ComparisonChart />}</div>
+            <div className="left_col">
+              <ComparisonChart />
+            </div>
             <div className="right_col">
               <CommentPerStock />
             </div>

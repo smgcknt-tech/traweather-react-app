@@ -10,12 +10,12 @@ export const api_post_model = {
         await pool.query('BEGIN');
         const res = await pool.query(
           `
-                    INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
-                    SELECT $1, $2, $3, $4
-                    WHERE NOT EXISTS (SELECT id FROM market_prediction WHERE to_char(created_at, 'YYYY-MM-DD') = '${
-                      helper.time().today
-                    }')
-                    RETURNING *;`,
+            INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
+            SELECT $1, $2, $3, $4
+            WHERE NOT EXISTS (SELECT id FROM market_prediction WHERE to_char(created_at, 'YYYY-MM-DD') = '${
+              helper.time().today
+            }')
+            RETURNING *;`,
           values
         );
         await pool.query('COMMIT');
@@ -38,10 +38,10 @@ export const api_post_model = {
         await pool.query('BEGIN');
         const res = await pool.query(
           `
-                    UPDATE market_prediction
-                    SET ${column}=$1
-                    WHERE user_id =${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
-                    RETURNING *;`,
+            UPDATE market_prediction
+            SET ${column}=$1
+            WHERE user_id =${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+            RETURNING *;`,
           values
         );
         await pool.query('COMMIT');
@@ -56,40 +56,38 @@ export const api_post_model = {
     if (result.data) return { updatedData: result.data };
   },
   upsert_latest_stock: async (values) => {
-    const query = format(
-      `
-                INSERT INTO latest_stock_data (code,stock_name,market,industry,stock_date,price,change,change_in_percent,previous_close,opening,high,low,vwap,volume,volume_in_percent,trading_value,market_cap,lower_range,upper_range,year_high_date,year_high,year_high_divergence_rate,year_low_date,year_low,year_low_divergence_rate)
-                VALUES %L
-                ON CONFLICT(code)
-                DO UPDATE SET
-                    code=EXCLUDED.code,
-                    stock_name=EXCLUDED.stock_name,
-                    market=EXCLUDED.market,
-                    industry=EXCLUDED.industry,
-                    stock_date=EXCLUDED.stock_date,
-                    price=EXCLUDED.price,
-                    change=EXCLUDED.change,
-                    change_in_percent=EXCLUDED.change_in_percent,
-                    previous_close=EXCLUDED.previous_close,
-                    opening=EXCLUDED.opening,
-                    high=EXCLUDED.high,
-                    low=EXCLUDED.low,
-                    vwap=EXCLUDED.vwap,
-                    volume=EXCLUDED.volume,
-                    volume_in_percent=EXCLUDED.volume_in_percent,
-                    trading_value=EXCLUDED.trading_value,
-                    market_cap=EXCLUDED.market_cap,
-                    lower_range=EXCLUDED.lower_range,
-                    upper_range=EXCLUDED.upper_range,
-                    year_high_date=EXCLUDED.year_high_date,
-                    year_high=EXCLUDED.year_high,
-                    year_high_divergence_rate=EXCLUDED.year_high_divergence_rate,
-                    year_low_date=EXCLUDED.year_low_date,
-                    year_low=EXCLUDED.year_low,
-                    year_low_divergence_rate=EXCLUDED.year_low_divergence_rate
-                RETURNING *;
-                `,
-      values
+    const query = format(`
+      INSERT INTO latest_stock_data (code,stock_name,market,industry,stock_date,price,change,change_in_percent,previous_close,opening,high,low,vwap,volume,volume_in_percent,trading_value,market_cap,lower_range,upper_range,year_high_date,year_high,year_high_divergence_rate,year_low_date,year_low,year_low_divergence_rate)
+      VALUES %L
+      ON CONFLICT(code)
+      DO UPDATE SET
+          code=EXCLUDED.code,
+          stock_name=EXCLUDED.stock_name,
+          market=EXCLUDED.market,
+          industry=EXCLUDED.industry,
+          stock_date=EXCLUDED.stock_date,
+          price=EXCLUDED.price,
+          change=EXCLUDED.change,
+          change_in_percent=EXCLUDED.change_in_percent,
+          previous_close=EXCLUDED.previous_close,
+          opening=EXCLUDED.opening,
+          high=EXCLUDED.high,
+          low=EXCLUDED.low,
+          vwap=EXCLUDED.vwap,
+          volume=EXCLUDED.volume,
+          volume_in_percent=EXCLUDED.volume_in_percent,
+          trading_value=EXCLUDED.trading_value,
+          market_cap=EXCLUDED.market_cap,
+          lower_range=EXCLUDED.lower_range,
+          upper_range=EXCLUDED.upper_range,
+          year_high_date=EXCLUDED.year_high_date,
+          year_high=EXCLUDED.year_high,
+          year_high_divergence_rate=EXCLUDED.year_high_divergence_rate,
+          year_low_date=EXCLUDED.year_low_date,
+          year_low=EXCLUDED.year_low,
+          year_low_divergence_rate=EXCLUDED.year_low_divergence_rate
+      RETURNING *;
+      `,values
     );
     const transaction = async () => {
       try {
@@ -113,12 +111,11 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        const res = await pool.query(
-          `
-                    UPDATE trade_result
-                    SET lot=$1,entry_point=$2,exit_point=$3,profit_loss=$4, profit_loss_rate=$5,total_profit_loss=$6
-                    WHERE user_id=${user_id} AND result_id=${result_id} AND to_char(created_at, 'YYYY-MM-DD') = '${date}'
-                    RETURNING *;`,
+        const res = await pool.query(`
+          UPDATE trade_result
+          SET lot=$1,entry_point=$2,exit_point=$3,profit_loss=$4, profit_loss_rate=$5,total_profit_loss=$6
+          WHERE user_id=${user_id} AND result_id=${result_id} AND to_char(created_at, 'YYYY-MM-DD') = '${date}'
+          RETURNING *;`,
           values
         );
         await pool.query('COMMIT');
@@ -132,11 +129,9 @@ export const api_post_model = {
     const result = await transaction();
     if (result === 'SUCCESS') {
       const query = `
-                SELECT * FROM trade_plan
-                JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-                WHERE trade_plan.user_id = ${user_id} AND to_char( trade_plan.created_at, 'YYYY-MM-DD') = '${
-        helper.time().today
-      }';`;
+        SELECT * FROM trade_plan
+        JOIN trade_result ON trade_plan.result_id = trade_result.result_id
+        WHERE trade_plan.user_id = ${user_id} AND to_char( trade_plan.created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
       return await pool.query(query);
     }
   },
@@ -146,10 +141,9 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(
-          `
-                    UPDATE trade_result SET comment=$1
-                    WHERE result_id=${result_id};`,
+        await pool.query(`
+          UPDATE trade_result SET comment=$1
+          WHERE result_id=${result_id};`,
           values
         );
         await pool.query('COMMIT');
@@ -163,10 +157,10 @@ export const api_post_model = {
     const result = await transaction();
     if (result === 'SUCCESS') {
       const query = `
-                SELECT *
-                FROM trade_plan
-                JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-                AND to_char( trade_plan.created_at, 'YYYY-MM-DD' ) = '${helper.time().today}';`;
+        SELECT *
+        FROM trade_plan
+        JOIN trade_result ON trade_plan.result_id = trade_result.result_id
+        AND to_char( trade_plan.created_at, 'YYYY-MM-DD' ) = '${helper.time().today}';`;
       return await pool.query(query);
     }
     if (result === 'FAIL') return 'プランの更新に失敗しました。';
@@ -176,16 +170,14 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        const result = await pool.query(
-          `
-                    INSERT INTO trade_result (user_id)
-                    VALUES($1) RETURNING result_id;`,
+        const result = await pool.query(`
+          INSERT INTO trade_result (user_id)
+          VALUES($1) RETURNING result_id;`,
           [user_id]
         );
-        await pool.query(
-          `
-                    INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,result_id)
-                    VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`,
+        await pool.query(`
+          INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,result_id)
+          VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`,
           [
             code,
             market,
@@ -201,9 +193,9 @@ export const api_post_model = {
           ]
         );
         const result2 = await pool.query(`
-                    SELECT * FROM trade_plan
-                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
-                    ORDER BY code ASC;`);
+          SELECT * FROM trade_plan
+          WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+          ORDER BY code ASC;`);
         await pool.query('COMMIT');
         return { data: result2.rows };
       } catch (err) {
@@ -221,17 +213,16 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(
-          `
-                    UPDATE trade_plan
-                    SET opening=$1,support=$2,losscut=$3,goal=$4
-                    WHERE user_id=${user_id} AND code=${code};`,
+        await pool.query(`
+          UPDATE trade_plan
+          SET opening=$1,support=$2,losscut=$3,goal=$4
+          WHERE user_id=${user_id} AND code=${code};`,
           values
         );
         const result = await pool.query(`
-                    SELECT * FROM trade_plan
-                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
-                    ORDER BY code ASC;`);
+          SELECT * FROM trade_plan
+          WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+          ORDER BY code ASC;`);
         await pool.query('COMMIT');
         return { data: result.rows };
       } catch (err) {
@@ -249,17 +240,16 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(
-          `
-                    UPDATE trade_plan
-                    SET reason=$1
-                    WHERE user_id=${user_id} AND plan_id=${plan_id};`,
+        await pool.query(`
+          UPDATE trade_plan
+          SET reason=$1
+          WHERE user_id=${user_id} AND plan_id=${plan_id};`,
           values
         );
         const result = await pool.query(`
-                    SELECT * FROM trade_plan
-                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
-                    ORDER BY code ASC;`);
+          SELECT * FROM trade_plan
+          WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+          ORDER BY code ASC;`);
         await pool.query('COMMIT');
         return { data: result.rows };
       } catch (err) {
@@ -277,17 +267,16 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(
-          `
-                    UPDATE trade_plan
-                    SET strategy=$1
-                    WHERE user_id=${user_id} AND plan_id=${plan_id};`,
+        await pool.query(`
+          UPDATE trade_plan
+          SET strategy=$1
+          WHERE user_id=${user_id} AND plan_id=${plan_id};`,
           values
         );
         const result = await pool.query(`
-                    SELECT * FROM trade_plan
-                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
-                    ORDER BY code ASC;`);
+          SELECT * FROM trade_plan
+          WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+          ORDER BY code ASC;`);
         await pool.query('COMMIT');
         return { data: result.rows };
       } catch (err) {
@@ -305,21 +294,19 @@ export const api_post_model = {
       try {
         await pool.query('BEGIN');
         const res = await pool.query(`
-                    SELECT plan_id, result_id
-                    FROM trade_plan
-                    WHERE user_id=${user_id} AND code=${code} AND to_char(created_at, 'YYYY-MM-DD') = '${
-          helper.time().today
-        }';`);
+          SELECT plan_id, result_id
+          FROM trade_plan
+          WHERE user_id=${user_id} AND code=${code} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}';`);
         await pool.query(`
-                    DELETE FROM trade_plan
-                    WHERE plan_id = ${res.rows[0].plan_id};`);
+          DELETE FROM trade_plan
+          WHERE plan_id = ${res.rows[0].plan_id};`);
         await pool.query(`
-                    DELETE FROM trade_result
-                    WHERE result_id = ${res.rows[0].result_id};`);
+          DELETE FROM trade_result
+          WHERE result_id = ${res.rows[0].result_id};`);
         const result = await pool.query(`
-                    SELECT * FROM trade_plan
-                    WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
-                    ORDER BY code ASC;`);
+          SELECT * FROM trade_plan
+          WHERE user_id = ${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+          ORDER BY code ASC;`);
         await pool.query('COMMIT');
         return result.rows;
       } catch (err) {
@@ -336,14 +323,14 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(
-          `
-                    INSERT INTO trade_feed_back (title, content, image_url, user_id)
-                    VALUES($1, $2, $3, $4)`,
+        await pool.query(`
+          INSERT INTO trade_feed_back (title, content, image_url, user_id)
+          VALUES($1, $2, $3, $4)`,
           [title, content, image_url, user_id]
         );
+        const res = await pool.query('SELECT * FROM trade_feed_back;');
         await pool.query('COMMIT');
-        return 'SUCCESS';
+        return res.rows;
       } catch (err) {
         console.log(err.stack);
         await pool.query('ROLLBACK');
@@ -351,6 +338,6 @@ export const api_post_model = {
       }
     };
     const result = await transaction();
-    if (result === 'SUCCESS') return await pool.query('SELECT * FROM trade_feed_back;');
+    if (result.length) return result;
   },
 };

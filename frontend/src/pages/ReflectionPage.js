@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AppContext, AppActions } from '../AppStore';
 import { helper } from '../utils/helper';
 import ReactPaginate from 'react-paginate';
@@ -6,6 +6,7 @@ import Loading from '../components/common/Loading';
 import Message from '../components/common/Message';
 import noImage from '../images//noImage.jpg';
 import '../styles/pages/ReflectionPage.scss';
+import TradeFeedBackForm from '../components/forms/TradeFeedBackForm';
 
 export default function ReflectionPage() {
   const { state, dispatch } = useContext(AppContext);
@@ -13,8 +14,8 @@ export default function ReflectionPage() {
   const refs = useRef([]);
   const rowsPerPage = 5;
   const pagesVisited = currentPage * rowsPerPage;
-  const pageCount = Math.ceil(resultData?.length / rowsPerPage);
-
+  const pageCount = Math.ceil(resultData.length / rowsPerPage);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     if (user.id) {
       (async () => {
@@ -104,12 +105,29 @@ export default function ReflectionPage() {
     dispatch({ type: AppActions.SET_SELECTED_POST, payload: null });
   };
 
+  const openFeedbackForm = () => {
+    setOpen('feed_back');
+  };
+
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
-  if (archives.length === 0) return <Message>振返データがありません!</Message>;
   return (
     <div className="reflection_page">
-      {!selectedPost && <div className="reflection_container">{archives}</div>}
+      {!selectedPost && (
+        <div className="reflection_container">
+          <ul className="header_menu">
+            <li onClick={openFeedbackForm}>
+              <i className="fas fa-edit" />
+              POST
+            </li>
+          </ul>
+          {open === 'feed_back' && <TradeFeedBackForm setOpen={setOpen} />}
+          {!archives.length && <Message>振返データがありません。上のボタンから今日の振り返りを作成しましょう</Message>}
+          <div className="archive">
+            {archives}
+          </div>
+        </div>
+      )}
       {selectedPost && (
         <div className="description_container">
           <div className="close_btn" onClick={handleClose}>
@@ -146,9 +164,9 @@ export default function ReflectionPage() {
                     <th>損益額</th>
                   </tr>
                 </thead>
-                <tbody>{resultData.length > 0 && displayRows}</tbody>
+                <tbody>{resultData.length && displayRows}</tbody>
               </table>
-              {resultData.length > 0 && (
+              {resultData.length && (
                 <ReactPaginate
                   previousLabel={'<'}
                   nextLabel={'>'}

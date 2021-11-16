@@ -41,28 +41,28 @@ export default function PlanPage() {
     if (selectedStock) dispatch({ type: AppActions.SET_INDICATORS, payload: indicatorsData });
   }, [indicatorsData, selectedStock, dispatch]);
 
+  const openAddForm=()=>{
+    setOpen('add');
+  }
+
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
   return (
     <div className="plan_page">
       <ul className="header_menu">
-        <li
-          onClick={() => {
-            setOpen('add');
-          }}
-        >
+        <li onClick={openAddForm}>
           <i className="fas fa-edit" />
-          銘柄追加
+          POST
         </li>
       </ul>
-      {planData?.length === 0 && <Message>プランデータがありません。まずはプランデータを作成しましょう。</Message>}
+      { !planData.length ? <Message>プランデータがありません。まずはプランデータを作成しましょう。</Message> : null}
       <div className="main">
         <SearchBar />
         <div className="dashboard">
           <div className="dashboard_row1">
             <div className="left_col">
               {(open === 'add' || planData.length === 0) && <PlanAddForm setOpen={setOpen} />}
-              {planData.length > 0 && <StoryTable />}
+              {planData.length > 0 ? <StoryTable /> : null}
               <StoryChart />
             </div>
             <div className="right_col">
