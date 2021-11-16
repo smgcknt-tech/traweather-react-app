@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { memo, useContext } from 'react';
 import { AppActions, AppContext } from '../../AppStore';
-import { useHistory } from 'react-router';
 import axios from 'axios';
 import '../../styles/components/LogInForm.scss';
 
@@ -10,7 +9,6 @@ export default memo(function LogInForm(props) {
     const { user } = state;
     const { setOpen } = props;
     const { register, handleSubmit, formState: { errors } } = useForm();
-    let history = useHistory();
     const onSubmit = async (data) => {
         axios.post(`/api/user/login`, data)
             .then((response) => {
@@ -19,7 +17,6 @@ export default memo(function LogInForm(props) {
                 } else {
                     dispatch({ type: AppActions.SET_USER, payload: { ...user, status: true } });
                     localStorage.setItem("access_token", response.data);
-                    history.push("/");
                 };
             });
     };
