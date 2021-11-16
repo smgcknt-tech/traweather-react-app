@@ -8,7 +8,6 @@ import path from 'path';
 import cors from "cors";
 import cron from "node-cron";
 import cookieParser from 'cookie-parser';
-import { api_post_model } from './models/api_post_model.js';
 const app = express();
 const __dirname = path.resolve();
 

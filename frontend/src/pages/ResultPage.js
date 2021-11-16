@@ -11,7 +11,7 @@ import TradeFeedBackForm from '../components/forms/TradeFeedBackForm';
 
 export default function ResultPage() {
   const { state, dispatch } = useContext(AppContext);
-  const { user, allStocks, loading, error, resultData, selectedStock, resultIndicators } = state;
+  const { user, loading, error, resultData, selectedStock, resultIndicators } = state;
   const { monthly_profit, last_profit, weekly_profit, win_lose } = resultIndicators;
   const [open, setOpen] = useState(false);
 

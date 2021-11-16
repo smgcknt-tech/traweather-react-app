@@ -1,14 +1,29 @@
 @import '../variables.scss';
 
 .screening_page {
-    background:linear-gradient(rgba(152, 195, 241, 0.7), rgba(31, 88, 150, 0.8)),url(../../images/search_background.jpg);
-    background-repeat:  no-repeat;
-    background-size:cover;
-    background-position: center;
-    height:100vh;
-    padding:  1rem;
-    .center_area {
-        @include row(center,center);
-        height:100vh;
+  background: linear-gradient(rgba(152, 195, 241, 0.7), rgba(31, 88, 150, 0.8)), url(../../images/search_background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  padding: 1rem;
+  @include row(center, center);
+  .center_area {
+    .pickup {
+      padding-top: 2rem;
+      color: white;
+      h2 {
+        font-size: 3rem;
+        border-bottom: 3px solid #fff;
+      }
+      .stock_list {
+        @include row(flex-start, flex-start);
+        li {
+          cursor:pointer;
+          font-size: 2rem;
+          padding: 1rem;
+        }
+      }
     }
+  }
 }
