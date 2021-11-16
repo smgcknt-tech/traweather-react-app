@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import '../styles/pages/EntrancePage.scss';
 import user1 from '../images/user1.jpg';
-import MarketPage from '../images/MarketPage.png';
+import marketPage from '../images/marketPage.png'
 import planPage from '../images/planPage.png';
-import ResultPage from '../images/ResultPage.png';
+import resultPage from '../images/resultPage.png';
 import reflection from '../images/reflection.png';
-import Screening from '../images/Screening.png';
+import screening from '../images/screening.png';
+import '../styles/pages/EntrancePage.scss';
 export default function LoginPage() {
   return (
     <div className="entrance">
@@ -69,7 +69,7 @@ export default function LoginPage() {
               can also fill in the forecast and save it so that you can check it later when you look back.
             </p>
           </div>
-          <img src={MarketPage} alt="market" />
+          <img src={marketPage} alt="market" />
         </div>
         <div className="pickup_body">
           <img src={planPage} alt="plan" />
@@ -96,7 +96,7 @@ export default function LoginPage() {
               trades.
             </p>
           </div>
-          <img src={ResultPage} alt="result" />
+          <img src={resultPage} alt="result" />
         </div>
         <div className="pickup_body">
           <img src={reflection} alt="reflection" />
@@ -122,7 +122,7 @@ export default function LoginPage() {
               You can also use the PICK UP list, which introduces a list of stocks collected under specific theme.
             </p>
           </div>
-          <img src={Screening} alt="screening" />
+          <img src={screening} alt="screening" />
         </div>
       </div>
       <div className="user_review_container">
