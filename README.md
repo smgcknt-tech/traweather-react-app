@@ -1,38 +1,34 @@
-アプリケーション概要:株式トレードサポートツールです.
-URL
-https://traweather.xyz/　
+# アプリケーション概要 (Application Overview)
+* 株式トレードサポートツールです. (Stock trading support tool.)
+* https://traweather.xyz
 
-機能
-ーログイン機能
-ー画像アップロード機能
-ー市場予想入力機能
-ー当日の株式データ取得機能
-ー当日のトレードプラン作成機能
-ー当日のトレード結果作成機能
-ー過去のトレード結果振り返り機能
+# 基本機能 (basic functions)
+* ログイン機能 (Login)
+* 画像アップロード機能 (Image upload)
+* アプリケーション機能詳細は、上記のURLのトップページに記載しております。(Detailed features of this app are described on the top page of the above URL.)
 
-使用技術
-フロントエンド
-→React,Sass
-バックエンド
--Node.js(express)
--PostgreSQL
-インフラ
-Proxyサーバー（NGINX）
--WEBサーバー（NGINX）
--AWS(ECS Fargate, ECR, S3, RDS)
--Docker
--circle ci
-テストツール及びバージョン管理
--Jest
--PostMan
--Git hub
-※スキーマの差分管理はrecord.sqlファイルでマニュアル管理　　
-外部API
--KABU+(株価のCSVデータを取得するため)
+# 使用技術  (Technology used)
+## FRONTEND
+* React(17.0.2),Sass
+## BACKEND
+* Express (node ver16.13.0)
+* PostgreSQL (ver12.8)
 
-その他
-  - タブレットやワイドディスプレイへのレスポンシブ対応はしていますが、スマホのレスポンシブ対応はしていないです。　　
+##　Infrastructure
+* Proxy server（NGINX）
+* WEB server（NGINX）
+* AWS(ECS Fargate, ECR, S3, RDS)
+* Docker
+* Circle ci
+## テストツール及びバージョン管理　( Test tool & Version control tool)
+* PostMan
+* Git hub　(git kraken)
 
-本番環境のアーキテクチャ　　
+# 外部API (External API)
+* KABU+(株価のCSVデータ取得先(APi to get CSV data of stock price))
+
+#　補足 (supplementary material)
+* タブレットやワイドディスプレイへのレスポンシブ対応はしていますが、スマホのレスポンシブ対応はしていないです。(This app is responsive to tablets and wide displays, but not responsive to smartphones.)　
+
+# Architecture　
 ![Screen Shot 2021-11-02 at 13 59 31](https://user-images.githubusercontent.com/54715182/139789313-283e3df3-4af1-4aab-b395-297e1bb1704a.png)
