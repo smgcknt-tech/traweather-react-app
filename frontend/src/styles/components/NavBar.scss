@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 .nav_bar {
   background-color: #ffffff;
@@ -7,6 +7,13 @@
   ul {
     justify-content: column;
     text-align: center;
+    li.selected {
+      background-color: rgba(71, 139, 214, 0.6);
+      i,
+      p {
+        color: #fff;
+      }
+    }
     li {
       text-decoration: none;
       padding: 2rem 0;
