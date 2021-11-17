@@ -10,10 +10,10 @@
   .login_bttn {
     padding: 1rem 0;
     cursor: pointer;
-    color: #7a7878;
+    color: rgba(71, 139, 214, 0.8);
     transition: 0.3s;
     &:hover {
-      color: rgba(71, 139, 214, 0.8);
+      color: #7a7878;
       transition: color 0.3s;
     }
   }
@@ -33,6 +33,7 @@
       }
     }
     .error {
+      font-size:1.5rem;
       margin: 0 1rem;
       color: #a02020;
     }
@@ -52,6 +53,12 @@
       border-radius: 2rem;
       background-color: #ee6272;
       box-shadow: 0 0 0.3rem #b4b4b4;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        color: rgb(71, 139, 214);
+        transition: color 0.3s;
+      }
     }
   }
 }
