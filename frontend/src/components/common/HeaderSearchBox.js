@@ -36,6 +36,8 @@ export default function HeaderSearchBox() {
     history.push({ pathname: '/search', state: code });
   };
 
+  if(!allStocks) return null
+
   return (
     <div className="header_search_box">
       <div className="search_container">

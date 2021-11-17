@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { AppActions, AppContext } from '../../AppStore';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../../styles/components/Header.scss';
 import HeaderSearchBox from './HeaderSearchBox';
 export default function Header() {
   const { state, dispatch } = useContext(AppContext);
   const { user } = state;
+  const location = useLocation();
   const logout = () => {
     localStorage.removeItem('access_token');
     dispatch({ type: AppActions.SET_USER, payload: { ...user, status: false } });
@@ -18,21 +19,17 @@ export default function Header() {
           <span className="logo_title">traweather</span>
         </Link>
       </div>
-      <ul className="right_menu">
-        <HeaderSearchBox />
-        {user.id && user.status ? (
-          <>
+      <div className="right_menu">
+        {(location.pathname !== '/plan' && location.pathname !== '/screening') && <HeaderSearchBox />}
+        {user.id && user.status && (
+          <ul>
             <li>{user.name}</li>
             <li className="log_out_bttn" onClick={logout}>
               logout
             </li>
-          </>
-        ) : (
-          <li className="log_in_bttn">
-            <Link to="/login">login</Link>
-          </li>
+          </ul>
         )}
-      </ul>
+      </div>
     </div>
   );
 }

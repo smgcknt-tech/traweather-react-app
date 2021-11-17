@@ -13,7 +13,7 @@ import HeatMap from '../components/HeatMap';
 
 export default function MarketPage() {
   const { state, dispatch } = useContext(AppContext);
-  const { user, prediction, loading, error } = state;
+  const { user, prediction, loading, error, heatmapData } = state;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -35,31 +35,32 @@ export default function MarketPage() {
 
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
-  return (
-    <div className="Market_page">
-      <ul className="header_menu">
-        <li onClick={openPrediction}>
-          <i className="fas fa-edit" />
-          POST
-        </li>
-      </ul>
-      {!prediction && <Message>上のメニューから今日の予想を投稿しましょう。</Message>}
-      <div className="main">
-        {open === 'prediction' && <MarketPredictionForm setOpen={setOpen} />}
-        <div className="dashboard_row1">
-          {prediction && <Prediction />}
-          <HeatMap />
-          <Ticker />
-        </div>
-        <div className="dashboard_row2">
-          <div className="left_col">
-            <Twitter />
+  if (!heatmapData.length) return null;
+    return (
+      <div className="Market_page">
+        <ul className="header_menu">
+          <li onClick={openPrediction}>
+            <i className="fas fa-edit" />
+            POST
+          </li>
+        </ul>
+        {!prediction && <Message>上のボタンから今日の予想を投稿しましょう。</Message>}
+        <div className="main">
+          {open === 'prediction' && <MarketPredictionForm setOpen={setOpen} />}
+          <div className="dashboard_row1">
+            {prediction && <Prediction />}
+            <HeatMap />
+            <Ticker />
           </div>
-          <div className="right_col">
-            <Event />
+          <div className="dashboard_row2">
+            <div className="left_col">
+              <Twitter />
+            </div>
+            <div className="right_col">
+              <Event />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
 }

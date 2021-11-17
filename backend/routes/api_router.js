@@ -64,4 +64,10 @@ api_router
   })
   .post('/reflection/create', mw.limit_feed_back, (req, res) => {
     ac.passBody(req, res, apm.create_feed_back);
+  })
+  .post('/reflection/delete',  (req, res) => {
+    ac.passBody(req, res, apm.delete_feed_back);
+  })
+  .post('/reflection/update_feed_back',  (req, res) => {
+    ac.passBody(req, res, apm.update_feed_back);
   });

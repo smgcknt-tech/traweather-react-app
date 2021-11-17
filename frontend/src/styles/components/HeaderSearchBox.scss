@@ -5,6 +5,7 @@
 
   .search_container {
     width: 30rem;
+    padding: 0 1.5rem;
     .search_inputs {
       @include row(center, flex-start);
       input {

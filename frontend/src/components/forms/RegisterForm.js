@@ -24,34 +24,50 @@ export default memo(function RegisterForm(props) {
             });
     };
 
-    const formList = { "username": "", "password": "" };
-    const displayForm = Object
-        .keys(formList)
-        .map((key, index) => {
-            return (
-                <div className="each_input" key={index}>
-                    <fieldset>
-                        <legend>{key}</legend>
-                        <label>
-                            <input type="text" autoComplete="off" defaultValue="" data-testid={key}
-                                {...register(key, { required: `${key}が入力されていません` })}
-                            ></input>
-                        </label>
-                    </fieldset>
-                    {(errors[key]) ? (
-                        <span key={index} className="error">{errors[key].message}</span>
-                    ) : null}
-                </div>
-            )
-        })
 
     return (
-        <div >
-            <form className="register_form" onSubmit={handleSubmit(onSubmit)}>
-                <span className="login_bttn" onClick={() => { setOpen(null) }}>ログインはこちら</span>
-                {displayForm}
-                <div className="button"><input type="submit" value="REGISTER" /></div>
-            </form>
-        </div>
+      <div>
+        <form className="register_form" onSubmit={handleSubmit(onSubmit)}>
+          <span
+            className="login_bttn"
+            onClick={() => {
+              setOpen(null);
+            }}
+          >
+            ログイン(LOGIN)
+          </span>
+          <div className="each_input">
+            <fieldset>
+              <legend>username</legend>
+              <label>
+                <input
+                  type="text"
+                  autoComplete="off"
+                  defaultValue=""
+                  {...register('username', { required: `usernameが入力されていません` })}
+                ></input>
+              </label>
+            </fieldset>
+            {errors['username'] ? <span className="error">{errors['username'].message}</span> : null}
+          </div>
+          <div className="each_input">
+            <fieldset>
+              <legend>password</legend>
+              <label>
+                <input
+                  type="password"
+                  autoComplete="off"
+                  defaultValue=""
+                  {...register('password', { required: `passwordが入力されていません` })}
+                ></input>
+              </label>
+            </fieldset>
+            {errors['password'] ? <span className="error">{errors['password'].message}</span> : null}
+          </div>
+          <div className="button">
+            <input type="submit" value="REGISTER" />
+          </div>
+        </form>
+      </div>
     );
 });

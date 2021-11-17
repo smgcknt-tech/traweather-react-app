@@ -11,6 +11,7 @@ import StoryChart from '../components/StoryChart';
 import SearchBar from '../components/SearchBar';
 import Prediction from '../components/Prediction';
 import PlanAddForm from '../components/forms/PlanAddForm';
+import axios from 'axios';
 
 export default function PlanPage() {
   const { state, dispatch } = useContext(AppContext);
@@ -20,6 +21,8 @@ export default function PlanPage() {
   useEffect(() => {
     if (user.id) {
       (async () => {
+        const { data } = await axios.get(`/api/latest_stock`);
+        if (data) dispatch({ type: AppActions.SET_ALL_STOCKS, payload: data });
         const { plan, prediction } = await helper.fetchData(`/api/plan`, dispatch, AppActions, {
           user_id: user.id,
           date: helper.time().today,
@@ -41,9 +44,9 @@ export default function PlanPage() {
     if (selectedStock) dispatch({ type: AppActions.SET_INDICATORS, payload: indicatorsData });
   }, [indicatorsData, selectedStock, dispatch]);
 
-  const openAddForm=()=>{
+  const openAddForm = () => {
     setOpen('add');
-  }
+  };
 
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
@@ -55,20 +58,22 @@ export default function PlanPage() {
           POST
         </li>
       </ul>
-      { !planData.length ? <Message>プランデータがありません。まずはプランデータを作成しましょう。</Message> : null}
+        {(!planData.length) && <Message>上のボタンからトレードプランを作成しましょう</Message>}
       <div className="main">
         <SearchBar />
         <div className="dashboard">
           <div className="dashboard_row1">
             <div className="left_col">
-              {(open === 'add' || !planData.length) && <PlanAddForm setOpen={setOpen} />}
+              {open === 'add' && <PlanAddForm setOpen={setOpen} />}
               {planData.length ? <StoryTable /> : null}
               <StoryChart />
             </div>
-            <div className="right_col">
-              <Reason />
-              <Strategy />
-            </div>
+            {planData.length ? (
+              <div className="right_col">
+                <Reason />
+                <Strategy />
+              </div>
+            ) : null}
           </div>
           <div className="dashboard_row2">{prediction && <Prediction />}</div>
         </div>

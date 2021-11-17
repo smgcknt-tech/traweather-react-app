@@ -10,12 +10,13 @@ export const api_post_model = {
         await pool.query('BEGIN');
         const res = await pool.query(
           `
-            INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
-            SELECT $1, $2, $3, $4
-            WHERE NOT EXISTS (SELECT id FROM market_prediction WHERE to_char(created_at, 'YYYY-MM-DD') = '${
-              helper.time().today
-            }')
-            RETURNING *;`,
+          INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
+          SELECT $1, $2, $3, $4
+          WHERE NOT EXISTS (
+            SELECT id
+            FROM market_prediction
+            WHERE user_id=${payload.user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}')
+          RETURNING *;`,
           values
         );
         await pool.query('COMMIT');
@@ -38,10 +39,10 @@ export const api_post_model = {
         await pool.query('BEGIN');
         const res = await pool.query(
           `
-            UPDATE market_prediction
-            SET ${column}=$1
-            WHERE user_id =${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
-            RETURNING *;`,
+          UPDATE market_prediction
+          SET ${column}=$1
+          WHERE user_id =${user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+          RETURNING *;`,
           values
         );
         await pool.query('COMMIT');
@@ -56,7 +57,8 @@ export const api_post_model = {
     if (result.data) return { updatedData: result.data };
   },
   upsert_latest_stock: async (values) => {
-    const query = format(`
+    const query = format(
+      `
       INSERT INTO latest_stock_data (code,stock_name,market,industry,stock_date,price,change,change_in_percent,previous_close,opening,high,low,vwap,volume,volume_in_percent,trading_value,market_cap,lower_range,upper_range,year_high_date,year_high,year_high_divergence_rate,year_low_date,year_low,year_low_divergence_rate)
       VALUES %L
       ON CONFLICT(code)
@@ -87,7 +89,8 @@ export const api_post_model = {
           year_low=EXCLUDED.year_low,
           year_low_divergence_rate=EXCLUDED.year_low_divergence_rate
       RETURNING *;
-      `,values
+      `,
+      values
     );
     const transaction = async () => {
       try {
@@ -111,7 +114,8 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        const res = await pool.query(`
+        const res = await pool.query(
+          `
           UPDATE trade_result
           SET lot=$1,entry_point=$2,exit_point=$3,profit_loss=$4, profit_loss_rate=$5,total_profit_loss=$6
           WHERE user_id=${user_id} AND result_id=${result_id} AND to_char(created_at, 'YYYY-MM-DD') = '${date}'
@@ -129,9 +133,10 @@ export const api_post_model = {
     const result = await transaction();
     if (result === 'SUCCESS') {
       const query = `
-        SELECT * FROM trade_plan
-        JOIN trade_result ON trade_plan.result_id = trade_result.result_id
-        WHERE trade_plan.user_id = ${user_id} AND to_char( trade_plan.created_at, 'YYYY-MM-DD') = '${helper.time().today}';`;
+        SELECT * FROM trade_plan AS t1
+        JOIN trade_result AS t2 ON t1.result_id = t2.result_id
+        WHERE t1.user_id = ${user_id} AND to_char( t1.created_at, 'YYYY-MM-DD') = '${helper.time().today}'
+        ORDER BY t2.lot;`;
       return await pool.query(query);
     }
   },
@@ -141,7 +146,8 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(`
+        await pool.query(
+          `
           UPDATE trade_result SET comment=$1
           WHERE result_id=${result_id};`,
           values
@@ -170,12 +176,14 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        const result = await pool.query(`
+        const result = await pool.query(
+          `
           INSERT INTO trade_result (user_id)
           VALUES($1) RETURNING result_id;`,
           [user_id]
         );
-        await pool.query(`
+        await pool.query(
+          `
           INSERT INTO trade_plan (code,market,stock_name,opening,support,losscut,goal,reason,strategy,user_id,result_id)
           VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`,
           [
@@ -213,7 +221,8 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(`
+        await pool.query(
+          `
           UPDATE trade_plan
           SET opening=$1,support=$2,losscut=$3,goal=$4
           WHERE user_id=${user_id} AND code=${code};`,
@@ -240,7 +249,8 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(`
+        await pool.query(
+          `
           UPDATE trade_plan
           SET reason=$1
           WHERE user_id=${user_id} AND plan_id=${plan_id};`,
@@ -267,7 +277,8 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(`
+        await pool.query(
+          `
           UPDATE trade_plan
           SET strategy=$1
           WHERE user_id=${user_id} AND plan_id=${plan_id};`,
@@ -323,12 +334,17 @@ export const api_post_model = {
     const transaction = async () => {
       try {
         await pool.query('BEGIN');
-        await pool.query(`
+        await pool.query(
+          `
           INSERT INTO trade_feed_back (title, content, image_url, user_id)
           VALUES($1, $2, $3, $4)`,
           [title, content, image_url, user_id]
         );
-        const res = await pool.query('SELECT * FROM trade_feed_back;');
+        const res = await pool.query(`
+          SELECT *
+          FROM trade_feed_back
+          WHERE user_id=${user_id};
+        `);
         await pool.query('COMMIT');
         return res.rows;
       } catch (err) {
@@ -339,5 +355,54 @@ export const api_post_model = {
     };
     const result = await transaction();
     if (result.length) return result;
+  },
+  delete_feed_back: async (payload) => {
+    const { feed_back_id, user_id } = payload;
+    const transaction = async () => {
+      try {
+        await pool.query('BEGIN');
+        await pool.query(`
+          DELETE
+          FROM trade_feed_back
+          WHERE feed_back_id = ${feed_back_id} and user_id= ${user_id};`);
+        const result = await pool.query(`
+          SELECT *
+          FROM trade_feed_back
+          WHERE user_id = ${user_id}`);
+        await pool.query('COMMIT');
+        return result.rows;
+      } catch (err) {
+        await pool.query('ROLLBACK');
+        console.log(err.stack);
+        return 'FAIL';
+      }
+    };
+    const result = await transaction();
+    return result;
+  },
+  update_feed_back: async (payload) => {
+    const {title,content,feed_back_id} = payload;
+    const values = [title, content];
+    const transaction = async () => {
+      try {
+        await pool.query('BEGIN');
+        const res = await pool.query(`
+          UPDATE trade_feed_back
+          SET title=$1, content=$2
+          WHERE feed_back_id=${feed_back_id}
+          RETURNING *`,
+          values
+        );
+        await pool.query('COMMIT');
+        return res.rows[0];
+      } catch (err) {
+        await pool.query('ROLLBACK');
+        console.log(err.stack);
+        return 'FAIL';
+      }
+    };
+    const result = await transaction();
+    console.log(result)
+    return result;
   },
 };
