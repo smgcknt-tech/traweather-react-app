@@ -10,12 +10,13 @@ export const api_post_model = {
         await pool.query('BEGIN');
         const res = await pool.query(
           `
-            INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
-            SELECT $1, $2, $3, $4
-            WHERE NOT EXISTS (SELECT id FROM market_prediction WHERE to_char(created_at, 'YYYY-MM-DD') = '${
-              helper.time().today
-            }')
-            RETURNING *;`,
+          INSERT INTO market_prediction (prediction,strategy,featured_sector,user_id)
+          SELECT $1, $2, $3, $4
+          WHERE NOT EXISTS (
+            SELECT id
+            FROM market_prediction
+            WHERE user_id=${payload.user_id} AND to_char(created_at, 'YYYY-MM-DD') = '${helper.time().today}')
+          RETURNING *;`,
           values
         );
         await pool.query('COMMIT');
