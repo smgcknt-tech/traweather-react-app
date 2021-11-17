@@ -17,17 +17,40 @@ export default function StoryTable() {
         .slice(pagesVisited, pagesVisited + rowsPerPage)
         .map((stock, index) => {
             return (
-                <tr id={`tr_${index}`} key={index} onClick={() => handleSelect(index)} ref={(el) => { refs.current[index] = el }} >
-                    <td data-label="証券番号">{stock.code}</td>
-                    <td data-label="市場">{stock.market}</td>
-                    <td data-label="銘柄名">{stock.stock_name}</td>
-                    <td data-label="寄付値"><input key={stock.opening} defaultValue={stock.opening} /></td>
-                    <td data-label="支持線"><input key={stock.support} defaultValue={stock.support} /></td>
-                    <td data-label="仕切値"><input key={stock.losscut} defaultValue={stock.losscut} /></td>
-                    <td data-label="目標値"><input key={stock.goal} defaultValue={stock.goal} /></td>
-                    <td id="submit">{show === `tr_${index}` ? <i onClick={() => handleSubmit(index)} className="far fa-save"></i> : "---"}</td>
-                    <td id="delete">{show === `tr_${index}` ? <i onClick={() => handleDelete(index)} className="fas fa-trash"></i> : "---"}</td>
-                </tr>
+              <tr
+                id={`tr_${index}`}
+                key={index}
+                onClick={() => handleSelect(index)}
+                ref={(el) => {
+                  refs.current[index] = el;
+                }}
+              >
+                <td data-label="証券番号">{stock.code}</td>
+                <td data-label="市場">{stock.market}</td>
+                <td data-label="銘柄名">{stock.stock_name}</td>
+                <td data-label="始値">
+                  <input type="number" key={stock.opening} defaultValue={stock.opening} />
+                </td>
+                <td data-label="支持値">
+                  <input type="number" key={stock.support} defaultValue={stock.support} />
+                </td>
+                <td data-label="仕切値">
+                  <input type="number" key={stock.losscut} defaultValue={stock.losscut} />
+                </td>
+                <td data-label="目標値">
+                  <input type="number" key={stock.goal} defaultValue={stock.goal} />
+                </td>
+                <td id="submit">
+                  {show === `tr_${index}` ? <i onClick={() => handleSubmit(index)} className="far fa-save"></i> : '---'}
+                </td>
+                <td id="delete">
+                  {show === `tr_${index}` ? (
+                    <i onClick={() => handleDelete(index)} className="fas fa-trash"></i>
+                  ) : (
+                    '---'
+                  )}
+                </td>
+              </tr>
             );
         });
     const changePage = ({ selected }) => {
@@ -39,12 +62,12 @@ export default function StoryTable() {
     };
     const handleSubmit = async (index) => {
         const payload = {
-            opening: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='寄付値'] > input ").value),
-            support: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='支持線'] > input ").value),
-            losscut: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='仕切値'] > input ").value),
-            goal: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='目標値'] > input ").value),
-            code: refs.current[index].querySelector("td[data-label='証券番号']").innerText,
-            user_id: user.id,
+          opening: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='始値'] > input ").value),
+          support: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='支持値'] > input ").value),
+          losscut: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='仕切値'] > input ").value),
+          goal: helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='目標値'] > input ").value),
+          code: refs.current[index].querySelector("td[data-label='証券番号']").innerText,
+          user_id: user.id,
         };
         const response = await helper.postData(`/api/plan/update_numbers`, dispatch, AppActions, payload);
         if (response) {
@@ -74,8 +97,8 @@ export default function StoryTable() {
                         <th>証券コード</th>
                         <th>市場</th>
                         <th>銘柄名</th>
-                        <th>寄付値</th>
-                        <th>支持線</th>
+                        <th>始値</th>
+                        <th>支持値</th>
                         <th>仕切値</th>
                         <th>目標値</th>
                         <th>保存</th>

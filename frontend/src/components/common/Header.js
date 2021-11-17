@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { AppActions, AppContext } from '../../AppStore';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../../styles/components/Header.scss';
 import HeaderSearchBox from './HeaderSearchBox';
 export default function Header() {
   const { state, dispatch } = useContext(AppContext);
   const { user } = state;
+  const location = useLocation();
   const logout = () => {
     localStorage.removeItem('access_token');
     dispatch({ type: AppActions.SET_USER, payload: { ...user, status: false } });
@@ -19,8 +20,8 @@ export default function Header() {
         </Link>
       </div>
       <div className="right_menu">
-        <HeaderSearchBox />
-        {user.id && user.status &&(
+        {(location.pathname !== '/plan' && location.pathname !== '/screening') && <HeaderSearchBox />}
+        {user.id && user.status && (
           <ul>
             <li>{user.name}</li>
             <li className="log_out_bttn" onClick={logout}>

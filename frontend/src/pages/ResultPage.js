@@ -11,7 +11,7 @@ import ComparisonChart from '../components/ComparisonChart';
 export default function ResultPage() {
   const { state, dispatch } = useContext(AppContext);
   const { user, loading, error, resultData, resultIndicators, allStocks } = state;
-  const { monthly_profit, last_profit, weekly_profit, win_lose } = resultIndicators;
+  const { monthly_profit, last_profit, weekly_profit, win_lose} = resultIndicators;
 
   useEffect(() => {
     if (user.id && allStocks) {
@@ -21,6 +21,7 @@ export default function ResultPage() {
         });
         if (data) {
           const { monthly_profit, last_profit, weekly_profit, win_lose, resultData } = data;
+          console.log(win_lose)
           dispatch({ type: AppActions.SET_RESULT, payload: resultData });
           dispatch({
             type: AppActions.SET_SELECTED_STOCK,
@@ -56,48 +57,48 @@ export default function ResultPage() {
 
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
-  if (!resultData.length) return <Message>プランデータをまず作成して下さい</Message>;
-  return (
-    <div className="result_page">
-      <div className="main">
-        <div className="dashboard">
-          <div className="dashboard_row1">
-            <div className="indicators">
-              <div id="todays_profit">
-                <div className="card_value">{profitResult}円</div>
-                <div className="card_title">{helper.time().today}</div>
-              </div>
-              <div id="last_profit">
-                <div className="card_value">{last_profit}円</div>
-                <div className="card_title">前日損益</div>
-              </div>
-              <div id="monthly_profit">
-                <div className="card_value">{monthly_profit}円</div>
-                <div className="card_title">今月損益</div>
-              </div>
-              <div id="weekly_profit">
-                <div className="card_value">{weekly_profit}円</div>
-                <div className="card_title">今週損益</div>
-              </div>
-              <div id="weekly_profit">
-                <div className="card_value">
-                  {win_lose.monthly_win}W-{win_lose.monthly_lose}L
+  if (!resultData.length) return <Message>まずはトレードプランを作成しましょう</Message>;
+    return (
+      <div className="result_page">
+        <div className="main">
+          <div className="dashboard">
+            <div className="dashboard_row1">
+              <div className="indicators">
+                <div id="todays_profit">
+                  <div className="card_value">{profitResult}円</div>
+                  <div className="card_title">{helper.time().today}</div>
                 </div>
-                <div className="card_title">今月勝敗</div>
+                <div id="last_profit">
+                  <div className="card_value">{last_profit}円</div>
+                  <div className="card_title">前日損益</div>
+                </div>
+                <div id="monthly_profit">
+                  <div className="card_value">{monthly_profit}円</div>
+                  <div className="card_title">今月損益</div>
+                </div>
+                <div id="weekly_profit">
+                  <div className="card_value">{weekly_profit}円</div>
+                  <div className="card_title">今週損益</div>
+                </div>
+                <div id="weekly_profit">
+                  <div className="card_value">
+                    {win_lose.monthly_win}W-{win_lose.monthly_lose}L
+                  </div>
+                  <div className="card_title">今月勝敗</div>
+                </div>
               </div>
+              <ResultTable />
             </div>
-            <ResultTable />
-          </div>
-          <div className="dashboard_row2">
-            <div className="left_col">
-              <ComparisonChart />
-            </div>
-            <div className="right_col">
-              <CommentPerStock />
+            <div className="dashboard_row2">
+              <div className="left_col">
+                <ComparisonChart />
+              </div>
+              <div className="right_col">
+                <CommentPerStock />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
 }

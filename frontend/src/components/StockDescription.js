@@ -38,7 +38,7 @@ export default memo(function StockDescription(props) {
     <div className="stock_description">
       <div className="close_btn" onClick={handleClose}>
         <i className="fas fa-undo-alt" />
-        <span>BACK</span>
+        <span>検索画面に戻る</span>
       </div>
       {indicators && <Indicators result={indicators} />}
       {tradeHistory && <TradeHistory />}

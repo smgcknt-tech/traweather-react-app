@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 .market_prediction_form {
   @include row(center, center);
@@ -20,18 +20,22 @@
       padding: 0 2rem;
       textarea {
         resize: none;
-        height: 8rem;
+        height: 10rem;
         width: 100%;
+        &::placeholder {
+          color: #bdbdbd;
+        }
       }
       fieldset {
         border: #bdbdbd solid 0.01rem;
         width: 100%;
         margin: 1rem 0;
         legend {
-          color: #7a7878;
+          color: #000000;
         }
       }
       .error {
+        font-size: 1.5rem;
         margin: 0 1rem;
         color: #a02020;
       }

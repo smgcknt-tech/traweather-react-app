@@ -25,17 +25,17 @@ export default function StoryTable() {
         <td data-label="証券番号">{stock.code}</td>
         <td data-label="市場">{stock.market}</td>
         <td data-label="銘柄名">{stock.stock_name}</td>
-        <td data-label="LOT">
-          <input key={stock.lot} defaultValue={stock.lot} />
+        <td data-label="ロット">
+          <input type="number" key={stock.lot} defaultValue={stock.lot} />
         </td>
-        <td data-label="ENTRY">
-          <input key={stock.entry_point} defaultValue={stock.entry_point} />
+        <td data-label="取得価格">
+          <input type="number" key={stock.entry_point} defaultValue={stock.entry_point} />
         </td>
-        <td data-label="EXIT">
-          <input key={stock.exit_point} defaultValue={stock.exit_point} />
+        <td data-label="売却額">
+          <input type="number" key={stock.exit_point} defaultValue={stock.exit_point} />
         </td>
-        <td data-label="上昇幅">{stock.profit_loss}</td>
-        <td data-label="上昇率">{stock.profit_loss_rate}</td>
+        <td data-label="利確幅">{stock.profit_loss}</td>
+        <td data-label="利確率">{stock.profit_loss_rate}</td>
         <td data-label="合計損益額">{stock.total_profit_loss}</td>
         <td id="submit">
           {show === `tr_${index}` ? <i onClick={(e) => handleSubmit(e, index)} className="far fa-save"></i> : '---'}
@@ -56,12 +56,12 @@ export default function StoryTable() {
   };
 
   const handleSubmit = async (e, index) => {
-    const lot = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='LOT'] > input ").value);
+    const lot = helper.FullNumToHalfNum(refs.current[index].querySelector("td[data-label='ロット'] > input ").value);
     const entry_point = helper.FullNumToHalfNum(
-      refs.current[index].querySelector("td[data-label='ENTRY'] > input ").value
+      refs.current[index].querySelector("td[data-label='取得価格'] > input ").value
     );
     const exit_point = helper.FullNumToHalfNum(
-      refs.current[index].querySelector("td[data-label='EXIT'] > input ").value
+      refs.current[index].querySelector("td[data-label='売却額'] > input ").value
     );
     if (Number(lot) === 0 || Number(entry_point) === 0 || Number(exit_point) === 0) {
       e.preventDefault();
@@ -92,6 +92,7 @@ export default function StoryTable() {
     }
   };
 
+  if (!resultData.length) return null;
   return (
     <div className="result_table">
       <table>
@@ -101,15 +102,15 @@ export default function StoryTable() {
             <th>市場</th>
             <th>銘柄名</th>
             <th>ロット</th>
-            <th>ENTRY</th>
-            <th>EXIT</th>
-            <th>上昇幅</th>
-            <th>上昇率(%)</th>
+            <th>取得価格</th>
+            <th>売却額</th>
+            <th>利確幅</th>
+            <th>利確率(%)</th>
             <th>損益額</th>
             <th>保存</th>
           </tr>
         </thead>
-        <tbody>{resultData.length && displayRows}</tbody>
+        <tbody>{displayRows}</tbody>
       </table>
       <ReactPaginate
         previousLabel={'<'}

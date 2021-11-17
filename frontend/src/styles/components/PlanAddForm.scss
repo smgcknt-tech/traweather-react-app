@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 .plan_add_form {
   @include row(center, center);
@@ -17,20 +17,25 @@
     .each_input {
       width: 100%;
       padding: 0 2rem;
+
       input {
         width: 100%;
+        &::placeholder{
+          color: #bdbdbd;
+        }
       }
       fieldset {
         border: #bdbdbd solid 0.01rem;
         width: 100%;
         margin: 1rem 0;
         legend {
-          color: #7a7878;
+          color: #000000;
         }
       }
       .error {
         margin: 0 1rem;
         color: #a02020;
+        font-size:1.2rem;
       }
     }
 

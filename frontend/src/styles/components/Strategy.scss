@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 .strategy {
   padding: 2rem;
@@ -8,6 +8,9 @@
   box-shadow: 0 0 0.3rem #b4b4b4;
   section {
     height: 100%;
+    .title {
+      color: rgb(119, 117, 117);
+    }
     .content {
       height: 70%;
       margin-top: 1rem;

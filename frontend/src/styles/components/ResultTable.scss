@@ -24,9 +24,9 @@
         &:hover {
           border: 0.2rem double rgb(245, 187, 111);
         }
-        [data-label="LOT"],
-        [data-label="ENTRY"],
-        [data-label="EXIT"] {
+        [data-label="ロット"],
+        [data-label="取得価格"],
+        [data-label="売却額"] {
           background-color: #e9e7e7;
           transition: 0.3s;
           &:hover {

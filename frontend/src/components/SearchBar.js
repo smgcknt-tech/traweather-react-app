@@ -42,6 +42,7 @@ export default function SearchBar() {
           <input
             data-testid="search_word"
             type="text"
+            autoComplete='off'
             placeholder="証券番号または会社名を入力してください"
             value={inputValue}
             onChange={handleFilter}

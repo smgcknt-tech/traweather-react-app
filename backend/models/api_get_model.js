@@ -58,7 +58,8 @@ export const api_get_model = {
             FROM trade_plan AS t1
             JOIN trade_result AS t2 ON t1.result_id = t2.result_id
             AND t1.user_id = ${user_id}
-            AND to_char( t1.created_at, 'YYYY-MM-DD' ) = '${helper.time().today}';`;
+            AND to_char( t1.created_at, 'YYYY-MM-DD' ) = '${helper.time().today}'
+            ORDER BY t2.lot;`;
     const query2 = `
             SELECT to_char(created_at, 'YYYY-MM') AS month,
             SUM(total_profit_loss)
@@ -90,7 +91,7 @@ export const api_get_model = {
             SELECT COUNT(*)
             FROM trade_result
             WHERE user_id = ${user_id}
-            AND profit_loss_rate <= 0
+            AND profit_loss_rate < 0
             AND to_char(created_at, 'YYYY-MM') = '${helper.time().thisMonth}';`;
     try {
       const res1 = await pool.query(query1);
@@ -205,7 +206,7 @@ export const api_get_model = {
       SELECT t1.code, t1.market,t1.stock_name,t3.industry,
         COUNT(t2.result_id) AS try,
         COUNT(t2.profit_loss > 0 OR NULL) AS win,
-        COUNT(t2.profit_loss <= 0 OR NULL) AS lose,
+        COUNT(t2.profit_loss < 0 OR NULL) AS lose,
         SUM(t2.profit_loss) AS pl,
         ROUND (AVG(t2.profit_loss),0) AS avg_pl,
         ROUND (AVG(t2.profit_loss_rate::integer),1) AS avg_plr,

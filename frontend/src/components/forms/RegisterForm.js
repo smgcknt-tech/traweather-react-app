@@ -34,7 +34,7 @@ export default memo(function RegisterForm(props) {
               setOpen(null);
             }}
           >
-            ログインはこちら
+            ログイン(LOGIN)
           </span>
           <div className="each_input">
             <fieldset>

@@ -88,6 +88,9 @@ html {
 
     input {
       background-color: #fff;
+      &::-webkit-inner-spin-button {
+        display: none;
+      }
     }
   }
 }

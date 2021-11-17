@@ -16,6 +16,9 @@ export default function ReflectionPage() {
   const pagesVisited = currentPage * rowsPerPage;
   const pageCount = Math.ceil(resultData.length / rowsPerPage);
   const [open, setOpen] = useState(false);
+  const title = useRef(null);
+  const content = useRef(null);
+
   useEffect(() => {
     if (user.id) {
       (async () => {
@@ -79,23 +82,37 @@ export default function ReflectionPage() {
     return (sum / resultData.length).toFixed(2);
   }, [resultData]);
 
+  const handleDelete = async (feed_back_id, user_id) => {
+    const data = await helper.postData(`api/reflection/delete`, dispatch, AppActions, { feed_back_id, user_id });
+    if (data) dispatch({ type: AppActions.SET_POSTS, payload: data });
+  };
+
   const archives = posts.map((post, index) => {
-    const { title, image_url, created_at } = post;
+    const { title, image_url, created_at, feed_back_id, user_id } = post;
     const date = created_at.split('T')[0];
     return (
-      <div
-        className="post"
-        key={index}
-        onClick={(e) => {
-          handleClick(e, index, date);
-        }}
-      >
-        <div className="post_header">
-          <div>{date}</div>
-          <h2>{title}</h2>
-        </div>
-        <div className="image_container">
-          <img src={image_url ? `${image_url}` : noImage} alt="thumbnail" />
+      <div className="post" key={index}>
+        <i onClick={() => handleDelete(feed_back_id, user_id)} className="fas fa-trash"></i>
+        <div
+          className="post_body"
+          key={index}
+          onClick={(e) => {
+            handleClick(e, index, date);
+          }}
+        >
+          <div
+            className="post_header"
+            key={index}
+            onClick={(e) => {
+              handleClick(e, index, date);
+            }}
+          >
+            <div>{date}</div>
+            <h2>{title}</h2>
+          </div>
+          <div className="image_container">
+            <img src={image_url ? `${image_url}` : noImage} alt="thumbnail" />
+          </div>
         </div>
       </div>
     );
@@ -107,6 +124,18 @@ export default function ReflectionPage() {
 
   const openFeedbackForm = () => {
     setOpen('feed_back');
+  };
+
+  const handleSubmit = async () => {
+    const payload = {
+      title: title.current.value,
+      content: content.current.value,
+      feed_back_id: selectedPost.feed_back_id,
+    };
+    const data1 = await helper.postData(`/api/reflection/update_feed_back`, dispatch, AppActions, payload);
+    if (data1) dispatch({ type: AppActions.SET_SELECTED_POST, payload: data1 });
+    const data2 = await helper.fetchData(`/api/feedback_list`, dispatch, AppActions, { user_id: user.id });
+    if (data2) dispatch({ type: AppActions.SET_POSTS, payload: data2 });
   };
 
   if (loading) return <Loading />;
@@ -122,17 +151,14 @@ export default function ReflectionPage() {
             </li>
           </ul>
           {open === 'feed_back' && <TradeFeedBackForm setOpen={setOpen} />}
-          {!archives.length && <Message>振返データがありません。上のボタンから今日の振り返りを作成しましょう</Message>}
-          <div className="archive">
-            {archives}
-          </div>
+          <div className="archive">{archives}</div>
         </div>
       )}
       {selectedPost && (
         <div className="description_container">
           <div className="close_btn" onClick={handleClose}>
             <i className="fas fa-undo-alt" />
-            <span>BACK</span>
+            <span>一覧画面に戻る</span>
           </div>
           <div className="indicators">
             <div className="total_profit">
@@ -145,8 +171,27 @@ export default function ReflectionPage() {
             </div>
           </div>
           <div className="feed_back">
-            <h2>{selectedPost.title}</h2>
-            <p>{selectedPost.content}</p>
+            <fieldset>
+              <legend>タイトル</legend>
+              <label>
+                <input id="title" key={selectedPost.title} type="text" defaultValue={selectedPost.title} ref={title} />
+              </label>
+            </fieldset>
+            <fieldset>
+              <legend>反省内容</legend>
+              <label>
+                <textarea
+                  id="content"
+                  key={selectedPost.content}
+                  type="text"
+                  defaultValue={selectedPost.content}
+                  ref={content}
+                />
+              </label>
+            </fieldset>
+            <div className="button">
+              <span onClick={handleSubmit}>保存</span>
+            </div>
           </div>
           <div className="result">
             <div className="result_list">
@@ -181,10 +226,12 @@ export default function ReflectionPage() {
                 />
               )}
             </div>
-            <div className="comment">
-              <h2>コメント</h2>
-              <p>{selectedStock && selectedStock.comment}</p>
-            </div>
+            {selectedStock && (
+              <div className="comment">
+                <h2>コメント</h2>
+                <p>{selectedStock.comment}</p>
+              </div>
+            )}
           </div>
           {prediction && (
             <div className="market_prediction">

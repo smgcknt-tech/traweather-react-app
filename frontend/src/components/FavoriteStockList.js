@@ -55,7 +55,7 @@ export default function FavoriteStockList() {
     <div className="favorite_stock_list">
       <div className="close_btn" onClick={handleClose}>
         <i className="fas fa-undo-alt" />
-        <span>BACK</span>
+        <span>検索画面に戻る</span>
       </div>
       <div className="list_conatiner">
         <h2>お得意様銘柄</h2>

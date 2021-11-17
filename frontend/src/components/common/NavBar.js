@@ -32,7 +32,13 @@ export default function NavBar() {
           </li>
         </Link>
         <Link to="/screening">
-          <li className={location.pathname === '/screening' ? 'selected' : 'not'}>
+          <li
+            className={
+              location.pathname === '/screening' || location.pathname === '/search' || location.pathname === '/pickup'
+                ? 'selected'
+                : 'not'
+            }
+          >
             <i className="fas fa-search-plus"></i>
             <p>検索</p>
           </li>
