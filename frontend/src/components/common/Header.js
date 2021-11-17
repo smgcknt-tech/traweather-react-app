@@ -18,21 +18,17 @@ export default function Header() {
           <span className="logo_title">traweather</span>
         </Link>
       </div>
-      <ul className="right_menu">
+      <div className="right_menu">
         <HeaderSearchBox />
-        {user.id && user.status ? (
-          <>
+        {user.id && user.status &&(
+          <ul>
             <li>{user.name}</li>
             <li className="log_out_bttn" onClick={logout}>
               logout
             </li>
-          </>
-        ) : (
-          <li className="log_in_bttn">
-            <Link to="/login">login</Link>
-          </li>
+          </ul>
         )}
-      </ul>
+      </div>
     </div>
   );
 }

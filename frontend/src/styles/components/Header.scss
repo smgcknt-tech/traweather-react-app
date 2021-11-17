@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 header {
   color: #fff;
@@ -30,17 +30,18 @@ header {
 
     .right_menu {
       @include row(center, flex-start);
-      > * {
+      ul {
         font-size: 2rem;
-        padding: 1rem;
-      }
-      .log_in_bttn,
-      .log_out_bttn {
-        cursor: pointer;
-        transition: 0.3s;
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.6);
-          transition: background-color 0.1s;
+        height: 100%;
+        @include row(center, flex-start);
+        li {
+          padding: 1.5rem;
+          cursor: pointer;
+          transition: 0.3s;
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            transition: background-color 0.1s;
+          }
         }
       }
     }
