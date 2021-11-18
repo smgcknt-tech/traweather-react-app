@@ -21,8 +21,6 @@ export default memo(function MarketPredictionForm(props) {
     props.setOpen(null);
   };
 
-  const formList = { 予想: '', 戦略: '', 注目セクター: '' };
-
   return (
     <div className="market_prediction_form">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
