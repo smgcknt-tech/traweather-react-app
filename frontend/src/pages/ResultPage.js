@@ -11,7 +11,7 @@ import ComparisonChart from '../components/ComparisonChart';
 export default function ResultPage() {
   const { state, dispatch } = useContext(AppContext);
   const { user, loading, error, resultData, resultIndicators, allStocks } = state;
-  const { monthly_profit, last_profit, weekly_profit, win_lose} = resultIndicators;
+  const { monthly_profit, last_profit, weekly_profit, win_lose, stockData } = resultIndicators;
 
   useEffect(() => {
     if (user.id && allStocks) {
@@ -21,7 +21,7 @@ export default function ResultPage() {
         });
         if (data) {
           const { monthly_profit, last_profit, weekly_profit, win_lose, resultData } = data;
-          console.log(win_lose)
+          console.log(win_lose);
           dispatch({ type: AppActions.SET_RESULT, payload: resultData });
           dispatch({
             type: AppActions.SET_SELECTED_STOCK,
@@ -57,12 +57,12 @@ export default function ResultPage() {
 
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
-  if (!resultData.length) return <Message>まずはトレードプランを作成しましょう</Message>;
-    return (
-      <div className="result_page">
-        <div className="main">
-          <div className="dashboard">
-            <div className="dashboard_row1">
+  return (
+    <div className="result_page">
+      <div className="main">
+        <div className="dashboard">
+          <div className="dashboard_row1">
+            {stockData && (
               <div className="indicators">
                 <div id="todays_profit">
                   <div className="card_value">{profitResult}円</div>
@@ -87,18 +87,19 @@ export default function ResultPage() {
                   <div className="card_title">今月勝敗</div>
                 </div>
               </div>
-              <ResultTable />
+            )}
+            <ResultTable />
+          </div>
+          <div className="dashboard_row2">
+            <div className="left_col">
+              <ComparisonChart />
             </div>
-            <div className="dashboard_row2">
-              <div className="left_col">
-                <ComparisonChart />
-              </div>
-              <div className="right_col">
-                <CommentPerStock />
-              </div>
+            <div className="right_col">
+              <CommentPerStock />
             </div>
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
 }

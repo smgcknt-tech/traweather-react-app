@@ -24,14 +24,12 @@
       }
     }
     .archive {
-      @include row(center, flex-start);
-      width: 100%;
-      padding: 3rem;
+      @include row(flex-start, flex-start);
+      padding: 1rem;
     }
     .post {
-      max-width: 30rem;
-      max-height: 20rem;
       margin: 2rem;
+      max-width: 30rem;
       border-radius: 0.5rem;
       box-shadow: 0 0.2rem 0.2rem #b4b4b4;
       background-color: #ffffff;
