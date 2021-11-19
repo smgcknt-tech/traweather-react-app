@@ -57,6 +57,7 @@ export default function ResultPage() {
 
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
+  if (!resultData.length) return <Message>まずはトレードプランを作成しましょう</Message>;
   return (
     <div className="result_page">
       <div className="main">
