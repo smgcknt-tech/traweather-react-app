@@ -3,6 +3,18 @@
   * 国内株式のみに対応　(Supporting only Japanese stocks)
 * https://traweather.xyz
 * アプリケーション機能詳細は、上記のURLのトップページにも記載しております。(Detailed features of this app are described on the top page of the above URL.)
+## 利用ガイド　（Usage guide）
+https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-b69e-1a3d7cf149ae.mov
+
+1. 経済指数を把握して今日一日の市場予想を考えて投稿しましょう。　(Grasp the economic index and think about the market forecast for today and post it.)
+1. 今日トレードする銘柄を決めたら、トレードプランを作成しましょう (Once you have decided which stocks to trade today, let's create a trading plan)
+1. トレードが終了したら、結果を記入しましょう。この時自分のプランに通りにトレードできたかを確認しましょう。 (When the trade is over, let's fill in the result. At this time, confirm whether you could trade according to your plan or not.)
+1. 今日一日のトレードを振り返り、反省文を考えて投稿しましょう。 (Let's look back on the trades of the day today, think about the reflections, and post.)
+
+* トレード後 (After trade)
+  * スクリーニング画面で銘柄の情報や、過去のトレード結果を確認し、次回のトレードの準備に役立てましょう。（Check the stock information and past trade results on the screening screen and use it to prepare for the next trade.）
+  * 過去の振り返り投稿を使って、今後のトレード改善に役立てましょう。　（Check the stock information and past trade results on the screening screen and use it to prepare for the next trade.）
+
 
 # 基本機能 (Basic Functions)
 * ログイン機能 (Login)
