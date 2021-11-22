@@ -35,7 +35,7 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
 * Library
   * ./frontend/package.json を確認下さい。
 ## BACKEND
-* Node.js 
+* Node.js
   * Framework
     * Express
 * PostgreSQL
@@ -67,7 +67,7 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
 * タブレットやワイドディスプレイへのレスポンシブ対応はしていますが、スマホのレスポンシブ対応はしていないです。(responsive to tablets and wide displays, but not responsive to smartphones.)
 
 # Architecture　
-![Screen Shot 2021-11-02 at 13 59 31](https://user-images.githubusercontent.com/54715182/139789313-283e3df3-4af1-4aab-b395-297e1bb1704a.png)
+![Screen Shot 2021-11-22 at 22 27 38](https://user-images.githubusercontent.com/54715182/142869887-6a5e8ca4-c7b3-46fb-bbc3-e5a994606ac2.png)
 
 # Table Relationship
 ![Screen Shot 2021-11-18 at 11 34 33](https://user-images.githubusercontent.com/54715182/142341123-255130ce-2523-4aad-b7a1-799f8e745f94.png)

@@ -9,6 +9,7 @@
   padding: 1rem;
   @include row(center, center);
   .center_area {
+    width:50%;
     .pickup {
       padding-top: 2rem;
       color: white;
