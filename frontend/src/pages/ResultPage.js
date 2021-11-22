@@ -20,7 +20,7 @@ export default function ResultPage() {
       })
       .reduce((prev, crr) => (prev += crr), 0);
   }, [resultData]);
-  
+
   useEffect(() => {
     if (user.id && allStocks) {
       (async () => {

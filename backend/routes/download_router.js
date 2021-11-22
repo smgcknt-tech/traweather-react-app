@@ -2,15 +2,10 @@ import express from 'express';
 import aws from 'aws-sdk';
 import csv from 'csvtojson';
 import iconv from 'iconv-lite';
-import { env } from '../configs/config.js';
 import { api_post_model } from '../models/api_post_model.js';
 export const download_router = express.Router();
-
-aws.config.update({
-    accessKeyId: env.AWSAccessKeyIdForS3,
-    secretAccessKey: env.AWSSecretKeyForS3,
-});
 const s3 = new aws.S3();
+
 export const dataSets = [
     ['traweather-bucket/csv', "japan-all-stock-prices-2.csv", api_post_model.upsert_latest_stock],
 ];

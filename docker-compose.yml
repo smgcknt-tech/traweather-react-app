@@ -28,12 +28,12 @@ services:
       context: "./backend"
     volumes:
       - ./backend:/app
+      - $HOME/.aws/:/root/.aws/
       - backend_node_modules:/app/node_modules
     environment:
       - jwt_secret_key
-      - AWSAccessKeyIdForS3
-      - AWSSecretKeyForS3
       - API_PORT
+      - AWS_SDK_LOAD_CONFIG
       - PGUSER
       - PGDATABASE
       - PGHOST
