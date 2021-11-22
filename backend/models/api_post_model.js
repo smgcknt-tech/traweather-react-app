@@ -402,7 +402,6 @@ export const api_post_model = {
       }
     };
     const result = await transaction();
-    console.log(result)
     return result;
   },
 };

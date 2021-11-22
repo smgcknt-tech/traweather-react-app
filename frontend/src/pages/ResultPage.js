@@ -13,6 +13,14 @@ export default function ResultPage() {
   const { user, loading, error, resultData, resultIndicators, allStocks } = state;
   const { monthly_profit, last_profit, weekly_profit, win_lose, stockData } = resultIndicators;
 
+  const profitResult = useMemo(() => {
+    return resultData
+      .map((result) => {
+        return result.total_profit_loss;
+      })
+      .reduce((prev, crr) => (prev += crr), 0);
+  }, [resultData]);
+  
   useEffect(() => {
     if (user.id && allStocks) {
       (async () => {
@@ -21,7 +29,6 @@ export default function ResultPage() {
         });
         if (data) {
           const { monthly_profit, last_profit, weekly_profit, win_lose, resultData } = data;
-          console.log(win_lose);
           dispatch({ type: AppActions.SET_RESULT, payload: resultData });
           dispatch({
             type: AppActions.SET_SELECTED_STOCK,
@@ -45,15 +52,7 @@ export default function ResultPage() {
       })();
     }
     // Do not set resultIndicators in dependency array
-  }, [user, dispatch, allStocks]); // eslint-disable-line
-
-  const profitResult = useMemo(() => {
-    return resultData
-      .map((result) => {
-        return result.total_profit_loss;
-      })
-      .reduce((prev, crr) => (prev += crr), 0);
-  }, [resultData]);
+  }, [user, dispatch, allStocks, profitResult]); // eslint-disable-line
 
   if (loading) return <Loading />;
   if (error) return <Message variant="error">{error}</Message>;
