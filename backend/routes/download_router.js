@@ -24,6 +24,18 @@ export const downloadCsv = async (dataSets) => {
         console.log(error);
     };
 }
+
+export const getPresignedUrlForS3Image = async (objectUrl)=>{
+  if (objectUrl) {
+  const imageFile = objectUrl.split('images/')[1];
+  const params = { Bucket: 'traweather-bucket/images', Key: imageFile};
+  const preSignedUrl =  await s3.getSignedUrlPromise('getObject', params);
+  return preSignedUrl;
+  }
+  return objectUrl;
+};
+
+//routes
 download_router.post('/csv', async (req, res) => {
     await downloadCsv(dataSets);
     res.send("csv downloaded");
