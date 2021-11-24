@@ -2,10 +2,8 @@
 
 .search_box {
   @include row(center, center);
-  width: 70rem;
-
   .search_container {
-    width: 100%;
+    width:100%;
     .search_inputs {
       @include row(center, flex-start);
 
