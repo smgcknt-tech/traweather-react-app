@@ -2,6 +2,7 @@ import multer from 'multer';
 import express from 'express';
 import multerS3 from 'multer-s3';
 import aws from 'aws-sdk';
+import { getPresignedUrlForS3Image } from './download_router.js';
 export const upload_router = express.Router();
 const s3 = new aws.S3();
 
@@ -9,7 +10,6 @@ const s3 = new aws.S3();
 const storageS3 = multerS3({
   s3,
   bucket: 'traweather-bucket/images',
-  acl: 'public-read',
   contentType: multerS3.AUTO_CONTENT_TYPE,
   key(req, file, cb) {
     cb(null, `${Date.now()}_${file.originalname}`);

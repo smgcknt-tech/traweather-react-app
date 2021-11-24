@@ -22,7 +22,7 @@ api_router
     ac.passNothing(req, res, agm.get_latest_stock);
   })
   .get('/feedback_list', (req, res) => {
-    ac.passQuery(req, res, agm.get_feedback_list);
+    ac.feedback_list(req, res);
   })
   .get('/results', (req, res) => {
     ac.passQuery(req, res, agm.get_results);
@@ -63,7 +63,7 @@ api_router
     ac.passBody(req, res, apm.update_result_comment);
   })
   .post('/reflection/create', mw.limit_feed_back, (req, res) => {
-    ac.passBody(req, res, apm.create_feed_back);
+    ac.create_reflection(req, res);
   })
   .post('/reflection/delete',  (req, res) => {
     ac.passBody(req, res, apm.delete_feed_back);
