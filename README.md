@@ -47,6 +47,7 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
 * AWS
   * ECS (Fargate)
   * ECR
+  * NLB
   * S3
   * RDS
   * Route 53
@@ -71,3 +72,10 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
 
 # Table Relationship
 ![Screen Shot 2021-11-18 at 11 34 33](https://user-images.githubusercontent.com/54715182/142341123-255130ce-2523-4aad-b7a1-799f8e745f94.png)
+
+
+# 履歴書　(CV)
+* 履歴書　
+https://drive.google.com/file/d/1HojeYgAmXFKGUTbynneeKgSy_rKfRxtx/view?usp=sharing
+* CV　(in English)
+https://drive.google.com/file/d/1q6iTfq7uziMam5lNlqhe03A-aSQAdLKu/view?usp=sharing  
