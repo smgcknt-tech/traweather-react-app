@@ -68,7 +68,7 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
 * タブレットやワイドディスプレイへのレスポンシブ対応はしていますが、スマホのレスポンシブ対応はしていないです。(responsive to tablets and wide displays, but not responsive to smartphones.)
 
 # Architecture　
-![Screen Shot 2021-11-24 at 19 37 06](https://user-images.githubusercontent.com/54715182/143222970-2bebe2cb-2e90-468c-a20a-251485ef94e8.png)
+![Screen Shot 2021-12-02 at 1 46 58](https://user-images.githubusercontent.com/54715182/144277023-78060ff0-c10d-44d5-aada-8eeeb756811e.png)
 
 # Table Relationship
 ![Screen Shot 2021-11-18 at 11 34 33](https://user-images.githubusercontent.com/54715182/142341123-255130ce-2523-4aad-b7a1-799f8e745f94.png)
@@ -78,4 +78,4 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
 * 履歴書　
 https://drive.google.com/file/d/1HojeYgAmXFKGUTbynneeKgSy_rKfRxtx/view?usp=sharing
 * CV　(in English)
-https://drive.google.com/file/d/1q6iTfq7uziMam5lNlqhe03A-aSQAdLKu/view?usp=sharing  
+https://drive.google.com/file/d/1q6iTfq7uziMam5lNlqhe03A-aSQAdLKu/view?usp=sharing
