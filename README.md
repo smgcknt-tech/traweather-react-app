@@ -52,6 +52,7 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
   * RDS
   * Route 53
   * ACM
+  * Lambda
 * Docker
 * Circle Ci
 ## Domain Registrar
@@ -68,7 +69,7 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
 * タブレットやワイドディスプレイへのレスポンシブ対応はしていますが、スマホのレスポンシブ対応はしていないです。(responsive to tablets and wide displays, but not responsive to smartphones.)
 
 # Architecture　
-![Screen Shot 2021-12-02 at 1 46 58](https://user-images.githubusercontent.com/54715182/144277023-78060ff0-c10d-44d5-aada-8eeeb756811e.png)
+![Screen Shot 2021-12-07 at 4 06 06](https://user-images.githubusercontent.com/54715182/144906813-cdaf0d35-44db-4f50-b742-44b59e3f82aa.png)
 
 # Table Relationship
 ![Screen Shot 2021-11-18 at 11 34 33](https://user-images.githubusercontent.com/54715182/142341123-255130ce-2523-4aad-b7a1-799f8e745f94.png)
