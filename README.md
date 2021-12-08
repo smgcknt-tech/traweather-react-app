@@ -55,8 +55,10 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
   * Lambda
 * Docker
 * Circle Ci
+
 ## Domain Registrar
 * NameCheap
+
 ## テストツール及びバージョン管理　( Test & Version control tool)
 * PostMan
 * Jest
@@ -71,11 +73,6 @@ https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-
 # Architecture　
 ![Screen Shot 2021-12-07 at 4 06 06](https://user-images.githubusercontent.com/54715182/144906813-cdaf0d35-44db-4f50-b742-44b59e3f82aa.png)
 
-# Table Relationship
-![Screen Shot 2021-11-18 at 11 34 33](https://user-images.githubusercontent.com/54715182/142341123-255130ce-2523-4aad-b7a1-799f8e745f94.png)
-
-# More about me (私について)
-* [Summary of efforts made through this project](https://github.com/smgcknt-tech/traweather-react-app/wiki/Summary-of--this-project)
-* [履歴書　](https://drive.google.com/file/d/1HojeYgAmXFKGUTbynneeKgSy_rKfRxtx/view?usp=sharing)
-* [CV　(in English)](https://drive.google.com/file/d/1q6iTfq7uziMam5lNlqhe03A-aSQAdLKu/view?usp=sharing)
+# More about project (プロジェクトの追加情報)
+* [Elaboration of this project](https://github.com/smgcknt-tech/traweather-react-app/wiki/Summary-of--this-project)
 
