@@ -65,7 +65,7 @@ export default memo(function MarketPredictionForm(props) {
         </div>
         <div className="each_input">
           <fieldset>
-            <legend>戦略</legend>
+            <legend>注目セクター</legend>
             <label>
               <textarea
                 type="text"
