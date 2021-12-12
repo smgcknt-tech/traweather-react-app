@@ -6,6 +6,7 @@
 ## 利用ガイド　（Usage guide）
 https://user-images.githubusercontent.com/54715182/142711920-39d989e9-3ca1-4d1b-b69e-1a3d7cf149ae.mov
 
+1. 新規の方は新規登録、登録済みの方はログインしてください。　（If you are new user, Please sign up first.）
 1. 経済指数を把握して今日一日の市場予想を考えて投稿しましょう。　(Grasp the economic index and think about the market forecast for today and post it.)
 1. 今日トレードする銘柄を決めたら、トレードプランを作成しましょう (Once you have decided which stocks to trade today, let's create a trading plan)
 1. トレードが終了したら、結果を記入しましょう。この時自分のプランに通りにトレードできたかを確認しましょう。 (When the trade is over, let's fill in the result. At this time, confirm whether you could trade according to your plan or not.)
