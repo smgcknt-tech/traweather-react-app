@@ -1,3 +1,4 @@
+# このアプリは現在停止中。（This app is currently stopped）
 # アプリケーション概要 (Application Overview)
 * 株式トレードサポートツールです。現在はデイトレード向けの機能が主。(Trade Supporting Tool especially for Day-trader　)
   * 国内株式のみに対応　(Supporting only Japanese stocks)
